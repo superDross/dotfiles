@@ -37,11 +37,11 @@ Plugin 'nvie/vim-flake8'
 Plugin 'koalaman/shellcheck'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-Plugin 'gabrielelana/vim-markdown'     
+"Plugin 'gabrielelana/vim-markdown'     
 Plugin 'vim-scripts/Vim-R-plugin'  
 
 " FILES: explore dirs in another buffer
-Plugin 'scrooloose/nerdtree.git'    
+Plugin 'scrooloose/nerdtree'    
 Plugin 'jistr/vim-nerdtree-tabs'   
 
 " GIT: use git commands in vim e.g. Glog
@@ -51,9 +51,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/RunView'     
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
-" favourites
 Plugin 'flazz/vim-colorschemes'
-" the rest
 Plugin 'owickstrom/vim-colors-paramount'    
 Plugin 'aereal/vim-colors-japanesque'      
 Plugin 'rakr/vim-two-firewatch'           
@@ -62,6 +60,7 @@ Plugin 'bcicen/vim-vice'
 Plugin 'TheNicholsOfCharroth/VIM_Themes'   
 Plugin 'pbrisbin/vim-colors-off'
 Plugin 'thoresuenert/vim-github-colorscheme'
+Plugin 'morhetz/gruvbox'
 
 "EXTENDED FUNCTION: further improve editing
 Plugin 'tpope/vim-surround'
@@ -71,13 +70,14 @@ if has("win32unix")
     Plugin 'mavnn/mintty-colors-solarized'
 endif
 
-call vundle#end() 
+" CSV: manipulate CSV files easily (READ THE DOCS)
+Plugin 'chrisbra/csv.vim'
 
+call vundle#end() 
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview
 set completeopt-=preview
-
 
 
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
@@ -145,7 +145,7 @@ nnoremap <space> za
 """"" COLORSCHEME """"""""""""""""""""""""""""""
 " set colorscheme as dark solarized if it doesnt work change 
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 set t_Co=256
 
 if g:colors_name != 'solarized'

@@ -145,8 +145,8 @@ alias c="clear"
 
 # point python-path to some user made functions/modules
 export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
-export PYTHONPATH=$PYTHONPATH:~/projects/pdVCF/:~/projects/GeneaPy/
-
+export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL
+alias yen2gbp="python3 ~/key-scripts/yen2gbp.py"
 # start up pythonrc to get autocomplete and saving of python environment in python shell
 export PYTHONSTARTUP=$HOME/.pythonrc
 
