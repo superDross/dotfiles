@@ -75,7 +75,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --hide="__init__.py" --group-directories-first --sort=extension --hide="__main__.py"'
+    alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -145,7 +145,7 @@ alias c="clear"
 
 # point python-path to some user made functions/modules
 export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
-export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL
+export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL:~/mock_package/
 alias yen2gbp="python3 ~/key-scripts/yen2gbp.py"
 # start up pythonrc to get autocomplete and saving of python environment in python shell
 export PYTHONSTARTUP=$HOME/.pythonrc
