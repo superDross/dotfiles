@@ -188,4 +188,6 @@ alias fastqc="/home/david/bin/FastQC/fastqc"
 # copy a file, usage: `copy <file>`
 alias copy="xclip -sel c <"
 
-
+# an alias for clear and list details & another with details
+alias cls="clear; ls"
+alias cll="clear; ls -lh"
