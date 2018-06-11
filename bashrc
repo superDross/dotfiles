@@ -143,6 +143,9 @@ alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
+export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib
+export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key_scripts/csq_query.py
+
 # point python-path to some user made functions/modules
 export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
 export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL:~/mock_package/
