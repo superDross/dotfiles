@@ -19,6 +19,8 @@
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'rakr/vim-togglebg'
+
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
 
@@ -161,8 +163,6 @@ set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
 "call on togglebg func and switch between dark and light solarized using F5
-so ~/.vim/bundle/vim-colors-solarized/autoload/togglebg.vim
-call togglebg#map("<F5>")
 nnoremap <F6> :exec 'source $VIMRC'<cr>
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<cr>
 

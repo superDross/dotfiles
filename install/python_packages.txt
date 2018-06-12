@@ -1,8 +1,6 @@
 abifpy==0.9
 aniso8601==3.0.0
 appdirs==1.4.3
-apt-xapian-index==0.47
-apturl==0.5.2
 arrow==0.10.0
 asciinema==2.0.0
 asn1crypto==0.23.0
@@ -18,7 +16,6 @@ brewer2mpl==1.4.1
 bs4==0.0.1
 bz2file==0.98
 CacheControl==0.11.6
-catfish==1.4.2
 certifi==2017.7.27.1
 cffi==1.11.2
 chardet==3.0.4
@@ -36,7 +33,6 @@ Cython==0.27.3
 datacache==0.4.20
 decorator==4.2.1
 defer==1.0.6
-devscripts===2.16.2ubuntu3
 distlib==0.2.2
 Django==2.0.5
 docopt==0.6.2
@@ -84,11 +80,9 @@ jupyterlab-github==0.5.0
 jupyterlab-launcher==0.10.5
 Kivy-Garden==0.1.4
 language-selector==0.1
-lightdm-gtk-greeter-settings==1.2.1
 line-profiler==2.0
 lockfile==0.12.2
 lxml==3.5.0
-Magic-file-extensions==0.2
 MarkupSafe==1.0
 matplotlib==2.0.2
 mccabe==0.6.1
@@ -96,10 +90,8 @@ MechanicalSoup==0.6.0
 mechanize==0.2.5
 memoized-property==1.0.3
 memory-profiler==0.47
-menulibre==2.1.3
 mistune==0.8.3
 mock==2.0.0
-mugshot==0.3.1
 natsort==4.0.4
 nbconvert==5.3.1
 nbformat==4.4.0
@@ -109,7 +101,6 @@ nose==1.3.7
 notebook==5.4.0
 numpy==1.13.3
 oauth2client==4.1.2
-onboard==1.2.0
 openpyxl==2.3.5
 packaging==16.8
 pandas==0.21.0
@@ -117,7 +108,6 @@ pandocfilters==1.4.2
 parso==0.1.1
 patsy==0.4.1
 pbr==3.1.1
-pdb==0.1
 pdfkit==0.5.0
 pdfrw==0.2
 peewee==2.10.2
@@ -128,7 +118,6 @@ Pillow==3.1.2
 pirate-get==0.2.10
 plotly==1.12.12
 plumbum==1.6.1.post0
-powerline-status===2.5.2.dev9999-git.b-5fa504118ee470e9cc9c8665515b77900ce5821e-
 poyo==0.4.1
 praw==4.4.0
 prawcore==0.8.0
@@ -154,7 +143,6 @@ pyfasta==0.5.2
 pyflakes==1.5.0
 pygame==1.9.3
 Pygments==2.2.0
-pygobject==3.20.0
 PyJWT==1.3.0
 PyMySQL==0.7.11
 pyOpenSSL==17.4.0
@@ -162,12 +150,9 @@ pyparsing==2.2.0
 pyquery==1.2.13
 pysam==0.9.1.4
 pytest==2.9.2
-python-apt==1.1.0b1+ubuntu0.16.4.1
 python-dateutil==2.6.1
-python-debian==0.1.27
 python-gnupg==0.3.9
 python-Levenshtein==0.12.0
-python-systemd==231
 pytube==6.4.2
 pytz==2017.3
 PyVCF==0.6.8
@@ -192,7 +177,6 @@ seaborn==0.8.1
 selenium==3.0.2
 Send2Trash==1.4.2
 serializable==0.1.1
-sessioninstaller==0.0.0
 sh==1.11
 simplegeneric==0.8.1
 simplejson==3.11.1
@@ -202,7 +186,6 @@ splinter==0.7.3
 SQLAlchemy==1.2.7
 ssh-import-id==5.5
 statsmodels==0.6.1
-system-service==0.3
 tabulate==0.8.1
 termcolor==1.1.0
 terminado==0.8.1
@@ -219,11 +202,9 @@ ubuntu-drivers-common==0.0.0
 ufw==0.35
 unattended-upgrades==0.1
 Unidecode==0.4.21
-unity-scope-gdrive==0.7
 update-checker==0.16
 uritemplate==3.0.0
 urllib3==1.22
-usb-creator==0.3.0
 veryprettytable==0.8.1
 virtualenv==15.0.1
 w3lib==1.14.2
@@ -234,4 +215,3 @@ Werkzeug==0.14.1
 whichcraft==0.4.0
 widgetsnbextension==3.1.3
 xkit==0.0.0
-zope.interface==4.1.3

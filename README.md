@@ -1,1 +1,1 @@
-Contains all major dotfiles.
+Contains all major dotfiles

@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -75,7 +75,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
+    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -83,6 +83,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -112,53 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# allows sudo to work with alias command
-alias sudo='sudo '
-
-# sets up volume, second monitor & xbox controller for steam big picture mode
-alias game-on="/home/david/key-scripts/game-on.sh"
-
-# as above without volume
-alias game-quietly="/home/david/key-scripts/game-quietly.sh"
-
-# an alias for clear and list details & another with details
-alias cls="clear; ls"
-alias cll="clear; ls -lh"
-alias c="clear"
-
-export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib
-export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key_scripts/csq_query.py
-
-# point python-path to some user made functions/modules
-export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
-export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL:~/mock_package/
-
-# start up pythonrc to get autocomplete and saving of python environment in python shell
-export PYTHONSTARTUP=$HOME/.pythonrc
-
-# change the colour of the dirs and executable files
-export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
-
-# vim to be default editor
-export VISUAL=vim
-export EDITOR="$VISUAL"
-export PATH=$PATH:~/configuration/ideas/bash/:~/bin/vcfhacks/
-export VIMRC=~/.vimrc
-
-# shorthand for connecting to remote
-alias osmc="ssh osmc@192.168.1.7"
-alias edinburgh="sudo vpnc ~/key-*/edVPN.conf"
-alias ledaig="ssh dross11@ledaig.hgu.mrc.ac.uk"
-alias eddie3="ssh dross11@eddie3.ecdf.ed.ac.uk"
-
-# shorthand for software
-alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py'"
-
-# copy a file, usage: `copy <file>`
-alias copy="xclip -sel c <"
-
-# an alias for clear and list details & another with details
-alias cls="clear; ls"
-alias cll="clear; ls -lh"
-alias c="clear"
