@@ -138,6 +138,7 @@ export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL:~/mock_package/
 export PYTHONSTARTUP=$HOME/.pythonrc
 
 # change the colour of the dirs and executable files
+# https://www.howtogeek.com/307899/how-to-change-the-colors-of-directories-and-files-in-the-ls-command/
 export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
 
 # vim to be default editor
