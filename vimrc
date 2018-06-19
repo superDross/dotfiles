@@ -235,3 +235,8 @@ syntax on
 
 """"" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
 let vimrplugin_assign = 0
+
+
+""""" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
+" Allows autocompletion with words
+set dictionary=/usr/share/dict/words
