@@ -29,7 +29,7 @@ apt -y install xubuntu-restricted-extras libdvd-pkg steam telegram vlc steamcmd 
 apt -y install sudo build-essential firefox google-chrome-stable apache2 bzip2 tmux cups evince java-common libreoffice mysql-server openvpn perl postgresql postgresql-contrib r-base tabix youtube-dl xboxdrv vpnc vim vim-common unrar udev transmission-cli tar syslinux rsync redshift redshift-gtk perl-base parted gparted openssh-client openssh-server openjdk-8-jdk ntfs-3g ntfs-config ncurses-base ncurses-bin mtp-tools git exfat-fuse exfat-utils curl bash bioperl zip bash-completion cmake console-setup cli-common ffmpeg chromium-codecs-ffmpeg-extra eject debianutils cron diffutils devscripts fontconfig ftp gcc gimp git-all grep gwenview htop joystick  incron keyboard-configuration keytouch-editor language-pack-en manpages nano mount npm openssh-client openssh-server wget unzip udev update-manager udev tree transmission-daemon time telnet xclip libfreetype6-dev libfontconfig1-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev
 
 # XFCE theme stuff
-sudo apt install -y flat-remix arc-theme pop-theme flat-remix-gnome font-inconsolata
+sudo apt install -y flat-remix arc-theme pop-theme flat-remix-gnome font-inconsolata xfce4-battery-plugin
 
 # python stuff
 apt install -y python3-pip libssl-dev libffi-dev python-dev python3-venv python2.7-dev python-setuptools python-pip dh-python

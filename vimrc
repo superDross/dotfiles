@@ -52,6 +52,9 @@ Plugin 'tpope/vim-fugitive'
 "OUTPUT: execute commands in a new buffer <F12>
 Plugin 'vim-scripts/RunView'     
 
+"HIGHLIGHTING: high
+Plugin 'markonm/traces.vim'
+
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plugin 'flazz/vim-colorschemes'
 Plugin 'owickstrom/vim-colors-paramount'    
@@ -59,7 +62,6 @@ Plugin 'aereal/vim-colors-japanesque'
 Plugin 'rakr/vim-two-firewatch'           
 Plugin 'hhsnopek/vim-firewatch'
 Plugin 'bcicen/vim-vice'                 
-Plugin 'TheNicholsOfCharroth/VIM_Themes'   
 Plugin 'pbrisbin/vim-colors-off'
 Plugin 'thoresuenert/vim-github-colorscheme'
 Plugin 'morhetz/gruvbox'
@@ -145,7 +147,6 @@ set foldlevel=99
 nnoremap <space> za
 
 """"" COLORSCHEME """"""""""""""""""""""""""""""
-" set colorscheme as dark solarized if it doesnt work change 
 set background=dark
 colorscheme gruvbox
 set t_Co=256
@@ -158,7 +159,6 @@ endif
 
 
 """" KEY BINDINGS """"""""""""""""""""""""""""""""""""""
-" Sexy key bindings
 set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>

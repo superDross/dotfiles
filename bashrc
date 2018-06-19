@@ -127,8 +127,8 @@ alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
-export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib
-export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key_scripts/csq_query.py
+export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
+export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin
 
 # point python-path to some user made functions/modules
 export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
@@ -163,3 +163,7 @@ alias copy="xclip -sel c <"
 alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
+
+alias csq_query="~/key-scripts/csq_query.py"
+# alacritty terminal emulator
+source /home/david/bin/alacritty/alacritty-completions.bash
