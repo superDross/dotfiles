@@ -127,6 +127,11 @@ alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
+# load the most recently modified file in cwd with vim
+newest(){
+	vim "$(find . -maxdepth 1 -type f ! -name '.' -printf '%T@ %Tc %p\n' | sort -n | awk '{print $NF}' | tail -n 1)"
+}
+
 export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
 export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin
 
