@@ -170,5 +170,3 @@ alias cll="clear; ls -lh"
 alias c="clear"
 
 alias csq_query="~/key-scripts/csq_query.py"
-# alacritty terminal emulator
-source /home/david/bin/alacritty/alacritty-completions.bash

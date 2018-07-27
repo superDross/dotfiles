@@ -39,15 +39,20 @@ Plugin 'nvie/vim-flake8'
 Plugin 'koalaman/shellcheck'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-"Plugin 'gabrielelana/vim-markdown'     
-Plugin 'vim-scripts/Vim-R-plugin'  
+" Plugin 'gabrielelana/vim-markdown'     
+" Plugin 'vim-scripts/Vim-R-plugin'  
 
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'    
 Plugin 'jistr/vim-nerdtree-tabs'   
 
 " GIT: use git commands in vim e.g. Glog
-Plugin 'tpope/vim-fugitive'          
+" Plugin 'tpope/vim-fugitive'          
+"
+" MARKDOWN: viewer
+" CTRl-P
+" requires additional installations, check github page
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 "OUTPUT: execute commands in a new buffer <F12>
 Plugin 'vim-scripts/RunView'     
@@ -195,6 +200,9 @@ set linebreak
 " keeps indentation when tet wraps over line
 set breakindent
 
+" make indentations (tab characters) appear 4-spaces wide instead of 8
+set tabstop=4
+
 " Not sure why but the three things below are needed for some reason
 set nocompatible            
 filetype on                
@@ -240,3 +248,6 @@ let vimrplugin_assign = 0
 """"" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Allows autocompletion with words
 set dictionary=/usr/share/dict/words
+
+"""" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
+let vim_markdown_preview_github=1
