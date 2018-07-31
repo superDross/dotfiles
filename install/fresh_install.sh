@@ -36,6 +36,11 @@ sudo apt install -y flat-remix arc-theme pop-theme flat-remix-gnome font-inconso
 
 # python stuff
 apt install -y python3-pip libssl-dev libffi-dev python-dev python3-venv python2.7-dev python-setuptools python-pip dh-python
+
+# javascript stuff
+npm install -g eslint
+npm install -g eslint-plugin-react
+npm install --global prettier-eslint
  
 # install all pythonpackages
 pip3 install --upgrade setuptools
@@ -70,4 +75,5 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
 
-
+echo " Run the following commands:"
+echo "eslint --init"

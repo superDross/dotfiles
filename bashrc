@@ -137,7 +137,6 @@ export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/da
 
 # point python-path to some user made functions/modules
 export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
-export PYTHONPATH=$PYTHONPATH:~/projects/LazyPyMySQL:~/mock_package/
 
 # start up pythonrc to get autocomplete and saving of python environment in python shell
 export PYTHONSTARTUP=$HOME/.pythonrc

@@ -92,10 +92,12 @@ set completeopt-=preview
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
-    \    'python': ['trim_whitespace', 'remove_trailing_lines', 'autopep8']
+    \    'python': ['trim_whitespace', 'remove_trailing_lines', 'autopep8'],
+	\    'javascript': ['trim_whitespace', 'remove_trailing_lines', 'eslint', 'prettier-eslint']
     \}
 endif
 
+let g:ale_completion_enabled = 1
 
 """""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
@@ -125,7 +127,7 @@ let g:runview_filtcmd="python3"
 " F12
 let filename = expand('%:p')
 let extension = expand('%:e')
-let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh'}
+let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
 let extension_command = get(extension_dict, extension)
 
 """"" NERDTree """""""""""""""""""""""""""""""""""""""""""""
