@@ -82,6 +82,9 @@ endif
 " CSV: manipulate CSV files easily (READ THE DOCS)
 Plugin 'chrisbra/csv.vim'
 
+" HTML: automates HTML tags (check tutorial)
+Plugin 'mattn/emmet-vim'
+
 call vundle#end() 
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
@@ -257,3 +260,8 @@ let vim_markdown_preview_github=1
 """" JAVASCRIPT """""""""""""""""""""""""""""""""""""""""""""""""""""
 " sets tab key to 2 spaces
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+
+"""" HTML/CSS """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable emmet only for HTML and CSS files
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
