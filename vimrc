@@ -253,3 +253,7 @@ set dictionary=/usr/share/dict/words
 
 """" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
 let vim_markdown_preview_github=1
+
+"""" JAVASCRIPT """""""""""""""""""""""""""""""""""""""""""""""""""""
+" sets tab key to 2 spaces
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab

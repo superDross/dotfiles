@@ -67,7 +67,7 @@ ln -s ${TOP_DIR}/bashrc ~/.bashrc
 mv ~/.vimrc ~/.vimrc_OG
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
-cp ${TOP_DIR}/eslintrc ~/.eslintrc
+ln -s ${TOP_DIR}/eslintrc ~/.eslintrc.js
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
@@ -75,6 +75,3 @@ mkdir -p ~/.vim/colors ~/.vim/vimundo ~/.vim/bundle
 sudo chmod -R +777 ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-
-echo " Run the following commands:"
-echo "eslint --init"
