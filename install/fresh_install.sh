@@ -1,4 +1,5 @@
 #!/bin/sh
+TOP_DIR=$(dirname $(dirname "${BASH_SOURCE}"))
 
 # MANUAL INSTALLATIONS; WPS doesn't work in 18.04
 manual="WPS"
@@ -45,7 +46,7 @@ npm install --global prettier-eslint
 # install all pythonpackages
 pip3 install --upgrade setuptools
 pip3 install ez_setup ipython
-pip3 install -r ~/projects/dotfiles/install/python_packages.txt
+pip3 install -r ${TOP_DIR}/install/python_packages.txt
 
 # android 
 apt install -y android-tools-adb android-tools-fastboot
@@ -62,10 +63,11 @@ done
 if [ ! -f ~/.bashrc_OG ]; then
     mv ~/.bashrc ~/.bashrc_OG
 fi
-ln -s ~/projects/dotfiles/bashrc ~/.bashrc
+ln -s ${TOP_DIR}/bashrc ~/.bashrc
 mv ~/.vimrc ~/.vimrc_OG
-ln -s ~/projects/dotfiles/vimrc ~/.vimrc
-cp ~/projects/dotfiles/terminalrc  ~/config/xfce4/terminal/ 
+ln -s ${TOP_DIR}/vimrc ~/.vimrc
+cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
+cp ${TOP_DIR}/eslintrc.json ~/.eslintrc.json
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
@@ -73,7 +75,6 @@ mkdir -p ~/.vim/colors ~/.vim/vimundo ~/.vim/bundle
 sudo chmod -R +777 ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-
 
 echo " Run the following commands:"
 echo "eslint --init"
