@@ -67,7 +67,7 @@ ln -s ${TOP_DIR}/bashrc ~/.bashrc
 mv ~/.vimrc ~/.vimrc_OG
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
-cp ${TOP_DIR}/eslintrc.json ~/.eslintrc.json
+cp ${TOP_DIR}/eslintrc ~/.eslintrc
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
