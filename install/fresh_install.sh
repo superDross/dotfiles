@@ -27,7 +27,7 @@ apt update
 apt -y install xubuntu-restricted-extras libdvd-pkg steam telegram vlc steamcmd spotify-client
 
 #  general must haves
-apt -y install sudo build-essential firefox google-chrome-stable apache2 bzip2 tmux cups evince java-common libreoffice mysql-server openvpn perl postgresql postgresql-contrib r-base tabix youtube-dl xboxdrv vpnc vim vim-common unrar udev transmission-cli tar syslinux rsync redshift redshift-gtk perl-base parted gparted openssh-client openssh-server openjdk-8-jdk ntfs-3g ntfs-config ncurses-base ncurses-bin mtp-tools git exfat-fuse exfat-utils curl bash bioperl zip bash-completion cmake console-setup cli-common ffmpeg chromium-codecs-ffmpeg-extra eject debianutils cron diffutils devscripts fontconfig ftp gcc gimp git-all grep gwenview htop joystick  incron keyboard-configuration keytouch-editor language-pack-en manpages nano mount npm openssh-client openssh-server wget unzip udev update-manager udev tree transmission-daemon time telnet xclip libfreetype6-dev libfontconfig1-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev
+apt -y install sudo build-essential firefox google-chrome-stable apache2 bzip2 tmux cups evince java-common libreoffice mysql-server openvpn perl postgresql postgresql-contrib r-base tabix youtube-dl xboxdrv vpnc vim vim-common unrar udev transmission-cli tar syslinux rsync redshift redshift-gtk perl-base parted gparted openssh-client openssh-server openjdk-8-jdk ntfs-3g ntfs-config ncurses-base ncurses-bin mtp-tools git exfat-fuse exfat-utils curl bash bioperl zip bash-completion cmake console-setup cli-common ffmpeg chromium-codecs-ffmpeg-extra eject debianutils cron diffutils devscripts fontconfig ftp gcc gimp git-all grep gwenview htop joystick  incron keyboard-configuration keytouch-editor language-pack-en manpages nano mount npm openssh-client openssh-server wget unzip udev update-manager udev tree transmission-daemon time telnet xclip libfreetype6-dev libfontconfig1-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev tidy mono-xbuild texlive-latex-base texlive-fonts-recommended texlive-latex-extra
 
 # HTML linter for vim ale
 npm install htmlhint -g
@@ -59,6 +59,16 @@ for repo in $repos; do
     git clone "https://github.com/"$repo
 done
 
+# setup font
+wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
+unzip Hack-v3.003-ttf.zip
+mv ttf/ /usr/share/fonts/
+rm -r ttf/
+git clone https://github.com/source-foundry/Hack/
+cp Hack/config/fontconfig/*  /etc/fonts/conf.d/
+rm -rf Hacks/
+fc-cache -f -v
+
 # setup dot files
 if [ ! -f ~/.bashrc_OG ]; then
     mv ~/.bashrc ~/.bashrc_OG
@@ -75,3 +85,10 @@ mkdir -p ~/.vim/colors ~/.vim/vimundo ~/.vim/bundle
 sudo chmod -R +777 ~/.vim
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+
+# some global rules for tidy applictaion
+echo "indent: auto
+indent-spaces: 2
+quiet: yes
+tidy-mark: no
+wrap: 90" >> /etc/tidy.conf

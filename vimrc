@@ -14,6 +14,12 @@
 "ARROWS - change buffer
 "SPACE - fold
 
+"CTRL-P - preview markdown file
+
+
+"""""" GLOBAL VARS """""""""""""""""""""""""""""""""""
+let extension = expand('%:e')
+
 """""" VUNDLE """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -25,8 +31,12 @@ Plugin 'rakr/vim-togglebg'
 Plugin 'gmarik/Vundle.vim'
 
 " AUTOCOMPLETION: jedi-vim less intensive 
-Plugin 'davidhalter/jedi-vim' 
-"Plugin 'Valloric/YouCompleteMe' 
+" VimCompletesMe only for non-python files
+if extension == 'py'
+	Plugin 'davidhalter/jedi-vim' 
+else
+	Plugin 'ajh17/VimCompletesMe'
+endif
 
 " SYNTAX: syntax checkers; dependent upon flake8, flake8 <F7>
 if v:version < 800
@@ -41,6 +51,7 @@ Plugin 'koalaman/shellcheck'
 " HIGHLIGHTING: syntax highlighters for non-python languages
 " Plugin 'gabrielelana/vim-markdown'     
 " Plugin 'vim-scripts/Vim-R-plugin'  
+Plugin 'pangloss/vim-javascript'
 
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'    
@@ -50,7 +61,6 @@ Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'tpope/vim-fugitive'          
 "
 " MARKDOWN: viewer
-" CTRl-P
 " requires additional installations, check github page
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
@@ -85,6 +95,7 @@ Plugin 'chrisbra/csv.vim'
 " HTML: automates HTML tags (check tutorial)
 Plugin 'mattn/emmet-vim'
 
+
 call vundle#end() 
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
@@ -96,7 +107,9 @@ set completeopt-=preview
 if v:version >= 800
     let g:ale_fixers = {
     \    'python': ['trim_whitespace', 'remove_trailing_lines', 'autopep8'],
-	\    'javascript': ['trim_whitespace', 'remove_trailing_lines', 'eslint', 'prettier-eslint']
+	\    'javascript': ['trim_whitespace', 'remove_trailing_lines', 'eslint', 'prettier-eslint'],
+	\    'html': ['trim_whitespace', 'remove_trailing_lines', 'tidy'],
+	\    'sh': ['trim_whitespace', 'remove_trailing_lines']
     \}
 endif
 
@@ -249,19 +262,50 @@ syntax on
 """"" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
 let vimrplugin_assign = 0
 
+""""" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
+" syntax highlighting for jsdocs
+let g:javascript_plugin_jsdocs = 1
+
+" sets tab key to 2 spaces
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+
+" folding comments
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+let g:javascript_conceal_arrow_function = "⇒"
 
 """"" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Allows autocompletion with words
 set dictionary=/usr/share/dict/words
 
 """" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
+" makes all markdown previews in GitHub style
 let vim_markdown_preview_github=1
-
-"""" JAVASCRIPT """""""""""""""""""""""""""""""""""""""""""""""""""""
-" sets tab key to 2 spaces
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 
 """" HTML/CSS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable emmet only for HTML and CSS files
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+"""" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
+" set completeopt-=preview
+" set completeopt+=menu,menuone,noinsert,noselect
+" set shortmess+=c
+" CTRL-X CTRL-O
+augroup OmniCompletionSetup
+    autocmd!
+    autocmd FileType c          set omnifunc=ccomplete#Complete
+    autocmd FileType php        set omnifunc=phpcomplete#CompletePHP
+    " autocmd FileType python     set omnifunc=jedi#completions
+    autocmd FileType ruby       set omnifunc=rubycomplete#Complete
+    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
+    autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
+augroup END
+
+"""" VIMCOMPLETESME """"""""""""""""""""""""""""""""""""""""""""""""""
+" TAB key in insert mode autocompletes OmniCompletion
+let b:vcm_tab_complete = "omni"
