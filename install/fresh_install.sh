@@ -78,6 +78,7 @@ mv ~/.vimrc ~/.vimrc_OG
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
 ln -s ${TOP_DIR}/eslintrc ~/.eslintrc.js
+ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
