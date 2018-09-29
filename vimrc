@@ -34,55 +34,55 @@ set statusline+=%{gutentags#statusline()}
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
 
-" AUTOCOMPLETION: jedi-vim less intensive 
+" AUTOCOMPLETION: jedi-vim less intensive
 " VimCompletesMe only for non-python files
 if extension ==# 'py'
-	Plugin 'davidhalter/jedi-vim' 
+	Plugin 'davidhalter/jedi-vim'
 endif
 
 " LINTERS: syntax checkers; dependent upon flake8, flake8 <F7>
 if v:version < 800
 	" slow, only lints after saving
-    Plugin 'scrooloose/syntastic'     
+    Plugin 'scrooloose/syntastic'
 else
     " lint as you type
     Plugin 'w0rp/ale'
 endif
-Plugin 'nvie/vim-flake8'        
+Plugin 'nvie/vim-flake8'
 Plugin 'koalaman/shellcheck'
 Plugin 'jimhester/lintr'
 " use tab for all insert completion needs
 Plugin 'ervandew/supertab'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-Plugin 'vim-scripts/Vim-R-plugin'  
+Plugin 'vim-scripts/Vim-R-plugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 
 " FILES: explore dirs in another buffer
-Plugin 'scrooloose/nerdtree'    
-Plugin 'jistr/vim-nerdtree-tabs'   
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
 
 " GIT: use git commands in vim e.g. Glog
-Plugin 'tpope/vim-fugitive'          
+Plugin 'tpope/vim-fugitive'
 
 " MARKDOWN: viewer
 " requires additional installations, check github page
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
 "OUTPUT: execute commands in a new buffer <F12>
-Plugin 'vim-scripts/RunView'     
+Plugin 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
 Plugin 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plugin 'flazz/vim-colorschemes'
-Plugin 'owickstrom/vim-colors-paramount'    
-Plugin 'aereal/vim-colors-japanesque'      
-Plugin 'rakr/vim-two-firewatch'           
+Plugin 'owickstrom/vim-colors-paramount'
+Plugin 'aereal/vim-colors-japanesque'
+Plugin 'rakr/vim-two-firewatch'
 Plugin 'hhsnopek/vim-firewatch'
-Plugin 'bcicen/vim-vice'                 
+Plugin 'bcicen/vim-vice'
 Plugin 'pbrisbin/vim-colors-off'
 Plugin 'thoresuenert/vim-github-colorscheme'
 Plugin 'morhetz/gruvbox'
@@ -95,9 +95,8 @@ Plugin 'chrisbra/csv.vim'
 
 " HTML: automates HTML tags (check tutorial)
 Plugin 'mattn/emmet-vim'
-
-
-call vundle#end() 
+Plugin 'vim-airline/vim-airline'
+call vundle#end()
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview
@@ -107,7 +106,7 @@ set completeopt-=preview
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
-	\     '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
     \    'python': ['autopep8'],
 	\    'javascript': ['eslint', 'prettier-eslint'],
 	\    'html': ['tidy'],
@@ -117,8 +116,8 @@ endif
 let g:ale_completion_enabled = 1
 
 " jump to next and previous error
-nmap <silent> <leader>aj :ALENext<cr>
-nmap <silent> <leader>ak :ALEPrevious<cr>
+nmap <silent> <leader>j :ALENext<cr>
+nmap <silent> <leader>k :ALEPrevious<cr>
 
 """""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
@@ -166,7 +165,7 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 let g:SimpylFold_docstring_preview=1
 set foldnestmax=2
 
-" Enable folding, 
+" Enable folding,
 set foldmethod=indent
 set foldlevel=99
 
@@ -226,8 +225,8 @@ set breakindent
 set tabstop=4
 
 " Not sure why but the three things below are needed for some reason
-set nocompatible            
-filetype on                
+set nocompatible
+filetype on
 filetype plugin on
 
 " Insert line numbering
@@ -240,7 +239,7 @@ set guioptions+=a
 " 'unlimited' number of undo's
 set undolevels=10000000
 
-" set a directory to store undo data 
+" set a directory to store undo data
 set undodir=~/.vim/vimundo/
 
 " create undo files allowing one to undo even after a system reboot
@@ -319,3 +318,7 @@ let b:vcm_tab_complete = 'omni'
 map <C-\> :vs<CR><C-]><C-w>
 " CTRL+/ to open definition location in a new horizontal window
 map <C-_> :sp<CR><C-]><C-w>
+
+""" VIMAIRLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ale vimairline compatability
+let g:airline#extensions#ale#enabled = 1
