@@ -18,28 +18,31 @@
 
 
 """""" GLOBAL VARS """""""""""""""""""""""""""""""""""
+" stores current opened file extension
 let extension = expand('%:e')
 
 """""" VUNDLE """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set runtimepath+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'rakr/vim-togglebg'
+" CODE JUMPING: jump to a function or class definition in the code base
+" CTRL+] and CTRL+t
+Plugin 'ludovicchabant/vim-gutentags'
+set statusline+=%{gutentags#statusline()}
 
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
 
 " AUTOCOMPLETION: jedi-vim less intensive 
 " VimCompletesMe only for non-python files
-if extension == 'py'
+if extension ==# 'py'
 	Plugin 'davidhalter/jedi-vim' 
-else
-	Plugin 'ajh17/VimCompletesMe'
 endif
 
-" SYNTAX: syntax checkers; dependent upon flake8, flake8 <F7>
+" LINTERS: syntax checkers; dependent upon flake8, flake8 <F7>
 if v:version < 800
+	" slow, only lints after saving
     Plugin 'scrooloose/syntastic'     
 else
     " lint as you type
@@ -47,19 +50,22 @@ else
 endif
 Plugin 'nvie/vim-flake8'        
 Plugin 'koalaman/shellcheck'
+Plugin 'jimhester/lintr'
+" use tab for all insert completion needs
+Plugin 'ervandew/supertab'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-" Plugin 'gabrielelana/vim-markdown'     
-" Plugin 'vim-scripts/Vim-R-plugin'  
+Plugin 'vim-scripts/Vim-R-plugin'  
 Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'    
 Plugin 'jistr/vim-nerdtree-tabs'   
 
 " GIT: use git commands in vim e.g. Glog
-" Plugin 'tpope/vim-fugitive'          
-"
+Plugin 'tpope/vim-fugitive'          
+
 " MARKDOWN: viewer
 " requires additional installations, check github page
 Plugin 'JamshedVesuna/vim-markdown-preview'
@@ -67,7 +73,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 "OUTPUT: execute commands in a new buffer <F12>
 Plugin 'vim-scripts/RunView'     
 
-"HIGHLIGHTING: high
+"HIGHLIGHTING: highlights regex changes during typing
 Plugin 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
@@ -83,11 +89,6 @@ Plugin 'morhetz/gruvbox'
 
 "EXTENDED FUNCTION: further improve editing
 Plugin 'tpope/vim-surround'
-
-"CYGWIN: for cygwin only, not sure if this is actually required
-if has("win32unix")
-    Plugin 'mavnn/mintty-colors-solarized'
-endif
 
 " CSV: manipulate CSV files easily (READ THE DOCS)
 Plugin 'chrisbra/csv.vim'
@@ -106,14 +107,18 @@ set completeopt-=preview
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
-    \    'python': ['trim_whitespace', 'remove_trailing_lines', 'autopep8'],
-	\    'javascript': ['trim_whitespace', 'remove_trailing_lines', 'eslint', 'prettier-eslint'],
-	\    'html': ['trim_whitespace', 'remove_trailing_lines', 'tidy'],
-	\    'sh': ['trim_whitespace', 'remove_trailing_lines']
+	\     '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \    'python': ['autopep8'],
+	\    'javascript': ['eslint', 'prettier-eslint'],
+	\    'html': ['tidy'],
     \}
 endif
 
 let g:ale_completion_enabled = 1
+
+" jump to next and previous error
+nmap <silent> <leader>aj :ALENext<cr>
+nmap <silent> <leader>ak :ALEPrevious<cr>
 
 """""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
@@ -132,15 +137,14 @@ if v:version < 800
     set statusline+=%*
 
     " ignore certain PEP8 guidelines that moan about whitespace/indentation errors
-    let g:syntastic_python_flake8_args="--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203"
+    let g:syntastic_python_flake8_args='--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203'
 endif
 
 """""" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
-let g:runview_filtcmd="python3"
+let g:runview_filtcmd='python3'
 
-" check file extension and parse appropriate command to runview and assign to
-" F12
+" check file extension and parse appropriate command to runview and assign to F12
 let filename = expand('%:p')
 let extension = expand('%:e')
 let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
@@ -174,7 +178,7 @@ set background=dark
 colorscheme gruvbox
 set t_Co=256
 
-if g:colors_name != 'solarized'
+if g:colors_name !=# 'solarized'
     " This plugin brings GVIM like colors to colorschemes, but doesn't work
     " well with solarized
     Plugin 'godlygeek/csapprox'
@@ -227,14 +231,14 @@ filetype on
 filetype plugin on
 
 " Insert line numbering
-set nu
+set number
 
 " use system clipboard
 set clipboard+=unnamedplus
 set guioptions+=a
 
 " 'unlimited' number of undo's
-set ul=10000000
+set undolevels=10000000
 
 " set a directory to store undo data 
 set undodir=~/.vim/vimundo/
@@ -244,7 +248,7 @@ set undofile
 
 " Uncomment the following to have Vim jump to the last position when
 " " reopening a file
-if has("autocmd")
+if has('autocmd')
    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
@@ -274,7 +278,7 @@ augroup javascript_folding
     au!
     au FileType javascript setlocal foldmethod=syntax
 augroup END
-let g:javascript_conceal_arrow_function = "⇒"
+let g:javascript_conceal_arrow_function = '⇒'
 
 """"" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Allows autocompletion with words
@@ -298,7 +302,7 @@ augroup OmniCompletionSetup
     autocmd!
     autocmd FileType c          set omnifunc=ccomplete#Complete
     autocmd FileType php        set omnifunc=phpcomplete#CompletePHP
-    " autocmd FileType python     set omnifunc=jedi#completions
+    autocmd FileType python     set omnifunc=jedi#completions
     autocmd FileType ruby       set omnifunc=rubycomplete#Complete
     autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
@@ -308,4 +312,10 @@ augroup END
 
 """" VIMCOMPLETESME """"""""""""""""""""""""""""""""""""""""""""""""""
 " TAB key in insert mode autocompletes OmniCompletion
-let b:vcm_tab_complete = "omni"
+let b:vcm_tab_complete = 'omni'
+
+"""" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTRL+\ to open definition location in a new vertical window
+map <C-\> :vs<CR><C-]><C-w>
+" CTRL+/ to open definition location in a new horizontal window
+map <C-_> :sp<CR><C-]><C-w>

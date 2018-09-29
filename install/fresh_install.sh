@@ -73,8 +73,12 @@ fc-cache -f -v
 if [ ! -f ~/.bashrc_OG ]; then
     mv ~/.bashrc ~/.bashrc_OG
 fi
+if [ -e ~/.vimrc ]; then
+	mv ~/.vimrc ~/.vimrc_OG
+fi
+#
+ln -s ${TOP_DIR}/vimrc ~/.vimrc
 ln -s ${TOP_DIR}/bashrc ~/.bashrc
-mv ~/.vimrc ~/.vimrc_OG
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
 ln -s ${TOP_DIR}/eslintrc ~/.eslintrc.js
