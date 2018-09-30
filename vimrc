@@ -5,10 +5,10 @@ let extension = expand('%:e')
 """""" VUNDLE """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set runtimepath+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin()
 
 " CODE JUMPING: jump to a function or class definition in the code base
-" CTRL+] and CTRL+t
 Plugin 'ludovicchabant/vim-gutentags'
 set statusline+=%{gutentags#statusline()}
 
@@ -16,10 +16,13 @@ set statusline+=%{gutentags#statusline()}
 Plugin 'gmarik/Vundle.vim'
 
 " AUTOCOMPLETION: jedi-vim less intensive
-" VimCompletesMe only for non-python files
 if extension ==# 'py'
 	Plugin 'davidhalter/jedi-vim'
+else
+	Plugin 'ajh17/VimCompletesMe'
 endif
+" use tab for completion needs
+Plugin 'ervandew/supertab'
 
 " LINTERS: syntax checkers; dependent upon flake8, flake8 <F7>
 if v:version < 800
@@ -32,8 +35,6 @@ endif
 Plugin 'nvie/vim-flake8'
 Plugin 'koalaman/shellcheck'
 Plugin 'jimhester/lintr'
-" use tab for all insert completion needs
-Plugin 'ervandew/supertab'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plugin 'vim-scripts/Vim-R-plugin'
@@ -45,14 +46,13 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-" INDENTLINES: see 
+" INDENTLINES: see
 Plugin 'Yggdroot/indentLine'
 
 " GIT: use git commands in vim e.g. Glog
 Plugin 'tpope/vim-fugitive'
 
 " MARKDOWN: viewer
-" requires additional installations, check github page
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
 "OUTPUT: execute commands in a new buffer <F12>
@@ -74,6 +74,7 @@ Plugin 'morhetz/gruvbox'
 
 "EXTENDED FUNCTION: further improve editing
 Plugin 'tpope/vim-surround'
+Plugin 'tommcdo/vim-lion'  " align around a character
 
 " CSV: manipulate CSV files easily (READ THE DOCS)
 Plugin 'chrisbra/csv.vim'
@@ -88,11 +89,11 @@ Plugin 'itchyny/lightline.vim'
 " ensure you install via the installer
 Plugin 'junegunn/fzf'
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 
 call vundle#end()
+
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview
@@ -172,14 +173,43 @@ if g:colors_name !=# 'solarized'
     Plugin 'godlygeek/csapprox'
 endif
 
+"""" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Add handy bindings you tend to forget or want to learn.
+function! Cheat()
+	echo 'FUNCTION KEYS'
+	echo '    F2           = paste toggle'
+	echo '    F3           = ALEFix'
+	echo '    F4           = NERDTreeToggle'
+	echo '    F6           = source .vimrc'
+	echo '    F7           = view this cheatsheet'
+	echo '    F12          = RunView'
+	echo 'GUTENTAGS'
+    echo '    C-\\         = open definition in a new vs window'
+    echo '    C-/          = open definition in a new sp window'
+	echo '    C-]          = go to definition location'
+	echo '    C-t          = got to previous location'
+	echo 'FZF'
+	echo '    \\-f         = fuzzy find file'
+	echo '    C-v          = open fuzzy found file in a vs window'
+	echo '    C-x          = open fuzzy found file in a sp window'
+	echo '    C-t          = open fuzzy found file in a new tab window'
+	echo 'ALE'
+	echo '    \\-j         = go to line with next mistake'
+	echo '    \\-k         = go to line with previous mistake'
+	echo 'SESSIONS'
+	echo '   mks t.vim     = create vim session'
+	echo '   vim -S t.vim  = reopen vim session'
+	echo 'LION'
+	echo '   gl<key>       = align <key> vertically'
+endfunction
 
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
-
-" FUNCTION keys
+" function keys
 set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
 nnoremap <F6> :exec 'source $VIMRC'<cr>
+noremap <F7> :call Cheat() <CR>
 " runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<cr>
 
@@ -337,7 +367,6 @@ let g:lightline = {
       \ },
       \ }
 
-
 """" FZF """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set runtimepath+=~/.vim/bundle/fzf
 
@@ -353,14 +382,23 @@ autocmd BufEnter * call NERDTreeRefresh()
 
 " git symbol definitions
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
+    \ 'Modified'  : '✹',
+    \ 'Staged'    : '✚',
+    \ 'Untracked' : '✭',
+    \ 'Renamed'   : '➜',
+    \ 'Unmerged'  : '═',
+    \ 'Deleted'   : '✖',
+    \ 'Dirty'     : '✗',
+    \ 'Clean'     : '✔︎',
     \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
+    \ 'Unknown'   : '?'
     \ }
+
+"""" INDENTLINE """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" make it more efficient
+let g:indentLine_faster = 1
+let g:indentLine_setConceal = 0
+
+"""" SUPERTAB """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" map tab to next suggestion
+let g:SuperTabDefaultCompletionType = "<c-n>"
