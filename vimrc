@@ -1,22 +1,3 @@
-"""""" KEY-MAP GUIDE """""""""""""""""""""""""""""""""""""
-"F1 - //
-"F2 - Paste Mode toggle
-"F3 - ALEFix (white trailing space & autopep8)
-"F4 - NERDTree toggle
-"F5 - Dark/Light Theme toggle
-"F6 - VIMRC reload
-"F7 - FLAKE8 syntax check
-"F8 - N/A
-"F9 - N/A
-"F10 - //
-"F11 - //
-"F12 - RunView
-"ARROWS - change buffer
-"SPACE - fold
-
-"CTRL-P - preview markdown file
-
-
 """""" GLOBAL VARS """""""""""""""""""""""""""""""""""
 " stores current opened file extension
 let extension = expand('%:e')
@@ -62,6 +43,10 @@ Plugin 'mxw/vim-jsx'
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" INDENTLINES: see 
+Plugin 'Yggdroot/indentLine'
 
 " GIT: use git commands in vim e.g. Glog
 Plugin 'tpope/vim-fugitive'
@@ -95,7 +80,18 @@ Plugin 'chrisbra/csv.vim'
 
 " HTML: automates HTML tags (check tutorial)
 Plugin 'mattn/emmet-vim'
-Plugin 'vim-airline/vim-airline'
+
+" STATUSLINE: lightweight status line
+Plugin 'itchyny/lightline.vim'
+
+" FILEFINDER: fuzzy file finder
+" ensure you install via the installer
+Plugin 'junegunn/fzf'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+
 call vundle#end()
 
 """"" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
@@ -114,10 +110,6 @@ if v:version >= 800
 endif
 
 let g:ale_completion_enabled = 1
-
-" jump to next and previous error
-nmap <silent> <leader>j :ALENext<cr>
-nmap <silent> <leader>k :ALEPrevious<cr>
 
 """""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
@@ -169,9 +161,6 @@ set foldnestmax=2
 set foldmethod=indent
 set foldlevel=99
 
-" Set the space as key enabler
-nnoremap <space> za
-
 """"" COLORSCHEME """"""""""""""""""""""""""""""
 set background=dark
 colorscheme gruvbox
@@ -184,13 +173,30 @@ if g:colors_name !=# 'solarized'
 endif
 
 
-"""" KEY BINDINGS """"""""""""""""""""""""""""""""""""""
+"""" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
+
+" FUNCTION keys
 set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
-"call on togglebg func and switch between dark and light solarized using F5
 nnoremap <F6> :exec 'source $VIMRC'<cr>
+" runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<cr>
+
+" jump to next and previous error
+nmap <silent> <leader>j :ALENext<cr>
+nmap <silent> <leader>k :ALEPrevious<cr>
+
+" CTRL+\ to open definition location in a new vertical window
+map <C-\> :vs<CR><C-]><C-w>
+" CTRL+/ to open definition location in a new horizontal window
+map <C-_> :sp<CR><C-]><C-w>
+
+" fuzzy file finder key
+nnoremap <leader>f :FZF<cr>
+
+" Set the space as key enabler
+nnoremap <space> za
 
 " Stop using the arrow keys in both Insert and Escape mode respectively
 imap <up> <nop>
@@ -207,6 +213,9 @@ nnoremap <silent> <right> <c-w>l
 nnoremap <silent> <left> <c-w>h
 nnoremap <silent> <up> <c-w>k
 nnoremap <silent> <down> <c-w>j
+
+" snipits
+let g:UltiSnipsExpandTrigger='<C-j>'
 
 " turns off mouse use in vim
 set mouse=c
@@ -313,12 +322,45 @@ augroup END
 " TAB key in insert mode autocompletes OmniCompletion
 let b:vcm_tab_complete = 'omni'
 
-"""" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" CTRL+\ to open definition location in a new vertical window
-map <C-\> :vs<CR><C-]><C-w>
-" CTRL+/ to open definition location in a new horizontal window
-map <C-_> :sp<CR><C-]><C-w>
-
-""" VIMAIRLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ale vimairline compatability
-let g:airline#extensions#ale#enabled = 1
+set laststatus=2
+
+" show git branch in status line
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+
+"""" FZF """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set runtimepath+=~/.vim/bundle/fzf
+
+"""" NERDTREE """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" refresh the file tree upon opening
+function! NERDTreeRefresh()
+    if &filetype == "nerdtree"
+        silent exe substitute(mapcheck("R"), "<CR>", "", "")
+    endif
+endfunction
+
+autocmd BufEnter * call NERDTreeRefresh()
+
+" git symbol definitions
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }

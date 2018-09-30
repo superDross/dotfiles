@@ -169,3 +169,5 @@ alias cll="clear; ls -lh"
 alias c="clear"
 
 alias csq_query="~/key-scripts/csq_query.py"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
