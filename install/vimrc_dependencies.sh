@@ -21,7 +21,6 @@ vim +PluginInstall +qall
 # install fzf
 ~/.vim/bundle/fzf/install
 
-
 # js linters have to be installed on a per project basis
 # npm install eslint babel-eslint eslint-plugin-react stylelint prettier eslint-config-prettier eslint-plugin-prettier --save-dev
 # eslint --init

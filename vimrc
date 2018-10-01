@@ -10,7 +10,6 @@ call vundle#begin()
 
 " CODE JUMPING: jump to a function or class definition in the code base
 Plugin 'ludovicchabant/vim-gutentags'
-set statusline+=%{gutentags#statusline()}
 
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
@@ -87,7 +86,6 @@ Plugin 'mattn/emmet-vim'
 Plugin 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
-" ensure you install via the installer
 Plugin 'junegunn/fzf'
 
 " Plugin 'SirVer/ultisnips'
@@ -96,10 +94,9 @@ Plugin 'junegunn/fzf'
 call vundle#end()
 
 
-""""" YCM/JEDI """""""""""""""""""""""""""""""""""""""""""
-" set completion menu to preview
+""""" JEDI """""""""""""""""""""""""""""""""""""""""""
+" set completion menu to preview (no definitions in python)
 set completeopt-=preview
-
 
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
@@ -112,6 +109,7 @@ if v:version >= 800
 endif
 
 let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '%s [%linter%]'
 
 """""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
@@ -152,8 +150,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " Hide .pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
-" Look at NERDTree with <F3>
-
 """"" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
 let g:SimpylFold_docstring_preview=1
@@ -175,7 +171,6 @@ if g:colors_name !=# 'solarized'
 endif
 
 """" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Add handy bindings you tend to forget or want to learn.
 function! Cheat()
 	echo 'FUNCTION KEYS'
 	echo '    F2           = paste toggle'
@@ -201,6 +196,8 @@ function! Cheat()
 	echo 'SESSIONS'
 	echo '   mks t.vim     = create vim session'
 	echo '   vim -S t.vim  = reopen vim session'
+	echo 'GENERAL'
+	echo '   K             = show docs (python only)'
 	echo 'LION'
 	echo '   gl<key>       = align <key> vertically'
 endfunction
@@ -246,26 +243,20 @@ nnoremap <silent> <left> <c-w>h
 nnoremap <silent> <up> <c-w>k
 nnoremap <silent> <down> <c-w>j
 
-" snipits
-let g:UltiSnipsExpandTrigger='<C-j>'
-
 " turns off mouse use in vim
 set mouse=c
 
 """" USER SETTINGS """"""""""""""""""""""""""""""""""""
-" Alias for changing vertical size to 80
-" nnoremap <F3> :exec 'vertical resize 80'<cr>
-
 " stops the wrap text over line from doing so mid-word
 set linebreak
 
-" keeps indentation when tet wraps over line
+" keeps indentation when text wraps over line
 set breakindent
 
 " make indentations (tab characters) appear 4-spaces wide instead of 8
 set tabstop=4
 
-" Not sure why but the three things below are needed for some reason
+" all required for numerous plugins to work as expected
 set nocompatible
 filetype on
 filetype plugin on
@@ -277,6 +268,12 @@ set number
 set clipboard+=unnamedplus
 set guioptions+=a
 
+" Uncomment the following to have Vim jump to the last position when reopening a file
+if has('autocmd')
+   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"""" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
 " 'unlimited' number of undo's
 set undolevels=10000000
 
@@ -285,12 +282,6 @@ set undodir=~/.vim/vimundo/
 
 " create undo files allowing one to undo even after a system reboot
 set undofile
-
-" Uncomment the following to have Vim jump to the last position when
-" " reopening a file
-if has('autocmd')
-   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 
 """"" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
 " automatic indentation i.e. after def(x):
@@ -334,10 +325,6 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 """" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
-" set completeopt-=preview
-" set completeopt+=menu,menuone,noinsert,noselect
-" set shortmess+=c
-" CTRL-X CTRL-O
 augroup OmniCompletionSetup
     autocmd!
     autocmd FileType c          set omnifunc=ccomplete#Complete
@@ -369,14 +356,11 @@ let g:lightline = {
       \ },
       \ }
 
-"""" FZF """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.vim/bundle/fzf
-
 """" NERDTREE """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " refresh the file tree upon opening
 function! NERDTreeRefresh()
-    if &filetype == "nerdtree"
-        silent exe substitute(mapcheck("R"), "<CR>", "", "")
+    if &filetype ==# 'nerdtree'
+        silent exe substitute(mapcheck('R'), '<CR>', '', '')
     endif
 endfunction
 
@@ -402,9 +386,13 @@ let g:indentLine_faster = 1
 let g:indentLine_setConceal = 0
 
 """" SUPERTAB """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map tab to next suggestion
-let g:SuperTabDefaultCompletionType = "<c-n>"
+" map tab to omni-completion
+let g:SuperTabDefaultCompletionType = '<C-X><C-O>'
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
 let g:polyglot_disabled = ['graphql']
+
+"""" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" add tag generation messages to statusline
+set statusline+=%{gutentags#statusline()}
