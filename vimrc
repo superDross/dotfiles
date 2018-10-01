@@ -181,8 +181,9 @@ function! Cheat()
 	echo '    F2           = paste toggle'
 	echo '    F3           = ALEFix'
 	echo '    F4           = NERDTreeToggle'
+	echo '    F5           = view this cheatsheet'
 	echo '    F6           = source .vimrc'
-	echo '    F7           = view this cheatsheet'
+	echo '    F7           = call flake8'
 	echo '    F12          = RunView'
 	echo 'GUTENTAGS'
     echo '    C-\\         = open definition in a new vs window'
@@ -209,8 +210,8 @@ endfunction
 set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
+noremap <F5> :call Cheat() <CR>
 nnoremap <F6> :exec 'source $VIMRC'<cr>
-noremap <F7> :call Cheat() <CR>
 " runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<cr>
 
