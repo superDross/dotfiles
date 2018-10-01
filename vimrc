@@ -404,3 +404,7 @@ let g:indentLine_setConceal = 0
 """" SUPERTAB """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map tab to next suggestion
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+"""" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" work around for the PolyGlot GraphQL error in Javascript files
+let g:polyglot_disabled = ['graphql']
