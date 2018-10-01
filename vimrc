@@ -40,6 +40,7 @@ Plugin 'jimhester/lintr'
 Plugin 'vim-scripts/Vim-R-plugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'sheerun/vim-polyglot'
 
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'
