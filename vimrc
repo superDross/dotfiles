@@ -391,7 +391,7 @@ let g:SuperTabDefaultCompletionType = '<C-X><C-O>'
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
-let g:polyglot_disabled = ['graphql']
+let g:polyglot_disabled = ['graphql', 'markdown']
 
 """" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " add tag generation messages to statusline
