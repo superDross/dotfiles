@@ -198,6 +198,7 @@ function! Cheat()
 	echo '   vim -S t.vim  = reopen vim session'
 	echo 'GENERAL'
 	echo '   K             = show docs (python only)'
+	echo '   C-b           = insert pudb trace'
 	echo 'LION'
 	echo '   gl<key>       = align <key> vertically'
 endfunction
@@ -242,6 +243,9 @@ nnoremap <silent> <right> <c-w>l
 nnoremap <silent> <left> <c-w>h
 nnoremap <silent> <up> <c-w>k
 nnoremap <silent> <down> <c-w>j
+
+" Snippets
+imap <C-b> from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900) # TODO: remove this debugger line
 
 " turns off mouse use in vim
 set mouse=c
