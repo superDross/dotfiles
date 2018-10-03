@@ -98,6 +98,9 @@ call vundle#end()
 " set completion menu to preview (no definitions in python)
 set completeopt-=preview
 
+" smart mappings break iabbrev, so turn it off
+let g:jedi#smart_auto_mappings = 0
+
 """"" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
@@ -244,11 +247,16 @@ nnoremap <silent> <left> <c-w>h
 nnoremap <silent> <up> <c-w>k
 nnoremap <silent> <down> <c-w>j
 
-" Snippets
-imap <C-b> from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900) # TODO: remove this debugger line
-
 " turns off mouse use in vim
 set mouse=c
+
+"""" SNIPPETS """""""""""""""""""""""""""""""""""""""
+" type pudb.remote in innsert mode and space afterward will insert the below
+" text
+iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
+
+" C-b in insert mode will add test string into file
+imap <C-b> test
 
 """" USER SETTINGS """"""""""""""""""""""""""""""""""""
 " stops the wrap text over line from doing so mid-word
