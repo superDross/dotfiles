@@ -182,11 +182,14 @@ function! Cheat()
 	echo '    F5           = view this cheatsheet'
 	echo '    F6           = source .vimrc'
 	echo '    F7           = call flake8'
+	echo '    F8           = save generic session ~/Session.vim'
+	echo '    F9           = toggle highlight search'
 	echo '    F12          = RunView'
 	echo 'GUTENTAGS'
     echo '    C-\\         = open definition in a new vs window'
     echo '    C-/          = open definition in a new sp window'
 	echo '    C-]          = go to definition location'
+	echo '    g-]          = give a list of all possible locations'
 	echo '    C-t          = got to previous location'
 	echo 'FZF'
 	echo '    \\-f         = fuzzy find file'
@@ -197,11 +200,21 @@ function! Cheat()
 	echo '    \\-j         = go to line with next mistake'
 	echo '    \\-k         = go to line with previous mistake'
 	echo 'SESSIONS'
-	echo '   mks t.vim     = create vim session'
-	echo '   vim -S t.vim  = reopen vim session'
+	echo '   :mks t.vim     = create vim session'
+	echo '   vim -S t.vim   = reopen vim session'
+	echo 'TABS'
+	echo '   \\-Num          = go tab number'
+	echo '   C-Right         = go to next tab'
+	echo '   C-Left          = go to previous tab'
+	echo '   C-Up            = list all tabs'
+	echo '   C-Down          = open the vim help page in a new tab'
+	echo '   :tabe f.txt     = open file in a new tab'
 	echo 'GENERAL'
 	echo '   K             = show docs (python only)'
 	echo '   C-b           = insert pudb trace'
+	echo '   C-w x         = swap column/row panes'
+	echo '   C-w K         = move window to the topmost'
+	echo '   C-w H         = move window to the bottomost'
 	echo 'LION'
 	echo '   gl<key>       = align <key> vertically'
 endfunction
@@ -212,21 +225,39 @@ set pastetoggle=<F2>
 map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
 noremap <F5> :call Cheat() <CR>
-nnoremap <F6> :exec 'source $VIMRC'<cr>
+nnoremap <F6> :exec 'source $VIMRC'<CR>
+nnoremap <F8> :mks!<CR>
+noremap <F9> :set hlsearch! hlsearch?<CR>
 " runview
-nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<cr>
+nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " jump to next and previous error
-nmap <silent> <leader>j :ALENext<cr>
-nmap <silent> <leader>k :ALEPrevious<cr>
+nmap <silent> <leader>j :ALENext<CR>
+nmap <silent> <leader>k :ALEPrevious<CR>
 
 " CTRL+\ to open definition location in a new vertical window
 map <C-\> :vs<CR><C-]><C-w>
 " CTRL+/ to open definition location in a new horizontal window
 map <C-_> :sp<CR><C-]><C-w>
 
+" tab commands
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+nnoremap <C-Up> :tabs<CR>
+nnoremap <C-Down> :tab help<CR>
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<CR>
+
 " fuzzy file finder key
-nnoremap <leader>f :FZF<cr>
+nnoremap <leader>f :FZF<CR>
 
 " Set the space as key enabler
 nnoremap <space> za
