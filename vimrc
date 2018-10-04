@@ -188,6 +188,7 @@ function! Cheat()
 	echo 'GUTENTAGS'
     echo '    C-\\         = open definition in a new vs window'
     echo '    C-/          = open definition in a new sp window'
+	echo '    \ C-]        = open definition in a new tab.'
 	echo '    C-]          = go to definition location'
 	echo '    g-]          = give a list of all possible locations'
 	echo '    C-t          = got to previous location'
@@ -237,6 +238,8 @@ nmap <silent> <leader>k :ALEPrevious<CR>
 
 " CTRL+\ to open definition location in a new vertical window
 map <C-\> :vs<CR><C-]><C-w>
+" Leader CTRL+] to open definition in new tab
+nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " CTRL+/ to open definition location in a new horizontal window
 map <C-_> :sp<CR><C-]><C-w>
 
