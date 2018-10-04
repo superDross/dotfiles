@@ -14,16 +14,16 @@ Plugin 'ludovicchabant/vim-gutentags'
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
 
-" AUTOCOMPLETION: jedi-vim less intensive
+" AUTOCOMPLETION: autocompletes as you type
 if extension ==# 'py'
 	Plugin 'davidhalter/jedi-vim'
 else
 	Plugin 'ajh17/VimCompletesMe'
 endif
-" use tab for completion needs
+" use tab for all completion needs
 Plugin 'ervandew/supertab'
 
-" LINTERS: syntax checkers; dependent upon flake8, flake8 <F7>
+" LINTERS: syntax checkers; dependent upon flake8.
 if v:version < 800
 	" slow, only lints after saving
     Plugin 'scrooloose/syntastic'
@@ -46,16 +46,16 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-" INDENTLINES: see
+" INDENTLINES: indentations marked by vertical lines
 Plugin 'Yggdroot/indentLine'
 
 " GIT: use git commands in vim e.g. Glog
 Plugin 'tpope/vim-fugitive'
 
-" MARKDOWN: viewer
+" MARKDOWN: preview markdown files
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
-"OUTPUT: execute commands in a new buffer <F12>
+"OUTPUT: execute commands in a new buffer
 Plugin 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
@@ -87,9 +87,6 @@ Plugin 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
 Plugin 'junegunn/fzf'
-
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -145,6 +142,30 @@ let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%Run
 let extension_command = get(extension_dict, extension)
 
 """"" NERDTree """""""""""""""""""""""""""""""""""""""""""""
+" refresh the file tree upon opening
+function! NERDTreeRefresh()
+    if &filetype ==# 'nerdtree'
+        silent exe substitute(mapcheck('R'), '<CR>', '', '')
+    endif
+endfunction
+
+autocmd BufEnter * call NERDTreeRefresh()
+
+" git symbol definitions
+let g:NERDTreeIndicatorMapCustom = {
+    \ 'Modified'  : '✹',
+    \ 'Staged'    : '✚',
+    \ 'Untracked' : '✭',
+    \ 'Renamed'   : '➜',
+    \ 'Unmerged'  : '═',
+    \ 'Deleted'   : '✖',
+    \ 'Dirty'     : '✗',
+    \ 'Clean'     : '✔︎',
+    \ 'Ignored'   : '☒',
+    \ 'Unknown'   : '?'
+    \ }
+
+
 " NERDTree thingy
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
@@ -401,30 +422,6 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-
-"""" NERDTREE """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" refresh the file tree upon opening
-function! NERDTreeRefresh()
-    if &filetype ==# 'nerdtree'
-        silent exe substitute(mapcheck('R'), '<CR>', '', '')
-    endif
-endfunction
-
-autocmd BufEnter * call NERDTreeRefresh()
-
-" git symbol definitions
-let g:NERDTreeIndicatorMapCustom = {
-    \ 'Modified'  : '✹',
-    \ 'Staged'    : '✚',
-    \ 'Untracked' : '✭',
-    \ 'Renamed'   : '➜',
-    \ 'Unmerged'  : '═',
-    \ 'Deleted'   : '✖',
-    \ 'Dirty'     : '✗',
-    \ 'Clean'     : '✔︎',
-    \ 'Ignored'   : '☒',
-    \ 'Unknown'   : '?'
-    \ }
 
 """" INDENTLINE """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " make it more efficient
