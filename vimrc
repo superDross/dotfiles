@@ -227,6 +227,7 @@ function! Cheat()
 	echo 'TABS'
 	echo '   \\-Num          = go tab number'
 	echo '   C-Right         = go to next tab'
+	echo '   S-Tab           = go to next tab'
 	echo '   C-Left          = go to previous tab'
 	echo '   C-Up            = list all tabs'
 	echo '   C-Down          = open the vim help page in a new tab'
@@ -265,6 +266,9 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 map <C-_> :sp<CR><C-]><C-w>
 
 " tab commands
+nnoremap <S-Tab> :tabnext<CR>
+nnoremap <leader><Tab> :tabprevious<CR>
+" the CTRL-ARROW combo deletes text in tmux.
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 nnoremap <C-Up> :tabs<CR>
@@ -409,8 +413,10 @@ augroup END
 let b:vcm_tab_complete = 'omni'
 
 """ LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ale vimairline compatability
+" always show statusline
 set laststatus=2
+" mo longer show mode in bottom line
+set noshowmode
 
 " show git branch in status line
 let g:lightline = {
