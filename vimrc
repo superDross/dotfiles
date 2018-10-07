@@ -266,13 +266,10 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 map <C-_> :sp<CR><C-]><C-w>
 
 " tab commands
-nnoremap <S-Tab> :tabnext<CR>
-nnoremap <leader><Tab> :tabprevious<CR>
-" the CTRL-ARROW combo deletes text in tmux.
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
-nnoremap <C-Up> :tabs<CR>
-nnoremap <C-Down> :tab help<CR>
+nnoremap <C-j> :tabs<CR>
+nnoremap <C-k> :tab help<CR>
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
 noremap <leader>1 1gt
 noremap <leader>2 2gt
 noremap <leader>3 3gt
@@ -299,6 +296,11 @@ map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
+noremap h <nop>
+noremap j <nop>
+noremap k <nop>
+noremap l <nop>
+
 
 " Switch panes by using CTRL + Arrow keys instead of CTRL + W
 nnoremap <silent> <right> <c-w>l
