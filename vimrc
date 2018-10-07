@@ -88,6 +88,9 @@ Plugin 'itchyny/lightline.vim'
 " FILEFINDER: fuzzy file finder
 Plugin 'junegunn/fzf'
 
+" SESSION: autoupdate vim sessions
+Plugin 'tpope/vim-obsession'
+
 call vundle#end()
 
 
