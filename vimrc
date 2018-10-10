@@ -88,9 +88,6 @@ Plugin 'itchyny/lightline.vim'
 " FILEFINDER: fuzzy file finder
 Plugin 'junegunn/fzf'
 
-" SESSION: autoupdate vim sessions
-Plugin 'tpope/vim-obsession'
-
 call vundle#end()
 
 
@@ -299,10 +296,10 @@ map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-noremap h <nop>
-noremap j <nop>
-noremap k <nop>
-noremap l <nop>
+" noremap h <nop>
+" noremap j <nop>
+" noremap k <nop>
+" noremap l <nop>
 
 
 " Switch panes by using CTRL + Arrow keys instead of CTRL + W
@@ -405,6 +402,7 @@ augroup OmniCompletionSetup
     autocmd!
     autocmd FileType c          set omnifunc=ccomplete#Complete
     autocmd FileType php        set omnifunc=phpcomplete#CompletePHP
+    " autocmd FileType python     set omnifunc=python3complete#Complete
     autocmd FileType python     set omnifunc=jedi#completions
     autocmd FileType ruby       set omnifunc=rubycomplete#Complete
     autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
