@@ -196,6 +196,15 @@ endif
 
 """" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Cheat()
+	echo 'VIM'
+	echo '    A            = append after end of line'
+	echo '    U            = undo all cjhange on the line'
+	echo '    R            = replace mode'
+	echo '    r<letter>    = replace letter at cursor with <letter>'
+	echo '    %            = skip to closing bracker'
+	echo '    :%s/,/./gc   = c asks for permission to make each change'
+	echo '    v :w         = save text highlighted in visual mode'
+	echo '    :r <file>    = place <file> contents into current buffer'
 	echo 'FUNCTION KEYS'
 	echo '    F2           = paste toggle'
 	echo '    F3           = ALEFix'
