@@ -426,7 +426,10 @@ set noshowmode
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'filetype' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
