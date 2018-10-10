@@ -171,3 +171,9 @@ alias c="clear"
 alias csq_query="~/key-scripts/csq_query.py"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Add git branch name to prompt
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
