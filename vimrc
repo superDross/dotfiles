@@ -294,7 +294,7 @@ noremap <leader>0 :tablast<CR>
 nnoremap <leader>f :FZF<CR>
 
 " open terminal, resize height, change pane position to bottom.
-nnoremap <leader>t :terminal ++rows=15<CR><C-w>x<C-w>j
+nnoremap <leader>t :bo new<bar>terminal ++curwin ++rows=15<CR>
 
 " Set the space as key enabler
 nnoremap <space> za
