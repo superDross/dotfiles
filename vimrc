@@ -335,7 +335,7 @@ filetype on
 filetype plugin on
 
 " Insert line numbering
-set number
+set relativenumber
 
 " use system clipboard
 set clipboard+=unnamedplus
