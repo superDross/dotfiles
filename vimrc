@@ -293,6 +293,9 @@ noremap <leader>0 :tablast<CR>
 " fuzzy file finder key
 nnoremap <leader>f :FZF<CR>
 
+" open terminal, resize height, change pane position to bottom.
+nnoremap <leader>t :terminal ++rows=15<CR><C-w>x<C-w>j
+
 " Set the space as key enabler
 nnoremap <space> za
 
@@ -305,17 +308,6 @@ map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-" noremap h <nop>
-" noremap j <nop>
-" noremap k <nop>
-" noremap l <nop>
-
-
-" Switch panes by using CTRL + Arrow keys instead of CTRL + W
-nnoremap <silent> <right> <c-w>l
-nnoremap <silent> <left> <c-w>h
-nnoremap <silent> <up> <c-w>k
-nnoremap <silent> <down> <c-w>j
 
 " turns off mouse use in vim
 set mouse=c
