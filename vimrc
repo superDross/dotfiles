@@ -88,6 +88,9 @@ Plugin 'itchyny/lightline.vim'
 " FILEFINDER: fuzzy file finder
 Plugin 'junegunn/fzf'
 
+" TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
+Plugin 'gcmt/taboo.vim'
+
 call vundle#end()
 
 
@@ -455,3 +458,9 @@ let g:polyglot_disabled = ['graphql', 'markdown']
 """" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " add tag generation messages to statusline
 set statusline+=%{gutentags#statusline()}
+
+"""" TABOO """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" sustain tab names over sessions
+set sessionoptions+=tabpages,globals
+" naming format
+let g:taboo_renamed_tab_format = " %l %m "
