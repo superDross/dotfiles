@@ -247,6 +247,8 @@ function! Cheat()
 	echo '   C-w x         = swap column/row panes'
 	echo '   C-w K         = move window to the topmost'
 	echo '   C-w H         = move window to the bottomost'
+	echo '   \\-t          = open terminal window at the bottom'
+	echo '   C-w N         = switch to vim mode in terminal'
 	echo 'LION'
 	echo '   gl<key>       = align <key> vertically'
 endfunction
@@ -435,6 +437,7 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
+
 
 """" INDENTLINE """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " make it more efficient
