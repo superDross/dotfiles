@@ -1,5 +1,5 @@
+#### UBUNTU DEFAULTS 
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # set -x
 # If not running interactively, don't do anything
@@ -75,10 +75,6 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -93,15 +89,6 @@ alias l='ls -CF'
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -113,22 +100,34 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# FUNCTIONS
 
-# load the most recently modified file in cwd with vim
-newest(){
-	vim "$(find . -maxdepth 1 -type f ! -name '.' -printf '%T@ %Tc %p\n' | sort -n | awk '{print $NF}' | tail -n 1)"
-}
+#### PATHS 
+export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin:$HOME/configuration/ideas/bash/:$HOME/bin/vcfhacks/
+export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
+# start up pythonrc to get autocomplete and saving of python environment in python shell
+export PYTHONSTARTUP=$HOME/.pythonrc
 
+# point python-path to some user made functions/modules
+if [ -d ~/key-scripts/ ]; then
+	export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
+fi
+
+
+#### FUNCTIONS
 # Usage: findpy "Driver ID"
 ffind() {
 	find . -type f -name "*.$1" | xargs grep "${@:2}"
 }
 
-# Add git branch name to prompt
+# parse git branch name
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
+
+
+#### ALIASES
+# hide unwanted files, make directories first shown, then show files.
+alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
 
 # allows sudo to work with alias command
 alias sudo='sudo '
@@ -138,32 +137,6 @@ alias game-on="/home/david/key-scripts/game-on.sh"
 
 # as above without volume
 alias game-quietly="/home/david/key-scripts/game-quietly.sh"
-
-# an alias for clear and list details & another with details
-alias cls="clear; ls"
-alias cll="clear; ls -lh"
-alias c="clear"
-
-export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
-export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin
-
-# point python-path to some user made functions/modules
-if [ -d ~/key-scripts/ ]; then
-	export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
-fi
-
-# start up pythonrc to get autocomplete and saving of python environment in python shell
-export PYTHONSTARTUP=$HOME/.pythonrc
-
-# change the colour of the dirs and executable files
-# https://www.howtogeek.com/307899/how-to-change-the-colors-of-directories-and-files-in-the-ls-command/
-export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
-
-# vim to be default editor
-export VISUAL=vim
-export EDITOR="$VISUAL"
-export PATH=$PATH:~/configuration/ideas/bash/:~/bin/vcfhacks/
-export VIMRC=~/.vimrc
 
 # shorthand for connecting to remote
 alias osmc="ssh osmc@192.168.1.7"
@@ -179,9 +152,39 @@ alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
-alias csq_query="~/key-scripts/csq_query.py"
+alias h="history"
+alias hsi="history | grep"
 
+
+#### COLOURS
+# change the colour of the dirs and executable files
+export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
+
+# Cloured Man Pages
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+
+
+#### EDITOR
+# vim to be default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+export VIMRC=~/.vimrc
+
+
+#### PLUGINS
+# install these plugins
+# https://github.com/wting/autojump
+# https://github.com/junegunn/fzf
+
+# source plugins
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[[ -s /home/david/.autojump/etc/profile.d/autojump.sh ]] && source /home/david/.autojump/etc/profile.d/autojump.sh
 
 # add git branch to prompt
 export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
