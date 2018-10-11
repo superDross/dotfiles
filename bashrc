@@ -1,7 +1,7 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
+# set -x
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -113,6 +113,23 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# FUNCTIONS
+
+# load the most recently modified file in cwd with vim
+newest(){
+	vim "$(find . -maxdepth 1 -type f ! -name '.' -printf '%T@ %Tc %p\n' | sort -n | awk '{print $NF}' | tail -n 1)"
+}
+
+# Usage: findpy "Driver ID"
+ffind() {
+	find . -type f -name "*.$1" | xargs grep "${@:2}"
+}
+
+# Add git branch name to prompt
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 # allows sudo to work with alias command
 alias sudo='sudo '
 
@@ -127,16 +144,13 @@ alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
-# load the most recently modified file in cwd with vim
-newest(){
-	vim "$(find . -maxdepth 1 -type f ! -name '.' -printf '%T@ %Tc %p\n' | sort -n | awk '{print $NF}' | tail -n 1)"
-}
-
 export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
 export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin
 
 # point python-path to some user made functions/modules
-export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
+if [ -d ~/key-scripts/ ]; then
+	export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
+fi
 
 # start up pythonrc to get autocomplete and saving of python environment in python shell
 export PYTHONSTARTUP=$HOME/.pythonrc
@@ -153,9 +167,6 @@ export VIMRC=~/.vimrc
 
 # shorthand for connecting to remote
 alias osmc="ssh osmc@192.168.1.7"
-alias edinburgh="sudo vpnc ~/key-*/edVPN.conf"
-alias ledaig="ssh dross11@ledaig.hgu.mrc.ac.uk"
-alias eddie3="ssh dross11@eddie3.ecdf.ed.ac.uk"
 
 # shorthand for software
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py'"
@@ -172,8 +183,5 @@ alias csq_query="~/key-scripts/csq_query.py"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# Add git branch name to prompt
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
+# add git branch to prompt
 export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
