@@ -281,8 +281,8 @@ nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 map <C-_> :sp<CR><C-]><C-w>
 
 " tab commands
-nnoremap <C-j> :tabs<CR>
-nnoremap <C-k> :tab help<CR>
+nnoremap <C-j> :tabprevious<CR>
+nnoremap <C-k> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 noremap <leader>1 1gt
