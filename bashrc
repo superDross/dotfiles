@@ -109,7 +109,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc
 
 # point python-path to some user made functions/modules
 if [ -d ~/key-scripts/ ]; then
-	export `python3 ~/key-scripts/pythonpath.py /home/david/projects/`
+	export `python3 ~/key-scripts/pythonpath.py /home/${USER}/projects/`
 fi
 
 
@@ -133,10 +133,10 @@ alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__
 alias sudo='sudo '
 
 # sets up volume, second monitor & xbox controller for steam big picture mode
-alias game-on="/home/david/key-scripts/game-on.sh"
+alias game-on="/home/${USER}/key-scripts/game-on.sh"
 
 # as above without volume
-alias game-quietly="/home/david/key-scripts/game-quietly.sh"
+alias game-quietly="/home/${USER}/key-scripts/game-quietly.sh"
 
 # shorthand for connecting to remote
 alias osmc="ssh osmc@192.168.1.7"
@@ -184,7 +184,7 @@ export VIMRC=~/.vimrc
 
 # source plugins
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-[[ -s /home/david/.autojump/etc/profile.d/autojump.sh ]] && source /home/david/.autojump/etc/profile.d/autojump.sh
+[[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
 
 # add git branch to prompt
 export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
