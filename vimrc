@@ -87,6 +87,8 @@ Plugin 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
 Plugin 'junegunn/fzf'
+" grep in vim
+Plugin 'mileszs/ack.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plugin 'gcmt/taboo.vim'
@@ -465,3 +467,16 @@ set statusline+=%{gutentags#statusline()}
 set sessionoptions+=tabpages,globals
 " naming format
 let g:taboo_renamed_tab_format = " %l %m "
+
+"""" ACK """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Make Ack! the default command
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+" Use ripgrep as the grep command for this plugin
+if executable('rg')
+  " ignore all files named 'tags'
+  let g:ackprg = "rg --vimgrep -g '!tags'"
+endif
+
+
