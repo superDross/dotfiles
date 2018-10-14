@@ -232,6 +232,7 @@ function! Cheat()
 	echo '    C-v            = open fuzzy found file in a vs window'
 	echo '    C-x            = open fuzzy found file in a sp window'
 	echo '    C-t            = open fuzzy found file in a new tab window'
+	echo '    \\-a           = fuzzy grep'
 	echo 'ALE'
 	echo '    \\-j           = go to line with next mistake'
 	echo '    \\-k           = go to line with previous mistake'
@@ -471,12 +472,10 @@ let g:taboo_renamed_tab_format = " %l %m "
 """" ACK """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make Ack! the default command
 cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+nnoremap <Leader>g :Ack!<Space>
 
 " Use ripgrep as the grep command for this plugin
 if executable('rg')
   " ignore all files named 'tags'
-  let g:ackprg = "rg --vimgrep -g '!tags'"
+  let g:ackprg = "rg --vimgrep -g '!tags' -g '!*.pyc' -g '!*.swp'"
 endif
-
-
