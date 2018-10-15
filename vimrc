@@ -13,6 +13,8 @@ Plugin 'gmarik/Vundle.vim'
 
 " CODE JUMPING: jump to a function or class definition in the code base
 Plugin 'ludovicchabant/vim-gutentags'
+" see tags in sidebar (methods classes etc.)
+Plugin 'majutsushi/tagbar'
 
 " AUTOCOMPLETION: autocompletes as you type
 if extension ==# 'py'
@@ -261,7 +263,7 @@ map <F3> :ALEFix<CR>
 map <F4> :NERDTreeToggle<CR>
 noremap <F5> :call Cheat() <CR>
 nnoremap <F6> :exec 'source $VIMRC'<CR>
-nnoremap <F8> :mks!<CR>
+nmap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 " runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
@@ -476,3 +478,7 @@ if executable('rg')
   " ignore all files named 'tags'
   let g:ackprg = "rg --vimgrep -g '!tags' -g '!*.pyc' -g '!*.swp'"
 endif
+
+"""" TAGBAR """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" completely fold all classes/functions - except the one by the cursor
+let g:tagbar_foldlevel = 0
