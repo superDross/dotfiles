@@ -8,7 +8,7 @@ fi
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 
 # install vim plugin dependencies
-apt install -y vim exuberant-ctags  nodejs npm tidy lacheck xdotool google-chrome tmux
+apt install -y vim exuberant-ctags  nodejs npm tidy lacheck xdotool google-chrome tmux ripgrep autojump ack-grep
 python -m pip install flake8 vim-vint grip autopep8
 # flake8 is not compatible with pycodestyle >= 2.4.0
 python -m pip install pycodestyle==2.3.0

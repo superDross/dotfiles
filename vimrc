@@ -8,11 +8,11 @@ set runtimepath+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
 
-" CODE JUMPING: jump to a function or class definition in the code base
-Plugin 'ludovicchabant/vim-gutentags'
-
 " VUNDLE: vim package manager. within vim PluginInstall
 Plugin 'gmarik/Vundle.vim'
+
+" CODE JUMPING: jump to a function or class definition in the code base
+Plugin 'ludovicchabant/vim-gutentags'
 
 " AUTOCOMPLETION: autocompletes as you type
 if extension ==# 'py'
@@ -24,13 +24,7 @@ endif
 Plugin 'ervandew/supertab'
 
 " LINTERS: syntax checkers; dependent upon flake8.
-if v:version < 800
-	" slow, only lints after saving
-    Plugin 'scrooloose/syntastic'
-else
-    " lint as you type
-    Plugin 'w0rp/ale'
-endif
+Plugin 'w0rp/ale'
 Plugin 'nvie/vim-flake8'
 Plugin 'koalaman/shellcheck'
 Plugin 'jimhester/lintr'
@@ -69,7 +63,7 @@ Plugin 'rakr/vim-two-firewatch'
 Plugin 'hhsnopek/vim-firewatch'
 Plugin 'bcicen/vim-vice'
 Plugin 'pbrisbin/vim-colors-off'
-Plugin 'thoresuenert/vim-github-colorscheme'
+Plugin 'cormacrelf/vim-colors-github'
 Plugin 'morhetz/gruvbox'
 
 "EXTENDED FUNCTION: further improve editing
@@ -302,6 +296,9 @@ noremap <leader>0 :tablast<CR>
 " fuzzy file finder key
 nnoremap <leader>f :FZF<CR>
 
+" grep
+nnoremap <Leader>a :Ack!<Space>
+
 " open terminal, resize height, change pane position to bottom.
 nnoremap <leader>t :bo new<bar>terminal ++curwin ++rows=15<CR>
 
@@ -327,7 +324,8 @@ set mouse=c
 iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
 
 " C-b in insert mode will add test string into file
-imap <C-b> test
+"imap <C-b> console.log()
+imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
 
 """" USER SETTINGS """"""""""""""""""""""""""""""""""""
 " stops the wrap text over line from doing so mid-word
@@ -472,7 +470,6 @@ let g:taboo_renamed_tab_format = " %l %m "
 """" ACK """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make Ack! the default command
 cnoreabbrev Ack Ack!
-nnoremap <Leader>g :Ack!<Space>
 
 " Use ripgrep as the grep command for this plugin
 if executable('rg')
