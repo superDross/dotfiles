@@ -124,6 +124,16 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
+# multiple git 'aliases'
+git(){
+	if [[ $@ == 'graph' ]]; then
+		command git log --graph --oneline --decorate --all
+	elif [[ $@ == 'log' ]]; then
+		command git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	else
+		command git "$@"
+	fi
+}
 
 #### ALIASES
 # hide unwanted files, make directories first shown, then show files.
@@ -154,7 +164,7 @@ alias c="clear"
 
 alias h="history"
 alias hsi="history | grep"
-
+	
 
 #### COLOURS
 # change the colour of the dirs and executable files
