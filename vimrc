@@ -489,3 +489,5 @@ endif
 """" TAGBAR """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " completely fold all classes/functions - except the one by the cursor
 let g:tagbar_foldlevel = 0
+let g:tagbar_compact = 1
+let g:tagbar_autopreview = 1
