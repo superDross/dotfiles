@@ -1,6 +1,7 @@
 """""" GLOBAL VARS """""""""""""""""""""""""""""""""""
 " stores current opened file extension
 let extension = expand('%:e')
+let filename = expand('%:t')
 
 """""" VUNDLE """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
@@ -181,7 +182,13 @@ let g:SimpylFold_docstring_preview=1
 set foldnestmax=2
 
 " Enable folding,
-set foldmethod=indent
+if filename =~# '.vimrc'
+    set foldmethod=expr
+    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
+else
+	set foldmethod=indent
+endif
+
 set foldlevel=99
 
 """"" COLORSCHEME """"""""""""""""""""""""""""""
@@ -213,7 +220,7 @@ function! Cheat()
 	echo '    F5             = view this cheatsheet'
 	echo '    F6             = source .vimrc'
 	echo '    F7             = call flake8'
-	echo '    F8             = save generic session ~/Session.vim'
+	echo '    F8             = tag bar'
 	echo '    F9             = toggle highlight search'
 	echo '    F12            = RunView'
 	echo 'GUTENTAGS'
