@@ -48,6 +48,7 @@ Plugin 'Yggdroot/indentLine'
 
 " GIT: use git commands in vim e.g. Glog
 Plugin 'tpope/vim-fugitive'
+Plugin 'jlfwong/vim-mercenary'
 
 " MARKDOWN: preview markdown files
 Plugin 'JamshedVesuna/vim-markdown-preview'

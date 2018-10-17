@@ -119,9 +119,10 @@ ffind() {
 	find . -type f -name "*.$1" | xargs grep "${@:2}"
 }
 
-# parse git branch name
+# parse git or hg branch name
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	 hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
 }
 
 # multiple git 'aliases'
