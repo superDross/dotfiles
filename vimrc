@@ -3,7 +3,7 @@
 let extension = expand('%:e')
 let filename = expand('%:t')
 
-"""""" VUNDLE """"""""""""""""""""""""""""""""""""""""
+"""""" PLUGINS """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set runtimepath+=~/.vim/bundle/Vundle.vim
 
@@ -93,118 +93,8 @@ Plugin 'gcmt/taboo.vim'
 
 call vundle#end()
 
-
-""""" JEDI """""""""""""""""""""""""""""""""""""""""""
-" set completion menu to preview (no definitions in python)
-set completeopt-=preview
-
-" smart mappings break iabbrev, so turn it off
-let g:jedi#smart_auto_mappings = 0
-
-""""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
-if v:version >= 800
-    let g:ale_fixers = {
-	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \    'python': ['autopep8'],
-	\    'javascript': ['eslint', 'prettier-eslint'],
-	\    'html': ['tidy'],
-    \}
-endif
-
-let g:ale_completion_enabled = 1
-let g:ale_echo_msg_format = '%s [%linter%]'
-
-"""""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
-if v:version < 800
-    " disable syntastic on the statusline (it messes with RunView F10)
-    let g:statline_syntastic = 0
-
-    " automatically load errors into location list
-    let g:syntastic_always_populate_loc_list = 1
-
-    " automatically check for errors when file is loaded
-    let g:syntastic_check_on_open = 1
-
-    " recommended settings
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    " ignore certain PEP8 guidelines that moan about whitespace/indentation errors
-    let g:syntastic_python_flake8_args='--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203'
-endif
-
-"""""" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
-" runview works with python
-let g:runview_filtcmd='python3'
-
-" check file extension and parse appropriate command to runview and assign to F12
-let filename = expand('%:p')
-let extension = expand('%:e')
-let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
-let extension_command = get(extension_dict, extension)
-
-""""" NERDTree """""""""""""""""""""""""""""""""""""""""""""
-" refresh the file tree upon opening
-function! NERDTreeRefresh()
-    if &filetype ==# 'nerdtree'
-        silent exe substitute(mapcheck('R'), '<CR>', '', '')
-    endif
-endfunction
-
-autocmd BufEnter * call NERDTreeRefresh()
-
-" git symbol definitions
-let g:NERDTreeIndicatorMapCustom = {
-    \ 'Modified'  : '✹',
-    \ 'Staged'    : '✚',
-    \ 'Untracked' : '✭',
-    \ 'Renamed'   : '➜',
-    \ 'Unmerged'  : '═',
-    \ 'Deleted'   : '✖',
-    \ 'Dirty'     : '✗',
-    \ 'Clean'     : '✔︎',
-    \ 'Ignored'   : '☒',
-    \ 'Unknown'   : '?'
-    \ }
-
-
-" NERDTree thingy
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-
-" Hide .pyc files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
-
-""""" FOLDING """"""""""""""""""""""""""""""""
-" see docstring for folded code
-let g:SimpylFold_docstring_preview=1
-set foldnestmax=2
-
-" Enable folding,
-if filename =~# '.vimrc'
-    set foldmethod=expr
-    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
-else
-	set foldmethod=indent
-endif
-
-set foldlevel=99
-
-""""" COLORSCHEME """"""""""""""""""""""""""""""
-set background=dark
-colorscheme gruvbox
-set t_Co=256
-
-if g:colors_name !=# 'solarized'
-    " This plugin brings GVIM like colors to colorschemes, but doesn't work
-    " well with solarized
-    Plugin 'godlygeek/csapprox'
-endif
-
-"""" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! Cheat()
+"""" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! KeyCheat()
 	echo 'VIM'
 	echo '    A              = append after end of line'
 	echo '    U              = undo all cjhange on the line'
@@ -225,8 +115,8 @@ function! Cheat()
 	echo '    F9             = toggle highlight search'
 	echo '    F12            = RunView'
 	echo 'GUTENTAGS'
-    echo '    C-\\           = open definition in a new vs window'
-    echo '    C-/            = open definition in a new sp window'
+	echo '    C-\\           = open definition in a new vs window'
+	echo '    C-/            = open definition in a new sp window'
 	echo '    \ C-]          = open definition in a new tab.'
 	echo '    C-]            = go to definition location'
 	echo '    g-]            = give a list of all possible locations'
@@ -264,28 +154,57 @@ function! Cheat()
 	echo '   gl<key>         = align <key> vertically'
 endfunction
 
+function! VimCheat()
+	echo 'OPERATORS'
+	echo '   c	change'
+	echo '   d	delete'
+	echo '   y	yank into register (does not change the text)'
+	echo '	 gq	text formatting'
+	echo '   ~	swap case (only if tildeop is set)'
+	echo '   >	shift right'
+	echo '   <	shift left'
+	echo '   !	filter through an external program'
+	echo '	 zf	define a fold'
+	echo '   g@     call function set with the operatorfunc option'
+	echo 'MOTIONS'
+	echo '   l       a letter'
+	echo '   b       last word'
+	echo '   aw      a word'
+	echo '   as      a sentence'      
+	echo '   ap      a paragraph'
+	echo '   aa      an argument'
+	echo '   a(      a parenthesis'
+	echo '   at      a tag (html)'
+	echo '   ia      in argument'
+	echo '   i(      inside paranthesis'
+	echo '   it      inside tag'
+	echo '   t(      to paranthesis'
+	echo '   f(      find paranthesis'
+	echo '   /pass   to "pass"'
+endfunction
+
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
 " function keys
 set pastetoggle=<F2>
-map <F3> :ALEFix<CR>
-map <F4> :NERDTreeToggle<CR>
-noremap <F5> :call Cheat() <CR>
-nnoremap <F6> :exec 'source $VIMRC'<CR>
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F3> :ALEFix<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
+noremap <F5> :call KeyCheat() <CR>
+nnoremap <F6> :call VimCheat() <CR>
+nnoremap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 " runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " jump to next and previous error
-nmap <silent> <leader>j :ALENext<CR>
-nmap <silent> <leader>k :ALEPrevious<CR>
+nnoremap <silent> <leader>j :ALENext<CR>
+nnoremap <silent> <leader>k :ALEPrevious<CR>
 
 " CTRL+\ to open definition location in a new vertical window
-map <C-\> :vs<CR><C-]><C-w>
+nnoremap <C-\> :vs<CR><C-]><C-w>
 " Leader CTRL+] to open definition in new tab
 nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 " CTRL+/ to open definition location in a new horizontal window
-map <C-_> :sp<CR><C-]><C-w>
+nnoremap <C-_> :sp<CR><C-]><C-w>
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
@@ -303,6 +222,9 @@ noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 
+" source vimrc
+nnoremap <leader>s :exec 'source $VIMRC'<CR>
+
 " fuzzy file finder key
 nnoremap <leader>f :FZF<CR>
 
@@ -316,28 +238,19 @@ nnoremap <leader>t :bo new<bar>terminal ++curwin ++rows=15<CR>
 nnoremap <space> za
 
 " Stop using the arrow keys in both Insert and Escape mode respectively
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
 
 " turns off mouse use in vim
 set mouse=c
 
-"""" SNIPPETS """""""""""""""""""""""""""""""""""""""
-" type pudb.remote in innsert mode and space afterward will insert the below
-" text
-iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
-
-" C-b in insert mode will add test string into file
-"imap <C-b> console.log()
-imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
-
-"""" USER SETTINGS """"""""""""""""""""""""""""""""""""
+"""" GENERAL SETTINGS """"""""""""""""""""""""""""""""""""
 " stops the wrap text over line from doing so mid-word
 set linebreak
 
@@ -345,7 +258,7 @@ set linebreak
 set breakindent
 
 " make indentations (tab characters) appear 4-spaces wide instead of 8
-set tabstop=4
+"set tabstop=4
 
 " all required for numerous plugins to work as expected
 set nocompatible
@@ -361,8 +274,41 @@ set guioptions+=a
 
 " Uncomment the following to have Vim jump to the last position when reopening a file
 if has('autocmd')
-   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+""""" FOLDING """"""""""""""""""""""""""""""""
+" see docstring for folded code
+let g:SimpylFold_docstring_preview=1
+set foldnestmax=2
+
+" Enable folding,
+if filename =~# '.vimrc'
+    set foldmethod=expr
+    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
+else
+    set foldmethod=indent
+endif
+
+" automatically fold everything in vimrc
+autocmd VimEnter *vimrc :normal zM
+
+set foldlevel=99
+
+""""" COLORSCHEME """"""""""""""""""""""""""""""
+set background=dark
+colorscheme gruvbox
+set t_Co=256
+
+"""" SNIPPETS """""""""""""""""""""""""""""""""""""""
+" type pudb.remote in innsert mode and space afterward will insert the below
+" text
+iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
+
+" C-b in insert mode will add test string into file
+"imap <C-b> console.log()
+imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
+
 
 """" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
 " 'unlimited' number of undo's
@@ -405,15 +351,6 @@ let g:javascript_conceal_arrow_function = '⇒'
 """"" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
 " Allows autocompletion with words
 set dictionary=/usr/share/dict/words
-
-"""" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
-" makes all markdown previews in GitHub style
-let vim_markdown_preview_github=1
-
-"""" HTML/CSS """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" enable emmet only for HTML and CSS files
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
 
 """" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
 augroup OmniCompletionSetup
@@ -492,3 +429,95 @@ endif
 let g:tagbar_foldlevel = 0
 let g:tagbar_compact = 1
 let g:tagbar_autopreview = 1
+
+""""" NERDTree """""""""""""""""""""""""""""""""""""""""""""
+" refresh the file tree upon opening
+function! NERDTreeRefresh()
+    if &filetype ==# 'nerdtree'
+        silent exe substitute(mapcheck('R'), '<CR>', '', '')
+    endif
+endfunction
+
+autocmd BufEnter * call NERDTreeRefresh()
+
+" git symbol definitions
+let g:NERDTreeIndicatorMapCustom = {
+    \ 'Modified'  : '✹',
+    \ 'Staged'    : '✚',
+    \ 'Untracked' : '✭',
+    \ 'Renamed'   : '➜',
+    \ 'Unmerged'  : '═',
+    \ 'Deleted'   : '✖',
+    \ 'Dirty'     : '✗',
+    \ 'Clean'     : '✔︎',
+    \ 'Ignored'   : '☒',
+    \ 'Unknown'   : '?'
+    \ }
+
+
+" NERDTree thingy
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+" Hide .pyc files in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
+
+"""""" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
+" runview works with python
+let g:runview_filtcmd='python3'
+
+" check file extension and parse appropriate command to runview and assign to F12
+let filename = expand('%:p')
+let extension = expand('%:e')
+let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
+let extension_command = get(extension_dict, extension)
+
+"""""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
+if v:version < 800
+    " disable syntastic on the statusline (it messes with RunView F10)
+    let g:statline_syntastic = 0
+
+    " automatically load errors into location list
+    let g:syntastic_always_populate_loc_list = 1
+
+    " automatically check for errors when file is loaded
+    let g:syntastic_check_on_open = 1
+
+    " recommended settings
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    " ignore certain PEP8 guidelines that moan about whitespace/indentation errors
+    let g:syntastic_python_flake8_args='--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203'
+endif
+
+""""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
+if v:version >= 800
+    let g:ale_fixers = {
+	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \    'python': ['autopep8'],
+	\    'javascript': ['eslint', 'prettier-eslint'],
+	\    'html': ['tidy'],
+    \}
+endif
+
+let g:ale_completion_enabled = 1
+let g:ale_echo_msg_format = '%s [%linter%]'
+
+""""" JEDI """""""""""""""""""""""""""""""""""""""""""
+" set completion menu to preview (no definitions in python)
+set completeopt-=preview
+
+" smart mappings break iabbrev, so turn it off
+let g:jedi#smart_auto_mappings = 0
+
+"""" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
+" makes all markdown previews in GitHub style
+let vim_markdown_preview_github=1
+
+"""" EMMET """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" enable emmet only for HTML and CSS files
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
