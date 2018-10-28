@@ -272,6 +272,9 @@ set relativenumber
 set clipboard+=unnamedplus
 set guioptions+=a
 
+" Allows autocompletion with words
+set dictionary=/usr/share/dict/words
+
 " Uncomment the following to have Vim jump to the last position when reopening a file
 if has('autocmd')
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -309,6 +312,12 @@ iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160,
 "imap <C-b> console.log()
 imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
 
+"""" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
+" ci( for next and last parenthesis on the line
+for char in ['(', '[', '{', '"', "'"]
+	execute 'onoremap in' . char .  ' :<c-u>normal! f(vi(<cr>'
+	execute 'onoremap il' . char .  ' :<c-u>normal! F(vi(<cr>'
+endfor
 
 """" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
 " 'unlimited' number of undo's
@@ -348,10 +357,6 @@ augroup javascript_folding
 augroup END
 let g:javascript_conceal_arrow_function = '⇒'
 
-""""" DICTIONARY """"""""""""""""""""""""""""""""""""""""""""""""""""
-" Allows autocompletion with words
-set dictionary=/usr/share/dict/words
-
 """" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
 augroup OmniCompletionSetup
     autocmd!
@@ -370,7 +375,7 @@ augroup END
 " TAB key in insert mode autocompletes OmniCompletion
 let b:vcm_tab_complete = 'omni'
 
-""" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
 set laststatus=2
 " mo longer show mode in bottom line
