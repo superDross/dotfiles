@@ -37,6 +37,7 @@ Plugin 'vim-scripts/Vim-R-plugin'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'baabelfish/nvim-nim'
 
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'
@@ -92,6 +93,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'gcmt/taboo.vim'
 
 call vundle#end()
+
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
@@ -343,6 +345,19 @@ syntax on
 """"" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
 let vimrplugin_assign = 0
 
+""""" NIM SETTINGS """""""""""""""""""""""""""""""""""""""""""""""""
+fun! JumpToDef()
+  if exists("*GotoDefinition_" . &filetype)
+    call GotoDefinition_{&filetype}()
+  else
+    exe "norm! \<C-]>"
+  endif
+endf
+
+" Jump to tag
+nn <M-g> :call JumpToDef()<cr>
+ino <M-g> <esc>:call JumpToDef()<cr>
+
 """"" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting for jsdocs
 let g:javascript_plugin_jsdocs = 1
@@ -370,6 +385,7 @@ augroup OmniCompletionSetup
     autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
     autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
 augroup END
+
 
 """" VIMCOMPLETESME """"""""""""""""""""""""""""""""""""""""""""""""""
 " TAB key in insert mode autocompletes OmniCompletion
@@ -502,9 +518,10 @@ endif
 if v:version >= 800
     let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \    'python': ['autopep8'],
+	\    'python': ['autopep8'],
 	\    'javascript': ['eslint', 'prettier-eslint'],
 	\    'html': ['tidy'],
+ 	\    'nim': ['nimcheck'],
     \}
 endif
 

@@ -129,8 +129,6 @@ parse_git_branch() {
 git(){
 	if [[ $@ == 'graph' ]]; then
 		command git log --graph --oneline --decorate --all
-	elif [[ $@ == 'log' ]]; then
-		command git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	else
 		command git "$@"
 	fi
@@ -202,3 +200,4 @@ export VIMRC=~/.vimrc
 
 # add git branch to prompt
 export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+export PATH=/home/david/.nimble/bin:$PATH
