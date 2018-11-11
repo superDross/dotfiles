@@ -116,7 +116,7 @@ fi
 #### FUNCTIONS
 # Usage: findpy "Driver ID"
 ffind() {
-	find . -type f -name "*.$1" | xargs grep "${@:2}"
+	find . -type f -name "*.$1" ! -path '*/venv/*' | xargs grep "${@:2}"
 }
 
 # parse git or hg branch name
@@ -163,7 +163,10 @@ alias c="clear"
 
 alias h="history"
 alias hsi="history | grep"
-	
+
+# set up work environment for local instances
+alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro" 
+alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
 
 #### COLOURS
 # change the colour of the dirs and executable files
