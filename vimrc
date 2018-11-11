@@ -1,9 +1,9 @@
-"""""" GLOBAL VARS """""""""""""""""""""""""""""""""""
+"""" GLOBAL VARS """""""""""""""""""""""""""""""""""
 " stores current opened file extension
 let extension = expand('%:e')
 let filename = expand('%:t')
 
-"""""" PLUGINS """"""""""""""""""""""""""""""""""""""""
+"""" PLUGINS """"""""""""""""""""""""""""""""""""""""
 " set the runtime path to include Vundle and initialize
 set runtimepath+=~/.vim/bundle/Vundle.vim
 
@@ -282,7 +282,7 @@ if has('autocmd')
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-""""" FOLDING """"""""""""""""""""""""""""""""
+"""" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
 let g:SimpylFold_docstring_preview=1
 set foldnestmax=2
@@ -300,7 +300,7 @@ autocmd VimEnter *vimrc :normal zM
 
 set foldlevel=99
 
-""""" COLORSCHEME """"""""""""""""""""""""""""""
+"""" COLORSCHEME """"""""""""""""""""""""""""""
 set background=dark
 colorscheme gruvbox
 set t_Co=256
@@ -331,7 +331,7 @@ set undodir=~/.vim/vimundo/
 " create undo files allowing one to undo even after a system reboot
 set undofile
 
-""""" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
+"""" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
 " automatic indentation i.e. after def(x):
 filetype plugin indent on
 
@@ -342,10 +342,10 @@ set encoding=utf-8
 let python_highlight_all=1
 syntax on
 
-""""" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
+"""" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
 let vimrplugin_assign = 0
 
-""""" NIM SETTINGS """""""""""""""""""""""""""""""""""""""""""""""""
+"""" NIM SETTINGS """""""""""""""""""""""""""""""""""""""""""""""""
 fun! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
     call GotoDefinition_{&filetype}()
@@ -358,12 +358,9 @@ endf
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>
 
-""""" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
+"""" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting for jsdocs
 let g:javascript_plugin_jsdocs = 1
-
-" sets tab key to 2 spaces
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 
 " folding comments
 augroup javascript_folding
@@ -372,6 +369,13 @@ augroup javascript_folding
 augroup END
 let g:javascript_conceal_arrow_function = '⇒'
 
+" indentation spacing
+augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
+  set expandtab
+  set tabstop=2
+  set softtabstop=2
+  set shiftwidth=2
+augroup END
 """" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
 augroup OmniCompletionSetup
     autocmd!
@@ -451,7 +455,7 @@ let g:tagbar_foldlevel = 0
 let g:tagbar_compact = 1
 let g:tagbar_autopreview = 1
 
-""""" NERDTree """""""""""""""""""""""""""""""""""""""""""""
+"""" NERDTree """""""""""""""""""""""""""""""""""""""""""""
 " refresh the file tree upon opening
 function! NERDTreeRefresh()
     if &filetype ==# 'nerdtree'
@@ -484,7 +488,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " Hide .pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
-"""""" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
+"""" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
 let g:runview_filtcmd='python3'
 
@@ -494,7 +498,7 @@ let extension = expand('%:e')
 let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
 let extension_command = get(extension_dict, extension)
 
-"""""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
+"""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
 if v:version < 800
     " disable syntastic on the statusline (it messes with RunView F10)
     let g:statline_syntastic = 0
@@ -514,7 +518,7 @@ if v:version < 800
     let g:syntastic_python_flake8_args='--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203'
 endif
 
-""""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
+"""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -528,7 +532,7 @@ endif
 let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
 
-""""" JEDI """""""""""""""""""""""""""""""""""""""""""
+"""" JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview (no definitions in python)
 set completeopt-=preview
 
@@ -542,4 +546,12 @@ let vim_markdown_preview_github=1
 """" EMMET """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable emmet only for HTML and CSS files
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,jsx,javascript EmmetInstall
+
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \      'quote_char': "'",
+    \  },
+  \}
