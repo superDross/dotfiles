@@ -362,6 +362,9 @@ ino <M-g> <esc>:call JumpToDef()<cr>
 " syntax highlighting for jsdocs
 let g:javascript_plugin_jsdocs = 1
 
+" set syntax to jsx
+autocmd FileType javascript setlocal syntax=javascript.jsx
+
 " folding comments
 augroup javascript_folding
     au!
