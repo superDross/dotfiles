@@ -363,6 +363,7 @@ ino <M-g> <esc>:call JumpToDef()<cr>
 let g:javascript_plugin_jsdocs = 1
 
 " set syntax to jsx
+autocmd FileType javascript setlocal filetype=jsx
 autocmd FileType javascript setlocal syntax=javascript.jsx
 
 " folding comments
@@ -553,7 +554,7 @@ autocmd FileType html,css,jsx,javascript EmmetInstall
 
 let g:user_emmet_leader_key=','
 let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
+  \  'javascript.js' : {
     \      'extends' : 'jsx',
     \      'quote_char': "'",
     \  },
