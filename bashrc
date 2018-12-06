@@ -165,7 +165,7 @@ alias h="history"
 alias hsi="history | grep"
 
 # set up work environment for local instances
-alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro" 
+alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro; export CELERY_LOADER=velocity.celeryloader.DjangoLoader" 
 alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
 
 #### COLOURS

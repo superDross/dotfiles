@@ -197,6 +197,8 @@ noremap <F9> :set hlsearch! hlsearch?<CR>
 " runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
+nnoremap <silent><leader>o : NERDTreeFind<CR>
+
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
@@ -309,6 +311,7 @@ set t_Co=256
 " type pudb.remote in innsert mode and space afterward will insert the below
 " text
 iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
+iabbrev pudb import pudb;pudb.set_trace()
 
 " C-b in insert mode will add test string into file
 "imap <C-b> console.log()
