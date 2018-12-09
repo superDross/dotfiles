@@ -18,11 +18,11 @@ Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 
 " AUTOCOMPLETION: autocompletes as you type
-if extension ==# 'py'
-	Plugin 'davidhalter/jedi-vim'
-else
-	Plugin 'ajh17/VimCompletesMe'
-endif
+" Deoplete
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
+
 " use tab for all completion needs
 Plugin 'ervandew/supertab'
 
@@ -383,24 +383,8 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set softtabstop=2
   set shiftwidth=2
 augroup END
-"""" OMNICOMPLETION """""""""""""""""""""""""""""""""""""""""""""""""
-augroup OmniCompletionSetup
-    autocmd!
-    autocmd FileType c          set omnifunc=ccomplete#Complete
-    autocmd FileType php        set omnifunc=phpcomplete#CompletePHP
-    " autocmd FileType python     set omnifunc=python3complete#Complete
-    autocmd FileType python     set omnifunc=jedi#completions
-    autocmd FileType ruby       set omnifunc=rubycomplete#Complete
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html       set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css        set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml        set omnifunc=xmlcomplete#CompleteTags
-augroup END
-
-
-"""" VIMCOMPLETESME """"""""""""""""""""""""""""""""""""""""""""""""""
-" TAB key in insert mode autocompletes OmniCompletion
-let b:vcm_tab_complete = 'omni'
+"""" DEOPLETE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
