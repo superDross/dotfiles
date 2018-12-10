@@ -290,7 +290,7 @@ let g:SimpylFold_docstring_preview=1
 set foldnestmax=2
 
 " Enable folding,
-if filename =~# '.vimrc'
+if filename =~# 'vimrc'
     set foldmethod=expr
     set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
 else
