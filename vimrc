@@ -97,15 +97,6 @@ call vundle#end()
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
-	echo 'VIM'
-	echo '    A              = append after end of line'
-	echo '    U              = undo all cjhange on the line'
-	echo '    R              = replace mode'
-	echo '    r<letter>      = replace letter at cursor with <letter>'
-	echo '    %              = skip to closing bracker'
-	echo '    :%s/,/./gc     = c asks for permission to make each change'
-	echo '    v :w           = save text highlighted in visual mode'
-	echo '    :r <file>      = place <file> contents into current buffer'
 	echo 'FUNCTION KEYS'
 	echo '    F2             = paste toggle'
 	echo '    F3             = ALEFix'
@@ -146,12 +137,13 @@ function! KeyCheat()
 	echo '   TabooRename s   = rename current tab to s'
 	echo 'GENERAL'
 	echo '   K               = show docs (python only)'
-	echo '   C-b             = insert pudb trace'
 	echo '   C-w x           = swap column/row panes'
 	echo '   C-w K           = move window to the topmost'
 	echo '   C-w H           = move window to the bottomost'
 	echo '   \\-t            = open terminal window at the bottom'
 	echo '   C-w N           = switch to vim mode in terminal'
+  echo 'NERDTREE'
+  echo '   \\-O            = open NERDTree and locate current file'
 	echo 'LION'
 	echo '   gl<key>         = align <key> vertically'
 endfunction
