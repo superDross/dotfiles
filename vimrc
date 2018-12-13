@@ -100,7 +100,9 @@ function! KeyCheat()
 	echo 'FUNCTION KEYS'
 	echo '    F2             = paste toggle'
 	echo '    F3             = ALEFix'
+	echo '    \\+F3          = ALEToggle'
 	echo '    F4             = NERDTreeToggle'
+	echo '    \\+F4          = NERDTreeFind'
 	echo '    F5             = view this cheatsheet'
 	echo '    F6             = source .vimrc'
 	echo '    F7             = call flake8'
@@ -181,15 +183,15 @@ endfunction
 " function keys
 set pastetoggle=<F2>
 nnoremap <F3> :ALEFix<CR>
-nnoremap <F4> :NERDTreeToggle<CR>
+nnoremap <leader><F3> :ALEToggle<CR>
+nnoremap <F4> : NERDTreeToggle<CR>
+nnoremap <leader><F4> :NERDTreeFind<CR>
 noremap <F5> :call KeyCheat() <CR>
 nnoremap <F6> :call VimCheat() <CR>
 nnoremap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
-" runview
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
-nnoremap <silent><leader>o : NERDTreeFind<CR>
 
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
