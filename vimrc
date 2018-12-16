@@ -61,15 +61,12 @@ Plugin 'vim-scripts/RunView'
 Plugin 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
-Plugin 'flazz/vim-colorschemes'
-Plugin 'owickstrom/vim-colors-paramount'
-Plugin 'aereal/vim-colors-japanesque'
-Plugin 'rakr/vim-two-firewatch'
-Plugin 'hhsnopek/vim-firewatch'
-Plugin 'bcicen/vim-vice'
-Plugin 'pbrisbin/vim-colors-off'
-Plugin 'cormacrelf/vim-colors-github'
 Plugin 'morhetz/gruvbox'
+Plugin 'pbrisbin/vim-colors-off'
+" The below schemes only work well for python
+Plugin 'joshdick/onedark.vim'
+Plugin 'rakr/vim-two-firewatch'
+Plugin 'bcicen/vim-vice'
 
 "EXTENDED FUNCTION: further improve editing
 Plugin 'tpope/vim-surround'
@@ -298,8 +295,9 @@ set foldlevel=99
 
 """" COLORSCHEME """"""""""""""""""""""""""""""
 set background=dark
-colorscheme gruvbox
 set t_Co=256
+set termguicolors
+colorscheme gruvbox
 
 """" SNIPPETS """""""""""""""""""""""""""""""""""""""
 " type pudb.remote in innsert mode and space afterward will insert the below
