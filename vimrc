@@ -262,6 +262,7 @@ filetype plugin on
 
 " Insert line numbering
 set relativenumber
+set number
 
 " use system clipboard
 set clipboard+=unnamedplus
