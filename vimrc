@@ -297,8 +297,11 @@ set foldlevel=99
 """" COLORSCHEME """"""""""""""""""""""""""""""
 set background=dark
 set t_Co=256
-set termguicolors
 colorscheme gruvbox
+" termguicolors causes tmux vim sessions to go monochrome
+if !exists("$TMUX")
+  set termguicolors
+endif
 
 """" SNIPPETS """""""""""""""""""""""""""""""""""""""
 " type pudb.remote in innsert mode and space afterward will insert the below
