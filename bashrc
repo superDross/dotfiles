@@ -1,4 +1,4 @@
-#### UBUNTU DEFAULTS 
+#### UBUNTU DEFAULTS
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # for examples
 # set -x
@@ -101,7 +101,7 @@ if ! shopt -oq posix; then
 fi
 
 
-#### PATHS 
+#### PATHS
 export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin:$HOME/configuration/ideas/bash/:$HOME/bin/vcfhacks/
 export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
 # start up pythonrc to get autocomplete and saving of python environment in python shell
@@ -134,9 +134,30 @@ git(){
 	fi
 }
 
+# go up x many dirs:
+#     up 2 == cd ../../
+up() {
+    if [[ "$#" == 0 ]] ; then
+        cd ..
+    else
+        CDSTR=""
+        for i in $(seq 1 $1) ; do
+            CDSTR="../$CDSTR"
+            echo $CDSTR
+        done
+        cd $CDSTR
+    fi
+}
+
 #### ALIASES
 # hide unwanted files, make directories first shown, then show files.
-alias ls='ls --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
+alias ls='ls \
+            --color=auto \
+            --hide="*.pyc" \
+            --hide="*.egg-info" \
+            --hide="__pycache__" \
+            --group-directories-first \
+            --sort=extension'
 
 # allows sudo to work with alias command
 alias sudo='sudo '
@@ -165,7 +186,7 @@ alias h="history"
 alias hsi="history | grep"
 
 # set up work environment for local instances
-alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro; export CELERY_LOADER=velocity.celeryloader.DjangoLoader" 
+alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro; export CELERY_LOADER=velocity.celeryloader.DjangoLoader"
 alias jvel="vel; cd ~/projects/velocitynotes/jupyter_notebooks/; jupyter notebook"
 alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
 
