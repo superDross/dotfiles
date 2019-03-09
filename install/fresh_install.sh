@@ -116,7 +116,6 @@ ln -s ${TOP_DIR}/vimrc ~/.vimrc
 ln -s ${TOP_DIR}/bashrc ~/.bashrc
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
-ln -s ${TOP_DIR}/eslintrc ~/.eslintrc.js
 ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
 ln -s ${TOP_DIR}/i3/config ~/.config/i3/config
 ln -s ${TOP_DIR}/i3/i3status.conf ~/.config/i3/i3status.conf
@@ -134,3 +133,5 @@ indent-spaces: 2
 quiet: yes
 tidy-mark: no
 wrap: 90" >> /etc/tidy.conf
+
+echo "ensure to install wting/autojump and junegunn/fzf"
