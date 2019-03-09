@@ -143,7 +143,6 @@ up() {
         CDSTR=""
         for i in $(seq 1 $1) ; do
             CDSTR="../$CDSTR"
-            echo $CDSTR
         done
         cd $CDSTR
     fi
