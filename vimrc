@@ -477,12 +477,12 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
 """" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
-let g:runview_filtcmd='python3'
+let g:runview_filtcmd='python3.7'
 
 " check file extension and parse appropriate command to runview and assign to F12
 let filename = expand('%:p')
 let extension = expand('%:e')
-let extension_dict = {'py': '%RunView!python3', 'sh': '%RunView!sh', 'js': '%RunView!node'}
+let extension_dict = {'py': '%RunView!python3.7', 'sh': '%RunView!sh', 'js': '%RunView!node'}
 let extension_command = get(extension_dict, extension)
 
 """" SYNTASTIC """"""""""""""""""""""""""""""""""""""
