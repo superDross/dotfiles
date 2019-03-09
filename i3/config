@@ -59,7 +59,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym $mod+Return exec i3-sensible-terminal
 
 # lock screen activation
-bindsym $mod+Shift+x exec i3lock --color 000000 --ignore-empty-password --show-failed-attempts
+bindsym $mod+Shift+x exec i3lock-fancy 
 
 # kill focused window
 bindsym $mod+Shift+q kill
