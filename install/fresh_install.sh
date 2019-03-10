@@ -123,6 +123,8 @@ cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/
 ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
 ln -s ${TOP_DIR}/i3/config ~/.config/i3/config
 ln -s ${TOP_DIR}/i3/i3status.conf ~/.config/i3/i3status.conf
+ln -s ${TOP_DIR}/wallpaper.jpg ~/Downloads/wallpaper.jpg
+
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
