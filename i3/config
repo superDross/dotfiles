@@ -270,25 +270,153 @@ exec slack
 #################
 
 # gaps only when there is more than one window
-smart_gaps on
+# smart_gaps on
+
+# default global gaps
 gaps inner 15
 gaps outer 15
 
-mode "gaps_resize" {
-        bindsym j exec gaps outer all plus 5; gaps inner all plus 5
-        bindsym k exec gaps outer all minus 5; gaps inner all minus 5
+# gaps for sepcific workplaces
+workspace $workspace2 gaps outer 0
+workspace $workspace2 gaps inner 0
+workspace $workspace3 gaps outer 0
+workspace $workspace3 gaps inner 0
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
+# help messages when entering gaps mode(s)
+set $mode_gaps Gaps: (a)ll, (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
+set $mode_gaps_all All Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_outer Outer Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_inner Inner Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_horiz Horizontal Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_verti Vertical Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_top Top Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_right Right Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_bottom Bottom Gaps: j|k|0 (local), Shift + j|k|0 (global)
+set $mode_gaps_left Left Gaps: j|k|0 (local), Shift + j|k|0 (global)
+
+mode "$mode_gaps" {
+        bindsym a      mode "$mode_gaps_all"
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym h      mode "$mode_gaps_horiz"
+        bindsym v      mode "$mode_gaps_verti"
+        bindsym t      mode "$mode_gaps_top"
+        bindsym r      mode "$mode_gaps_right"
+        bindsym b      mode "$mode_gaps_bottom"
+        bindsym l      mode "$mode_gaps_left"
+        bindsym Return mode "$mode_gaps"
         bindsym Escape mode "default"
 }
 
-bindsym  $mod+Shift+g mode "gaps_resize"
+mode "$mode_gaps_outer" {
+        bindsym j  gaps outer current plus 5
+        bindsym k gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
 
-# workspace $workspace2 gaps outer 1
-# workspace $workspace2 gaps inner 1
-# workspace $workspace3 gaps outer 1
-# workspace $workspace3 gaps inner 1
+        bindsym Shift+j  gaps outer all j 5
+        bindsym Shift+k gaps outer all k 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym j  gaps inner current plus 5
+        bindsym k gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+j  gaps inner all j 5
+        bindsym Shift+k gaps inner all k 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_horiz" {
+        bindsym j  gaps horizontal current plus 5
+        bindsym k gaps horizontal current minus 5
+        bindsym 0     gaps horizontal current set 0
+
+        bindsym Shift+j  gaps horizontal all j 5
+        bindsym Shift+k gaps horizontal all k 5
+        bindsym Shift+0     gaps horizontal all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_verti" {
+        bindsym j  gaps vertical current plus 5
+        bindsym k gaps vertical current minus 5
+        bindsym 0     gaps vertical current set 0
+
+        bindsym Shift+j  gaps vertical all j 5
+        bindsym Shift+k gaps vertical all k 5
+        bindsym Shift+0     gaps vertical all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_top" {
+        bindsym j  gaps top current plus 5
+        bindsym k gaps top current minus 5
+        bindsym 0     gaps top current set 0
+
+        bindsym Shift+j  gaps top all j 5
+        bindsym Shift+k gaps top all k 5
+        bindsym Shift+0     gaps top all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_right" {
+        bindsym j  gaps right current plus 5
+        bindsym k gaps right current minus 5
+        bindsym 0     gaps right current set 0
+
+        bindsym Shift+j  gaps right all j 5
+        bindsym Shift+k gaps right all k 5
+        bindsym Shift+0     gaps right all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_bottom" {
+        bindsym j  gaps bottom current plus 5
+        bindsym k gaps bottom current minus 5
+        bindsym 0     gaps bottom current set 0
+
+        bindsym Shift+j  gaps bottom all j 5
+        bindsym Shift+k gaps bottom all k 5
+        bindsym Shift+0     gaps bottom all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_left" {
+        bindsym j  gaps left current plus 5
+        bindsym k gaps left current minus 5
+        bindsym 0     gaps left current set 0
+
+        bindsym Shift+j  gaps left all j 5
+        bindsym Shift+k gaps left all k 5
+        bindsym Shift+0     gaps left all set 0
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_all" {
+        bindsym j exec gaps outer current  plus 5; gaps inner current plus 5
+        bindsym k exec gaps outer current  minus 5; gaps inner  current minus 5
+
+        bindsym Shift+j exec gaps outer all plus 5; gaps inner all plus 5
+        bindsym Shift+k exec gaps outer all minus 5; gaps inner all minus 5
+
+        bindsym Return mode "$mode_gaps"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+g mode "$mode_gaps"
 
 
 #######################
