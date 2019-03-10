@@ -55,6 +55,9 @@ client.background       $white
 # toggle active window as sticky
 bindsym $mod+Shift+s sticky toggle
 
+# use scrot for print screen
+bindsym Print exec scrot
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -250,10 +253,10 @@ bar {
 #    START UP APPS     #
 ########################
 
-exec xfce4-terminal
-exec xfce4-terminal
 exec --no-startup-id "sh -c 'sleep 3;  /home/david/bin/Telegram/Telegram'"
 exec spotify
+exec xfce4-terminal
+exec xfce4-terminal
 exec firefox
 # exec --no-startup-id xfce4-panel --disable-wm-check
 exec_always feh --bg-scale $wallpaper
@@ -264,9 +267,12 @@ exec $file_manager
 #     GAPS       #
 #################
 
-gaps inner 10
-gaps outer 10
-# workspace $workspace1 gaps outer 50
+gaps inner 15
+gaps outer 15
+workspace $workspace2 gaps outer 1
+workspace $workspace2 gaps inner 1
+workspace $workspace3 gaps outer 1
+workspace $workspace3 gaps inner 1
 
 
 #######################
