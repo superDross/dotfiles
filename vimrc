@@ -22,6 +22,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'roxma/nvim-yarp'
 Plugin 'roxma/vim-hug-neovim-rpc'
+Plugin 'wokalski/autocomplete-flow'
 
 " use tab for all completion needs
 Plugin 'ervandew/supertab'
@@ -163,7 +164,7 @@ function! VimCheat()
 	echo '   l       a letter'
 	echo '   b       last word'
 	echo '   aw      a word'
-	echo '   as      a sentence'      
+	echo '   as      a sentence'
 	echo '   ap      a paragraph'
 	echo '   aa      an argument'
 	echo '   a(      a parenthesis'
@@ -506,6 +507,7 @@ if v:version < 800
 endif
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
+
 if v:version >= 800
     let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -514,8 +516,15 @@ if v:version >= 800
 	\    'html': ['tidy'],
  	\    'nim': ['nimcheck'],
     \}
+
+
+  let g:ale_linters = {
+  \'javascript': ['flow', 'eslint'],
+  \}
 endif
 
+
+"let g:ale_javascript_eslint_use_global = 1
 let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
 
