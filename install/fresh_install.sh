@@ -116,14 +116,13 @@ if [ -e ~/.config/i3/config ]; then
 fi
 
 #
-ln -s ${TOP_DIR}/vimrc ~/.vimrc
-ln -s ${TOP_DIR}/bashrc ~/.bashrc
-ln -s ${TOP_DIR}/vimrc ~/.vimrc
-cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
-ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
+ln -s ${TOP_DIR}/vim/vimrc ~/.vimrc
+ln -s ${TOP_DIR}/bash/bashrc ~/.bashrc
+cp ${TOP_DIR}/terminal/terminalrc  ~/config/xfce4/terminal/ 
+ln -s ${TOP_DIR}/tmux/tmux.conf ~/.tmux.conf
 ln -s ${TOP_DIR}/i3/config ~/.config/i3/config
 ln -s ${TOP_DIR}/i3/i3status.conf ~/.config/i3/i3status.conf
-ln -s ${TOP_DIR}/wallpaper.jpg ~/Downloads/wallpaper.jpg
+ln -s ${TOP_DIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
 
  
 # set up vim stuff
