@@ -5,5 +5,5 @@ These config files are intended to be utilised within an \*buntu xfce4 environme
 ## Installation
 ```sh
 git clone https://github.com/superDross/dotfiles
-sudo ./dotfile/fresh_install.sh
+sudo ./dotfile/install/fresh_install.sh
 ```
