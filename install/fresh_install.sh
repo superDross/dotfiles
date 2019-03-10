@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# NOTE: https://gitlab.com/cbo77/dotfiles
+# the above setup is better
+
 TOP_DIR=$(dirname $(dirname "${BASH_SOURCE}"))
 
 # MANUAL INSTALLATIONS; WPS doesn't work in 18.04
@@ -6,6 +10,13 @@ manual="WPS"
 echo "The following will have to be installed manually:"
 echo $manual
 sleep 10
+
+mkdir -p ~/.fonts/ ~/bin/ ~/.config/i3/
+
+# font install
+echo "Installing fonts..."
+cp -r ${TOP_DIR}/fonts/ ~/.fonts/
+fc-cache -f -v
 
 # add PPAs
 add-apt-repository ppa:atareao/telegram
@@ -26,8 +37,31 @@ apt update
 # multimedia packages
 apt -y install xubuntu-restricted-extras libdvd-pkg steam telegram vlc steamcmd spotify-client
 
+# i3 specific stuff
+apt install lxappearance arandr i3 libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev \
+libxcb-util0-dev libxcb-icccm4-dev libyajl-dev \
+libstartup-notification0-dev libxcb-randr0-dev \
+libev-dev libxcb-cursor-dev libxcb-xinerama0-dev \
+libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev \
+autoconf libxcb-xrm0 libxcb-xrm-dev automake libxcb-shape0-dev \
+i3lock i3lock-fancy i3-wm
+
+# i3-gaps
+cd ~/bin/
+git clone https://www.github.com/Airblader/i3 i3-gaps
+cd i3-gaps
+autoreconf --force --install
+rm -rf build/
+mkdir -p build && cd build/
+# Disabling sanitizers is important for release versions!
+# The prefix and sysconfdir are, obviously, dependent on the distribution.
+../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+make
+make install
+
 #  general must haves
-apt -y install sudo build-essential firefox google-chrome-stable apache2 bzip2 tmux cups evince java-common libreoffice mysql-server openvpn perl postgresql postgresql-contrib r-base tabix youtube-dl xboxdrv vpnc vim vim-common unrar udev transmission-cli tar syslinux rsync redshift redshift-gtk perl-base parted gparted openssh-client openssh-server openjdk-8-jdk ntfs-3g ntfs-config ncurses-base ncurses-bin mtp-tools git exfat-fuse exfat-utils curl bash bioperl zip bash-completion cmake console-setup cli-common ffmpeg chromium-codecs-ffmpeg-extra eject debianutils cron diffutils devscripts fontconfig ftp gcc gimp git-all grep gwenview htop joystick  incron keyboard-configuration keytouch-editor language-pack-en manpages nano mount npm openssh-client openssh-server wget unzip udev update-manager udev tree transmission-daemon time telnet xclip libfreetype6-dev libfontconfig1-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev tidy mono-xbuild texlive-latex-base texlive-fonts-recommended texlive-latex-extra autojump ripgrep ack-grep source-highlight
+# NOTE: this will likely break
+apt -y install sudo build-essential firefox google-chrome-stable apache2 bzip2 tmux cups evince java-common libreoffice mysql-server openvpn perl postgresql postgresql-contrib r-base tabix youtube-dl xboxdrv vpnc vim vim-common unrar udev transmission-cli tar syslinux rsync redshift redshift-gtk perl-base parted gparted openssh-client openssh-server openjdk-8-jdk ntfs-3g ntfs-config ncurses-base ncurses-bin mtp-tools git exfat-fuse exfat-utils curl bash bioperl zip bash-completion cmake console-setup cli-common ffmpeg chromium-codecs-ffmpeg-extra eject debianutils cron diffutils devscripts fontconfig ftp gcc gimp git-all grep gwenview htop joystick  incron keyboard-configuration keytouch-editor language-pack-en manpages nano mount npm openssh-client openssh-server wget unzip udev update-manager udev tree transmission-daemon time telnet xclip libfreetype6-dev libfontconfig1-dev libcurl4-openssl-dev libxml2-dev libxslt1-dev tidy mono-xbuild texlive-latex-base texlive-fonts-recommended texlive-latex-extra autojump ripgrep ack-grep source-highlight arandr zathura feh
 
 # HTML linter for vim ale
 npm install htmlhint -g
@@ -60,6 +94,7 @@ for repo in $repos; do
 done
 
 # setup font
+# NOTE: this should no longer be required
 wget https://github.com/source-foundry/Hack/releases/download/v3.003/Hack-v3.003-ttf.zip
 unzip Hack-v3.003-ttf.zip
 mv ttf/ /usr/share/fonts/
@@ -81,8 +116,9 @@ ln -s ${TOP_DIR}/vimrc ~/.vimrc
 ln -s ${TOP_DIR}/bashrc ~/.bashrc
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 cp ${TOP_DIR}/terminalrc  ~/config/xfce4/terminal/ 
-ln -s ${TOP_DIR}/eslintrc ~/.eslintrc.js
 ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
+ln -s ${TOP_DIR}/i3/config ~/.config/i3/config
+ln -s ${TOP_DIR}/i3/i3status.conf ~/.config/i3/i3status.conf
  
 # set up vim stuff
 # NOTE: the colorschemes may need to be moved from bundle to colors dir
@@ -97,3 +133,5 @@ indent-spaces: 2
 quiet: yes
 tidy-mark: no
 wrap: 90" >> /etc/tidy.conf
+
+echo "ensure to install wting/autojump and junegunn/fzf"
