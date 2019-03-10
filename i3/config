@@ -59,7 +59,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym Print exec scrot
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal
 
 # lock screen activation
 bindsym $mod+Shift+x exec i3lock-fancy 
@@ -193,6 +193,7 @@ bindsym $mod+Shift+10 move container to workspace 10
 assign [class="Firefox"] $workspace3
 assign [class=$file_manager_class] $workspace4
 assign [class="TelegramDesktop"] $workspace9
+assign [class="Slack"] $workspace9
 for_window [class="Spotify"] move to workspace $workspace9
 
 # only works on floating windows
@@ -261,6 +262,7 @@ exec firefox
 # exec --no-startup-id xfce4-panel --disable-wm-check
 exec_always feh --bg-scale $wallpaper
 exec $file_manager
+exec slack
 
 
 ##################
