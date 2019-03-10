@@ -143,7 +143,6 @@ up() {
         CDSTR=""
         for i in $(seq 1 $1) ; do
             CDSTR="../$CDSTR"
-            echo $CDSTR
         done
         cd $CDSTR
     fi
@@ -189,6 +188,10 @@ alias hsi="history | grep"
 alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro; export CELERY_LOADER=velocity.celeryloader.DjangoLoader"
 alias jvel="vel; cd ~/projects/velocitynotes/jupyter_notebooks/; jupyter notebook"
 alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
+
+# fix resolve.conf for work VPN
+alias fix_vpn="sudo echo -e 'nameserver 10.200.53.10\nnameserver 10.200.23.10\nsearch crewe.ukfuels.co.uk' > /etc/resolv.conf"
+
 
 #### COLOURS
 # change the colour of the dirs and executable files

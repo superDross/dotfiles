@@ -26,5 +26,5 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -s ${TOP_DIR}/tmux.conf ~/.tmux.conf
 
 # js linters have to be installed on a per project basis
-# npm install eslint babel-eslint eslint-plugin-react stylelint prettier eslint-config-prettier eslint-plugin-prettier --save-dev
+npm install -g eslint flow-bin babel-eslint eslint-plugin-react stylelint prettier eslint-config-prettier eslint-plugin-prettier --save-dev
 # eslint --init
