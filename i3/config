@@ -269,12 +269,26 @@ exec slack
 #     GAPS       #
 #################
 
+# gaps only when there is more than one window
+smart_gaps on
 gaps inner 15
 gaps outer 15
-workspace $workspace2 gaps outer 1
-workspace $workspace2 gaps inner 1
-workspace $workspace3 gaps outer 1
-workspace $workspace3 gaps inner 1
+
+mode "gaps_resize" {
+        bindsym j exec gaps outer all plus 5; gaps inner all plus 5
+        bindsym k exec gaps outer all minus 5; gaps inner all minus 5
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym  $mod+Shift+g mode "gaps_resize"
+
+# workspace $workspace2 gaps outer 1
+# workspace $workspace2 gaps inner 1
+# workspace $workspace3 gaps outer 1
+# workspace $workspace3 gaps inner 1
 
 
 #######################
