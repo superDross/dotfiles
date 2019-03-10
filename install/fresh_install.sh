@@ -111,6 +111,10 @@ fi
 if [ -e ~/.vimrc ]; then
 	mv ~/.vimrc ~/.vimrc_OG
 fi
+if [ -e ~/.config/i3/config ]; then
+  mv ~/.config/i3/config ~/.config/i3/config_BU
+fi
+
 #
 ln -s ${TOP_DIR}/vimrc ~/.vimrc
 ln -s ${TOP_DIR}/bashrc ~/.bashrc
