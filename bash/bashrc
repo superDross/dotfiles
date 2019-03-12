@@ -154,6 +154,9 @@ vlc_stream() {
   peerflix "$1" --remove --vlc --quiet --list
 }
 
+i3move() {
+  i3-msg move workspace to output "$1"
+}
 
 #### ALIASES
 # hide unwanted files, make directories first shown, then show files.
