@@ -148,6 +148,11 @@ up() {
     fi
 }
 
+# stream torrent magnet in VLC
+vlc_stream() {
+  # use CTRL+Z and then type `bg` to take back your terminal
+  peerflix "$1" --remove --vlc --quiet --list
+}
 
 i3move() {
   i3-msg move workspace to output "$1"
@@ -197,6 +202,7 @@ alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MOD
 # fix resolve.conf for work VPN
 alias fix_vpn="sudo echo -e 'nameserver 10.200.53.10\nnameserver 10.200.23.10\nsearch crewe.ukfuels.co.uk' > /etc/resolv.conf"
 
+alias dragonball='vlc_stream "magnet:?xt=urn:btih:a90c45f9c0c9b07435d1aad8564077b2ac7591aa"'
 
 #### COLOURS
 # change the colour of the dirs and executable files
