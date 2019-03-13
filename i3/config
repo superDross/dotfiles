@@ -266,9 +266,41 @@ exec $file_manager
 exec slack
 
 
+#################
+#    DISPLAY    #
+#################
+
+set $display display: (m)irror (o)ffice
+mode "$display" {
+  bindsym m exec xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal \
+                        --output HDMI-2 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+  bindsym o exec xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal \
+                        --output DP-1-1 --mode 1920x1080 --pos 1920x0 --rotate normal \
+                        --output DP-1-3 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+  bindsym t exec ls \
+-l > ~/this.txt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+Shift+d mode "$display"
+
+
+set $move move: left (h), right (l)
+mode "$move" {
+  bindsym l move workspace to output right
+  bindsym h move workspace to output left
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+m mode "$move"
+
 ##################
 #     GAPS       #
-#################
+##################
 
 # gaps only when there is more than one window
 # smart_gaps on
