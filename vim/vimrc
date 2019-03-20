@@ -68,6 +68,7 @@ Plugin 'pbrisbin/vim-colors-off'
 Plugin 'joshdick/onedark.vim'
 Plugin 'rakr/vim-two-firewatch'
 Plugin 'bcicen/vim-vice'
+Plugin 'ajh17/Spacegray.vim'
 
 "EXTENDED FUNCTION: further improve editing
 Plugin 'tpope/vim-surround'
