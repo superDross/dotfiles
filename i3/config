@@ -126,6 +126,12 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+# no more gaps
+bindsym $mod+n gaps outer current set 0; gaps inner current set 0
+
+# gaps default size
+bindsym $mod+o gaps outer current set 15; gaps inner current set 15
+
 
 ##################
 #    MEDIA       #
@@ -200,6 +206,20 @@ for_window [class="Spotify"] move to workspace $workspace9
 for_window [instance=vlc] sticky enable
 
 
+########################
+#    START UP APPS     #
+########################
+
+exec_always feh --bg-scale $wallpaper
+exec xfce4-terminal
+exec firefox
+# exec --no-startup-id xfce4-panel --disable-wm-check
+exec $file_manager
+exec --no-startup-id "sh -c 'sleep 3;  /home/david/bin/Telegram/Telegram'"
+exec spotify
+exec slack
+
+
 #########################
 #    WINDOW RESIZING    #
 #########################
@@ -251,20 +271,6 @@ bar {
 }
 
 
-########################
-#    START UP APPS     #
-########################
-
-exec --no-startup-id "sh -c 'sleep 3;  /home/david/bin/Telegram/Telegram'"
-exec spotify
-exec xfce4-terminal
-exec firefox
-# exec --no-startup-id xfce4-panel --disable-wm-check
-exec_always feh --bg-scale $wallpaper
-exec $file_manager
-exec slack
-
-
 #################
 #    DISPLAY    #
 #################
@@ -313,6 +319,7 @@ workspace $workspace2 gaps outer 0
 workspace $workspace2 gaps inner 0
 workspace $workspace3 gaps outer 0
 workspace $workspace3 gaps inner 0
+
 
 # help messages when entering gaps mode(s)
 set $mode_gaps Gaps: (a)ll, (o)uter, (i)nner, (h)orizontal, (v)ertical, (t)op, (r)ight, (b)ottom, (l)eft
