@@ -5,6 +5,12 @@
 set $mod Mod4
 font pango:System San Fransisco Display 11
 
+########################
+#      GENERAL         #
+########################
+
+focus_follows_mouse no
+
 
 #########################
 #       VARIABLES       #
@@ -216,9 +222,9 @@ exec_always feh --bg-scale $wallpaper
 exec xfce4-terminal
 exec firefox
 # exec --no-startup-id xfce4-panel --disable-wm-check
-exec $file_manager
+# exec $file_manager
 exec --no-startup-id "sh -c 'sleep 3;  /home/david/bin/Telegram/Telegram'"
-exec spotify
+# exec spotify
 exec slack
 
 
