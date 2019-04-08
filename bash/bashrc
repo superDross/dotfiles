@@ -154,8 +154,16 @@ vlc_stream() {
   peerflix "$1" --remove --vlc --quiet --list
 }
 
-i3move() {
-  i3-msg move workspace to output "$1"
+# intiate the dbgp debugger for vim
+debug() {
+  if [ "$1" != "python2" ] && [ "$1" != "python3" ]; then
+    local py_version="python3"
+    local args="$@"
+  else
+    local py_version="$1"
+    local args="${@:2}"
+  fi
+  ${py_version} -S ~/.vim/debuggers/${py_version}/pydbgp -d localhost:9000 $args
 }
 
 #### ALIASES
