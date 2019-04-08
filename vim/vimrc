@@ -40,6 +40,10 @@ Plugin 'mxw/vim-jsx'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'baabelfish/nvim-nim'
 
+" DEBUGGING: ipdb
+Plugin 'vim-vdebug/vdebug'
+
+
 " FILES: explore dirs in another buffer
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -92,6 +96,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'gcmt/taboo.vim'
 
 call vundle#end()
+
 
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -191,6 +196,20 @@ nnoremap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
+" Debugging
+let g:vdebug_keymap = {
+\    "run" : "<Leader>r",
+\    "run_to_cursor" : "<Leader>c",
+\    "step_over" : "<Leader>v",
+\    "step_into" : "<Leader>i",
+\    "step_out" : "<Leader>o",
+\    "close" : "<Leader>s",
+\    "detach" : "<Leader>d",
+\    "set_breakpoint" : "<Leader>b",
+\    "get_context" : "<Leader>g",
+\    "eval_under_cursor" : "<Leader>v",
+\    "eval_visual" : "<Leader>e",
+\}
 
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
@@ -479,12 +498,12 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
 """" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
-let g:runview_filtcmd='python3.7'
+let g:runview_filtcmd='python3.6'
 
 " check file extension and parse appropriate command to runview and assign to F12
 let filename = expand('%:p')
 let extension = expand('%:e')
-let extension_dict = {'py': '%RunView!python3.7', 'sh': '%RunView!sh', 'js': '%RunView!node'}
+let extension_dict = {'py': '%RunView!python3.6', 'sh': '%RunView!sh', 'js': '%RunView!node'}
 let extension_command = get(extension_dict, extension)
 
 """" SYNTASTIC """"""""""""""""""""""""""""""""""""""
@@ -552,3 +571,5 @@ let g:user_emmet_settings = {
     \      'quote_char': "'",
     \  },
   \}
+
+
