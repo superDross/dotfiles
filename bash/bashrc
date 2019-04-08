@@ -156,14 +156,19 @@ vlc_stream() {
 
 # intiate the dbgp debugger for vim
 debug() {
-  if [ "$1" != "python2" ] && [ "$1" != "python3" ]; then
-    local py_version="python3"
-    local args="$@"
-  else
-    local py_version="$1"
-    local args="${@:2}"
+  local py_version="$1"
+  local py_dir=$($py_version --version  2>&1 | sed 's/P/p/g' | sed 's/\ //g' | sed 's/\..*//g')
+  local args="${@:2}"
+
+  if echo "$1" | grep  -v -q python; then
+    echo "$1" is not a valid python version
   fi
-  ${py_version} -S ~/.vim/debuggers/${py_version}/pydbgp -d localhost:9000 $args
+  
+  if [ "$py_dir" == "python2" ]; then
+    ${py_version} ~/.vim/debuggers/${py_dir}/pydbgp -d localhost:9000 $args
+  elif [ "$py_dir" == "python3" ]; then
+    ${py_version} -S ~/.vim/debuggers/${py_dir}/pydbgp -d localhost:9000 $args
+  fi
 }
 
 #### ALIASES
