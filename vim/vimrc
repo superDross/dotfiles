@@ -13,7 +13,7 @@ Plug 'majutsushi/tagbar'
 
 " AUTOCOMPLETION: autocompletes as you type
 " Deoplete
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'wokalski/autocomplete-flow'
@@ -34,7 +34,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 
 " DEBUGGING: dbpg
-Plug 'vim-vdebug/vdebug', { 'for': ['python', 'javascript'] }
+Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
 
 " FILES: explore dirs in another buffer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -76,7 +76,7 @@ Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html'] }
 Plug 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
-Plug 'junegunn/fzf', { 'on': 'FZF' }
+Plug 'junegunn/fzf', { 'on': 'FZF', 'do': './install --all' }
 " grep in vim
 Plug 'mileszs/ack.vim', { 'on': 'FZF' }
 
