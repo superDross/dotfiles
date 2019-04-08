@@ -4,100 +4,87 @@ let extension = expand('%:e')
 let filename = expand('%:t')
 
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
-" set the runtime path to include Vundle and initialize
-set runtimepath+=~/.vim/bundle/Vundle.vim
-
-call vundle#begin()
-
-" VUNDLE: vim package manager. within vim PluginInstall
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
 " CODE JUMPING: jump to a function or class definition in the code base
-Plugin 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 " see tags in sidebar (methods classes etc.)
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 
 " AUTOCOMPLETION: autocompletes as you type
 " Deoplete
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'roxma/nvim-yarp'
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'wokalski/autocomplete-flow'
-
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'wokalski/autocomplete-flow'
 " use tab for all completion needs
-Plugin 'ervandew/supertab'
+Plug 'ervandew/supertab'
 
 " LINTERS: syntax checkers; dependent upon flake8.
-Plugin 'w0rp/ale'
-Plugin 'nvie/vim-flake8'
-Plugin 'koalaman/shellcheck'
-Plugin 'jimhester/lintr'
+Plug 'w0rp/ale'
+Plug 'nvie/vim-flake8', { 'for': 'python' }
+Plug 'koalaman/shellcheck', { 'for': ['bash', 'shell'] }
+Plug 'jimhester/lintr', { 'for': 'R' }
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-Plugin 'vim-scripts/Vim-R-plugin'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'baabelfish/nvim-nim'
+Plug 'vim-scripts/Vim-R-plugin', { 'for': 'R' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'sheerun/vim-polyglot'
+Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 
-" DEBUGGING: ipdb
-Plugin 'vim-vdebug/vdebug'
-
+" DEBUGGING: dbpg
+Plug 'vim-vdebug/vdebug', { 'for': ['python', 'javascript'] }
 
 " FILES: explore dirs in another buffer
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-" INDENTLINES: indentations marked by vertical lines
-Plugin 'Yggdroot/indentLine'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
 " GIT: use git commands in vim e.g. Glog
-Plugin 'tpope/vim-fugitive'
-Plugin 'jlfwong/vim-mercenary'
+Plug 'tpope/vim-fugitive'
+Plug 'jlfwong/vim-mercenary'
 
 " MARKDOWN: preview markdown files
-Plugin 'JamshedVesuna/vim-markdown-preview'
+Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
 
 "OUTPUT: execute commands in a new buffer
-Plugin 'vim-scripts/RunView'
+Plug 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
-Plugin 'markonm/traces.vim'
+Plug 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
-Plugin 'morhetz/gruvbox'
-Plugin 'pbrisbin/vim-colors-off'
+Plug 'morhetz/gruvbox'
+Plug 'pbrisbin/vim-colors-off'
 " The below schemes only work well for python
-Plugin 'joshdick/onedark.vim'
-Plugin 'rakr/vim-two-firewatch'
-Plugin 'bcicen/vim-vice'
-Plugin 'ajh17/Spacegray.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'rakr/vim-two-firewatch'
+Plug 'bcicen/vim-vice'
+Plug 'ajh17/Spacegray.vim'
 
 "EXTENDED FUNCTION: further improve editing
-Plugin 'tpope/vim-surround'
-Plugin 'tommcdo/vim-lion'  " align around a character
+Plug 'tpope/vim-surround'
+Plug 'tommcdo/vim-lion'  " align around a character
 
 " CSV: manipulate CSV files easily (READ THE DOCS)
-Plugin 'chrisbra/csv.vim'
+Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 
 " HTML: automates HTML tags (check tutorial)
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html'] }
 
 " STATUSLINE: lightweight status line
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
-Plugin 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'on': 'FZF' }
 " grep in vim
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim', { 'on': 'FZF' }
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
-Plugin 'gcmt/taboo.vim'
+Plug 'gcmt/taboo.vim'
 
-call vundle#end()
-
-
+"call vundle#end()
+call plug#end()
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
