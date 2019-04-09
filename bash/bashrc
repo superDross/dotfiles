@@ -116,7 +116,7 @@ fi
 #### FUNCTIONS
 # Usage: findpy "Driver ID"
 ffind() {
-	find . -type f -name "*.$1" ! -path '*/venv/*' | xargs grep "${@:2}"
+	find . -type f -name "*.$1" ! -path '*/venv/*' -path 'node_modules/*' | xargs grep "${@:2}"
 }
 
 # parse git or hg branch name
