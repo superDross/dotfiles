@@ -134,6 +134,7 @@ install_extras() {
                  transmission-daemon autojump ripgrep \
                  ack-grep source-highlight arandr feh
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  snap install tldr
 }
 
 
