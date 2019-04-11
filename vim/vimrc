@@ -129,13 +129,14 @@ function! KeyCheat()
 	echo '   :tabe f.txt     = open file in a new tab'
 	echo '   TabooRename s   = rename current tab to s'
   echo 'DEBUGGING'
+  echo '   \\-d            = Start Debugger'
   echo '   \\-r            = Run'
   echo '   \\-c            = Run to Cursor'
   echo '   \\-v            = Step Over'
   echo '   \\-i            = Step Into'
   echo '   \\-o            = Step Out'
   echo '   \\-s            = Stop'
-  echo '   \\-d            = Detach'
+  echo '   \\-D            = Detach'
   echo '   \\-b            = Set Breakpoint'
   echo '   \\-g            = Get Context'
   echo '   \\-v            = Eval Under Cursor'
@@ -203,12 +204,16 @@ let g:vdebug_keymap = {
 \    "step_into" : "<Leader>i",
 \    "step_out" : "<Leader>o",
 \    "close" : "<Leader>s",
-\    "detach" : "<Leader>d",
+\    "detach" : "<Leader>D",
 \    "set_breakpoint" : "<Leader>b",
 \    "get_context" : "<Leader>g",
 \    "eval_under_cursor" : "<Leader>v",
 \    "eval_visual" : "<Leader>e",
 \}
+
+let DebugPy3 = "!python3 ~/.vim/debuggers/python3/pydbgp -d localhost:9000 " . expand('%:p') . " &"
+let DebugPy2 = "!python2 ~/.vim/debuggers/python2/pydbgp -d localhost:9000 " . expand('%:p') . " &"
+nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:exec DebugPy3<CR><CR>
 
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
@@ -570,5 +575,3 @@ let g:user_emmet_settings = {
     \      'quote_char': "'",
     \  },
   \}
-
-
