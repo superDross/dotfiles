@@ -94,8 +94,11 @@ install_office() {
 install_vim() {
   mkdir -p ~/.vim/vimundo ~/.vim/colors
   sudo chmod -R +777 ~/.vim
+  # install Plug
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   apt install -y vim vim-common exuberant-ctags tidy lacheck xdotool ripgrep ack-grep
-  python -m pip install flake8 vim-vint grip autopep8
+  python -m pip install flake8 vim-vint grip autopep8 isort
   # flake8 is not compatible with pycodestyle >= 2.4.0
   python -m pip install pycodestyle==2.3.0
   python3 -m pip install pynvim
@@ -162,7 +165,7 @@ backup_dotfiles() {
 
 create_shortcuts() {
   ln -s ${TOP_DIR}/vim/vimrc ~/.vimrc
-  ln -s ${TOP_DIR}/vim/debugger ~/.vim/debugger
+  ln -s ${TOP_DIR}/vim/debuggers ~/.vim/debuggers
   ln -s ${TOP_DIR}/bash/bashrc ~/.bashrc
   cp ${TOP_DIR}/terminal/terminalrc  ~/config/xfce4/terminal/
   ln -s ${TOP_DIR}/tmux/tmux.conf ~/.tmux.conf

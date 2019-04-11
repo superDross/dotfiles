@@ -13,7 +13,7 @@ Plug 'majutsushi/tagbar'
 
 " AUTOCOMPLETION: autocompletes as you type
 " Deoplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'wokalski/autocomplete-flow'
@@ -530,7 +530,7 @@ endif
 if v:version >= 800
     let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\    'python': ['autopep8'],
+	\    'python': ['autopep8', 'isort'],
 	\    'javascript': ['eslint', 'prettier-eslint'],
 	\    'html': ['tidy'],
  	\    'nim': ['nimcheck'],
