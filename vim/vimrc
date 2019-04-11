@@ -34,8 +34,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 
 " DEBUGGING: dbpg
-Plug 'vim-vdebug/vdebug' 
-", { 'for': ['python', 'perl', 'ruby', 'php'] }
+Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
 
 " FILES: explore dirs in another buffer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -185,11 +184,11 @@ function! VimCheat()
 endfunction
 
 """" CUSTOM COMMANDS """"""""""""""""""""""""""""""""""""""""""
-function! GetDebuggerCmd(lang, file)
-  if a:file ==# '.'
+function! GetDebuggerCmd(lang, ...)
+  if a:1 ==# '.'
     let file = expand('%:p')
   else
-    let file = a:file
+    let file = a:000[0]
   endif
   if a:lang =~# 'python'
     let cmd = '!' . a:lang . ' ~/.vim/debuggers/' . a:lang .
