@@ -233,6 +233,7 @@ let g:vdebug_keymap = {
 \    "eval_visual" : "<Leader>e",
 \}
 
+" launch python3 debugger on current file
 nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:DebugPy3 .<CR><CR>
 
 " jump to next and previous error
@@ -595,3 +596,13 @@ let g:user_emmet_settings = {
     \      'quote_char': "'",
     \  },
   \}
+
+"""" DEBUGGER """"""""""""""""""""""""""""""""""""""""""""""""""
+" window size readjusted
+let g:vdebug_options = {
+      \   'window_commands': {
+      \     'DebuggerWatch': 'vertical belowright new',
+      \     'DebuggerStack': 'belowright new +res6',
+      \     'DebuggerStatus': 'belowright new +res6'
+      \   },
+      \ }
