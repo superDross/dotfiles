@@ -8,11 +8,16 @@ call plug#begin()
 
 " CODE JUMPING: jump to a function or class definition in the code base
 Plug 'ludovicchabant/vim-gutentags'
-" see tags in sidebar (methods classes etc.)
+
+" TAG BROWSER: get class/function names in a sidebar
 Plug 'majutsushi/tagbar'
 
-" AUTOCOMPLETION: autocompletes as you type
-" Deoplete
+" AUTOCOMPLETION: command completion as you type
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+" Completion engine
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
@@ -20,7 +25,7 @@ Plug 'wokalski/autocomplete-flow'
 " use tab for all completion needs
 Plug 'ervandew/supertab'
 
-" LINTERS: syntax checkers; dependent upon flake8.
+" LINTERS: syntax checkers
 Plug 'w0rp/ale'
 Plug 'nvie/vim-flake8', { 'for': 'python' }
 Plug 'koalaman/shellcheck', { 'for': ['bash', 'shell'] }
@@ -37,8 +42,8 @@ Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
 
 " FILES: explore dirs in another buffer
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeFind', 'NERDTreeToggle']}
 
 " GIT: use git commands in vim e.g. Glog
 Plug 'tpope/vim-fugitive'
@@ -56,11 +61,6 @@ Plug 'markonm/traces.vim'
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plug 'morhetz/gruvbox'
 Plug 'pbrisbin/vim-colors-off'
-" The below schemes only work well for python
-Plug 'joshdick/onedark.vim'
-Plug 'rakr/vim-two-firewatch'
-Plug 'bcicen/vim-vice'
-Plug 'ajh17/Spacegray.vim'
 
 "EXTENDED FUNCTION: further improve editing
 Plug 'tpope/vim-surround'
@@ -78,7 +78,7 @@ Plug 'itchyny/lightline.vim'
 " FILEFINDER: fuzzy file finder
 Plug 'junegunn/fzf', { 'on': 'FZF', 'do': './install --all' }
 " grep in vim
-Plug 'mileszs/ack.vim', { 'on': 'FZF' }
+Plug 'mileszs/ack.vim', { 'on': 'Ack!' }
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
@@ -88,46 +88,43 @@ call plug#end()
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
-	echo 'FUNCTION KEYS'
-	echo '    F2             = paste toggle'
-	echo '    F3             = ALEFix'
-	echo '    \\+F3          = ALEToggle'
-	echo '    F4             = NERDTreeToggle'
-	echo '    \\+F4          = NERDTreeFind'
-	echo '    F5             = view this cheatsheet'
-	echo '    F6             = source .vimrc'
-	echo '    F7             = call flake8'
-	echo '    F8             = tag bar'
-	echo '    F9             = toggle highlight search'
-	echo '    F12            = RunView'
-	echo 'GUTENTAGS'
-	echo '    C-\\           = open definition in a new vs window'
-	echo '    C-/            = open definition in a new sp window'
-	echo '    \ C-]          = open definition in a new tab.'
-	echo '    C-]            = go to definition location'
-	echo '    g-]            = give a list of all possible locations'
-	echo '    C-t            = got to previous location'
-	echo 'FZF'
-	echo '    \\-f           = fuzzy find file'
-	echo '    C-v            = open fuzzy found file in a vs window'
-	echo '    C-x            = open fuzzy found file in a sp window'
-	echo '    C-t            = open fuzzy found file in a new tab window'
-	echo '    \\-a           = fuzzy grep'
-	echo 'ALE'
-	echo '    \\-j           = go to line with next mistake'
-	echo '    \\-k           = go to line with previous mistake'
-	echo 'SESSIONS'
-	echo '   :mks t.vim      = create vim session'
-	echo '   vim -S t.vim    = reopen vim session'
-	echo 'TABS'
-	echo '   \\-Num          = go tab number'
-	echo '   C-Right         = go to next tab'
-	echo '   S-Tab           = go to next tab'
-	echo '   C-Left          = go to previous tab'
-	echo '   C-Up            = list all tabs'
-	echo '   C-Down          = open the vim help page in a new tab'
-	echo '   :tabe f.txt     = open file in a new tab'
-	echo '   TabooRename s   = rename current tab to s'
+  echo 'FUNCTION KEYS'
+  echo '    F2             = paste toggle'
+  echo '    F3             = ALEFix'
+  echo '    \\+F3          = ALEToggle'
+  echo '    F4             = NERDTreeToggle'
+  echo '    \\+F4          = NERDTreeFind'
+  echo '    F5             = view this cheatsheet'
+  echo '    F6             = source .vimrc'
+  echo '    F7             = call flake8'
+  echo '    F8             = tag bar'
+  echo '    F9             = toggle highlight search'
+  echo '    F12            = RunView'
+  echo 'GUTENTAGS'
+  echo '    C-\\           = open definition in a new vs window'
+  echo '    C-/            = open definition in a new sp window'
+  echo '    \ C-]          = open definition in a new tab.'
+  echo '    C-]            = go to definition location'
+  echo '    g-]            = give a list of all possible locations'
+  echo '    C-t            = got to previous location'
+  echo 'FZF'
+  echo '    \\-f           = fuzzy find file'
+  echo '    \\-a           = fuzzy grep'
+  echo '    C-v            = open fuzzy found file in a vs window'
+  echo '    C-x            = open fuzzy found file in a sp window'
+  echo '    C-t            = open fuzzy found file in a new tab window'
+  echo 'ALE'
+  echo '    \\-j           = go to line with next mistake'
+  echo '    \\-k           = go to line with previous mistake'
+  echo 'SESSIONS'
+  echo '   :mks t.vim      = create vim session'
+  echo '   vim -S t.vim    = reopen vim session'
+  echo 'TABS'
+  echo '   \\-Num          = go tab number'
+  echo '   C-l             = go to next tab'
+  echo '   C-h             = go to previous tab'
+  echo '   :tabe f.txt     = open file in a new tab'
+  echo '   TabooRename s   = rename current tab to s'
   echo 'DEBUGGING'
   echo '   \\-d            = Start Debugger'
   echo '   \\-r            = Run'
@@ -138,49 +135,50 @@ function! KeyCheat()
   echo '   \\-s            = Stop'
   echo '   \\-D            = Detach'
   echo '   \\-b            = Set Breakpoint'
+  echo '   \\-B            = Remove All Breakpoints'
   echo '   \\-g            = Get Context'
   echo '   \\-v            = Eval Under Cursor'
   echo '   \\-e            = Eval Visual'
-	echo 'GENERAL'
-	echo '   K               = show docs (python only)'
-	echo '   C-w x           = swap column/row panes'
-	echo '   C-w K           = move window to the topmost'
-	echo '   C-w H           = move window to the bottomost'
-	echo '   \\-t            = open terminal window at the bottom'
-	echo '   C-w N           = switch to vim mode in terminal'
+  echo 'GENERAL'
+  echo '   K               = show docs (python only)'
+  echo '   C-w x           = swap column/row panes'
+  echo '   C-w K           = move window to the topmost'
+  echo '   C-w H           = move window to the bottomost'
+  echo '   \\-t            = open terminal window at the bottom'
+  echo '   C-w N           = switch to vim mode in terminal'
   echo 'NERDTREE'
   echo '   \\-O            = open NERDTree and locate current file'
-	echo 'LION'
-	echo '   gl<key>         = align <key> vertically'
+  echo 'LION'
+  echo '   gl<key>         = align <key> vertically'
 endfunction
 
 function! VimCheat()
-	echo 'OPERATORS'
-	echo '   c	change'
-	echo '   d	delete'
-	echo '   y	yank into register (does not change the text)'
-	echo '   gq	text formatting'
-	echo '   ~	swap case (only if tildeop is set)'
-	echo '   >	shift right'
-	echo '   <	shift left'
-	echo '   !	filter through an external program'
-	echo '   zf	define a fold'
-	echo '   g@     call function set with the operatorfunc option'
-	echo 'MOTIONS'
-	echo '   l       a letter'
-	echo '   b       last word'
-	echo '   aw      a word'
-	echo '   as      a sentence'
-	echo '   ap      a paragraph'
-	echo '   aa      an argument'
-	echo '   a(      a parenthesis'
-	echo '   at      a tag (html)'
-	echo '   ia      in argument'
-	echo '   i(      inside paranthesis'
-	echo '   it      inside tag'
-	echo '   t(      to paranthesis'
-	echo '   f(      find paranthesis'
-	echo '   /pass   to "pass"'
+  echo 'OPERATORS'
+  echo '   c	change'
+  echo '   d	delete'
+  echo '   y	yank into register (does not change the text)'
+  echo '   gq	text formatting'
+  echo '   ~	swap case (only if tildeop is set)'
+  echo '   >	shift right'
+  echo '   <	shift left'
+  echo '   !	filter through an external program'
+  echo '   zf	define a fold'
+  echo '   g@     call function set with the operatorfunc option'
+  echo 'MOTIONS'
+  echo '   l       a letter'
+  echo '   b       last word'
+  echo '   aw      a word'
+  echo '   as      a sentence'
+  echo '   ap      a paragraph'
+  echo '   aa      an argument'
+  echo '   a(      a parenthesis'
+  echo '   at      a tag (html)'
+  echo '   ia      in argument'
+  echo '   i(      inside paranthesis'
+  echo '   it      inside tag'
+  echo '   t(      to paranthesis'
+  echo '   f(      find paranthesis'
+  echo '   /pass   to "pass"'
 endfunction
 
 """" CUSTOM COMMANDS """"""""""""""""""""""""""""""""""""""""""
@@ -205,6 +203,27 @@ endfunction
 command! -nargs=1 DebugPy2 :call GetDebuggerCmd("python2", <f-args>)
 command! -nargs=1 DebugPy3 :call GetDebuggerCmd("python3", <f-args>)
 
+function! ClassBuilder(...)
+  let class_line = 'class ' . a:1 . ':'
+  let init_line = '    def __init__(self, ' . join(a:000[1:], ', ') . '):'
+  call append(line('.'), class_line)
+  call append(line('.')+1, init_line)
+  let line_n = line('.')+2
+  for attr in a:000[1:]
+    call append(line_n, '        self.' . attr . ' = ' . attr)
+    let line_n += 1
+  endfor
+endfunction
+
+command! -nargs=* Class :call ClassBuilder(<f-args>)
+
+"""" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
+" ci( for next and last parenthesis on the line
+for char in ['(', '[', '{', '"', "'"]
+	execute 'onoremap in' . char .  ' :<c-u>normal! f(vi(<cr>'
+	execute 'onoremap il' . char .  ' :<c-u>normal! F(vi(<cr>'
+endfor
+
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
 " function keys
 set pastetoggle=<F2>
@@ -220,21 +239,22 @@ nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " Debugging
 let g:vdebug_keymap = {
-\    "run" : "<Leader>r",
-\    "run_to_cursor" : "<Leader>c",
-\    "step_over" : "<Leader>v",
-\    "step_into" : "<Leader>i",
-\    "step_out" : "<Leader>o",
-\    "close" : "<Leader>s",
-\    "detach" : "<Leader>D",
-\    "set_breakpoint" : "<Leader>b",
-\    "get_context" : "<Leader>g",
-\    "eval_under_cursor" : "<Leader>v",
-\    "eval_visual" : "<Leader>e",
+\    'run' : '<Leader>r',
+\    'run_to_cursor' : '<Leader>c',
+\    'step_over' : '<Leader>v',
+\    'step_into' : '<Leader>i',
+\    'step_out' : '<Leader>o',
+\    'close' : '<Leader>s',
+\    'detach' : '<Leader>D',
+\    'set_breakpoint' : '<Leader>b',
+\    'get_context' : '<Leader>g',
+\    'eval_under_cursor' : '<Leader>v',
+\    'eval_visual' : '<Leader>e',
 \}
 
 " launch python3 debugger on current file
 nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:DebugPy3 .<CR><CR>
+nnoremap <Leader>B :BreakpointRemove *<CR>
 
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
@@ -264,7 +284,7 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<CR>
 
 " source vimrc
-nnoremap <leader>s :exec 'source $VIMRC'<CR>
+nnoremap <leader>S :exec 'source $VIMRC'<CR>
 
 " fuzzy file finder key
 nnoremap <leader>f :FZF<CR>
@@ -345,7 +365,7 @@ set background=dark
 set t_Co=256
 colorscheme gruvbox
 " termguicolors causes tmux vim sessions to go monochrome
-if !exists("$TMUX")
+if !exists('$TMUX')
   set termguicolors
 endif
 
@@ -358,13 +378,6 @@ iabbrev pudb import pudb;pudb.set_trace()
 " C-b in insert mode will add test string into file
 "imap <C-b> console.log()
 imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
-
-"""" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
-" ci( for next and last parenthesis on the line
-for char in ['(', '[', '{', '"', "'"]
-	execute 'onoremap in' . char .  ' :<c-u>normal! f(vi(<cr>'
-	execute 'onoremap il' . char .  ' :<c-u>normal! F(vi(<cr>'
-endfor
 
 """" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
 " 'unlimited' number of undo's
@@ -392,7 +405,7 @@ let vimrplugin_assign = 0
 
 """" NIM SETTINGS """""""""""""""""""""""""""""""""""""""""""""""""
 fun! JumpToDef()
-  if exists("*GotoDefinition_" . &filetype)
+  if exists('*GotoDefinition_' . &filetype)
     call GotoDefinition_{&filetype}()
   else
     exe "norm! \<C-]>"
@@ -425,28 +438,36 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set softtabstop=2
   set shiftwidth=2
 augroup END
-"""" DEOPLETE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" AUTOCOMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
 
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ 'bash': ['/usr/local/bin/bash-language-server'],
+    \ }
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
 set laststatus=2
-" mo longer show mode in bottom line
+" no longer show mode in bottom line
 set noshowmode
 
 " show git branch in status line
 let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'filetype' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+\ 'active': {
+\     'left': [ [ 'mode', 'paste' ],
+\               [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+\     'right': [ [ 'lineinfo' ],
+\                [ 'percent' ],
+\                [ 'filetype' ] ]
+\   },
+\ 'component_function': {
+\     'gitbranch': 'fugitive#head'
+\   },
+\ }
 
 
 """" INDENTLINE """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -470,7 +491,7 @@ set statusline+=%{gutentags#statusline()}
 " sustain tab names over sessions
 set sessionoptions+=tabpages,globals
 " naming format
-let g:taboo_renamed_tab_format = " %l %m "
+let g:taboo_renamed_tab_format = ' %l %m '
 
 """" ACK """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Make Ack! the default command
@@ -500,17 +521,17 @@ autocmd BufEnter * call NERDTreeRefresh()
 
 " git symbol definitions
 let g:NERDTreeIndicatorMapCustom = {
-    \ 'Modified'  : '✹',
-    \ 'Staged'    : '✚',
-    \ 'Untracked' : '✭',
-    \ 'Renamed'   : '➜',
-    \ 'Unmerged'  : '═',
-    \ 'Deleted'   : '✖',
-    \ 'Dirty'     : '✗',
-    \ 'Clean'     : '✔︎',
-    \ 'Ignored'   : '☒',
-    \ 'Unknown'   : '?'
-    \ }
+\   'Modified'  : '✹',
+\   'Staged'    : '✚',
+\   'Untracked' : '✭',
+\   'Renamed'   : '➜',
+\   'Unmerged'  : '═',
+\   'Deleted'   : '✖',
+\   'Dirty'     : '✗',
+\   'Clean'     : '✔︎',
+\   'Ignored'   : '☒',
+\   'Unknown'   : '?'
+\ }
 
 
 " NERDTree thingy
@@ -526,9 +547,11 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 let g:runview_filtcmd='python3.6'
 
 " check file extension and parse appropriate command to runview and assign to F12
-let filename = expand('%:p')
-let extension = expand('%:e')
-let extension_dict = {'py': '%RunView!python3.6', 'sh': '%RunView!sh', 'js': '%RunView!node'}
+let extension_dict = {
+\    'py': '%RunView!python3.6',
+\    'sh': '%RunView!sh',
+\    'js': '%RunView!node'
+\ }
 let extension_command = get(extension_dict, extension)
 
 """" SYNTASTIC """"""""""""""""""""""""""""""""""""""
@@ -552,7 +575,6 @@ if v:version < 800
 endif
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
-
 if v:version >= 800
     let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -591,11 +613,11 @@ autocmd FileType html,css,jsx,javascript EmmetInstall
 
 let g:user_emmet_leader_key=','
 let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \      'quote_char': "'",
-    \  },
-  \}
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\      'quote_char': "'",
+\  },
+\ }
 
 """" DEBUGGER """"""""""""""""""""""""""""""""""""""""""""""""""
 " window size readjusted

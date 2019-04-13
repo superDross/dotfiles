@@ -76,7 +76,7 @@ install_python() {
 install_js() {
   apt install -y npm nodejs
   npm install -g eslint flow-bin babel-eslint eslint-plugin-react stylelint prettier eslint-config-prettier eslint-plugin-prettier --save-dev
-  npm install -g htmlhint n
+  npm install -g htmlhint n javascript-typescript-langserver bash-language-server
 }
 
 install_languages() {
@@ -98,7 +98,7 @@ install_vim() {
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   apt install -y vim vim-common exuberant-ctags tidy lacheck xdotool ripgrep ack-grep
-  python -m pip install flake8 vim-vint grip autopep8 isort
+  python -m pip install flake8 vim-vint grip autopep8 isort python-language-server
   # flake8 is not compatible with pycodestyle >= 2.4.0
   python -m pip install pycodestyle==2.3.0
   python3 -m pip install pynvim
