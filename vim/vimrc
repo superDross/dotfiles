@@ -204,22 +204,20 @@ command! -nargs=1 DebugPy2 :call GetDebuggerCmd("python2", <f-args>)
 command! -nargs=1 DebugPy3 :call GetDebuggerCmd("python3", <f-args>)
 
 function! ClassBuilder(...)
+  " create parameter substring
   if a:000[1:] !=# []
-    let params = ', ' . join(a:000[1:], ', ')
+    let params = printf(', %s', join(a:000[1:], ', '))
   else
     let params = ''
   endif
-
+  " append class text below cursor
   let class = [ 
         \ 'class ' . a:1 . ':',
         \ '    def __init__(self' . params . '):',
         \]
-
-  for attr in a:000[1:]
-    call add(class, '        self.' . attr . ' = ' . attr)
-  endfor
+  let class += map(a:000[1:], "'        self.' . v:val . ' = ' . v:val")
   call append(line('.'), class)
-  " place cursor at the end of the class
+  " place cursor at end of the last class line
   call cursor(line('.') + len(class), len(class[-1]))
 endfunction
 
