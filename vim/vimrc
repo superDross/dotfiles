@@ -83,6 +83,10 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack!' }
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
 
+" PERSONAL: my plugins
+Plug 'superDross/class-builder'
+Plug 'superDross/init-vdebug', { 'do': 'bash install.sh' }
+
 "call vundle#end()
 call plug#end()
 
@@ -181,48 +185,6 @@ function! VimCheat()
   echo '   /pass   to "pass"'
 endfunction
 
-"""" CUSTOM COMMANDS """"""""""""""""""""""""""""""""""""""""""
-function! GetDebuggerCmd(lang, ...)
-  if a:1 ==# '.'
-    let file = expand('%:p')
-  else
-    let file = a:000[0]
-  endif
-  if a:lang =~# 'python'
-    let cmd = '!' . a:lang . ' ~/.vim/debuggers/' . a:lang .
-             \'/pydbgp -d localhost:9000 ' . file . ' &'
-    :silent VdebugStart
-    :silent !sleep 0.1
-    :silent exec cmd
-    :redraw!
-  endif
-endfunction
-
-" :DebugPy3 ~/somefile.py
-" :DebugPy3 .
-command! -nargs=1 DebugPy2 :call GetDebuggerCmd("python2", <f-args>)
-command! -nargs=1 DebugPy3 :call GetDebuggerCmd("python3", <f-args>)
-
-function! ClassBuilder(...)
-  " create parameter substring
-  if a:000[1:] !=# []
-    let params = printf(', %s', join(a:000[1:], ', '))
-  else
-    let params = ''
-  endif
-  " append class text below cursor
-  let class = [ 
-        \ 'class ' . a:1 . ':',
-        \ '    def __init__(self' . params . '):',
-        \]
-  let class += map(a:000[1:], "'        self.' . v:val . ' = ' . v:val")
-  call append(line('.'), class)
-  " place cursor at end of the last class line
-  call cursor(line('.') + len(class), len(class[-1]))
-endfunction
-
-command! -nargs=+ Class :call ClassBuilder(<f-args>)
-
 """" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
 " ci( for next and last parenthesis on the line
 for char in ['(', '[', '{', '"', "'"]
@@ -258,8 +220,7 @@ let g:vdebug_keymap = {
 \    'eval_visual' : '<Leader>e',
 \}
 
-" launch python3 debugger on current file
-nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:DebugPy3 .<CR><CR>
+" nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:DebugPy3 .<CR><CR>
 nnoremap <Leader>B :BreakpointRemove *<CR>
 
 " jump to next and previous error
