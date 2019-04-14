@@ -165,7 +165,6 @@ backup_dotfiles() {
 
 create_shortcuts() {
   ln -s ${TOP_DIR}/vim/vimrc ~/.vimrc
-  ln -s ${TOP_DIR}/vim/debuggers ~/.vim/debuggers
   ln -s ${TOP_DIR}/bash/bashrc ~/.bashrc
   cp ${TOP_DIR}/terminal/terminalrc  ~/config/xfce4/terminal/
   ln -s ${TOP_DIR}/tmux/tmux.conf ~/.tmux.conf
