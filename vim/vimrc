@@ -86,6 +86,7 @@ Plug 'gcmt/taboo.vim'
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
 Plug 'superDross/init-vdebug', { 'do': 'bash install.sh' }
+Plug 'superDross/motion-plus'
 
 "call vundle#end()
 call plug#end()
@@ -184,13 +185,6 @@ function! VimCheat()
   echo '   f(      find paranthesis'
   echo '   /pass   to "pass"'
 endfunction
-
-"""" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
-" ci( for next and last parenthesis on the line
-for char in ['(', '[', '{', '"', "'"]
-	execute 'onoremap in' . char .  ' :<c-u>normal! f(vi(<cr>'
-	execute 'onoremap il' . char .  ' :<c-u>normal! F(vi(<cr>'
-endfor
 
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
 " function keys
