@@ -204,18 +204,26 @@ command! -nargs=1 DebugPy2 :call GetDebuggerCmd("python2", <f-args>)
 command! -nargs=1 DebugPy3 :call GetDebuggerCmd("python3", <f-args>)
 
 function! ClassBuilder(...)
-  let class_line = 'class ' . a:1 . ':'
-  let init_line = '    def __init__(self, ' . join(a:000[1:], ', ') . '):'
-  call append(line('.'), class_line)
-  call append(line('.')+1, init_line)
-  let line_n = line('.')+2
+  if a:000[1:] !=# []
+    let params = ', ' . join(a:000[1:], ', ')
+  else
+    let params = ''
+  endif
+
+  let class = [ 
+        \ 'class ' . a:1 . ':',
+        \ '    def __init__(self' . params . '):',
+        \]
+
   for attr in a:000[1:]
-    call append(line_n, '        self.' . attr . ' = ' . attr)
-    let line_n += 1
+    call add(class, '        self.' . attr . ' = ' . attr)
   endfor
+  call append(line('.'), class)
+  " place cursor at the end of the class
+  call cursor(line('.') + len(class), len(class[-1]))
 endfunction
 
-command! -nargs=* Class :call ClassBuilder(<f-args>)
+command! -nargs=+ Class :call ClassBuilder(<f-args>)
 
 """" CUSTOM MOTIONS """"""""""""""""""""""""""""""""""""""""""""
 " ci( for next and last parenthesis on the line
