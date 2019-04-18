@@ -76,7 +76,7 @@ install_python() {
 install_js() {
   apt install -y npm nodejs
   npm install -g eslint flow-bin babel-eslint eslint-plugin-react stylelint prettier eslint-config-prettier eslint-plugin-prettier --save-dev
-  npm install -g htmlhint n javascript-typescript-langserver bash-language-server
+  npm install --unsafe-perm -g htmlhint n javascript-typescript-langserver bash-language-server
 }
 
 install_languages() {

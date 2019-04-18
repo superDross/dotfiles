@@ -70,7 +70,7 @@ Plug 'tommcdo/vim-lion'  " align around a character
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
 
 " HTML: automates HTML tags (check tutorial)
-Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html'] }
+Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html', 'css'] }
 
 " STATUSLINE: lightweight status line
 Plug 'itchyny/lightline.vim'
@@ -409,7 +409,41 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
     \ 'python': ['/usr/local/bin/pyls'],
     \ 'bash': ['/usr/local/bin/bash-language-server'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
     \ }
+
+" reset warning signs
+let g:LanguageClient_diagnosticsDisplay = {
+    \  1: {
+    \      "name": "Error",
+    \      "texthl": "ALEError",
+    \      "signText": ">>",
+    \      "signTexthl": "ALEErrorSign",
+    \      "virtualTexthl": "Error",
+    \  },
+    \  2: {
+    \      "name": "Warning",
+    \      "texthl": "ALEWarning",
+    \      "signText": "--",
+    \      "signTexthl": "ALEWarningSign",
+    \      "virtualTexthl": "Todo",
+    \             },
+    \  3: {
+    \      "name": "Information",
+    \      "texthl": "ALEInfo",
+    \      "signText": "ℹ",
+    \      "signTexthl": "ALEInfoSign",
+    \      "virtualTexthl": "Todo",
+    \  },
+    \  4: {
+    \      "name": "Hint",
+    \      "texthl": "ALEInfo",
+    \      "signText": "➤",
+    \      "signTexthl": "ALEInfoSign",
+    \      "virtualTexthl": "Todo",
+    \  },
+    \}
+
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
 set laststatus=2
@@ -555,6 +589,10 @@ endif
 "let g:ale_javascript_eslint_use_global = 1
 let g:ale_completion_enabled = 1
 let g:ale_echo_msg_format = '%s [%linter%]'
+
+" change signs
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
 """" JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview (no definitions in python)
