@@ -481,6 +481,7 @@ let g:polyglot_disabled = ['graphql', 'markdown']
 """" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " add tag generation messages to statusline
 set statusline+=%{gutentags#statusline()}
+let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
 
 """" TABOO """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sustain tab names over sessions
