@@ -399,6 +399,7 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set softtabstop=2
   set shiftwidth=2
 augroup END
+
 """" AUTOCOMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:deoplete#enable_at_startup = 1
 
@@ -431,7 +432,7 @@ let g:LanguageClient_diagnosticsDisplay = {
     \  3: {
     \      "name": "Information",
     \      "texthl": "ALEInfo",
-    \      "signText": "ℹ",
+    \      "signText": "-",
     \      "signTexthl": "ALEInfoSign",
     \      "virtualTexthl": "Todo",
     \  },
