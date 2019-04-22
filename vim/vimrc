@@ -10,7 +10,7 @@ call plug#begin()
 Plug 'ludovicchabant/vim-gutentags'
 
 " TAG BROWSER: get class/function names in a sidebar
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 " AUTOCOMPLETION: command completion as you type
 Plug 'autozimu/LanguageClient-neovim', {
