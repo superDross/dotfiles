@@ -217,6 +217,8 @@ alias fix_vpn="sudo echo -e 'nameserver 10.200.53.10\nnameserver 10.200.23.10\ns
 
 alias dragonball='vlc_stream "magnet:?xt=urn:btih:a90c45f9c0c9b07435d1aad8564077b2ac7591aa"'
 
+alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
+
 #### COLOURS
 # change the colour of the dirs and executable files
 export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
