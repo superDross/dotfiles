@@ -279,8 +279,8 @@ set linebreak
 " keeps indentation when text wraps over line
 set breakindent
 
-" make indentations (tab characters) appear 4-spaces wide instead of 8
-"set tabstop=4
+" get backspace to work as expected
+set backspace=indent,eol,start
 
 " all required for numerous plugins to work as expected
 set nocompatible
