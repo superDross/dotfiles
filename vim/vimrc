@@ -57,6 +57,7 @@ Plug 'markonm/traces.vim'
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plug 'morhetz/gruvbox'
 Plug 'pbrisbin/vim-colors-off'
+Plug 'andreasvc/vim-256noir'
 
 "EXTENDED FUNCTION: further improve editing
 Plug 'tpope/vim-surround'
@@ -84,7 +85,6 @@ Plug 'superDross/class-builder'
 Plug 'superDross/init-vdebug', { 'do': 'bash install.sh' }
 Plug 'superDross/motion-plus'
 
-"call vundle#end()
 call plug#end()
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -488,7 +488,16 @@ cnoreabbrev Ack Ack!
 " Use ripgrep as the grep command for this plugin
 if executable('rg')
   " ignore all files named 'tags'
-  let g:ackprg = "rg --vimgrep -g '!tags' -g '!*.pyc' -g '!*.swp'"
+  let g:ackprg = "rg --vimgrep
+                   \ -g '!tags'
+                   \ -g '!*.pyc'
+                   \ -g '!*.swp'
+                   \ -g '!*.jpg'
+                   \ -g '!*.png'
+                   \ -g '!*.pdf'
+                   \ -g '!__pycache__/*'
+                   \ -g '!node_modules/*'
+                   \ -g '!venv/*'"
 endif
 
 """" TAGBAR """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -600,3 +609,13 @@ let g:vdebug_options = {
       \     'DebuggerStatus': 'belowright new +res6'
       \   },
       \ }
+
+"""" WILD SETTINGS """"""""""""""""""""""""""""""""""""""""""""
+" built-in fuzzy file menu
+" e.g. :tabe **App<TAB>
+set wildmenu
+
+" Don't offer to open certain files/directories
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.pyc
+set wildignore+=*.pdf,*.psd
+set wildignore+=node_modules/*,bower_components/*,venv/*,__pycache__/*
