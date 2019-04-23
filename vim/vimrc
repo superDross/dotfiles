@@ -551,26 +551,6 @@ let extension_dict = {
 \ }
 let extension_command = get(extension_dict, extension)
 
-"""" SYNTASTIC """"""""""""""""""""""""""""""""""""""
-if v:version < 800
-    " disable syntastic on the statusline (it messes with RunView F10)
-    let g:statline_syntastic = 0
-
-    " automatically load errors into location list
-    let g:syntastic_always_populate_loc_list = 1
-
-    " automatically check for errors when file is loaded
-    let g:syntastic_check_on_open = 1
-
-    " recommended settings
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    " ignore certain PEP8 guidelines that moan about whitespace/indentation errors
-    let g:syntastic_python_flake8_args='--ignore=E501,W601,E231,W291,W293,E302,E401,E101,W191,E261,E226,E303,W391,E304,E225,E271,E203'
-endif
-
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 if v:version >= 800
     let g:ale_fixers = {
