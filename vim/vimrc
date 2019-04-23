@@ -32,11 +32,7 @@ Plug 'koalaman/shellcheck', { 'for': ['bash', 'shell'] }
 Plug 'jimhester/lintr', { 'for': 'R' }
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
-Plug 'vim-scripts/Vim-R-plugin', { 'for': 'R' }
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'sheerun/vim-polyglot'
-Plug 'baabelfish/nvim-nim', { 'for': 'nim' }
 
 " DEBUGGING: dbpg
 Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
@@ -465,11 +461,6 @@ let g:lightline = {
 \   },
 \ }
 
-
-"""" INDENTLINE """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" make it more efficient
-let g:indentLine_faster = 1
-let g:indentLine_setConceal = 0
 
 """" SUPERTAB """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map tab to omni-completion
