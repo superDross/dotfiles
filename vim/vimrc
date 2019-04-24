@@ -13,16 +13,10 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 " AUTOCOMPLETION: command completion as you type
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Completion engine
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'wokalski/autocomplete-flow'
-" use tab for all completion needs
+" " use tab for all completion needs
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc-python'
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ervandew/supertab'
 
 " LINTERS: syntax checkers
@@ -74,7 +68,6 @@ Plug 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
 Plug 'junegunn/fzf', { 'on': 'FZF', 'do': './install --all' }
-" grep in vim
 Plug 'mileszs/ack.vim', { 'on': 'Ack!' }
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
@@ -397,49 +390,17 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
 augroup END
 
 """" AUTOCOMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:deoplete#enable_at_startup = 1
+let g:coc_status_error_sign = '>>'
+let g:coc_status_warning_sign = '--'
 
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    \ 'python': ['/usr/local/bin/pyls'],
-    \ 'bash': ['/usr/local/bin/bash-language-server'],
-    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    \ }
-
-" reset warning signs
-let g:LanguageClient_diagnosticsDisplay = {
-    \  1: {
-    \      "name": "Error",
-    \      "texthl": "ALEError",
-    \      "signText": ">>",
-    \      "signTexthl": "ALEErrorSign",
-    \      "virtualTexthl": "Error",
-    \  },
-    \  2: {
-    \      "name": "Warning",
-    \      "texthl": "ALEWarning",
-    \      "signText": "--",
-    \      "signTexthl": "ALEWarningSign",
-    \      "virtualTexthl": "Todo",
-    \             },
-    \  3: {
-    \      "name": "Information",
-    \      "texthl": "ALEInfo",
-    \      "signText": "-",
-    \      "signTexthl": "ALEInfoSign",
-    \      "virtualTexthl": "Todo",
-    \  },
-    \  4: {
-    \      "name": "Hint",
-    \      "texthl": "ALEInfo",
-    \      "signText": "➤",
-    \      "signTexthl": "ALEInfoSign",
-    \      "virtualTexthl": "Todo",
-    \  },
-    \}
+call coc#config('languageserver', {
+               \ 'bash': {
+               \   "command": "bash-language-server",
+               \   "args": ["start"],
+               \   "filetypes": ["sh"],
+               \   "IgnoredRootPaths": ["~"]
+               \ }
+               \})
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
