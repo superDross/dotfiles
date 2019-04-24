@@ -612,10 +612,13 @@ let g:vdebug_options = {
 
 """" WILD SETTINGS """"""""""""""""""""""""""""""""""""""""""""
 " built-in fuzzy file menu
-" e.g. :tabe **App<TAB>
+" current buffer e.g. :find Ap<TAB>
+" new tab        e.g. :tabfind Ap<TAB>
+" horz split     e.g. :sfind Ap<TAB>
+set path+=**
 set wildmenu
 
 " Don't offer to open certain files/directories
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.pyc
 set wildignore+=*.pdf,*.psd
-set wildignore+=node_modules/*,bower_components/*,venv/*,__pycache__/*
+set wildignore+=*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*
