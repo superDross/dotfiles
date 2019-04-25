@@ -408,6 +408,10 @@ call coc#config('languageserver', {
                \   "IgnoredRootPaths": ["~"]
                \ }
                \})
+" disbaled linting. revisit after it matures.
+call coc#config('python.linting', {
+               \   'enabled': 0
+               \})
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
@@ -546,7 +550,7 @@ let g:ale_sign_warning = '--'
 
 """" JEDI """""""""""""""""""""""""""""""""""""""""""
 " set completion menu to preview (no definitions in python)
-set completeopt-=preview
+"set completeopt+=preview
 
 " smart mappings break iabbrev, so turn it off
 let g:jedi#smart_auto_mappings = 0
