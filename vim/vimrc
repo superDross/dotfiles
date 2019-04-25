@@ -397,7 +397,9 @@ augroup END
 set hidden
 let g:coc_status_error_sign = '>>'
 let g:coc_status_warning_sign = '--'
-
+call coc#config('coc.preferences', {
+               \ 'timeout': 2000,
+               \})
 call coc#config('languageserver', {
                \ 'bash': {
                \   "command": "bash-language-server",
