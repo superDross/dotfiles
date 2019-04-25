@@ -403,10 +403,10 @@ call coc#config('coc.preferences', {
                \})
 call coc#config('languageserver', {
                \ 'bash': {
-               \   "command": "bash-language-server",
-               \   "args": ["start"],
-               \   "filetypes": ["sh"],
-               \   "IgnoredRootPaths": ["~"]
+               \   'command': 'bash-language-server',
+               \   'args': ['start'],
+               \   'filetypes': ['sh'],
+               \   'IgnoredRootPaths': ['~']
                \ }
                \})
 " disbaled linting. revisit after it matures.
@@ -414,6 +414,9 @@ call coc#config('python.linting', {
                \   'enabled': 0
                \})
 
+call coc#config('python', {
+               \   'jediEnabled': 0
+               \})
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -446,10 +449,6 @@ let g:lightline = {
 \   },
 \ }
 
-
-"""" SUPERTAB """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map tab to omni-completion
-let g:SuperTabDefaultCompletionType = '<C-X><C-O>'
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
