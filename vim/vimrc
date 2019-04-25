@@ -13,13 +13,18 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 " AUTOCOMPLETION: command completion as you type
-" " use tab for all completion needs
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
-Plug 'neoclide/coc-python'
+Plug 'neoclide/coc.nvim', {
+                \ 'tag': '*',
+                \ 'do': './install.sh',
+                \ 'for': ['javascript', 'javascript.jsx', 'html', 'css', 'json']
+                \}
+"Plug 'neoclide/coc-python'
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json'
 Plug 'neoclide/coc-css'
 Plug 'neoclide/coc-html'
+
+Plug 'ajh17/VimCompletesMe', {'for': 'python'}
 
 " LINTERS: syntax checkers
 Plug 'w0rp/ale'
@@ -391,32 +396,12 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set shiftwidth=2
 augroup END
 
-"""" AUTOCOMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " if hidden is not set, TextEdit might fail.
 set hidden
 let g:coc_status_error_sign = '>>'
 let g:coc_status_warning_sign = '--'
-"               \ 'enablePreview': 1,
-"               \ 'keepCompleteopt': 1
-call coc#config('coc.preferences', {
-               \ 'timeout': 2000,
-               \})
-call coc#config('languageserver', {
-               \ 'bash': {
-               \   'command': 'bash-language-server',
-               \   'args': ['start'],
-               \   'filetypes': ['sh'],
-               \   'IgnoredRootPaths': ['~']
-               \ }
-               \})
-" disbaled linting. revisit after it matures.
-call coc#config('python.linting', {
-               \   'enabled': 0
-               \})
-" use Jedi or LS
-call coc#config('python', {
-               \   'jediEnabled': 0
-               \})
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -429,6 +414,12 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+
+if extension ==# 'py'
+  set omnifunc=syntaxcomplete#Complete
+  let b:vcm_tab_complete = 'omni'
+endif
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
 set laststatus=2
