@@ -396,10 +396,10 @@ augroup END
 set hidden
 let g:coc_status_error_sign = '>>'
 let g:coc_status_warning_sign = '--'
+"               \ 'enablePreview': 1,
+"               \ 'keepCompleteopt': 1
 call coc#config('coc.preferences', {
                \ 'timeout': 2000,
-               \ 'enablePreview': 1,
-               \ 'keepCompleteopt': 1
                \})
 call coc#config('languageserver', {
                \ 'bash': {
@@ -413,7 +413,7 @@ call coc#config('languageserver', {
 call coc#config('python.linting', {
                \   'enabled': 0
                \})
-
+" use Jedi or LS
 call coc#config('python', {
                \   'jediEnabled': 0
                \})
