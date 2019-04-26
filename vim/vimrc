@@ -25,6 +25,7 @@ Plug 'neoclide/coc-css'
 Plug 'neoclide/coc-html'
 
 Plug 'ajh17/VimCompletesMe', {'for': 'python'}
+"Plug 'davidhalter/jedi-vim', {'for': 'python'}
 
 " LINTERS: syntax checkers
 Plug 'w0rp/ale'
