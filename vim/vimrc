@@ -25,7 +25,7 @@ Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeFind', 'NERDTreeToggle']}
 
-" GIT: use git commands in vim e.g. Glog
+" GIT: use git commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'jlfwong/vim-mercenary'
 
@@ -36,7 +36,7 @@ Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
 Plug 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
-Plug 'markonm/traces.vim'
+Plug 'markonm/traces.vim', { 'on': 'TagbarToggle' }
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plug 'morhetz/gruvbox'
@@ -340,22 +340,6 @@ set encoding=utf-8
 let python_highlight_all=1
 syntax on
 
-"""" R SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""
-let vimrplugin_assign = 0
-
-"""" NIM SETTINGS """""""""""""""""""""""""""""""""""""""""""""""""
-fun! JumpToDef()
-  if exists('*GotoDefinition_' . &filetype)
-    call GotoDefinition_{&filetype}()
-  else
-    exe "norm! \<C-]>"
-  endif
-endf
-
-" Jump to tag
-nn <M-g> :call JumpToDef()<cr>
-ino <M-g> <esc>:call JumpToDef()<cr>
-
 """" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting for jsdocs
 let g:javascript_plugin_jsdocs = 1
@@ -379,30 +363,6 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set shiftwidth=2
 augroup END
 
-"""" COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" if hidden is not set, TextEdit might fail.
-"set hidden
-"let g:coc_status_error_sign = '>>'
-"let g:coc_status_warning_sign = '--'
-"
-"" Use tab for trigger completion with characters ahead and navigate.
-"" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-"inoremap <silent><expr> <TAB>
-"      \ pumvisible() ? "\<C-n>" :
-"      \ <SID>check_back_space() ? "\<TAB>" :
-"      \ coc#refresh()
-"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"
-"function! s:check_back_space() abort
-"  let col = col('.') - 1
-"  return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
-
-
-"if extension ==# 'py'
-"  set omnifunc=syntaxcomplete#Complete
-"  let b:vcm_tab_complete = 'omni'
-"endif
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
 set laststatus=2
@@ -524,20 +484,20 @@ let g:ale_linters = {
    \'python': ['pyls']
    \ }
 
-let g:ale_completion_enabled = 1
+" completion settings
+let g:ale_completion_enabled = 0
+let g:ale_completion_max_suggestions = 10
+imap <C-n> <Plug>(ale_complete)
+" completion backward selection
+inoremap <silent><expr> <S-n>
+      \ pumvisible() ? "\<C-p>" : "\<S-n>"
+
+" linter msg formatting
 let g:ale_echo_msg_format = '%s [%linter%]'
 
 " change signs
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
-
-" completion assigned to tab
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" : "\<TAB>"
-
-inoremap <silent><expr> <S-Tab>
-      \ pumvisible() ? "\<C-p>" : "\<TAB>"
-
 """" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
 " makes all markdown previews in GitHub style
 let vim_markdown_preview_github=1
