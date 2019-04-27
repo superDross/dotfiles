@@ -6,9 +6,6 @@ let filename = expand('%:t')
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
-" CODE JUMPING: jump to a function or class definition in the code base
-Plug 'ludovicchabant/vim-gutentags'
-
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
@@ -33,12 +30,12 @@ Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
 Plug 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
-Plug 'markonm/traces.vim', { 'on': 'TagbarToggle' }
+Plug 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
 Plug 'morhetz/gruvbox'
 Plug 'pbrisbin/vim-colors-off'
-Plug 'andreasvc/vim-256noir'
+Plug 'reedes/vim-colors-pencil'
 
 "EXTENDED FUNCTION: further improve editing
 Plug 'tpope/vim-surround'
@@ -61,10 +58,25 @@ Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
-Plug 'superDross/init-vdebug', { 'do': 'bash install.sh' }
 Plug 'superDross/motion-plus'
 
 call plug#end()
+
+"""" COLORSCHEME """"""""""""""""""""""""""""""
+set background=dark
+set t_Co=256
+colorscheme gruvbox
+" termguicolors causes tmux vim sessions to go monochrome
+if !exists('$TMUX')
+  set termguicolors
+endif
+
+" highlight spelling in markdown files
+if extension ==# 'md'
+  set spell spelllang=en_gb
+  set background=light
+  colorscheme pencil
+endif
 
 """" GENERAL SETTINGS """"""""""""""""""""""""""""""""""""
 " stops the wrap text over line from doing so mid-word
@@ -89,10 +101,11 @@ set number
 set clipboard+=unnamedplus
 set guioptions+=a
 
-" Allows autocompletion with words
+" Allows completion with words
 set dictionary=/usr/share/dict/words
+set thesaurus=~/.vim/thesaurus.txt
 
-" Uncomment the following to have Vim jump to the last position when reopening a file
+" Vim jumps to the last position when reopening a file
 if has('autocmd')
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
@@ -143,15 +156,6 @@ set wildignore+=*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*
 iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
 iabbrev pudb import pudb;pudb.set_trace()
 
-"""" COLORSCHEME """"""""""""""""""""""""""""""
-set background=dark
-set t_Co=256
-colorscheme gruvbox
-" termguicolors causes tmux vim sessions to go monochrome
-if !exists('$TMUX')
-  set termguicolors
-endif
-
 """" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
 " automatic indentation i.e. after def(x):
 filetype plugin indent on
@@ -191,36 +195,38 @@ function! KeyCheat()
   echo 'FUNCTION KEYS'
   echo '    F2             = paste toggle'
   echo '    F3             = ALEFix'
-  echo '    \\+F3          = ALEToggle'
   echo '    F4             = NERDTreeToggle'
-  echo '    \\+F4          = NERDTreeFind'
+  echo '    \-F4           = NERDTreeFind'
   echo '    F5             = view this cheatsheet'
   echo '    F6             = source .vimrc'
   echo '    F7             = call flake8'
   echo '    F8             = tag bar'
   echo '    F9             = toggle highlight search'
   echo '    F12            = RunView'
+  echo 'ALE'
+  echo '    \-h            = ALEHover'
+  echo '    \-r            = ALEFindReferenc'
   echo 'GUTENTAGS'
-  echo '    C-\\           = open definition in a new vs window'
+  echo '    C-\            = open definition in a new vs window'
   echo '    C-/            = open definition in a new sp window'
-  echo '    \ C-]          = open definition in a new tab.'
+  echo '    C-]            = open definition in a new tab.'
   echo '    C-]            = go to definition location'
   echo '    g-]            = give a list of all possible locations'
   echo '    C-t            = got to previous location'
   echo 'FZF'
-  echo '    \\-f           = fuzzy find file'
-  echo '    \\-a           = fuzzy grep'
+  echo '    \-f            = fuzzy find file'
+  echo '    \-a            = fuzzy grep'
   echo '    C-v            = open fuzzy found file in a vs window'
   echo '    C-x            = open fuzzy found file in a sp window'
   echo '    C-t            = open fuzzy found file in a new tab window'
   echo 'ALE'
-  echo '    \\-j           = go to line with next mistake'
-  echo '    \\-k           = go to line with previous mistake'
+  echo '    \-j            = go to line with next mistake'
+  echo '    \-k            = go to line with previous mistake'
   echo 'SESSIONS'
   echo '   :mks t.vim      = create vim session'
   echo '   vim -S t.vim    = reopen vim session'
   echo 'TABS'
-  echo '   \\-Num          = go tab number'
+  echo '   \-Num           = go tab number'
   echo '   C-l             = go to next tab'
   echo '   C-h             = go to previous tab'
   echo '   :tabe f.txt     = open file in a new tab'
@@ -230,7 +236,7 @@ function! KeyCheat()
   echo '   C-w x           = swap column/row panes'
   echo '   C-w K           = move window to the topmost'
   echo '   C-w H           = move window to the bottomost'
-  echo '   \\-t            = open terminal window at the bottom'
+  echo '   \-t            = open terminal window at the bottom'
   echo '   C-w N           = switch to vim mode in terminal'
 endfunction
 
@@ -267,7 +273,6 @@ endfunction
 " function keys
 set pastetoggle=<F2>
 nnoremap <F3> :ALEFix<CR>
-nnoremap <leader><F3> :ALEToggle<CR>
 nnoremap <F4> : NERDTreeToggle<CR>
 nnoremap <leader><F4> :NERDTreeFind<CR>
 noremap <F5> :call KeyCheat() <CR>
@@ -276,16 +281,28 @@ nnoremap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
-" jump to next and previous error
+" Hovering
+nnoremap <leader>h :ALEHover<CR>
+
+" References
+nnoremap <leader>r :ALEFindReferences<CR>
+
+" Linting Jump
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
 
-" CTRL+\ to open definition location in a new vertical window
-nnoremap <C-\> :vs<CR><C-]><C-w>
-" Leader CTRL+] to open definition in new tab
-nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
-" CTRL+/ to open definition location in a new horizontal window
-nnoremap <C-_> :sp<CR><C-]><C-w>
+" Jump to Definitions
+nnoremap <C-]> :ALEGoToDefinition<CR>
+nnoremap <C-\> :ALEGoToDefinitionInVSplit<CR>
+nnoremap <silent><Leader><C-]> :ALEGoToDefinitionInTab<CR>
+nnoremap <C-_> :ALEGoToDefinitionInSplit<CR>
+
+" Completion
+imap <C-n> <Plug>(ale_complete)
+" backward selection
+inoremap <silent><expr> <S-n>
+      \ pumvisible() ? "\<C-p>" : "\<S-n>"
+
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
@@ -334,25 +351,28 @@ set mouse=c
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fixers = {
 	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\    'python': ['autopep8', 'isort'],
+	\    'python': ['black', 'isort'],
+  \    'sh': ['shfmt'],
 	\    'javascript': ['eslint', 'prettier-eslint'],
-	\    'html': ['tidy'],
- 	\    'nim': ['nimcheck'],
+  \    'json': ['jq'],
+	\    'html': ['prettier'],
+  \    'css': ['prettier', 'stylelint'],
+  \    'markdown': ['prettier']
   \ }
 
-" npm install typescript for completion
+" npm install typescript for completion to work in a local project
+" Install:
+"   python-language-server, tsserver, bash-language-server,
+"   stylelint, csslint, jsonlint, mdl, vint, gitlint,
+"   shellcheck
 let g:ale_linters = {
-   \'javascript': ['flow', 'eslint', 'tsserver'],
-   \'python': ['pyls']
+   \   'javascript': ['flow', 'eslint', 'tsserver'],
+   \   'python': ['pyls'],
    \ }
 
 " completion settings
 let g:ale_completion_enabled = 0
 let g:ale_completion_max_suggestions = 30
-imap <C-n> <Plug>(ale_complete)
-" completion backward selection
-inoremap <silent><expr> <S-n>
-      \ pumvisible() ? "\<C-p>" : "\<S-n>"
 
 " linter msg formatting
 let g:ale_echo_msg_format = '%s [%linter%]'
@@ -389,11 +409,6 @@ let g:lightline = {
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
 let g:polyglot_disabled = ['graphql', 'markdown']
-
-"""" GUTENTAGS """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" add tag generation messages to statusline
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
 
 """" TABOO """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sustain tab names over sessions
@@ -487,4 +502,3 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
-
