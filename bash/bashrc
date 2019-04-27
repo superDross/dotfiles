@@ -102,7 +102,7 @@ fi
 
 
 #### PATHS
-export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin:$HOME/configuration/ideas/bash/:$HOME/bin/vcfhacks/
+export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin:$HOME/configuration/ideas/bash/:$HOME/bin/vcfhacks/:$HOME/.npm-global/bin/
 export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
 # start up pythonrc to get autocomplete and saving of python environment in python shell
 export PYTHONSTARTUP=$HOME/.pythonrc
