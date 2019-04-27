@@ -171,6 +171,7 @@ create_shortcuts() {
   ln -s ${TOP_DIR}/i3/config ~/.config/i3/config
   ln -s ${TOP_DIR}/i3/i3status.conf ~/.config/i3/i3status.conf
   ln -s ${TOP_DIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
+  ln -s ${TOP_DIR}/words/thesaurus.txt ~/.vim/thesaurus.txt 
 }
 
 set_tidy() {
