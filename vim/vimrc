@@ -9,6 +9,9 @@ call plug#begin()
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
+" GUTENTAGS: automatic tag generation
+Plug 'ludovicchabant/vim-gutentags'
+
 " LINTER: syntax checkers
 Plug 'w0rp/ale'
 
@@ -206,7 +209,7 @@ function! KeyCheat()
   echo 'ALE'
   echo '    \-h            = ALEHover'
   echo '    \-r            = ALEFindReferenc'
-  echo 'GUTENTAGS'
+  echo 'TAGS'
   echo '    C-\            = open definition in a new vs window'
   echo '    C-/            = open definition in a new sp window'
   echo '    C-]            = open definition in a new tab.'
@@ -385,6 +388,9 @@ let g:ale_sign_warning = '--'
 " set mouse=n
 " set balloonevalterm
 " let g:ale_set_balloons = 1
+
+"""" TAGS """"""""""""""""""""""""""""""""""""""
+let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
