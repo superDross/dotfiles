@@ -108,6 +108,14 @@ set guioptions+=a
 set dictionary=/usr/share/dict/words
 set thesaurus=~/.vim/thesaurus.txt
 
+" split creates pane on bottom of the screen
+set splitbelow
+
+" previwwindow set to 10
+set previewheight=10
+" disbale preview window
+"set completeopt-=preview
+
 " Vim jumps to the last position when reopening a file
 if has('autocmd')
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -193,26 +201,49 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
   set shiftwidth=2
 augroup END
 
+"""" COMMANDS """""""""""""""""""""""""""""""
+" not sure what this does
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" open terminal
+function! TerminalSize(...)
+  if len(a:000) ==# 0
+    let rows = 15
+  else
+    let rows = a:1
+  endif
+  execute ':terminal ++rows=' . rows . '<CR>'
+endfunction
+
+command! -nargs=? LittleTerminal :call TerminalSize(<f-args>)
+cnoreabbrev sterm LittleTerminal
+
+
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
-  echo 'FUNCTION KEYS'
+  echo 'KEY BINDINGS'
   echo '    F2             = paste toggle'
   echo '    F3             = ALEFix'
   echo '    F4             = NERDTreeToggle'
   echo '    \-F4           = NERDTreeFind'
   echo '    F5             = view this cheatsheet'
   echo '    F6             = source .vimrc'
-  echo '    F7             = call flake8'
   echo '    F8             = tag bar'
   echo '    F9             = toggle highlight search'
   echo '    F12            = RunView'
   echo 'ALE'
   echo '    \-h            = ALEHover'
   echo '    \-r            = ALEFindReferenc'
+  echo '    \-d            = ALEGoToDefinition'
+  echo '    \-t            = ALEGoToDefinitionInTab'
+  echo '    \-v            = ALEGoToDefinitionInVSplit'
+  echo '    \-s            = ALEGoToDefinitionInSplit'
+  echo '    \-j            = ALENext'
+  echo '    \-k            = ALEPrevious'
   echo 'TAGS'
-  echo '    C-\            = open definition in a new vs window'
-  echo '    C-/            = open definition in a new sp window'
-  echo '    C-]            = open definition in a new tab.'
   echo '    C-]            = go to definition location'
   echo '    g-]            = give a list of all possible locations'
   echo '    C-t            = got to previous location'
@@ -222,9 +253,6 @@ function! KeyCheat()
   echo '    C-v            = open fuzzy found file in a vs window'
   echo '    C-x            = open fuzzy found file in a sp window'
   echo '    C-t            = open fuzzy found file in a new tab window'
-  echo 'ALE'
-  echo '    \-j            = go to line with next mistake'
-  echo '    \-k            = go to line with previous mistake'
   echo 'SESSIONS'
   echo '   :mks t.vim      = create vim session'
   echo '   vim -S t.vim    = reopen vim session'
@@ -239,22 +267,21 @@ function! KeyCheat()
   echo '   C-w x           = swap column/row panes'
   echo '   C-w K           = move window to the topmost'
   echo '   C-w H           = move window to the bottomost'
-  echo '   \-t            = open terminal window at the bottom'
   echo '   C-w N           = switch to vim mode in terminal'
 endfunction
 
 function! VimCheat()
   echo 'OPERATORS'
-  echo '   c	change'
-  echo '   d	delete'
-  echo '   y	yank into register (does not change the text)'
-  echo '   gq	text formatting'
-  echo '   ~	swap case (only if tildeop is set)'
-  echo '   >	shift right'
-  echo '   <	shift left'
-  echo '   !	filter through an external program'
-  echo '   zf	define a fold'
-  echo '   g@     call function set with the operatorfunc option'
+  echo '   c       change'
+  echo '   d       delete'
+  echo '   y       yank into register (does not change the text)'
+  echo '   gq      text formatting'
+  echo '   ~       swap case (only if tildeop is set)'
+  echo '   >       shift right'
+  echo '   <       shift left'
+  echo '   !       filter through an external program'
+  echo '   zf      define a fold'
+  echo '   g@      call function set with the operatorfunc option'
   echo 'MOTIONS'
   echo '   l       a letter'
   echo '   b       last word'
@@ -285,27 +312,30 @@ noremap <F9> :set hlsearch! hlsearch?<CR>
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " Hovering
-nnoremap <leader>h :ALEHover<CR>
+nnoremap <silent> <leader>h :ALEHover<CR>
 
 " References
-nnoremap <leader>r :ALEFindReferences<CR>
+nnoremap <silent> <leader>r :ALEFindReferences<CR>
 
 " Linting Jump
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
 
 " Jump to Definitions
-nnoremap <C-]> :ALEGoToDefinition<CR>
-nnoremap <C-\> :ALEGoToDefinitionInVSplit<CR>
-nnoremap <silent><Leader><C-]> :ALEGoToDefinitionInTab<CR>
-nnoremap <C-_> :ALEGoToDefinitionInSplit<CR>
+nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
+nnoremap <silent> <Leader>t :ALEGoToDefinitionInTab<CR>
+nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
+nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
-" Completion
-imap <C-n> <Plug>(ale_complete)
-" backward selection
-inoremap <silent><expr> <S-n>
-      \ pumvisible() ? "\<C-p>" : "\<S-n>"
+" Completion Bound to TAB
+inoremap <silent> <expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ '<C-\><C-O>:ALEComplete<CR>'
+inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 
+" auto close preview window when completion is done
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
@@ -331,9 +361,6 @@ nnoremap <leader>f :FZF<CR>
 
 " grep
 nnoremap <Leader>a :Ack!<Space>
-
-" open terminal, resize height, change pane position to bottom.
-nnoremap <leader>t :bo new<bar>terminal ++curwin ++rows=15<CR>
 
 " Set the space as key enabler
 nnoremap <space> za
