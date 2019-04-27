@@ -12,14 +12,11 @@ Plug 'ludovicchabant/vim-gutentags'
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
-" LINTERS: syntax checkers
+" LINTER: syntax checkers
 Plug 'w0rp/ale'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
-
-" DEBUGGING: dbpg
-Plug 'vim-vdebug/vdebug', { 'for': ['python', 'perl', 'ruby', 'php'] }
 
 " FILES: explore dirs in another buffer
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
@@ -45,7 +42,6 @@ Plug 'andreasvc/vim-256noir'
 
 "EXTENDED FUNCTION: further improve editing
 Plug 'tpope/vim-surround'
-Plug 'tommcdo/vim-lion'  " align around a character
 
 " CSV: manipulate CSV files easily (READ THE DOCS)
 Plug 'chrisbra/csv.vim', { 'for': 'csv' }
@@ -69,6 +65,126 @@ Plug 'superDross/init-vdebug', { 'do': 'bash install.sh' }
 Plug 'superDross/motion-plus'
 
 call plug#end()
+
+"""" GENERAL SETTINGS """"""""""""""""""""""""""""""""""""
+" stops the wrap text over line from doing so mid-word
+set linebreak
+
+" keeps indentation when text wraps over line
+set breakindent
+
+" get backspace to work as expected
+set backspace=indent,eol,start
+
+" all required for numerous plugins to work as expected
+set nocompatible
+filetype on
+filetype plugin on
+
+" Insert line numbering
+set relativenumber
+set number
+
+" use system clipboard
+set clipboard+=unnamedplus
+set guioptions+=a
+
+" Allows autocompletion with words
+set dictionary=/usr/share/dict/words
+
+" Uncomment the following to have Vim jump to the last position when reopening a file
+if has('autocmd')
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"""" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
+" 'unlimited' number of undo's
+set undolevels=10000000
+
+" set a directory to store undo data
+set undodir=~/.vim/vimundo/
+
+" create undo files allowing one to undo even after a system reboot
+set undofile
+
+"""" FOLDING """"""""""""""""""""""""""""""""
+" see docstring for folded code
+let g:SimpylFold_docstring_preview=1
+set foldnestmax=2
+
+" Enable folding,
+if filename =~# 'vimrc'
+    set foldmethod=expr
+    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
+else
+    set foldmethod=indent
+endif
+
+" automatically fold everything in vimrc
+autocmd VimEnter *vimrc :normal zM
+
+set foldlevel=99
+
+"""" WILD SETTINGS """"""""""""""""""""""""""""""""""""""""""""
+" built-in fuzzy file menu
+" current buffer e.g. :find Ap<TAB>
+" new tab        e.g. :tabfind Ap<TAB>
+" horz split     e.g. :sfind Ap<TAB>
+set path+=**
+set wildmenu
+
+" Don't offer to open certain files/directories
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.pyc
+set wildignore+=*.pdf,*.psd
+set wildignore+=*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*
+"""" SNIPPETS """""""""""""""""""""""""""""""""""""""
+" type pudb.remote in innsert mode and space afterward will insert the below
+" text
+iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
+iabbrev pudb import pudb;pudb.set_trace()
+
+"""" COLORSCHEME """"""""""""""""""""""""""""""
+set background=dark
+set t_Co=256
+colorscheme gruvbox
+" termguicolors causes tmux vim sessions to go monochrome
+if !exists('$TMUX')
+  set termguicolors
+endif
+
+"""" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
+" automatic indentation i.e. after def(x):
+filetype plugin indent on
+
+" UTF8 for python use
+set encoding=utf-8
+
+" Make your python code pretty with superior syntax highlighting
+let python_highlight_all=1
+syntax on
+
+"""" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
+" syntax highlighting for jsdocs
+let g:javascript_plugin_jsdocs = 1
+
+" set syntax to jsx
+autocmd FileType javascript setlocal filetype=javascript.jsx
+autocmd FileType javascript setlocal syntax=javascript.jsx
+
+" folding comments
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+let g:javascript_conceal_arrow_function = '⇒'
+
+" indentation spacing
+augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
+  set expandtab
+  set tabstop=2
+  set softtabstop=2
+  set shiftwidth=2
+augroup END
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
@@ -109,20 +225,6 @@ function! KeyCheat()
   echo '   C-h             = go to previous tab'
   echo '   :tabe f.txt     = open file in a new tab'
   echo '   TabooRename s   = rename current tab to s'
-  echo 'DEBUGGING'
-  echo '   \\-d            = Start Debugger'
-  echo '   \\-r            = Run'
-  echo '   \\-c            = Run to Cursor'
-  echo '   \\-v            = Step Over'
-  echo '   \\-i            = Step Into'
-  echo '   \\-o            = Step Out'
-  echo '   \\-s            = Stop'
-  echo '   \\-D            = Detach'
-  echo '   \\-b            = Set Breakpoint'
-  echo '   \\-B            = Remove All Breakpoints'
-  echo '   \\-g            = Get Context'
-  echo '   \\-v            = Eval Under Cursor'
-  echo '   \\-e            = Eval Visual'
   echo 'GENERAL'
   echo '   K               = show docs (python only)'
   echo '   C-w x           = swap column/row panes'
@@ -130,10 +232,6 @@ function! KeyCheat()
   echo '   C-w H           = move window to the bottomost'
   echo '   \\-t            = open terminal window at the bottom'
   echo '   C-w N           = switch to vim mode in terminal'
-  echo 'NERDTREE'
-  echo '   \\-O            = open NERDTree and locate current file'
-  echo 'LION'
-  echo '   gl<key>         = align <key> vertically'
 endfunction
 
 function! VimCheat()
@@ -177,24 +275,6 @@ nnoremap <F6> :call VimCheat() <CR>
 nnoremap <F8> :TagbarToggle<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 nnoremap <buffer> <F12> :exec extension_command<Bar>exec 'resize 40'<CR>
-
-" Debugging
-let g:vdebug_keymap = {
-\    'run' : '<Leader>r',
-\    'run_to_cursor' : '<Leader>c',
-\    'step_over' : '<Leader>v',
-\    'step_into' : '<Leader>i',
-\    'step_out' : '<Leader>o',
-\    'close' : '<Leader>s',
-\    'detach' : '<Leader>D',
-\    'set_breakpoint' : '<Leader>b',
-\    'get_context' : '<Leader>g',
-\    'eval_under_cursor' : '<Leader>v',
-\    'eval_visual' : '<Leader>e',
-\}
-
-" nnoremap <Leader>d :VdebugStart<CR>:!sleep 0.1<CR>:DebugPy3 .<CR><CR>
-nnoremap <Leader>B :BreakpointRemove *<CR>
 
 " jump to next and previous error
 nnoremap <silent> <leader>j :ALENext<CR>
@@ -251,117 +331,40 @@ nnoremap <right> <nop>
 " turns off mouse use in vim
 set mouse=c
 
-"""" GENERAL SETTINGS """"""""""""""""""""""""""""""""""""
-" stops the wrap text over line from doing so mid-word
-set linebreak
+"""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_fixers = {
+	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
+	\    'python': ['autopep8', 'isort'],
+	\    'javascript': ['eslint', 'prettier-eslint'],
+	\    'html': ['tidy'],
+ 	\    'nim': ['nimcheck'],
+  \ }
 
-" keeps indentation when text wraps over line
-set breakindent
+" npm install typescript for completion
+let g:ale_linters = {
+   \'javascript': ['flow', 'eslint', 'tsserver'],
+   \'python': ['pyls']
+   \ }
 
-" get backspace to work as expected
-set backspace=indent,eol,start
+" completion settings
+let g:ale_completion_enabled = 0
+let g:ale_completion_max_suggestions = 30
+imap <C-n> <Plug>(ale_complete)
+" completion backward selection
+inoremap <silent><expr> <S-n>
+      \ pumvisible() ? "\<C-p>" : "\<S-n>"
 
-" all required for numerous plugins to work as expected
-set nocompatible
-filetype on
-filetype plugin on
+" linter msg formatting
+let g:ale_echo_msg_format = '%s [%linter%]'
 
-" Insert line numbering
-set relativenumber
-set number
+" change signs
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
-" use system clipboard
-set clipboard+=unnamedplus
-set guioptions+=a
-
-" Allows autocompletion with words
-set dictionary=/usr/share/dict/words
-
-" Uncomment the following to have Vim jump to the last position when reopening a file
-if has('autocmd')
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-"""" FOLDING """"""""""""""""""""""""""""""""
-" see docstring for folded code
-let g:SimpylFold_docstring_preview=1
-set foldnestmax=2
-
-" Enable folding,
-if filename =~# 'vimrc'
-    set foldmethod=expr
-    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
-else
-    set foldmethod=indent
-endif
-
-" automatically fold everything in vimrc
-autocmd VimEnter *vimrc :normal zM
-
-set foldlevel=99
-
-"""" COLORSCHEME """"""""""""""""""""""""""""""
-set background=dark
-set t_Co=256
-colorscheme gruvbox
-" termguicolors causes tmux vim sessions to go monochrome
-if !exists('$TMUX')
-  set termguicolors
-endif
-
-"""" SNIPPETS """""""""""""""""""""""""""""""""""""""
-" type pudb.remote in innsert mode and space afterward will insert the below
-" text
-iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
-iabbrev pudb import pudb;pudb.set_trace()
-
-" C-b in insert mode will add test string into file
-"imap <C-b> console.log()
-imap <C-b> class Something():<cr>def __init__(self, x):<cr>self.x = x
-
-"""" VIMUNDO """"""""""""""""""""""""""""""""""""""""""""""""""""
-" 'unlimited' number of undo's
-set undolevels=10000000
-
-" set a directory to store undo data
-set undodir=~/.vim/vimundo/
-
-" create undo files allowing one to undo even after a system reboot
-set undofile
-
-"""" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
-" automatic indentation i.e. after def(x):
-filetype plugin indent on
-
-" UTF8 for python use
-set encoding=utf-8
-
-" Make your python code pretty with superior syntax highlighting
-let python_highlight_all=1
-syntax on
-
-"""" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
-" syntax highlighting for jsdocs
-let g:javascript_plugin_jsdocs = 1
-
-" set syntax to jsx
-autocmd FileType javascript setlocal filetype=javascript.jsx
-autocmd FileType javascript setlocal syntax=javascript.jsx
-
-" folding comments
-augroup javascript_folding
-    au!
-    au FileType javascript setlocal foldmethod=syntax
-augroup END
-let g:javascript_conceal_arrow_function = '⇒'
-
-" indentation spacing
-augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
-  set expandtab
-  set tabstop=2
-  set softtabstop=2
-  set shiftwidth=2
-augroup END
+" hover docstrings
+" set mouse=n
+" set balloonevalterm
+" let g:ale_set_balloons = 1
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show statusline
@@ -382,7 +385,6 @@ let g:lightline = {
 \     'gitbranch': 'fugitive#head'
 \   },
 \ }
-
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
@@ -469,35 +471,6 @@ let extension_dict = {
 \ }
 let extension_command = get(extension_dict, extension)
 
-"""" ALE """"""""""""""""""""""""""""""""""""""""""""""""
-let g:ale_fixers = {
-	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\    'python': ['autopep8', 'isort'],
-	\    'javascript': ['eslint', 'prettier-eslint'],
-	\    'html': ['tidy'],
- 	\    'nim': ['nimcheck'],
-  \ }
-
-" npm install typescript for completion
-let g:ale_linters = {
-   \'javascript': ['flow', 'eslint', 'tsserver'],
-   \'python': ['pyls']
-   \ }
-
-" completion settings
-let g:ale_completion_enabled = 0
-let g:ale_completion_max_suggestions = 10
-imap <C-n> <Plug>(ale_complete)
-" completion backward selection
-inoremap <silent><expr> <S-n>
-      \ pumvisible() ? "\<C-p>" : "\<S-n>"
-
-" linter msg formatting
-let g:ale_echo_msg_format = '%s [%linter%]'
-
-" change signs
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
 """" GRIP SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
 " makes all markdown previews in GitHub style
 let vim_markdown_preview_github=1
@@ -515,25 +488,3 @@ let g:user_emmet_settings = {
 \  },
 \ }
 
-"""" DEBUGGER """"""""""""""""""""""""""""""""""""""""""""""""""
-" window size readjusted
-let g:vdebug_options = {
-      \   'window_commands': {
-      \     'DebuggerWatch': 'vertical belowright new',
-      \     'DebuggerStack': 'belowright new +res6',
-      \     'DebuggerStatus': 'belowright new +res6'
-      \   },
-      \ }
-
-"""" WILD SETTINGS """"""""""""""""""""""""""""""""""""""""""""
-" built-in fuzzy file menu
-" current buffer e.g. :find Ap<TAB>
-" new tab        e.g. :tabfind Ap<TAB>
-" horz split     e.g. :sfind Ap<TAB>
-set path+=**
-set wildmenu
-
-" Don't offer to open certain files/directories
-set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.pyc
-set wildignore+=*.pdf,*.psd
-set wildignore+=*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*
