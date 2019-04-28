@@ -113,8 +113,13 @@ set splitbelow
 
 " previwwindow set to 10
 set previewheight=10
+
+" prevents autocompletion and aut selection, must press key to complete
+set completeopt+=noinsert
+set completeopt+=noselect
 " disbale preview window
 "set completeopt-=preview
+
 
 " Vim jumps to the last position when reopening a file
 if has('autocmd')
@@ -202,7 +207,7 @@ augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx
 augroup END
 
 """" COMMANDS """""""""""""""""""""""""""""""
-" not sure what this does
+" not sure what this does but is required for tab completion
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -380,15 +385,15 @@ set mouse=c
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fixers = {
-	\    '*': ['remove_trailing_lines', 'trim_whitespace'],
-	\    'python': ['black', 'isort'],
-  \    'sh': ['shfmt'],
-	\    'javascript': ['eslint', 'prettier-eslint'],
-  \    'json': ['jq'],
-	\    'html': ['prettier'],
-  \    'css': ['prettier', 'stylelint'],
-  \    'markdown': ['prettier']
-  \ }
+      \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \    'python': ['black', 'isort'],
+      \    'sh': ['shfmt'],
+      \    'javascript': ['eslint', 'prettier-eslint'],
+      \    'json': ['jq'],
+      \    'html': ['prettier'],
+      \    'css': ['prettier', 'stylelint'],
+      \    'markdown': ['prettier']
+      \ }
 
 " npm install typescript for completion to work in a local project
 " Install:
@@ -396,12 +401,12 @@ let g:ale_fixers = {
 "   stylelint, csslint, jsonlint, mdl, vint, gitlint,
 "   shellcheck
 let g:ale_linters = {
-   \   'javascript': ['flow', 'eslint', 'tsserver'],
-   \   'python': ['pyls'],
-   \ }
+      \   'javascript': ['flow', 'eslint', 'tsserver'],
+      \   'python': ['pyls'],
+      \ }
 
 " completion settings
-let g:ale_completion_enabled = 0
+let g:ale_completion_enabled = 1
 let g:ale_completion_max_suggestions = 30
 
 " linter msg formatting
@@ -410,6 +415,7 @@ let g:ale_echo_msg_format = '%s [%linter%]'
 " change signs
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+
 
 " hover docstrings
 " set mouse=n
