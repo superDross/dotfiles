@@ -53,8 +53,10 @@ Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html', 'css'] }
 Plug 'itchyny/lightline.vim'
 
 " FILEFINDER: fuzzy file finder
-Plug 'junegunn/fzf', { 'on': 'FZF', 'do': './install --all' }
-Plug 'mileszs/ack.vim', { 'on': 'Ack!' }
+" needs to be installed locally too
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
@@ -111,15 +113,14 @@ set thesaurus=~/.vim/thesaurus.txt
 " split creates pane on bottom of the screen
 set splitbelow
 
-" previwwindow set to 10
+" previw window height set to 10
 set previewheight=10
 
 " prevents autocompletion and aut selection, must press key to complete
 set completeopt+=noinsert
 set completeopt+=noselect
-" disbale preview window
-"set completeopt-=preview
-
+" disable preview window with completions
+set completeopt-=preview
 
 " Vim jumps to the last position when reopening a file
 if has('autocmd')
@@ -226,6 +227,8 @@ endfunction
 command! -nargs=? LittleTerminal :call TerminalSize(<f-args>)
 cnoreabbrev sterm LittleTerminal
 
+" Apply Ack to word under the cursor
+command! GoAck :Ack! <cword>
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
@@ -254,7 +257,7 @@ function! KeyCheat()
   echo '    C-t            = got to previous location'
   echo 'FZF'
   echo '    \-f            = fuzzy find file'
-  echo '    \-a            = fuzzy grep'
+  echo '    \-a            = fuzzy grep word under the cursor'
   echo '    C-v            = open fuzzy found file in a vs window'
   echo '    C-x            = open fuzzy found file in a sp window'
   echo '    C-t            = open fuzzy found file in a new tab window'
@@ -339,6 +342,10 @@ inoremap <silent> <expr> <TAB>
       \ '<C-\><C-O>:ALEComplete<CR>'
 inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 
+" Go to newline when popup menu is active instead of selecting completion
+inoremap <silent> <expr> <CR>
+      \ pumvisible() ? "<CR><CR>" : "<CR>"
+
 " auto close preview window when completion is done
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
@@ -365,7 +372,7 @@ nnoremap <leader>S :exec 'source $VIMRC'<CR>
 nnoremap <leader>f :FZF<CR>
 
 " grep
-nnoremap <Leader>a :Ack!<Space>
+nnoremap <Leader>a :GoAck<CR>
 
 " Set the space as key enabler
 nnoremap <space> za
