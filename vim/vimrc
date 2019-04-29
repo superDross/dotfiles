@@ -56,7 +56,6 @@ Plug 'itchyny/lightline.vim'
 " needs to be installed locally too
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
@@ -227,9 +226,6 @@ endfunction
 command! -nargs=? LittleTerminal :call TerminalSize(<f-args>)
 cnoreabbrev sterm LittleTerminal
 
-" Apply Ack to word under the cursor
-command! GoAck :Ack! <cword>
-
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
   echo 'KEY BINDINGS'
@@ -246,7 +242,7 @@ function! KeyCheat()
   echo '    \-h            = ALEHover'
   echo '    \-r            = ALEFindReferenc'
   echo '    \-d            = ALEGoToDefinition'
-  echo '    \-t            = ALEGoToDefinitionInTab'
+  echo '    \-w            = ALEGoToDefinitionInTab'
   echo '    \-v            = ALEGoToDefinitionInVSplit'
   echo '    \-s            = ALEGoToDefinitionInSplit'
   echo '    \-j            = ALENext'
@@ -257,7 +253,8 @@ function! KeyCheat()
   echo '    C-t            = got to previous location'
   echo 'FZF'
   echo '    \-f            = fuzzy find file'
-  echo '    \-a            = fuzzy grep word under the cursor'
+  echo '    \-a            = fuzzy grep using Ag'
+  echo '    \-*            = fuzzy grep word under the cursor'
   echo '    C-v            = open fuzzy found file in a vs window'
   echo '    C-x            = open fuzzy found file in a sp window'
   echo '    C-t            = open fuzzy found file in a new tab window'
@@ -271,6 +268,7 @@ function! KeyCheat()
   echo '   :tabe f.txt     = open file in a new tab'
   echo '   TabooRename s   = rename current tab to s'
   echo 'GENERAL'
+  echo '   \-t             = open small terminal'
   echo '   K               = show docs (python only)'
   echo '   C-w x           = swap column/row panes'
   echo '   C-w K           = move window to the topmost'
@@ -331,7 +329,7 @@ nnoremap <silent> <leader>k :ALEPrevious<CR>
 
 " Jump to Definitions
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
-nnoremap <silent> <Leader>t :ALEGoToDefinitionInTab<CR>
+nnoremap <silent> <Leader>w :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
@@ -346,8 +344,11 @@ inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : ""
 inoremap <silent> <expr> <CR>
       \ pumvisible() ? "<CR><CR>" : "<CR>"
 
-" auto close preview window when completion is done
+" auto close preview window when the popup menu is not visible
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+" open terminal
+nnoremap <silent> <Leader>t :term ++rows=15<CR>
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
@@ -368,11 +369,10 @@ noremap <leader>0 :tablast<CR>
 " source vimrc
 nnoremap <leader>S :exec 'source $VIMRC'<CR>
 
-" fuzzy file finder key
+" fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
-
-" grep
-nnoremap <Leader>a :GoAck<CR>
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 " Set the space as key enabler
 nnoremap <space> za
@@ -415,6 +415,7 @@ let g:ale_linters = {
 " completion settings
 let g:ale_completion_enabled = 1
 let g:ale_completion_max_suggestions = 30
+let g:ale_lint_delay = 0
 
 " linter msg formatting
 let g:ale_echo_msg_format = '%s [%linter%]'
@@ -461,25 +462,6 @@ let g:polyglot_disabled = ['graphql', 'markdown']
 set sessionoptions+=tabpages,globals
 " naming format
 let g:taboo_renamed_tab_format = ' %l %m '
-
-"""" ACK """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Make Ack! the default command
-cnoreabbrev Ack Ack!
-
-" Use ripgrep as the grep command for this plugin
-if executable('rg')
-  " ignore all files named 'tags'
-  let g:ackprg = "rg --vimgrep
-                   \ -g '!tags'
-                   \ -g '!*.pyc'
-                   \ -g '!*.swp'
-                   \ -g '!*.jpg'
-                   \ -g '!*.png'
-                   \ -g '!*.pdf'
-                   \ -g '!__pycache__/*'
-                   \ -g '!node_modules/*'
-                   \ -g '!venv/*'"
-endif
 
 """" TAGBAR """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " completely fold all classes/functions - except the one by the cursor
