@@ -242,7 +242,7 @@ function! KeyCheat()
   echo '    \-h            = ALEHover'
   echo '    \-r            = ALEFindReferenc'
   echo '    \-d            = ALEGoToDefinition'
-  echo '    \-w            = ALEGoToDefinitionInTab'
+  echo '    \-n            = ALEGoToDefinitionInTab'
   echo '    \-v            = ALEGoToDefinitionInVSplit'
   echo '    \-s            = ALEGoToDefinitionInSplit'
   echo '    \-j            = ALENext'
@@ -329,7 +329,7 @@ nnoremap <silent> <leader>k :ALEPrevious<CR>
 
 " Jump to Definitions
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
-nnoremap <silent> <Leader>w :ALEGoToDefinitionInTab<CR>
+nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
