@@ -244,13 +244,13 @@ let g:lightline = {
 \     'gutentags': 'gutentags#statusline',
 \   },
 \ 'component_expand': {
-\  'linter_warnings': 'lightline#ale#warnings',
-\  'linter_errors': 'lightline#ale#errors',
-\ },
+\     'linter_warnings': 'lightline#ale#warnings',
+\     'linter_errors': 'lightline#ale#errors',
+\   },
 \ 'component_type': {
 \     'linter_warnings': 'warning',
 \     'linter_errors': 'error',
-\ },
+\   },
 \ }
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
