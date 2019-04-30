@@ -1,4 +1,4 @@
-"""" FUNCTION """""""""""""""""""""""""""""""""""
+"""" FUNCTIONS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 
@@ -322,4 +322,3 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
-
