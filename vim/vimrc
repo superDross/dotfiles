@@ -169,6 +169,22 @@ set wildmenu
 set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png,*.ico,*.pyc
 set wildignore+=*.pdf,*.psd
 set wildignore+=*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*
+"""" VIMGREP """"""""""""""""""""""""""""""""""""""""""""""""""""""
+" open results in the quickfix menu
+augroup myvimrc
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
+
+" grep excutables
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable('rg')
+    set grepprg=rg
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
 """" SNIPPETS """""""""""""""""""""""""""""""""""""""
 " type pudb.remote in innsert mode and space afterward will insert the below
 " text
@@ -550,3 +566,4 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
+
