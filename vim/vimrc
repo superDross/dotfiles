@@ -62,6 +62,7 @@ Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html', 'css'] }
 
 " STATUSLINE: lightweight status line
 Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 
 " FILEFINDER: fuzzy file finder
 " needs to be installed locally too
@@ -220,23 +221,36 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-" always show statusline
-set laststatus=2
 " no longer show mode in bottom line
 set noshowmode
 
+let g:lightline#ale#indicator_warnings =  '⏶ '
+let g:lightline#ale#indicator_errors = '✘ '
+
 " show git branch in status line
 let g:lightline = {
+\ 'colorscheme': 'gruvbox',
 \ 'active': {
-\     'left': [ [ 'mode', 'paste' ],
-\               [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+\     'left': [ [ 'mode', 'paste'],
+\               [ 'readonly',  'gitbranch', 'gutentags'],
+\               ['filename', 'modified' ] ],
 \     'right': [ [ 'lineinfo' ],
 \                [ 'percent' ],
-\                [ 'filetype' ] ]
+\                [ 'bufnum' ],
+\                [ 'linter_errors', 'linter_warnings'] ]
 \   },
 \ 'component_function': {
-\     'gitbranch': 'fugitive#head'
+\     'gitbranch': 'fugitive#head',
+\     'gutentags': 'gutentags#statusline',
 \   },
+\ 'component_expand': {
+\  'linter_warnings': 'lightline#ale#warnings',
+\  'linter_errors': 'lightline#ale#errors',
+\ },
+\ 'component_type': {
+\     'linter_warnings': 'warning',
+\     'linter_errors': 'error',
+\ },
 \ }
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,6 +298,7 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:NERDTreeDirArrows = 1
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+let NERDTreeMinimalUI=1
 
 " Hide .pyc files in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"

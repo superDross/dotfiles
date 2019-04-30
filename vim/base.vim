@@ -20,6 +20,9 @@ set breakindent
 " get backspace to work as expected
 set backspace=indent,eol,start
 
+" always show statusline
+set laststatus=2
+
 " all required for numerous plugins to work as expected
 set nocompatible
 filetype on
@@ -169,6 +172,10 @@ autocmd VimEnter *.vim :normal zM
 
 set foldlevel=99
 
+"""" STATUSLINE """"""""""""""""""""""""""""""""""""""""""""
+" vy basic, needs more work
+set statusline=%f%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+
 """" VIMGREP """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " open results in the quickfix menu
 augroup myvimrc
@@ -253,8 +260,6 @@ let g:netrw_winsize = 25    " set width 25% of page
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-set laststatus=2
-set statusline=%f%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 """" SNIPPETS """""""""""""""""""""""""""""""""""""""
 " type pudb.remote in innsert mode and space afterward will insert the below
 " text
