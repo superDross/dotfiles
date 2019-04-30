@@ -466,7 +466,10 @@ let g:ale_sign_warning = '--'
 " set balloonevalterm
 " let g:ale_set_balloons = 1
 
-"""" TAGS """"""""""""""""""""""""""""""""""""""
+"""" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" use ag instead of find, whcih is faster and repects .gitignore
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+"""" GUTENTAGS """"""""""""""""""""""""""""""""""""""
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
