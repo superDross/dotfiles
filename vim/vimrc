@@ -220,6 +220,16 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 """" GUTENTAGS """"""""""""""""""""""""""""""""""""""
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
 
+"""" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
+" makes all markdown previews in GitHub style
+let vim_markdown_preview_github=1
+
+if expand('%:e') ==# 'md'
+  set spell spelllang=en_gb
+  set background=light
+  colorscheme pencil
+endif
+
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " no longer show mode in bottom line
 set noshowmode
@@ -227,9 +237,12 @@ set noshowmode
 let g:lightline#ale#indicator_warnings =  '⏶ '
 let g:lightline#ale#indicator_errors = '✘ '
 
+if g:colors_name ==# 'gruvbox'
+  let g:lightline.colorscheme = 'gruvbox'
+endif
+
 " show git branch in status line
 let g:lightline = {
-\ 'colorscheme': 'gruvbox',
 \ 'active': {
 \     'left': [ [ 'mode', 'paste'],
 \               [ 'readonly',  'gitbranch', 'gutentags'],
@@ -314,16 +327,6 @@ let extension_dict = {
 \    'js': '%RunView!node'
 \ }
 let extension_command = get(extension_dict, expand('%:e'))
-
-"""" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
-" makes all markdown previews in GitHub style
-let vim_markdown_preview_github=1
-
-if expand('%:e') ==# 'md'
-  set spell spelllang=en_gb
-  set background=light
-  colorscheme pencil
-endif
 
 """" EMMET """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable emmet only for HTML and CSS files

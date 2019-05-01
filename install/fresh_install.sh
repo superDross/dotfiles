@@ -97,7 +97,7 @@ install_vim() {
   # install Plug
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  apt install -y vim vim-common exuberant-ctags tidy lacheck xdotool ripgrep ack-grep
+  apt install -y vim vim-common tidy lacheck xdotool ripgrep ack-grep
   python -m pip install flake8 vim-vint grip autopep8 isort python-language-server
   # flake8 is not compatible with pycodestyle >= 2.4.0
   python -m pip install pycodestyle==2.3.0
