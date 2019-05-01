@@ -121,8 +121,8 @@ ffind() {
 
 # parse git or hg branch name
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-	 hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
 }
 
 # multiple git 'aliases'
@@ -152,23 +152,6 @@ up() {
 vlc_stream() {
   # use CTRL+Z and then type `bg` to take back your terminal
   peerflix "$1" --remove --vlc --quiet --list
-}
-
-# intiate the dbgp debugger for vim
-debug() {
-  local py_version="$1"
-  local py_dir=$($py_version --version  2>&1 | sed 's/P/p/g' | sed 's/\ //g' | sed 's/\..*//g')
-  local args="${@:2}"
-
-  if echo "$1" | grep  -v -q python; then
-    echo "$1" is not a valid python version
-  fi
-  
-  if [ "$py_dir" == "python2" ]; then
-    ${py_version} ~/.vim/debuggers/${py_dir}/pydbgp -d localhost:9000 $args
-  elif [ "$py_dir" == "python3" ]; then
-    ${py_version} -S ~/.vim/debuggers/${py_dir}/pydbgp -d localhost:9000 $args
-  fi
 }
 
 #### ALIASES
