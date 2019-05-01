@@ -218,7 +218,7 @@ let g:ale_sign_warning = '--'
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 """" GUTENTAGS """"""""""""""""""""""""""""""""""""""
-let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo']
+let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " no longer show mode in bottom line

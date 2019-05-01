@@ -100,6 +100,7 @@ function! UpdateTagFile()
              \ ' --exclude=bundle' .
              \ ' --exclude=tmp' .
              \ ' --exclude=*.pyc' .
+             \ ' --exclude=*.json' .
              \ ' --exclude=*.pyo'
   execute cmd
 endfunction
