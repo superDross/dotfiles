@@ -12,6 +12,16 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" assert & configure spell settings
+function! Spelling()
+  " required to allow mispellings to be highlighted
+  let g:gruvbox_guisp_fallback='bg'
+  colorscheme gruvbox
+  set spell spelllang=en_gb
+  hi clear SpellBad
+  hi SpellBad cterm=underline ctermfg=Red
+endfunction
+
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
@@ -33,7 +43,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeFind', 'NERDTreeToggle']}
 
-" GIT: use git commands in vim e.g. Gblame
+" GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'jlfwong/vim-mercenary'
 
@@ -46,16 +56,15 @@ Plug 'vim-scripts/RunView'
 "HIGHLIGHTING: highlights regex changes during typing
 Plug 'markonm/traces.vim'
 
-" COLORSCHEMES: various colorschemes. copy all schemes to ~/.vim/colors
+" COLORSCHEMES: various colorschemes
 Plug 'morhetz/gruvbox'
 Plug 'pbrisbin/vim-colors-off'
-Plug 'reedes/vim-colors-pencil'
 
-"EXTENDED FUNCTION: further improve editing
+" EDITING: further improve editing
 Plug 'tpope/vim-surround'
-
-" CSV: manipulate CSV files easily (READ THE DOCS)
-Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
+Plug 'wellle/targets.vim'
 
 " HTML: automates HTML tags (check tutorial)
 Plug 'mattn/emmet-vim', { 'for': ['javascript', 'html', 'css'] }
@@ -74,7 +83,6 @@ Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
-Plug 'superDross/motion-plus'
 
 call plug#end()
 
@@ -179,7 +187,7 @@ let g:ale_fixers = {
       \    '*': ['remove_trailing_lines', 'trim_whitespace'],
       \    'python': ['black', 'isort'],
       \    'sh': ['shfmt'],
-      \    'javascript': ['eslint', 'prettier-eslint'],
+      \    'javascript': ['eslint'],
       \    'json': ['jq'],
       \    'html': ['prettier'],
       \    'css': ['prettier', 'stylelint'],
@@ -225,9 +233,8 @@ let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bund
 let vim_markdown_preview_github=1
 
 if expand('%:e') ==# 'md'
-  set spell spelllang=en_gb
   set background=light
-  colorscheme pencil
+  call Spelling()
 endif
 
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -236,10 +243,6 @@ set noshowmode
 
 let g:lightline#ale#indicator_warnings =  '⏶ '
 let g:lightline#ale#indicator_errors = '✘ '
-
-if g:colors_name ==# 'gruvbox'
-  let g:lightline.colorscheme = 'gruvbox'
-endif
 
 " show git branch in status line
 let g:lightline = {
@@ -265,6 +268,11 @@ let g:lightline = {
 \     'linter_errors': 'error',
 \   },
 \ }
+
+
+if g:colors_name ==# 'gruvbox'
+  let g:lightline.colorscheme = 'gruvbox'
+endif
 
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
