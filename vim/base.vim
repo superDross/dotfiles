@@ -77,6 +77,9 @@ if expand('%:t') ==# 'COMMIT_EDITMSG'
   set spell spelllang=en_gb
 endif
 
+" extends functionality of %
+runtime macros/matchit.vim
+
 """" FUNCTIONS """""""""""""""""""""""""""""""
 " open terminal
 function! TerminalSize(...)
@@ -300,6 +303,8 @@ function! VimCheat()
   echo '   C-e     move screen down'
   echo '   ^       first non whitespace character on the line'
   echo '   g_      last non whitespace character on the line'
+  echo '   +       got to first non whitespace character on the next line'
+  echo '   -       got to first non whitespace character on the previous line'
   echo '   W       move next big word'
   echo '   B       move to last big word'
   echo '   E       move to end big word'
