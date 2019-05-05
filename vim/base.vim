@@ -80,6 +80,9 @@ endif
 " extends functionality of %
 runtime macros/matchit.vim
 
+" automatically resizes the window when it has moved
+autocmd VimResized * wincmd =
+
 """" FUNCTIONS """""""""""""""""""""""""""""""
 " open terminal
 function! TerminalSize(...)
@@ -94,6 +97,7 @@ endfunction
 command! -nargs=? LittleTerminal :call TerminalSize(<f-args>)
 cnoreabbrev sterm LittleTerminal
 
+" update the tag file
 function! UpdateTagFile()
   let cmd =  '!ctags -R' .
              \ ' --exclude=.git' .
@@ -111,6 +115,14 @@ endfunction
 command! UpdatedTags :call UpdateTagFile()
 nnoremap <Leader>u : UpdatedTags<CR><CR>:echom 'Tag generation completed'<CR>
 
+" convert a series of space delimited string to a list
+function! String2List()
+  execute ':s/\ /",\ "/g'
+  execute ':s/^/["/'
+  execute ':s/$/"]/'
+endfunction
+
+command! ListIt :call String2List()
 
 """" KEY BINDINGS """"""""""""""""""""""""""""""""""""
 " Stop using the arrow keys in both Insert and Escape mode respectively
