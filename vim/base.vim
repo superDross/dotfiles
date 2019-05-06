@@ -130,6 +130,10 @@ endfunction
 command! ListIt :call String2List()
 
 """" KEY BINDINGS """"""""""""""""""""""""""""""""""""
+" make space leader
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+
 " Stop using the arrow keys in both Insert and Escape mode respectively
 inoremap <up> <nop>
 inoremap <down> <nop>
@@ -139,9 +143,6 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
-
-" Set the space as key enabler
-nnoremap <space> za
 
 " turns off mouse use in vim
 set mouse=c
