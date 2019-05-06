@@ -28,6 +28,11 @@ set nocompatible
 filetype on
 filetype plugin on
 
+" syntax highlighting on for first 200 characters of each line
+syntax on
+set synmaxcol=200
+
+
 " Insert line numbering
 set relativenumber
 set number
@@ -163,6 +168,7 @@ noremap <leader>0 :tablast<CR>
 " function keys
 set pastetoggle=<F2>
 nnoremap <F6> :call VimCheat() <CR>
+nnoremap <F7> :call NewCommands()<CR>
 noremap <F9> :set hlsearch! hlsearch?<CR>
 noremap <F4> :Lexplore<CR>
 
@@ -239,7 +245,6 @@ set encoding=utf-8
 
 " Make your python code pretty with superior syntax highlighting
 let python_highlight_all=1
-syntax on
 
 """" JAVASCRIPT SETTINGS """""""""""""""""""""""""""""""""""""""""""
 " syntax highlighting for jsdocs
@@ -328,4 +333,30 @@ function! VimCheat()
   echo '   mq      set mark to q'
   echo '   `q      move to mark'
   echo "   'q      move to the start of the marks line"
+endfunction
+
+function! NewCommands()
+  echo 'NORMAL MODE'
+  echo '   gi                                   start insert mode at the last inserted position'
+  echo '   gx                                   open link under cursor in browser'
+  echo '   6gcc                                 comment next 6 lines'
+  echo '   ysw"                                 surround word with quotes'
+  echo '   cs[{                                 change brackets to curly'
+  echo '   z=                                   suggest spelling for word under cusor'
+  echo '   gv                                   reselct last visual selection'
+  echo '   C-o                                  normal mode for one command'
+  echo '   *                                    search for word under cursor'
+  echo 'COMMAND MODE'
+  echo '   :tag ClassName                       jump to tag ClassName'
+  echo '   :tjump ClassName                     jump to selected tag ClassName'
+  echo '   :j                                   all selected text on the same line'
+  echo '   :g/^$/d                              delete all empty lines'
+  echo '   :v/^$/d                              delete all NON empty lines'
+  echo '   :r !ls                               results of ls pate into buffer'
+  echo '   :earier 10m                          undo to buffer 10 minutes ago'
+  echo 'VISUAL'
+  echo '   u                                    change to lower case'
+  echo '   U                                    change to upper case'
+  echo 'COMMANDLINE'
+  echo '   find . -name "*.py" | xargs -o vim   open all py files in vim buffers'
 endfunction
