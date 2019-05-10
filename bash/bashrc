@@ -116,10 +116,19 @@ ffind() {
 	find . -type f -name "*.$1" ! -path '*/venv/*' | xargs grep "${@:2}"
 }
 
-# parse git or hg branch name
+# parse git or hg branch name and stash number
 parse_git_branch() {
-  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-	hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
+  if [ -d .git ]; then
+    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+    stash_num=$(git stash list | grep "$branch" | wc -l)
+    if [ "$stash_num" = 0 ]; then
+      echo "(${branch})"
+    else
+      echo "(${branch}) ${stash_num}"
+    fi
+  elif [ -d .hg ]; then
+	  hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
+  fi
 }
 
 # multiple git 'aliases'
@@ -232,4 +241,4 @@ export VIMRC=~/.vimrc
 
 #### PROMPT ############################################################
 # add git branch to prompt
-export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+export PS1="\u \w\[\033[32m\] \$(parse_git_branch)\[\033[00m\] $ "
