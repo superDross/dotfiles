@@ -354,6 +354,8 @@ function! NewCommands()
   echo '   :j                                   all selected text on the same line'
   echo '   :g/^$/d                              delete all empty lines'
   echo '   :v/^$/d                              delete all NON empty lines'
+  echo '   :s/Hi\ /&David/                      append David to Hi (& represents the match)'
+  echo '   :s/David/Hi\ &/                      prepend Hi to David'
   echo '   :read !ls                            results of ls pate into buffer'
   echo '   :earier 10m                          undo to buffer 10 minutes ago'
   echo 'VISUAL'
