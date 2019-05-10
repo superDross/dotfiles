@@ -101,11 +101,8 @@ if ! shopt -oq posix; then
 fi
 
 
-#### PATHS
-export PATH=$PATH:$HOME/bin/vcfhacks:$HOME/key-scripts/csq_query.py:$HOME/bin/dapPerlGenomicLib:$HOME/.cargo/bin:$HOME/configuration/ideas/bash/:$HOME/bin/vcfhacks/:$HOME/.npm-global/bin
-export PERL5LIB=$PERL5LIB:$HOME/bin/vcfhacks:$HOME/bin/dapPerlGenomicLib:$HOME/bin/vcftools/src/perl/
-# start up pythonrc to get autocomplete and saving of python environment in python shell
-export PYTHONSTARTUP=$HOME/.pythonrc
+#### PATHS ########################################################################
+export PATH=$PATH:$HOME/.npm-global/bin
 
 # point python-path to some user made functions/modules
 if [ -d ~/key-scripts/ ]; then
@@ -113,7 +110,7 @@ if [ -d ~/key-scripts/ ]; then
 fi
 
 
-#### FUNCTIONS
+#### FUNCTIONS ####################################################################
 # Usage: findpy "Driver ID"
 ffind() {
 	find . -type f -name "*.$1" ! -path '*/venv/*' | xargs grep "${@:2}"
@@ -135,7 +132,7 @@ git(){
 }
 
 # go up x many dirs:
-#     up 2 == cd ../../
+#    up 2 == cd ../../
 up() {
     if [[ "$#" == 0 ]] ; then
         cd ..
@@ -154,7 +151,7 @@ vlc_stream() {
   peerflix "$1" --remove --vlc --quiet --list
 }
 
-#### ALIASES
+#### ALIASES ###############################################################
 # hide unwanted files, make directories first shown, then show files.
 alias ls='ls \
             --color=auto \
@@ -177,7 +174,7 @@ alias game-quietly="/home/${USER}/key-scripts/game-quietly.sh"
 alias osmc="ssh osmc@192.168.1.7"
 
 # shorthand for software
-alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py'"
+alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
 
 # copy a file, usage: `copy <file>`
 alias copy="xclip -sel c <"
@@ -195,14 +192,10 @@ alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODUL
 alias jvel="vel; cd ~/projects/velocitynotes/jupyter_notebooks/; jupyter notebook"
 alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
 
-# fix resolve.conf for work VPN
-alias fix_vpn="sudo echo -e 'nameserver 10.200.53.10\nnameserver 10.200.23.10\nsearch crewe.ukfuels.co.uk' > /etc/resolv.conf"
-
-alias dragonball='vlc_stream "magnet:?xt=urn:btih:a90c45f9c0c9b07435d1aad8564077b2ac7591aa"'
-
+# fix pirate-get error
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
-#### COLOURS
+#### COLOURS ###############################################################
 # change the colour of the dirs and executable files
 export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
 
@@ -219,14 +212,15 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-#### EDITOR
+
+#### EDITOR ###############################################################
 # vim to be default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
 
 
-#### PLUGINS
+#### PLUGINS #############################################################
 # install these plugins
 # https://github.com/wting/autojump
 # https://github.com/junegunn/fzf
@@ -235,6 +229,7 @@ export VIMRC=~/.vimrc
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
 
+
+#### PROMPT ############################################################
 # add git branch to prompt
 export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-export PATH=/home/david/.nimble/bin:$PATH
