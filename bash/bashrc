@@ -118,7 +118,7 @@ ffind() {
 
 # parse git or hg branch name and stash number
 parse_git_branch() {
-  if [ -d .git ]; then
+  if git ls-files >& /dev/null; then
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
     stash_num=$(git stash list | grep "$branch" | wc -l)
     if [ "$stash_num" = 0 ]; then
