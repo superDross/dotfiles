@@ -126,7 +126,7 @@ progressbar33>=2.4
 promise>=2.1
 prompt-toolkit>=1.0.15
 psutil>=3.4.2
-psycopg2>=2.7.4
+psycopg2-binary
 ptyprocess>=0.5.2
 py>=1.4.31
 pyasn1>=0.4.2
