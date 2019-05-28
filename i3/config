@@ -68,7 +68,7 @@ bindsym Print exec scrot
 bindsym $mod+Return exec xfce4-terminal
 
 # lock screen activation
-bindsym $mod+Shift+x exec i3lock-fancy 
+bindsym $mod+Shift+x exec i3lock-fancy
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -152,9 +152,9 @@ bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+
 
 # Sreen brightness controls
 # increase screen brightness
-bindsym XF86MonBrightnessUp exec pkexec xfpm-power-backlight-helper --set-brightness 900 
+bindsym XF86MonBrightnessUp exec pkexec xfpm-power-backlight-helper --set-brightness 900
 # decrease screen brightness
-bindsym XF86MonBrightnessDown exec pkexec xfpm-power-backlight-helper --set-brightness 450 
+bindsym XF86MonBrightnessDown exec pkexec xfpm-power-backlight-helper --set-brightness 450
 
 # Touchpad controls
 # bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
@@ -170,7 +170,7 @@ bindsym XF86AudioPrev exec playerctl previous
 #   WORKSPACES   #
 ##################
 
-# icon cheatsheet: https://fontawesome.com/cheatsheet 
+# icon cheatsheet: https://fontawesome.com/cheatsheet
 set $workspace1 "1: "
 set $workspace2 "2: "
 set $workspace3 "3: "
@@ -269,9 +269,9 @@ bar {
                   urgent_workspace   #2f343a  $light_teal  #ffffff
                   binding_mode       #2F343A  $muddy_green #FFFFFF
                   # status_line_class    color
-                  background             #333333 
-                  statusline             #FFFFFF 
-                  separator              #FFFFFF 
+                  background             #333333
+                  statusline             #FFFFFF
+                  separator              #FFFFFF
         }
         status_command i3status --config ~/.config/i3/i3status.conf
         position top
@@ -283,15 +283,25 @@ bar {
 #    DISPLAY    #
 #################
 
-set $display display: (m)irror (d)ual (o)ffice
+set $display display: (m)irror (h)ome (w)ork (s)hare
 mode "$display" {
   bindsym m exec xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal \
                         --output HDMI-2 --primary --mode 1920x1080 --pos 0x0 --rotate normal
-  bindsym d exec xrandr --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left \
+  bindsym h exec xrandr --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left \
                         --output DP-1 --off \
-                        --output eDP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-                        --output HDMI-2 --mode 1920x1080 --pos 1920x0 --rotate normal
- 
+                        --output eDP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal
+  bindsym w exec xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
+                        --output HDMI-2 --mode 1920x1080 --pos 0x0 --rotate left \
+                        --output HDMI-1 --mode 1920x1080 --pos 1920x0 --rotate normal
+  bindsym s exec xrandr --output eDP-1 --off \
+                        --output HDMI-3 --off \
+                        --output HDMI-2 --off \
+                        --output HDMI-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
+                        --output DP-3 --off \
+                        --output DP-2 --off \
+                        --output DP-1 --off
+
+>>>>>>> 0dc97462edc837e1967058d143f741dff0760cbd
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
