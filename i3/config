@@ -301,8 +301,6 @@ mode "$display" {
                         --output DP-2 --off \
                         --output DP-1 --off
 
->>>>>>> 0dc97462edc837e1967058d143f741dff0760cbd
-
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
