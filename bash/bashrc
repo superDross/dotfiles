@@ -95,7 +95,7 @@ fi
 #### FUNCTIONS ####################################################################
 # Usage: findpy "Driver ID"
 ffind() {
-	find . -type f -name "*.$1" ! -path '*/venv/*' | xargs grep "${@:2}"
+	find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
 }
 
 # parse git or hg branch name and stash number
@@ -188,6 +188,10 @@ alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to company vpn
 alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
+
+# go to capn and initiate its venv
+alias cap="cd ~/dev/capn; source ./venv/bin/activate"
+alias datum="cd ~/dev/datum; source ./venv/bin/activate"
 
 #### COLOURS ###############################################################
 # change the colour of the dirs and executable files
