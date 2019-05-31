@@ -185,7 +185,7 @@ nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fixers = {
       \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \    'python': ['black', 'isort'],
+      \    'python': ['autopep8', 'isort'],
       \    'sh': ['shfmt'],
       \    'javascript': ['eslint'],
       \    'json': ['jq'],
@@ -233,7 +233,7 @@ let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bund
 let vim_markdown_preview_github=1
 
 if expand('%:e') ==# 'md'
-  set background=light
+  "set background=light
   call Spelling()
 endif
 
@@ -289,6 +289,7 @@ let g:taboo_renamed_tab_format = ' %l %m '
 let g:tagbar_foldlevel = 0
 let g:tagbar_compact = 1
 let g:tagbar_autopreview = 1
+let g:tagbar_previewwin_pos = "rightbelow"
 
 """" NERDTree """""""""""""""""""""""""""""""""""""""""""""
 " refresh the file tree upon opening
