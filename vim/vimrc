@@ -139,6 +139,9 @@ function! KeyCheat()
 endfunction
 
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
+" remap folding
+nnoremap <leader><leader> za
+
 " function keys
 nnoremap <F3> :ALEFix<CR>
 nnoremap <F4> : NERDTreeToggle<CR>
