@@ -186,11 +186,11 @@ nnoremap <Leader>a :Ag<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
-" only use black ale fixer on home laptop
-if system('uname -n | tr -d "\n"') ==# 'david-UX303LAB'
-  let auto = 'black'
+" only use autopep8 ale fixer on work laptop
+if system('uname -n | tr -d "\n"') ==# 'david-work'
+  let auto = 'autopep8'
 else
-  let auto = 'autopep8' 
+  let auto = 'black' 
 endif
 
 let g:ale_fixers = {
