@@ -84,8 +84,7 @@ fi
 
 
 #### SETTINGS ####################################################################
-set -o vi
-
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
 #### PATHS ########################################################################
 export PATH=$PATH:$HOME/.npm-global/bin
@@ -99,7 +98,13 @@ fi
 #### FUNCTIONS ####################################################################
 # Usage: findpy "Driver ID"
 ffind() {
-	find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
+  
+  if cmd="$(type -p "rg")" || [[ -x $cmd ]] ; then
+    rg -w "${@:2}" --type "$1"  -g '!**/venv/*' -g '!**/.tox/*' 
+  # add ag alternative
+  else
+	  find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
+  fi
 }
 
 # parse git or hg branch name and stash number
@@ -194,8 +199,8 @@ alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
 
 # go to capn and initiate its venv
-alias cap="cd ~/dev/capn; source ./venv/bin/activate"
-alias datum="cd ~/dev/datum; source ./venv/bin/activate"
+alias capnv="cd ~/dev/capn; source ./venv/bin/activate"
+alias datumv="cd ~/dev/datum; source ./venv/bin/activate"
 
 #### COLOURS ###############################################################
 # change the colour of the dirs and executable files
