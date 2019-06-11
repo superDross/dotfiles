@@ -58,7 +58,7 @@ Plug 'markonm/traces.vim'
 
 " COLORSCHEMES: various colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'pbrisbin/vim-colors-off'
+Plug 'Lokaltog/vim-monotone'
 
 " EDITING: further improve editing
 Plug 'tpope/vim-surround'
@@ -183,6 +183,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
 nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>r :Rg<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
@@ -235,6 +236,7 @@ let g:ale_sign_warning = '--'
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let g:fzf_layout = { 'up': '~50%' }
 """" GUTENTAGS """"""""""""""""""""""""""""""""""""""
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
 
