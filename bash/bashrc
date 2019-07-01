@@ -152,6 +152,13 @@ vlc_stream() {
   peerflix "$1" --remove --vlc --quiet --list
 }
 
+# grep yteam log processes
+log-grep() {
+  ssh -t david.ross@ng.ldc.yougov.local "grep $1 /mnt/syslogng/yhost_procs"
+}
+
+
+
 #### ALIASES ###############################################################
 # hide unwanted files, make directories first shown, then show files.
 alias ls='ls \
