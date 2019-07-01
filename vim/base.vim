@@ -168,10 +168,11 @@ noremap <leader>0 :tablast<CR>
 
 " function keys
 set pastetoggle=<F2>
-nnoremap <F6> :call VimCheat() <CR>
-nnoremap <F7> :call NewCommands()<CR>
-noremap <F9> :set hlsearch! hlsearch?<CR>
-noremap <F4> :Lexplore<CR>
+nnoremap <leader>1 :call VimCheat() <CR>
+nnoremap <leader>2 :call NewCommands()<CR>
+noremap <leader>0 :set hlsearch! hlsearch?<CR>
+noremap <leader>5 :Lexplore<CR>
+noremap <F1> <nop>
 
 " open terminal
 nnoremap <silent> <Leader>t :term ++rows=15<CR>
