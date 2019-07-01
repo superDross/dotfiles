@@ -153,8 +153,10 @@ vlc_stream() {
 }
 
 # grep yteam log processes
+#   log-rep <query> <app>
 log-grep() {
-  ssh -t david.ross@ng.ldc.yougov.local "grep $1 /mnt/syslogng/yhost_procs"
+  ssh -t david.ross@ng.ldc.yougov.local \
+    "find /mnt/syslogng/yhost_procs/ . -name 'yproc-$2.log' | xargs grep $1"
 }
 
 
