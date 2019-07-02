@@ -167,6 +167,43 @@ log-grep() {
      ( [[ ! '$3' ]] && cat || grep $3':[0-9][0-9]:[0-9][0-9]' )"
 }
 
+# activates a virtual env
+#   v <app-name> <dir>
+#
+# Example:
+#  activate pangaea virtual env
+#    v pangaea/
+#  activate capn virtual env within dev dir
+#    v capn/ ~/dev
+v() {
+  if [[ -z "$1" ]]; then
+    echo please supply an app name
+    return 1
+  fi
+
+  # get optional dir arg
+  if [[ -z "$2" ]]; then
+    local dir=~
+  else
+    local dir=$2
+  fi
+
+  local venv_dir=$(find "$dir" -name venv -type d | grep "$1")
+  local matches=$(echo $venv_dir | wc -w)
+
+  if [[  $matches > 1 ]]; then
+    echo too many matches: $venv_dir
+    return 1
+  elif [[ $matches < 1 ]]; then
+    echo no matches found for $1
+    return 1
+  fi
+
+  local activate=${venv_dir}/bin/activate
+  echo [ACTIVATING] $activate
+  source $activate
+  cd $(dirname ${venv_dir})
+}
 
 
 #### ALIASES ###############################################################
@@ -215,10 +252,6 @@ alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to company vpn
 alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
-
-# go to capn and initiate its venv
-alias capnv="cd ~/dev/capn; source ./venv/bin/activate"
-alias datumv="cd ~/dev/datum; source ./venv/bin/activate"
 
 #### COLOURS ###############################################################
 # change the colour of the dirs and executable files
