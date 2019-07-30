@@ -173,6 +173,7 @@ nnoremap <leader>2 :call NewCommands()<CR>
 noremap <leader>0 :set hlsearch! hlsearch?<CR>
 noremap <leader>5 :Lexplore<CR>
 noremap <F1> <nop>
+inoremap <F1> <nop>
 
 " open terminal
 nnoremap <silent> <Leader>t :term ++rows=15<CR>

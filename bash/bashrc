@@ -97,11 +97,18 @@ fi
 
 
 #### FUNCTIONS ####################################################################
-# Usage: findpy "Driver ID"
+
+# FFind 
+# 
+# rg/grep wrapper
+#   ffind <file-ext> <query>
+#
+# Example:
+#   find all class in all python files recursively
+#     ffind py class 
 ffind() {
-  
   if cmd="$(type -p "rg")" || [[ -x $cmd ]] ; then
-    rg -w "${@:2}" --type "$1"  -g '!**/venv/*' -g '!**/.tox/*' 
+    rg "${@:2}" --type "$1"  -g '!**/venv/*' -g '!**/.tox/*' 
   # add ag alternative
   else
 	  find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
@@ -127,6 +134,8 @@ parse_git_branch() {
 git(){
 	if [[ $@ == 'graph' ]]; then
 		command git log --graph --oneline --decorate --all
+  elif [[ $@ == 'current-tag' ]]; then
+    command git describe --tags --abbrev=0
 	else
 		command git "$@"
 	fi
@@ -147,11 +156,13 @@ up() {
 }
 
 # stream torrent magnet in VLC
-vlc_stream() {
+vlc-stream() {
   # use CTRL+Z and then type `bg` to take back your terminal
   peerflix "$1" --remove --vlc --quiet --list
 }
 
+# LogGrep
+#
 # grep yteam prod logs
 #   log-grep <app> <process> <hour> 
 #
@@ -167,6 +178,8 @@ log-grep() {
      ( [[ ! '$3' ]] && cat || grep $3':[0-9][0-9]:[0-9][0-9]' )"
 }
 
+# VirtualJump
+#
 # activates a virtual env
 #   v <app-name> <dir>
 #
