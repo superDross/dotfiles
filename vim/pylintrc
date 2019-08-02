@@ -1,0 +1,3 @@
+[MASTER]
+# stop import errors and no name in module errors
+disable:F0401,E0611
