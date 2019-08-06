@@ -83,6 +83,7 @@ Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
+Plug 'superDross/ticket.vim'
 
 call plug#end()
 
