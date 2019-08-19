@@ -1,6 +1,7 @@
 [MASTER]
 disable=
     no-name-in-module,
+    no-member,
     c-extension-no-member
 
 [FORMAT]
