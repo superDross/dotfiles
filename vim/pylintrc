@@ -1,5 +1,7 @@
 [MASTER]
 disable=
+    too-few-public-methods,
+    no-member,
     no-name-in-module,
     c-extension-no-member
 
