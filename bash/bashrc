@@ -121,12 +121,20 @@ parse_git_branch() {
     branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
     stash_num=$(git stash list | grep "$branch" | wc -l)
     if [ "$stash_num" = 0 ]; then
-      echo "(${branch})"
+      echo " (${branch})"
     else
-      echo "(${branch}) ${stash_num}"
+      echo " (${branch}) ${stash_num}"
     fi
   elif [ -d .hg ]; then
 	  hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
+  fi
+}
+
+bg_process_num() {
+  num=$(jobs | wc -l)
+  actual_num=$((num-1))
+  if [ $actual_num != 0 ]; then
+    echo " $actual_num"
   fi
 }
 
@@ -303,4 +311,6 @@ export VIMRC=~/.vimrc
 
 #### PROMPT ############################################################
 # add git branch to prompt
-export PS1="\u \w\[\033[32m\] \$(parse_git_branch)\[\033[00m\] $ "
+# green - git
+# cyan - bg processes
+export PS1="\u \w\[\033[32m\]\$(parse_git_branch)\[\033[00m\]\[\033[96m\]\$(bg_process_num)\[\033[00m\] $ "
