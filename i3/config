@@ -143,6 +143,9 @@ bindsym $mod+o gaps outer current set 15; gaps inner current set 15
 #    MEDIA       #
 ##################
 
+# Tray icon for pulse audio
+exec /usr/bin/pasystray
+
 # To toggle VLC interface: CTRL-H
 
 # Pulse Audio controls
