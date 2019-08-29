@@ -185,7 +185,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
 nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>r :Rg<CR>
+" nnoremap <Leader>r :Rg<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
