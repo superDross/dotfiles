@@ -131,10 +131,9 @@ parse_git_branch() {
 }
 
 bg_process_num() {
-  num=$(jobs | wc -l)
-  actual_num=$((num-1))
-  if [ $actual_num != 0 ]; then
-    echo " $actual_num"
+  num=$(jobs | grep -v autojump | wc -l)
+  if [ $num != 0 ]; then
+    echo " $num"
   fi
 }
 
