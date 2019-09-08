@@ -198,7 +198,7 @@ endif
 
 let g:ale_fixers = {
       \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \    'python': ['black', 'isort'],
+      \    'python': ['isort', 'black'],
       \    'sh': ['shfmt'],
       \    'javascript': ['eslint'],
       \    'json': ['jq'],
@@ -228,6 +228,11 @@ let g:ale_echo_msg_format = '%s [%linter%]'
 " change signs
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
+
+" only fix if not on work computer
+if system('uname -n | tr -d "\n"') !=# 'david-work'
+  let g:ale_fix_on_save = 1
+endif
 
 
 " hover docstrings
