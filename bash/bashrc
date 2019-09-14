@@ -4,8 +4,8 @@
 # set -x
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -32,12 +32,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+xterm-color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -47,19 +47,19 @@ force_color_prompt=yes
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
+
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
@@ -82,7 +82,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 #### SETTINGS ####################################################################
 # set -o vi
 export HISTTIMEFORMAT="%d/%m/%y %T "
@@ -92,33 +91,32 @@ export PATH=$PATH:$HOME/.npm-global/bin
 
 # point python-path to some user made functions/modules
 if [ -d ~/key-scripts/ ]; then
-	export `python3 ~/key-scripts/pythonpath.py /home/${USER}/projects/`
+  export $(python3 ~/key-scripts/pythonpath.py /home/${USER}/projects/)
 fi
-
 
 #### FUNCTIONS ####################################################################
 
-# FFind 
-# 
+# FFind
+#
 # rg/grep wrapper
 #   ffind <file-ext> <query>
 #
 # Example:
 #   find all class in all python files recursively
-#     ffind py class 
+#     ffind py class
 ffind() {
-  if cmd="$(type -p "rg")" || [[ -x $cmd ]] ; then
-    rg "${@:2}" --type "$1"  -g '!**/venv/*' -g '!**/.tox/*' 
+  if cmd="$(type -p "rg")" || [[ -x $cmd ]]; then
+    rg "${@:2}" --type "$1" -g '!**/venv/*' -g '!**/.tox/*'
   # add ag alternative
   else
-	  find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
+    find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
   fi
 }
 
 # parse git or hg branch name and stash number
 parse_git_branch() {
-  if git ls-files >& /dev/null; then
-    branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+  if git ls-files >&/dev/null; then
+    branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
     stash_num=$(git stash list | grep "$branch" | wc -l)
     if [ "$stash_num" = 0 ]; then
       echo " (${branch})"
@@ -126,7 +124,7 @@ parse_git_branch() {
       echo " (${branch}) ${stash_num}"
     fi
   elif [ -d .hg ]; then
-	  hg branch 2> /dev/null | awk '{ print " hg (" $1 ")" }'
+    hg branch 2>/dev/null | awk '{ print " hg (" $1 ")" }'
   fi
 }
 
@@ -138,28 +136,28 @@ bg_process_num() {
 }
 
 # multiple git 'aliases'
-git(){
-	if [[ $@ == 'graph' ]]; then
-		command git log --graph --oneline --decorate --all
+git() {
+  if [[ $@ == 'graph' ]]; then
+    command git log --graph --oneline --decorate --all
   elif [[ $@ == 'current-tag' ]]; then
     command git describe --tags --abbrev=0
-	else
-		command git "$@"
-	fi
+  else
+    command git "$@"
+  fi
 }
 
 # go up x many dirs:
 #    up 2 == cd ../../
 up() {
-    if [[ "$#" == 0 ]] ; then
-        cd ..
-    else
-        CDSTR=""
-        for i in $(seq 1 $1) ; do
-            CDSTR="../$CDSTR"
-        done
-        cd $CDSTR
-    fi
+  if [[ "$#" == 0 ]]; then
+    cd ..
+  else
+    CDSTR=""
+    for i in $(seq 1 $1); do
+      CDSTR="../$CDSTR"
+    done
+    cd $CDSTR
+  fi
 }
 
 # stream torrent magnet in VLC
@@ -171,7 +169,7 @@ vlc-stream() {
 # LogGrep
 #
 # grep yteam prod logs
-#   log-grep <app> <process> <hour> 
+#   log-grep <app> <process> <hour>
 #
 # Examples:
 #   check capn process yt2 log through 3pm-4pm:
@@ -208,10 +206,10 @@ v() {
     local dir=$2
   fi
 
-  local venv_dir=$(find "$dir" -maxdepth 6 -not -path '*/\.*' -name venv -type d  2>&1 |  grep -i "$1")
+  local venv_dir=$(find "$dir" -maxdepth 6 -not -path '*/\.*' -name venv -type d 2>&1 | grep -i "$1")
   local matches=$(echo $venv_dir | wc -w)
 
-  if [[  $matches > 1 ]]; then
+  if [[ $matches > 1 ]]; then
     echo [ERROR] too many matches: $venv_dir
     return 1
   elif [[ $matches < 1 ]]; then
@@ -224,7 +222,6 @@ v() {
   source $activate
   cd $(dirname ${venv_dir})
 }
-
 
 #### ALIASES ###############################################################
 # hide unwanted files, make directories first shown, then show files.
@@ -263,15 +260,19 @@ alias h="history"
 alias hsi="history | grep"
 
 # set up work environment for local instances
-alias vel="cd ~/dev/velocity/; source bin/activate; export DJANGO_SETTINGS_MODULE=velocity.settings.servers.developers.dev_david_ro; export CELERY_LOADER=velocity.celeryloader.DjangoLoader"
 alias jvel="vel; cd ~/projects/velocitynotes/jupyter_notebooks/; jupyter notebook"
-alias er="cd ~/dev/eroute/; source venv/bin/activate; export DJANGO_SETTINGS_MODULE=gmaps.dev_david_ro"
 
 # fix pirate-get error
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
-# connect to company vpn
-alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
+# connect to vpn
+computer=$(uname -n | tr -d "\n")
+if [ "$computer" == 'david-work' ]; then
+
+  alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
+else
+  alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
+fi
 
 #### COLOURS ###############################################################
 # change the colour of the dirs and executable files
@@ -290,13 +291,11 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-
 #### EDITOR ###############################################################
 # vim to be default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
-
 
 #### PLUGINS #############################################################
 # install these plugins
@@ -306,7 +305,6 @@ export VIMRC=~/.vimrc
 # source plugins
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
-
 
 #### PROMPT ############################################################
 # add git branch to prompt
