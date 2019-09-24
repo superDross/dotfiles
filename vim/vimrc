@@ -81,6 +81,9 @@ Plug 'junegunn/fzf.vim'
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
 
+" DIFF: check differences between lines
+Plug 'AndrewRadev/linediff.vim'
+
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
