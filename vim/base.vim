@@ -30,8 +30,9 @@ filetype plugin on
 
 " syntax highlighting on for first 200 characters of each line
 syntax on
-set synmaxcol=200
-
+if expand('%:e') !=# 'md'
+  set synmaxcol=1000
+endif
 
 " Insert line numbering
 set relativenumber

@@ -55,6 +55,7 @@ Plug 'vim-scripts/RunView'
 
 "HIGHLIGHTING: highlights regex changes during typing
 Plug 'markonm/traces.vim'
+Plug 'machakann/vim-highlightedyank'
 
 " COLORSCHEMES: various colorschemes
 Plug 'morhetz/gruvbox'
