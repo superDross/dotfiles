@@ -27,6 +27,9 @@ call plug#begin()
 
 call Source('base.vim')
 
+" TESTING FRAMEWORK: unit testing
+Plug 'junegunn/vader.vim'
+
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
