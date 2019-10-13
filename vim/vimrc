@@ -46,6 +46,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeFind', 'NERDTreeToggle']}
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'jlfwong/vim-mercenary'
+Plug 'mhinz/vim-signify'
 
 " MARKDOWN: preview markdown files
 Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
@@ -62,7 +63,8 @@ Plug 'morhetz/gruvbox'
 Plug 'Lokaltog/vim-monotone'
 
 " EDITING: further improve editing
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+Plug 'machakann/vim-swap'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'wellle/targets.vim'
