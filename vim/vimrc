@@ -2,7 +2,7 @@
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 
-function! Source(f)
+function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
 endfunction
 
@@ -25,7 +25,7 @@ endfunction
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
-call Source('base.vim')
+call SourceBaseRc('base.vim')
 
 " TESTING FRAMEWORK: unit testing
 Plug 'junegunn/vader.vim'
@@ -255,7 +255,7 @@ let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bund
 " makes all markdown previews in GitHub style
 let vim_markdown_preview_github=1
 
-if expand('%:e') ==# 'md'
+if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
   "set background=light
   call Spelling()
 endif
