@@ -207,18 +207,18 @@ v() {
   fi
 
   local venv_dir=$(find "$dir" -maxdepth 6 -not -path '*/\.*' -name venv -type d 2>&1 | grep -i "$1")
-  local matches=$(echo $venv_dir | wc -w)
+  local matches=$(echo "$venv_dir" | wc -w)
 
-  if [[ $matches > 1 ]]; then
-    echo [ERROR] too many matches: $venv_dir
+  if [[ $matches -gt 1 ]]; then
+    echo "[ERROR] too many matches: $venv_dir"
     return 1
-  elif [[ $matches < 1 ]]; then
-    echo [ERROR] no matches found for $1
+  elif [[ $matches -lt 1 ]]; then
+    echo "[ERROR] no matches found for $1"
     return 1
   fi
 
   local activate=${venv_dir}/bin/activate
-  echo [ACTIVATING] $activate
+  echo "[ACTIVATING] $activate"
   source $activate
   cd $(dirname ${venv_dir})
 }
