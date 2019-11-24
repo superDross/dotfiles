@@ -8,6 +8,9 @@
 #   initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
 #   exit
 
+# NOTE: change GRUB_TIMEOUT_STYLE from hidden to menu in /etc/default/grub
+#       GRUB_TIMEOUT_STYLE=menu (
+
 set -o errexit          # Exit on most errors (see the manual)
 set -o errtrace         # Make sure any error trap is inherited
 set -o nounset          # Disallow expansion of unset variables
