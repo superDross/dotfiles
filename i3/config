@@ -16,8 +16,6 @@ focus_follows_mouse no
 #       VARIABLES       #
 #########################
 
-set $file_manager thunar
-set $file_manager_class "Thunar"
 set $wallpaper ~/Downloads/wallpaper.jpg
 
 # colors
@@ -65,7 +63,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym Print exec scrot
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec xfce4-terminal --hide-menubar
 
 # lock screen activation
 bindsym $mod+Shift+x exec i3lock-fancy
@@ -143,26 +141,15 @@ bindsym $mod+o gaps outer current set 15; gaps inner current set 15
 #    MEDIA       #
 ##################
 
-# Tray icon for pulse audio
-exec /usr/bin/pasystray
+# NOTE: if no audio then deleting the files in ~/.config/pulse
+#       and restarting the machine solves the issue
 
-# To toggle VLC interface: CTRL-H
-
-# Pulse Audio controls
+# # Pulse Audio controls
 bindsym XF86AudioMute exec amixer -q -D pulse sset Master toggle
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse sset Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse sset Master 5%+
 
-# Sreen brightness controls
-# increase screen brightness
-bindsym XF86MonBrightnessUp exec pkexec xfpm-power-backlight-helper --set-brightness 900
-# decrease screen brightness
-bindsym XF86MonBrightnessDown exec pkexec xfpm-power-backlight-helper --set-brightness 450
-
-# Touchpad controls
-# bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
-# Media player controls
+# # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause || dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
 bindsym XF86AudioPause exec playerctl pause || dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause
@@ -211,7 +198,6 @@ bindsym $mod+Shift+10 move container to workspace 10
 
 # opens specific applications in given workspace windows
 assign [class="Firefox"] $workspace4
-assign [class=$file_manager_class] $workspace5
 assign [class="TelegramDesktop"] $workspace6
 for_window [class="Spotify"] move to workspace $workspace6
 assign [class="Slack"] $workspace7
@@ -224,14 +210,54 @@ for_window [instance=vlc] sticky enable
 #    START UP APPS     #
 ########################
 
+# NOTE: use `lightdm-settings` to change the login screen wallpaper
 exec_always feh --bg-fill $wallpaper
-exec xfce4-terminal
+exec xfce4-terminal --hide-menubar
 exec firefox
-# exec --no-startup-id xfce4-panel --disable-wm-check
-# exec $file_manager
-exec --no-startup-id "sh -c 'sleep 3;  /home/david/bin/Telegram/Telegram'"
-# exec spotify
-exec slack
+
+# background apps
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id compton -b
+exec --no-startup-id nm-applet
+exec --no-startup-id clipit
+exec --no-startup-id telegram-desktop
+# Tray icon for pulse audio
+exec --no-startup-id pasystray
+
+bindsym $mod+Ctrl+m exec xfce4-terminal --hide-menubar -e 'alsamixer'
+
+
+########################
+#     FLOATING APPS    #
+########################
+
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="fpakman"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
 
 
 #########################
@@ -279,7 +305,7 @@ bar {
                   statusline             #FFFFFF
                   separator              #FFFFFF
         }
-        status_command i3status --config ~/.config/i3/i3status.conf
+        status_command i3status --config ~/.i3/i3status.conf
         position top
         tray_output primary
 }
@@ -482,7 +508,7 @@ bindsym $mod+Shift+g mode "$mode_gaps"
 #    AUTO RESIZING    #
 #######################
 
-for_window [instance=Telegram] resize set 640 480
+# for_window [instance=Telegram] resize set 640 480
 
 
 #######################

@@ -47,9 +47,10 @@ set background=dark
 set t_Co=256
 
 " termguicolors causes tmux vim sessions to go monochrome
-if !exists('$TMUX')
-  set termguicolors
-endif
+" does not play well with URxvt
+" if !exists('$TMUX')
+"   set termguicolors
+" endif
 
 " Allows completion with words
 set dictionary=/usr/share/dict/words
