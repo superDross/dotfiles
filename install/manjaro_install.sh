@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# NOTE: use lmxappearance to matcha-dark-aliz
+#       use lightdm-settings to change the theme for the login screen
+
+# NOTE: to install postgres
+#   sudo su postgres -l # or sudo -u postgres -i
+#   initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
+#   exit
+
 set -o errexit          # Exit on most errors (see the manual)
 set -o errtrace         # Make sure any error trap is inherited
 set -o nounset          # Disallow expansion of unset variables
@@ -33,6 +41,7 @@ function update_and_install(){
 
   pacman -Syu \
     firefox \
+    the_silver_searcher \
     git \
     xfce4-terminal \
     vlc \
@@ -53,6 +62,7 @@ function update_and_install(){
     pasystray \
     redshift \
     xfce \
+    python-virtualenvwrapper
     postgresql
   
   pamac build spotify
@@ -119,14 +129,10 @@ function setup_files(){
 }
 
 
-# NOTE: use lmxappearance to matcha-dark-aliz
-#       use lightdm-settings to change the theme for the login screen
-
-# NOTE: to install postgres
-#   sudo su postgres -l # or sudo -u postgres -i
-#   initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
-#   exit
-
-
-# TODO
-# fzf in vim
+update_and_install()
+autojump()
+i3lock()
+install_npm_packages()
+install_python_packages()
+setup_vim()
+setup_files()
