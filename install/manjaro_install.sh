@@ -55,6 +55,7 @@ function update_and_install(){
     evince \
     zathura \
     cups \
+    clang \
     simple-scan \
     ripgrep \
     ttf-hack \
@@ -65,7 +66,8 @@ function update_and_install(){
     pasystray \
     redshift \
     xfce \
-    python-virtualenvwrapper
+    timeshift \
+    python-virtualenvwrapper \
     postgresql
   
   pamac build spotify
@@ -97,10 +99,17 @@ function install_python_packages(){
     python-language-server \
     ipython \
     flake8 \
+    black \
     vim-vint \
     grip \
     autopep8 \
     isort
+}
+
+
+function install_snap_stuff(){
+  # c/c++ language server
+  snap install ccls --classic
 }
 
 
@@ -137,5 +146,6 @@ autojump()
 i3lock()
 install_npm_packages()
 install_python_packages()
+install_snap_stuff()
 setup_vim()
 setup_files()

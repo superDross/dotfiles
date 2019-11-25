@@ -222,6 +222,8 @@ exec --no-startup-id compton -b
 exec --no-startup-id nm-applet
 # required for brightness keys to work
 exec --no-startup-id xfce4-power-manager
+# backup system
+exec --no-startup-id timeshift
 exec --no-startup-id clipit
 exec --no-startup-id telegram-desktop
 # Tray icon for pulse audio
