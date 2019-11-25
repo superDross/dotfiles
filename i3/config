@@ -218,7 +218,10 @@ exec firefox
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id compton -b
+# network manager (nmcli) icon and gui
 exec --no-startup-id nm-applet
+# required for brightness keys to work
+exec --no-startup-id xfce4-power-manager
 exec --no-startup-id clipit
 exec --no-startup-id telegram-desktop
 # Tray icon for pulse audio
