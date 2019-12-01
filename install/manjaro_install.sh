@@ -45,6 +45,7 @@ function update_and_install(){
   pacman -Syu \
     firefox \
     the_silver_searcher \
+    docker \
     git \
     xfce4-terminal \
     vlc \
@@ -109,7 +110,7 @@ function install_python_packages(){
 
 function install_snap_stuff(){
   # c/c++ language server
-  snap install ccls --classic
+  snap install ccls pre-commit --classic
 }
 
 

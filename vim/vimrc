@@ -34,7 +34,7 @@ Plug 'junegunn/vader.vim'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 " GUTENTAGS: automatic tag generation
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " LINTER: syntax checkers
 Plug 'w0rp/ale'
@@ -129,7 +129,7 @@ function! KeyCheat()
   echo '    L-a            = fuzzy grep using Ag'
   echo '    L-*            = fuzzy grep word under the cursor'
   echo '    C-v            = open fuzzy found file in a vs window'
-  echo '    C-x            = open fuzzy found file in a sp window'
+  echo '    C-s            = open fuzzy found file in a sp window'
   echo '    C-t            = open fuzzy found file in a new tab window'
   echo 'SESSIONS'
   echo '   :mks t.vim      = create vim session'
@@ -194,7 +194,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
 nnoremap <Leader>a :Ag<CR>
-" nnoremap <Leader>r :Rg<CR>
+nnoremap <Leader>g :Rg<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
@@ -351,11 +351,11 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
 """" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
-let g:runview_filtcmd='python3.6'
+let g:runview_filtcmd='python3'
 
 " check file extension and parse appropriate command to runview and assign to F12
 let extension_dict = {
-\    'py': '%RunView!python3.6',
+\    'py': '%RunView!python3',
 \    'sh': '%RunView!sh',
 \    'js': '%RunView!node'
 \ }

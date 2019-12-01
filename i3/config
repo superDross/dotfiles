@@ -214,6 +214,7 @@ for_window [instance=vlc] sticky enable
 exec_always feh --bg-fill $wallpaper
 exec xfce4-terminal --hide-menubar
 exec firefox
+exec unclutter
 
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
