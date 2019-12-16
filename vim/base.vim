@@ -11,6 +11,10 @@
 " set noshowmatch
 
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
+
+" vertical split adds to right of current window
+set splitright
+
 " stops the wrap text over line from doing so mid-word
 set linebreak
 
@@ -292,6 +296,7 @@ iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160,
 iabbrev pudb import pudb;pudb.set_trace()
 iabbrev pdb import pdb;pdb.set_trace()
 iabbrev ipdb import ipdb;ipdb.set_trace()
+iabbrev pytrace import pytest;pytest.set_trace()
 
 """" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! VimCheat()

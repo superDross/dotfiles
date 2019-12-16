@@ -521,9 +521,9 @@ bindsym $mod+Shift+g mode "$mode_gaps"
 #    CAPS INDICATOR   #
 #######################
 
-mode "CAPS" {
+# mode "CAPS" {
 
-        bindsym Caps_Lock mode "default"
-}
+#         bindsym Caps_Lock mode "default"
+# }
 
-bindsym Caps_Lock mode "CAPS"
+# bindsym Caps_Lock mode "CAPS"

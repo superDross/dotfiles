@@ -104,6 +104,7 @@ function install_python_packages(){
     vim-vint \
     grip \
     autopep8 \
+    mypy \
     isort
 }
 

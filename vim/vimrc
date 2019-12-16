@@ -31,7 +31,7 @@ call SourceBaseRc('base.vim')
 Plug 'junegunn/vader.vim'
 
 " TAG BROWSER: get class/function names in a sidebar
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+Plug 'liuchengxu/vista.vim'
 
 " GUTENTAGS: automatic tag generation
 " Plug 'ludovicchabant/vim-gutentags'
@@ -158,7 +158,7 @@ noremap <leader>3 :call KeyCheat() <CR>
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>5 : NERDTreeToggle<CR>
 nnoremap <leader>6 :NERDTreeFind<CR>
-nnoremap <leader>8 :TagbarToggle<CR>
+nnoremap <leader>8 :Vista!!<CR>
 nnoremap <buffer> <leader>9 :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " Hovering
@@ -224,7 +224,7 @@ let g:ale_fixers = {
 "   shellcheck
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pyls'],
+      \   'python': ['pyls', 'mypy'],
       \ }
 
 " completion settings
@@ -308,12 +308,8 @@ set sessionoptions+=tabpages,globals
 " naming format
 let g:taboo_renamed_tab_format = ' %l %m '
 
-"""" TAGBAR """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" completely fold all classes/functions - except the one by the cursor
-let g:tagbar_foldlevel = 0
-let g:tagbar_compact = 1
-let g:tagbar_autopreview = 1
-let g:tagbar_previewwin_pos = "rightbelow"
+"""" VISTA """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:vista#renderer#enable_icon = 0
 
 """" NERDTree """""""""""""""""""""""""""""""""""""""""""""
 " refresh the file tree upon opening
