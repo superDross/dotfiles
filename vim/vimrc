@@ -179,6 +179,10 @@ nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
+" Vimwiki bindings
+nnoremap <silent> <Leader>wv :VimwikiVSplitLink<CR>
+nnoremap <silent> <Leader>wx :VimwikiSplitLink<CR>
+
 " Completion Bound to TAB
 inoremap <silent> <expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
