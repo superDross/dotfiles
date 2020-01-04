@@ -1,6 +1,7 @@
 """" FUNCTIONS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
+let g:dotfilesdir = g:vimdir . '/..'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
@@ -51,8 +52,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'jlfwong/vim-mercenary'
 Plug 'mhinz/vim-signify'
 
-" MARKDOWN: preview markdown files
+" NOTES: preview markdown files
 Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
+Plug 'vimwiki/vimwiki'
 
 "OUTPUT: execute commands in a new buffer
 Plug 'vim-scripts/RunView'
@@ -217,6 +219,9 @@ let g:ale_fixers = {
       \    'markdown': ['prettier']
       \ }
 
+" so isort matches pre-commit and CI configs
+let g:ale_python_isort_options = '-ws -tc -o=tabulate -w "88"'
+
 " npm install typescript for completion to work in a local project
 " Install:
 "   python-language-server, tsserver, bash-language-server,
@@ -369,3 +374,8 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
+
+"""" VIMWIKI """"""""""""""""""""""""""""""""""""""""""""""""""""
+" use markdown and wiki dir in dotfiles
+let g:vimwiki_list = [{'path': g:dotfilesdir . '/wiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
