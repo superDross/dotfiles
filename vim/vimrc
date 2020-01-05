@@ -184,6 +184,7 @@ nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 " Wiki bindings
 nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/wiki/index.md'<CR>
 nnoremap <silent> <Leader>wf :execute 'edit' g:wikidir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wt :execute 'tabe' g:wikidir . expand('<cfile>')<CR>
 nnoremap <silent> <Leader>wv :execute 'vs' g:wikidir . expand('<cfile>')<CR>
 nnoremap <silent> <Leader>wx :execute 'sp' g:wikidir . expand('<cfile>')<CR>
 
