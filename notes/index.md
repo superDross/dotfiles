@@ -19,7 +19,9 @@
 
 ## Python
 
+- [Async](python/async_module.py)
 - [Cython](python/cython_tutorial.pyx)
+- [Coroutines](python/coroutine.py)
 - [Generators](python/generator.py)
 - [Queues](python/que.py)
 - [Threading](python/thread_module.py)
