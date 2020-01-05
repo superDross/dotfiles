@@ -23,4 +23,4 @@
 - [Generators](python/generator.py)
 - [Queues](python/que.py)
 - [Threading](python/thread_module.py)
-- [Multiprocessing/MultiThreading](python/thread_module.py)
+- [Multiprocessing/MultiThreading](python/processing_vs_threads.py)

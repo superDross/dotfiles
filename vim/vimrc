@@ -2,7 +2,7 @@
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 let g:dotfilesdir = g:vimdir . '/..'
-let g:wikidir = g:dotfilesdir . '/wiki/'
+let g:notesdir = g:dotfilesdir . '/notes/'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
@@ -115,6 +115,9 @@ function! KeyCheat()
   echo '    L-7            ='
   echo '    L-8            = TagBarToggle'
   echo '    L-9            = RunView'
+  echo 'NOTES'
+  echo '    L-ww           = open notes index page'
+  echo '    L-wf           = open note file referenced in index page'
   echo 'ALE'
   echo '    L-h            = ALEHover'
   echo '    L-r            = ALEFindReference'
@@ -181,12 +184,12 @@ nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
-" Wiki bindings
-nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/wiki/index.md'<CR>
-nnoremap <silent> <Leader>wf :execute 'edit' g:wikidir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wt :execute 'tabe' g:wikidir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wv :execute 'vs' g:wikidir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wx :execute 'sp' g:wikidir . expand('<cfile>')<CR>
+" Notes bindings
+nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/notes/index.md'<CR>
+nnoremap <silent> <Leader>wf :execute 'edit' g:notesdir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wt :execute 'tabe' g:notesdir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wv :execute 'vs' g:notesdir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wx :execute 'sp' g:notesdir . expand('<cfile>')<CR>
 
 " Completion Bound to TAB
 inoremap <silent> <expr> <TAB>

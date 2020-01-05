@@ -2,11 +2,11 @@ import queue
 
 fifo = queue.Queue()
 
-fifo.put('one')
-fifo.put('two')
-fifo.put('three')
+fifo.put("one")
+fifo.put("two")
+fifo.put("three")
 
-print('\nFIFO\n----')
+print("\nFIFO\n----")
 print(fifo.get())
 print(fifo.get())
 print(fifo.get())
@@ -14,11 +14,11 @@ print(fifo.get())
 
 lifo = queue.LifoQueue()
 
-lifo.put('one')
-lifo.put('two')
-lifo.put('three')
+lifo.put("one")
+lifo.put("two")
+lifo.put("three")
 
-print('\nLIFO\n----')
+print("\nLIFO\n----")
 print(lifo.get())
 print(lifo.get())
 
@@ -30,10 +30,9 @@ priority.put(9)
 priority.put(12)
 priority.put(1)
 
-print('\nPRIORITY\n----')
+print("\nPRIORITY\n----")
 print(priority.get())
 print(priority.get())
-
 
 
 # OWN implementation
@@ -73,21 +72,22 @@ class Priority(Queue):
         self.l = sorted(self.l)
         return super().get()
 
+
 l = FIFO()
 l.put(0)
 l.put(1)
-print('\nMY IMPLEMENTATION\n\nFIFO\n----')
+print("\nMY IMPLEMENTATION\n\nFIFO\n----")
 print(l.get())
 
 
 l = LIFO()
 l.put(0)
 l.put(1)
-print('\nLIFO\n----')
+print("\nLIFO\n----")
 print(l.get())
 
 l = Priority()
 l.put(99)
 l.put(1)
-print('\nPriority\n----')
+print("\nPriority\n----")
 print(l.get())
