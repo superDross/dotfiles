@@ -2,6 +2,7 @@
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 let g:dotfilesdir = g:vimdir . '/..'
+let g:wikidir = g:dotfilesdir . '/wiki/'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
@@ -15,12 +16,14 @@ endfunction
 
 " assert & configure spell settings
 function! Spelling()
-  " required to allow mispellings to be highlighted
-  let g:gruvbox_guisp_fallback='bg'
-  colorscheme gruvbox
-  set spell spelllang=en_gb
-  hi clear SpellBad
-  hi SpellBad cterm=underline ctermfg=Red
+  if expand('%:t') !=# 'index.md' 
+    " required to allow mispellings to be highlighted
+    let g:gruvbox_guisp_fallback='bg'
+    colorscheme gruvbox
+    set spell spelllang=en_gb
+    hi clear SpellBad
+    hi SpellBad cterm=underline ctermfg=Red
+  endif
 endfunction
 
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
@@ -54,7 +57,6 @@ Plug 'mhinz/vim-signify'
 
 " NOTES: preview markdown files
 Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
-Plug 'vimwiki/vimwiki'
 
 "OUTPUT: execute commands in a new buffer
 Plug 'vim-scripts/RunView'
@@ -179,9 +181,11 @@ nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
 
-" Vimwiki bindings
-nnoremap <silent> <Leader>wv :VimwikiVSplitLink<CR>
-nnoremap <silent> <Leader>wx :VimwikiSplitLink<CR>
+" Wiki bindings
+nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/wiki/index.md'<CR>
+nnoremap <silent> <Leader>wf :execute 'edit' g:wikidir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wv :execute 'vs' g:wikidir . expand('<cfile>')<CR>
+nnoremap <silent> <Leader>wx :execute 'sp' g:wikidir . expand('<cfile>')<CR>
 
 " Completion Bound to TAB
 inoremap <silent> <expr> <TAB>
@@ -378,8 +382,3 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
-
-"""" VIMWIKI """"""""""""""""""""""""""""""""""""""""""""""""""""
-" use markdown and wiki dir in dotfiles
-let g:vimwiki_list = [{'path': g:dotfilesdir . '/wiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]

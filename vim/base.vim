@@ -192,6 +192,9 @@ set foldnestmax=2
 if expand('%:t') =~# 'vimrc' || expand('%:e') ==# 'vim'
     set foldmethod=expr
     set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
+elseif expand('%t') =~# 'md'
+    set foldmethod=expr
+    set foldexpr=getline(v:lnum)=~#'^\#'?'\>1':'='
 else
     set foldmethod=indent
 endif
