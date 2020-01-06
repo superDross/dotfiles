@@ -13,11 +13,11 @@
 
 set -o errexit          # Exit on most errors (see the manual)
 set -o errtrace         # Make sure any error trap is inherited
-set -o nounset          # Disallow expansion of unset variables
 set -o pipefail         # Use last non-zero exit code in a pipeline
 # set -o xtrace          # Trace the execution of the script (debug)
 
-TOP_DIR=$(dirname $(dirname "${BASH_SOURCE}"))
+SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
 function autojump(){
@@ -48,6 +48,7 @@ function update_and_install(){
     docker \
     git \
     xfce4-terminal \
+    xfce4 \
     vlc \
     telegram-desktop \
     npm \
@@ -66,7 +67,6 @@ function update_and_install(){
     feh \
     pasystray \
     redshift \
-    xfce \
     timeshift \
     python-virtualenvwrapper \
     postgresql
@@ -111,7 +111,8 @@ function install_python_packages(){
 
 function install_snap_stuff(){
   # c/c++ language server
-  snap install ccls pre-commit --classic
+  snap install ccls --classic
+  snap install pre-commit --classic
 }
 
 
@@ -132,22 +133,24 @@ function setup_files(){
 
   cp ~/projects/dotfiles/images/wallpaper.jpg /usr/share/backgrounds/
 
-  ln -s ${TOP_DIR}/vim/vimrc ~/.vimrc
-  ln -s ${TOP_DIR}/bash/bashrc ~/.bashrc
-  cp ${TOP_DIR}/terminal/terminalrc  ~/config/xfce4/terminal/
-  ln -s ${TOP_DIR}/tmux/tmux.conf ~/.tmux.conf
-  ln -s ${TOP_DIR}/i3/config ~/.i3/config
-  ln -s ${TOP_DIR}/i3/i3status.conf ~/.i3/i3status.conf
-  ln -s ${TOP_DIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
-  ln -s ${TOP_DIR}/words/thesaurus.txt ~/.vim/thesaurus.txt
+  ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
+  ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
+  cp ${DOTFILESDIR}/terminal/terminalrc  ~/config/xfce4/terminal/
+  ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
+  ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
+  ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
+  ln -s ${DOTFILESDIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
+  ln -s ${DOTFILESDIR}/words/thesaurus.txt ~/.vim/thesaurus.txt
 }
 
 
-update_and_install()
-autojump()
-i3lock()
-install_npm_packages()
-install_python_packages()
-install_snap_stuff()
-setup_vim()
-setup_files()
+echo "dotfiles dir is set as: ${DOTFILESDIR}"
+
+# update_and_install
+# autojump
+# i3lock
+# install_npm_packages
+# install_python_packages
+# install_snap_stuff
+# setup_files
+# setup_vim
