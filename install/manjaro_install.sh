@@ -69,6 +69,8 @@ function update_and_install(){
     redshift \
     timeshift \
     python-virtualenvwrapper \
+    pulseaudio \
+    pulseaudio-alsa \
     postgresql
   
   pamac build spotify

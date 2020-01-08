@@ -199,6 +199,7 @@ bindsym $mod+Shift+10 move container to workspace 10
 # opens specific applications in given workspace windows
 assign [class="firefox"] $workspace4
 assign [class="TelegramDesktop"] $workspace6
+assign [class="chromium"] $workspace6
 for_window [class="Spotify"] move to workspace $workspace6
 assign [class="Slack"] $workspace7
 
@@ -215,6 +216,8 @@ exec_always feh --bg-fill $wallpaper
 exec xfce4-terminal --hide-menubar
 exec firefox
 exec unclutter
+exec slack
+exec chromium
 
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
