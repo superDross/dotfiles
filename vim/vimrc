@@ -55,8 +55,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'jlfwong/vim-mercenary'
 Plug 'mhinz/vim-signify'
 
-" NOTES: preview markdown files
-Plug 'JamshedVesuna/vim-markdown-preview', { 'for': 'markdown' }
+"MARKDOWN: preview markdown files
+Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
 
 "OUTPUT: execute commands in a new buffer
 Plug 'vim-scripts/RunView'
@@ -269,15 +269,6 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 """" GUTENTAGS """"""""""""""""""""""""""""""""""""""
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
 
-"""" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
-" makes all markdown previews in GitHub style
-let vim_markdown_preview_github=1
-
-if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
-  "set background=light
-  call Spelling()
-endif
-
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " no longer show mode in bottom line
 set noshowmode
@@ -386,3 +377,8 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
+"""" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
+if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
+  "set background=light
+  call Spelling()
+endif

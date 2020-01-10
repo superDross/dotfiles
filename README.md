@@ -1,6 +1,6 @@
 # *. files*
 
-These config files are intended to be utilised within an \*buntu xfce4 environment.
+These config files are intended to be utilised within an Manjaro i3 environment.
 
 ## Installation
 ```sh

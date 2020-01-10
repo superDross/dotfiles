@@ -17,6 +17,10 @@
 - [Web Server](web/web_server.md)
 - [Web Sockets](web/web_sockets.md): Full Duplex Communication Protocol
 
+## Data Structures
+
+- [Binary Trees](data_structures/binarytree.py)
+
 ## Python
 
 - [Async](python/async_module.py)
