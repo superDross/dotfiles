@@ -1,139 +1,147 @@
 """
-Binary Tree is a special datastructure used for data storage purposes.
-
-There must be a maxmimum of two children.
-
-A Binary Search Tree (BST) left node must have a value less than its parent,
-while the right node must have a value greater than its parent value.
-
-This is a basic BST implementation.
-
-
-https://www.tutorialspoint.com/data_structures_algorithms/tree_data_structure.htm
+Resources:
+    - https://www.tutorialspoint.com/data_structures_algorithms/tree_data_structure.htm
 """
-from typing import Optional
 
-# TODO:
-#  - return instead of printing (issues with multiple
+from dataclasses import dataclass
+from typing import Optional, Tuple
 
 
+@dataclass
 class Node:
     """
-    Represents a BST node
+    Binary Tree Node
     """
 
-    def __init__(self, data: int) -> None:
-        self.left: Optional[Node] = None
-        self.right: Optional[Node] = None
-        self.data: int = data
+    value: int
+    left: Optional["Node"] = None
+    right: Optional["Node"] = None
 
-    def search(self, data: int, node: Optional["Node"] = None) -> Optional["Node"]:
-        """
-        Print Node that matches the given data
-        """
-        if not node:
-            node = self
-        if node.data:
-            if data == node.data:
-                return node
-            elif node.left and data < node.data:
-                return self.search(data, node.left)
-            elif node.right and data > node.data:
-                return self.search(data, node.right)
-        return None
+    def values(self) -> Tuple[Optional[int], Optional[int], Optional[int]]:
+        left_value = None if not self.left else self.left.value
+        right_value = None if not self.right else self.right.value
+        return left_value, self.value, right_value
 
-    def insert(self, data: int) -> None:
+    def print(self) -> None:
+        left, value, right = self.values()
+        print(f"\nNODE: {value}\nLeft: {left}\nRight: {right}")
+
+
+class BinaryTree:
+    """
+    Binary Tree is a special data structure used for data storage purposes
+    that have a maximum of two children.
+    """
+
+    def __init__(self, value: int) -> None:
+        self.root: Node = Node(value)
+
+    def insert(self, value: int, node: Optional[Node] = None) -> None:
         """
         Insert Node into tree
         """
-        if self.data:
-            if data < self.data:
-                self.insert_left(data)
-            elif data > self.data:
-                self.insert_right(data)
+        if not node:
+            node = self.root
+        if node.value:
+            if value < node.value:
+                self.insert_left(value, node)
+            elif value > node.value:
+                self.insert_right(value, node)
         else:
-            self.data = data
+            node.value = value
 
-    def insert_left(self, data: int) -> None:
+    def insert_left(self, value: int, node: Node) -> None:
         """
         Insert Node into left branch
         """
-        if not self.left:
-            self.left = Node(data)
+        if not node.left:
+            node.left = Node(value)
         else:
-            self.left.insert(data)
+            self.insert(value, node.left)
 
-    def insert_right(self, data: int) -> None:
+    def insert_right(self, value: int, node: Node) -> None:
         """
         Insert Node into right branch
         """
-        if not self.right:
-            self.right = Node(data)
+        if not node.right:
+            node.right = Node(value)
         else:
-            self.right.insert(data)
-
-    def print(self) -> None:
-        """
-        Print this Node
-        """
-        print(f"\nNODE: {self.data}")
-        if self.left:
-            print(f"Left: {self.left.data}")
-        if self.right:
-            print(f"Right: {self.right.data}")
+            self.insert(value, node.right)
 
     def print_tree(self, node: Optional["Node"] = None) -> None:
         """
         Prints every Node in the tree
         """
         if not node:
-            node = self
+            node = self.root
         if node.left or node.right:
             node.print()
         if node.left:
-            node.print_tree(node.left)
+            self.print_tree(node.left)
         if node.right:
-            node.print_tree(node.right)
+            self.print_tree(node.right)
 
 
-def create_test_case():
-    # root
+class BinarySearchTree(BinaryTree):
+    """
+    A Binary Search Tree (BST) left node must have a value less than its parent,
+    while the right node must have a value greater than its parent value.
+    """
+
+    def __init__(self, value: int) -> None:
+        super().__init__(value)
+
+    def search(self, value: int, node: Optional[Node] = None) -> Optional[Node]:
+        """
+        Return Node that matches the given value
+        """
+        if not node:
+            node = self.root
+        if node.value:
+            if value == node.value:
+                return node
+            elif node.left and value < node.value:
+                return self.search(value, node.left)
+            elif node.right and value > node.value:
+                return self.search(value, node.right)
+        return None
+
+
+def create_tree():
+    # bst
     #   10
     #  5  20
-    root = Node(10)
+    bst = BinarySearchTree(10)
 
-    # root.left
+    # bst.left
     #   5
     #  3 8
-    root.insert(5)
-    root.insert(3)
-    root.insert(8)
+    bst.insert(5)
+    bst.insert(3)
+    bst.insert(8)
 
-    # root.right
+    # bst.right
     #   20
     # 12  25
-    root.insert(20)
-    root.insert(12)
-    root.insert(25)
+    bst.insert(20)
+    bst.insert(12)
+    bst.insert(25)
 
-    # root.right.right
+    # bst.right.right
     #   25
     # NA  30
-    root.insert(30)
-    return root
+    bst.insert(30)
+    return bst
 
 
 # insertion
-root = create_test_case()
-assert (5, 10, 20) == (root.left.data, root.data, root.right.data)
-assert (3, 5, 8) == (root.left.left.data, root.left.data, root.left.right.data)
-assert (12, 20, 25) == (root.right.left.data, root.right.data, root.right.right.data)
-assert (None, 25, 30) == (
-    root.right.right.left,
-    root.right.right.data,
-    root.right.right.right.data,
-)
+bst = create_tree()
+assert (5, 10, 20) == bst.root.values()
+assert (3, 5, 8) == bst.root.left.values()
+assert (12, 20, 25) == bst.root.right.values()
+assert (None, 25, 30) == bst.root.right.right.values()
 
 # searching
-node = root.search(25)
-assert (None, 25, 30) == (node.left, node.data, node.right.data)
+node = bst.search(25)
+assert (None, 25, 30) == node.values()
+bst.root.print()
