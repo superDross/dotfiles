@@ -213,7 +213,7 @@ v() {
 
 #### ALIASES ###############################################################
 # use gls for macs
-[[ $os -eq 'Darwin' ]] && list='gls' || list='ls'
+[[ $os = 'Darwin' ]] && list='gls' || list='ls'
 
 # hide unwanted files, make directories first shown, then show files.
 alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
@@ -234,7 +234,7 @@ alias osmc="ssh osmc@192.168.1.7"
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
 
 # copy a file, usage: `copy <file>`
-if [[ $os -eq 'Darwin' ]]; then
+if [[ $os = 'Darwin' ]]; then
   alias copy="pbcopy <"
 else
   alias copy="xclip -sel c <"
@@ -292,7 +292,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 
 # source plugins
-if [[ $os -eq 'Darwin' ]]; then
+if [[ $os = 'Darwin' ]]; then
   export VIRTUALENVWRAPPER_PYTHON=//Library/Frameworks/Python.framework/Versions/3.8/bin/python3
   source /usr/local/bin/virtualenvwrapper.sh
 else
