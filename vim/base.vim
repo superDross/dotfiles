@@ -43,8 +43,12 @@ set relativenumber
 set number
 
 " use system clipboard
-set clipboard+=unnamedplus
-set guioptions+=a
+if has('macunix')
+  set clipboard+=unnamed
+else
+  set clipboard+=unnamedplus
+  set guioptions+=a
+endif
 
 " better colours
 set background=dark

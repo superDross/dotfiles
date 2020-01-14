@@ -1,5 +1,9 @@
-export SESSION_MANAGER=xfce4-session
+# store operating system
+os=$(uname -s)
+
 #### UBUNTU DEFAULTS
+export SESSION_MANAGER=xfce4-session
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # for examples
 # set -x
@@ -118,7 +122,7 @@ ffind() {
 parse_git_branch() {
   if git ls-files >&/dev/null; then
     branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-    stash_num=$(git stash list | grep "$branch" | wc -l)
+    stash_num=$(git stash list | grep "$branch" | wc -l | sed 's/^ *//g')
     if [ "$stash_num" = 0 ]; then
       echo " (${branch})"
     else
@@ -130,7 +134,7 @@ parse_git_branch() {
 }
 
 bg_process_num() {
-  num=$(jobs | grep -v autojump | wc -l)
+  num=$(jobs | grep -v autojump | wc -l | sed 's/^ *//g')
   if [ $num != 0 ]; then
     echo " $num"
   fi
@@ -208,14 +212,11 @@ v() {
 }
 
 #### ALIASES ###############################################################
+# use gls for macs
+[[ $os -eq 'Darwin' ]] && list='gls' || list='ls'
+
 # hide unwanted files, make directories first shown, then show files.
-alias ls='ls \
-            --color=auto \
-            --hide="*.pyc" \
-            --hide="*.egg-info" \
-            --hide="__pycache__" \
-            --group-directories-first \
-            --sort=extension'
+alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
 
 # allows sudo to work with alias command
 alias sudo='sudo '
@@ -233,7 +234,11 @@ alias osmc="ssh osmc@192.168.1.7"
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
 
 # copy a file, usage: `copy <file>`
-alias copy="xclip -sel c <"
+if [[ $os -eq 'Darwin' ]]; then
+  alias copy="pbcopy <"
+else
+  alias copy="xclip -sel c <"
+fi
 
 # an alias for clear and list details & another with details
 alias cls="clear; ls"
@@ -242,9 +247,6 @@ alias c="clear"
 
 alias h="history"
 alias hsi="history | grep"
-
-# set up work environment for local instances
-alias jvel="vel; cd ~/projects/velocitynotes/jupyter_notebooks/; jupyter notebook"
 
 # fix pirate-get error
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
@@ -285,14 +287,22 @@ export VIMRC=~/.vimrc
 # https://github.com/wting/autojump
 # https://github.com/junegunn/fzf
 
-# source plugins
-source /usr/share/fzf/completion.bash
-source /usr/share/fzf/key-bindings.bash
-[[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
-
+# venv settings
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-source /usr/bin/virtualenvwrapper.sh
+
+# source plugins
+if [[ $os -eq 'Darwin' ]]; then
+  export VIRTUALENVWRAPPER_PYTHON=//Library/Frameworks/Python.framework/Versions/3.8/bin/python3
+  source /usr/local/bin/virtualenvwrapper.sh
+else
+  source /usr/share/fzf/completion.bash
+  source /usr/share/fzf/key-bindings.bash
+  source /usr/bin/virtualenvwrapper.sh
+  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
+fi
+
+
 
 #### PROMPT ############################################################
 # add git branch to prompt

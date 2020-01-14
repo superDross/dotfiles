@@ -85,7 +85,11 @@ Plug 'maximbaz/lightline-ale'
 
 " FILEFINDER: fuzzy file finder
 " needs to be installed locally too
-Plug '~/.fzf'
+if has('macunix')
+  Plug '/usr/local/opt/fzf'
+else
+  Plug '~/.fzf'
+endif
 Plug 'junegunn/fzf.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
