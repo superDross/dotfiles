@@ -293,14 +293,15 @@ export PROJECT_HOME=$HOME/Devel
 
 # source plugins
 if [[ $os = 'Darwin' ]]; then
-  export VIRTUALENVWRAPPER_PYTHON=//Library/Frameworks/Python.framework/Versions/3.8/bin/python3
+  export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
   source /usr/local/bin/virtualenvwrapper.sh
 else
   source /usr/share/fzf/completion.bash
   source /usr/share/fzf/key-bindings.bash
   source /usr/bin/virtualenvwrapper.sh
-  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
 fi
+
+[[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
 
 
 

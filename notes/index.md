@@ -30,3 +30,8 @@
 - [Queues](python/que.py)
 - [Threading](python/thread_module.py)
 - [Multiprocessing/MultiThreading](python/processing_vs_threads.py)
+
+## AWS
+
+- [Connect](aws/connect.md)
+- [Lambda](aws/lambda_functions.md)
