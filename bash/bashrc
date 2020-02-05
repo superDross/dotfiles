@@ -254,8 +254,7 @@ alias hsi="history | grep"
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to vpn
-computer=$(uname -n | tr -d "\n")
-if [ "$computer" == 'david-work' ]; then
+if [ $os == 'Darwin' ]; then
   alias vpn="sudo openvpn --config ~/.vpn/david_ross@ecs_co_uk@vpn.ecs.co.uk.ovpn"
 else
   alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
