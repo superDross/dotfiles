@@ -19,6 +19,8 @@
 
 ## Data Structures
 
+- [Linked Lists](data_structures/linkedlist.py)
+- [Graph Data](data_structures/graphdata.py)
 - [Binary Trees](data_structures/binarytree.py)
 
 ## Python
