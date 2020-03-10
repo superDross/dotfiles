@@ -246,6 +246,7 @@ let g:ale_python_isort_options = '-ws -tc -o=tabulate -w "88"'
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
       \   'python': ['pyls', 'mypy'],
+      \   'cfn': ['cfn-lint'],
       \ }
 
 " completion settings
