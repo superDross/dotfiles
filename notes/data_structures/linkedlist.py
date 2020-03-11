@@ -31,7 +31,7 @@ class LinkedList:
         """
         self.head = Node(value=value, next=self.head)
 
-    def append(self, value: int) -> None:
+    def append(self, value: int) -> Node:
         """
         Insert Node at the end of the LinkedList.
         """
@@ -39,6 +39,7 @@ class LinkedList:
         while node.next:
             node = node.next
         node.next = Node(value=value)
+        return node.next
 
     def insert(self, value: int, after: Optional[int] = None) -> None:
         """

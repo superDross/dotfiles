@@ -22,6 +22,14 @@
 - [Linked Lists](data_structures/linkedlist.py)
 - [Graph Data](data_structures/graphdata.py)
 - [Binary Trees](data_structures/binarytree.py)
+- [Hash Table](data_structures/hash_table.py)
+
+## Algorithms
+
+### Searching
+- [Linear Search](algorithms/linear_search.py)
+- [Binary Search](algorithms/binary_search.py)
+- [Interpolation Search](algorithms/interpolation_search.py)
 
 ## Python
 
