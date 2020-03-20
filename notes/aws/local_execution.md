@@ -75,7 +75,7 @@ Pseudo parameters and parameters defined with defaults that have been parsed to 
 
 NOTE: if you are parsing the `ci/<name>.config.json` files parameters to the lambda function as environment variables, then you will have to override them. Otherwise, the environment variables will be parsed as the parameter/resource name you defined within the template instead of the parameters assigned value defined within the aforementioned config file e.g. `CONNECT_INSTANCE_ID` environment variables value will be parsed literally as “pConnectInstanceId” to your Lambda function in the below example.
 
-#### Example
+#### Example
 
 In the below example template snippet, `CONNECT_INSTANCE_ID` will need to be overridden as no default value is provided in the referenced parameter pConnectInstanceId. The `BUCKET_NAME` will need to be overridden as no bucket name is defined within the referenced resource rBackupResourcesBucket.
 
