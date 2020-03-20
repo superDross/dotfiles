@@ -98,8 +98,8 @@ class LinkedList:
     @property
     def values(self) -> List[int]:
         node = self.head
-        values = []
-        while node:
+        values: List[int] = []
+        while node.value not in values:
             values.append(node.value)
             if not node.next:
                 break

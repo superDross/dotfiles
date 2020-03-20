@@ -46,3 +46,4 @@
 - [Connect](aws/connect.md)
 - [Lambda](aws/lambda_functions.md)
 - [SAM](aws/sam.md)
+- [Debugging & Executing Lambda Code Locally](aws/local_execution.md)
