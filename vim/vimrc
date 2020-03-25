@@ -232,7 +232,8 @@ let g:ale_fixers = {
       \    'json': ['jq'],
       \    'html': ['prettier'],
       \    'css': ['prettier', 'stylelint'],
-      \    'markdown': ['prettier']
+      \    'markdown': ['prettier'],
+      \    'rust': ['rustfmt']
       \ }
 
 " so isort matches pre-commit and CI configs
@@ -247,6 +248,7 @@ let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
       \   'python': ['pyls', 'mypy'],
       \   'cfn': ['cfn-lint'],
+      \   'rust': ['rls', 'cargo'],
       \ }
 
 " completion settings
