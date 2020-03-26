@@ -326,11 +326,11 @@ bar {
 
 set $display display: (m)irror (h)ome (w)ork (s)hare
 mode "$display" {
-  bindsym m exec xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal \
-                        --output HDMI-2 --primary --mode 1920x1080 --pos 0x0 --rotate normal
-  bindsym h exec xrandr --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate left \
-                        --output eDP-1 --primary --mode 1920x1080 --pos 2040x0 --rotate normal \
-                        --output HDMI-2 --mode 1920x1080 --pos 2040x0 --rotate normal
+  bindsym m exec xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal \
+                        --output HDMI2 --primary --mode 1920x1080 --pos 0x0 --rotate normal
+  bindsym h exec xrandr --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate left \
+                        --output eDP1 --primary --mode 1920x1080 --pos 2040x0 --rotate normal \
+                        --output HDMI2 --mode 1920x1080 --pos 2040x0 --rotate normal
   bindsym w exec xrandr --output eDP-1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
                         --output HDMI-2 --mode 1920x1080 --pos 0x0 --rotate left \
                         --output HDMI-1 --mode 1920x1080 --pos 1920x0 --rotate normal
