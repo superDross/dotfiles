@@ -73,9 +73,10 @@ set previewheight=10
 set sessionoptions+=tabpages,globals
 
 " prevents autocompletion and auto selection, must press key to complete
-set completeopt+=noinsert
-set completeopt+=noselect
-" disable preview window with completions, but allow popupp
+set completeopt+=noinsert,noselect
+" allow menu popup even if there is only one match
+set completeopt+=menu,menuone
+" disable preview window with completions, but allow popup
 set completeopt-=preview
 if v:version >= 802
   set completeopt+=popup
