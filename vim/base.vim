@@ -77,7 +77,9 @@ set completeopt+=noinsert
 set completeopt+=noselect
 " disable preview window with completions, but allow popupp
 set completeopt-=preview
-set completeopt+=popup
+if v:version >= 802
+  set completeopt+=popup
+endif
 
 " stops completion messages being spammed
 set shortmess=c
