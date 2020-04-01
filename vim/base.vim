@@ -75,8 +75,9 @@ set sessionoptions+=tabpages,globals
 " prevents autocompletion and auto selection, must press key to complete
 set completeopt+=noinsert
 set completeopt+=noselect
-" disable preview window with completions
+" disable preview window with completions, but allow popupp
 set completeopt-=preview
+set completeopt+=popup
 
 " stops completion messages being spammed
 set shortmess=c
