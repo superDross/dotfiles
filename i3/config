@@ -217,7 +217,6 @@ exec xfce4-terminal --hide-menubar
 exec firefox
 exec unclutter
 exec slack
-exec chromium
 
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
