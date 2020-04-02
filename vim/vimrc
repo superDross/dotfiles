@@ -16,7 +16,7 @@ endfunction
 
 " assert & configure spell settings
 function! Spelling()
-  if expand('%:t') !=# 'index.md' 
+  if expand('%:t') !=# 'index.md'
     " required to allow mispellings to be highlighted
     let g:gruvbox_guisp_fallback='bg'
     colorscheme gruvbox
@@ -272,7 +272,19 @@ let g:ale_sign_warning = '--'
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-" let g:fzf_layout = { 'up': '~50%' }
+
+" popup window if using vim 8.2
+if v:version >= 802
+  let g:fzf_layout = {
+\   'window': {
+\     'width': 0.9,
+\     'height': 0.6,
+\     'highlight': 'Todo',
+\     'border': 'sharp'
+\   }
+\ }
+endif
+
 """" GUTENTAGS """"""""""""""""""""""""""""""""""""""
 let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
 
