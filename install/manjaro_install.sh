@@ -143,7 +143,7 @@ function setup_files(){
 
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
-  cp ${DOTFILESDIR}/terminal/terminalrc  ~/config/xfce4/terminal/
+  cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
