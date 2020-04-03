@@ -27,6 +27,7 @@
 ## Algorithms
 
 ### Searching
+
 - [Linear Search](algorithms/linear_search.py)
 - [Binary Search](algorithms/binary_search.py)
 - [Interpolation Search](algorithms/interpolation_search.py)
