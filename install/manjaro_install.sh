@@ -54,6 +54,7 @@ function update_and_install(){
     npm \
     nodejs \
     tmux \
+    yarn \
     evince \
     zathura \
     cups \
