@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# NOTE: use lmxappearance to matcha-dark-aliz
+# NOTE: use lxappearance to matcha-dark-aliz
 #       use lightdm-settings to change the theme for the login screen
 
 # NOTE: to install postgres
@@ -55,6 +55,7 @@ function update_and_install(){
     npm \
     nodejs \
     tmux \
+    yarn \
     evince \
     zathura \
     cups \
@@ -75,6 +76,7 @@ function update_and_install(){
     postgresql
   
   pamac build spotify
+  pamac build python37
 }
 
 
@@ -141,10 +143,10 @@ function setup_files(){
   git clone http://github.com/superdross/dotfiles
 
   cp ~/projects/dotfiles/images/wallpaper.jpg /usr/share/backgrounds/
-
+lmxappearance
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
-  cp ${DOTFILESDIR}/terminal/terminalrc  ~/config/xfce4/terminal/
+  cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
