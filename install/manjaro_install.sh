@@ -45,6 +45,7 @@ function update_and_install(){
   pacman -Syu \
     firefox \
     the_silver_searcher \
+    xclip \
     docker \
     git \
     xfce4-terminal \
