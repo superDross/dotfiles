@@ -78,6 +78,12 @@ function update_and_install(){
 
 
 function install_npm_packages(){
+  # change npm global dir inside the user space
+  # otherwise you will get a user error every time you install with -g
+  mkdir ~/.npm-global
+  npm config set prefix '~/.npm-global'
+  export PATH=~/.npm-global/bin:$PATH
+  
   npm install -g --save-dev \
     eslint \
     flow-bin \
