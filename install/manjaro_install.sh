@@ -75,6 +75,7 @@ function update_and_install(){
     postgresql
   
   pamac build spotify
+  pamac build python37
 }
 
 
