@@ -57,6 +57,7 @@ Plug 'mhinz/vim-signify'
 
 "MARKDOWN: preview markdown files
 Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
+Plug 'masukomi/vim-markdown-folding'
 
 "OUTPUT: execute commands in a new buffer
 Plug 'vim-scripts/RunView'
