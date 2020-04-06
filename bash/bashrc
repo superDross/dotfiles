@@ -265,8 +265,10 @@ alias hsi="history | grep"
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to vpn
-if [ $os == 'Darwin' ]; then
-  alias vpn="sudo openvpn --config ~/.vpn/david_ross@ecs_co_uk@vpn.ecs.co.uk.ovpn"
+computer=$(uname -n | tr -d "\n")
+if [ "$computer" == 'david-work' ]; then
+  # put 'push' as the second password
+  alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
 else
   alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
 fi
