@@ -13,17 +13,6 @@ case $- in
 *) return ;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=100000
-HISTFILESIZE=200000
-
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -77,8 +66,23 @@ fi
 
 #### SETTINGS ####################################################################
 
-export HISTTIMEFORMAT="%d/%m/%y %T "
 export PATH=$PATH:$HOME/.npm-global/bin
+
+
+#### HISTORY ####################################################################
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+# Combine multiline commands into one in history
+shopt -s cmdhist
+
+# don't put duplicate lines or lines starting with space in the history.
+export HISTCONTROL=ignoreboth
+export HISTSIZE=100000
+export HISTFILESIZE=200000
+MY_BASH_GREEN="\033[38;5;82m"
+MY_BASH_NOCOLOR="\033[0m"
+HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
 
 
 #### FUNCTIONS ####################################################################
@@ -197,13 +201,15 @@ else
   alias copy="xclip -sel c <"
 fi
 
+alias extract="unp"
+
 # an alias for clear and list details & another with details
 alias cls="clear; ls"
 alias cll="clear; ls -lh"
 alias c="clear"
 
 alias h="history"
-alias hsi="history | grep"
+alias hgrep="history | grep"
 
 # fix pirate-get error
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
@@ -281,3 +287,6 @@ export PS1="\u \w"\
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# VI mode
+set -o vi
