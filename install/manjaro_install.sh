@@ -52,6 +52,7 @@ function update_and_install(){
     xfce4 \
     vlc \
     telegram-desktop \
+    unp \
     npm \
     nodejs \
     ruby \
