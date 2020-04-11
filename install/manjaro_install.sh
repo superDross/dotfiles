@@ -54,6 +54,7 @@ function update_and_install(){
     telegram-desktop \
     npm \
     nodejs \
+    ruby \
     tmux \
     yarn \
     evince \
@@ -79,6 +80,10 @@ function update_and_install(){
   pamac build python37
 }
 
+
+function install_gems(){
+  gem install sqlint
+}
 
 function install_npm_packages(){
   # change npm global dir inside the user space
