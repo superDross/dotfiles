@@ -35,11 +35,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
 xterm-color) color_prompt=yes ;;
@@ -81,16 +76,10 @@ if ! shopt -oq posix; then
 fi
 
 #### SETTINGS ####################################################################
-# set -o vi
-export HISTTIMEFORMAT="%d/%m/%y %T "
 
-#### PATHS ########################################################################
+export HISTTIMEFORMAT="%d/%m/%y %T "
 export PATH=$PATH:$HOME/.npm-global/bin
 
-# point python-path to some user made functions/modules
-if [ -d ~/key-scripts/ ]; then
-  export $(python3 ~/key-scripts/pythonpath.py /home/${USER}/projects/)
-fi
 
 #### FUNCTIONS ####################################################################
 
@@ -183,47 +172,9 @@ vlc-stream() {
   peerflix "$1" --remove --vlc --quiet --list
 }
 
-# VirtualJump
-#
-# activates a virtual env
-#   v <app-name> <dir>
-#
-# Example:
-#  activate pangaea virtual env
-#    v pangaea/
-#  activate capn virtual env within dev dir
-#    v capn/ ~/dev
-v() {
-  if [[ -z "$1" ]]; then
-    echo please supply an app name
-    return 1
-  fi
-
-  # get optional dir arg
-  if [[ -z "$2" ]]; then
-    local dir=~
-  else
-    local dir=$2
-  fi
-
-  local venv_dir=$(find "$dir" -maxdepth 6 -not -path '*/\.*' -name venv -type d 2>&1 | grep -i "$1")
-  local matches=$(echo "$venv_dir" | wc -w)
-
-  if [[ $matches -gt 1 ]]; then
-    echo "[ERROR] too many matches: $venv_dir"
-    return 1
-  elif [[ $matches -lt 1 ]]; then
-    echo "[ERROR] no matches found for $1"
-    return 1
-  fi
-
-  local activate=${venv_dir}/bin/activate
-  echo "[ACTIVATING] $activate"
-  source $activate
-  cd $(dirname ${venv_dir})
-}
 
 #### ALIASES ###############################################################
+
 # use gls for macs
 [[ $os = 'Darwin' ]] && list='gls' || list='ls'
 
@@ -232,12 +183,6 @@ alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycach
 
 # allows sudo to work with alias command
 alias sudo='sudo '
-
-# sets up volume, second monitor & xbox controller for steam big picture mode
-alias game-on="/home/${USER}/key-scripts/game-on.sh"
-
-# as above without volume
-alias game-quietly="/home/${USER}/key-scripts/game-quietly.sh"
 
 # shorthand for connecting to remote
 alias osmc="ssh osmc@192.168.1.7"
