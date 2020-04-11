@@ -50,15 +50,6 @@ esac
 # should be on the output of commands, not on the prompt
 force_color_prompt=yes
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm* | rxvt*)
-  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-  ;;
-*) ;;
-
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -330,18 +321,18 @@ fi
 #
 # Numbers/color meaning:
 #
-#   orange - git stash
-#   cyan  - bg processes
-#   green - active tmux sessions
+#   green  - git stash
+#   cyan   - bg processes
+#   orange - active tmux sessions
 #
 # Reference:
 #   https://misc.flogisoft.com/bash/tip_colors_and_formatting
 #
 ########################################################################
 
-export PS1="\u \[\033[32;1m\]\$(tmux_session)\[\033[00m\]\w"\
-"\e[38;5;202m\]\$(parse_git_branch)\[\033[00m\]"\
-"\e[38;5;87m\]\$(bg_process_num)\[\033[00m\]"\
-"\\e[38;5;82m\]\$(tmux_session_num)\[\033[00m\] $ "
+export PS1="\u \w"\
+"\e[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
+"\e[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
+# "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
