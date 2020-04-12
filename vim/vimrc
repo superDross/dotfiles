@@ -68,7 +68,8 @@ Plug 'machakann/vim-highlightedyank'
 
 " COLORSCHEMES: various colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'Lokaltog/vim-monotone'
+Plug 'huyvohcmc/atlas.vim'
+Plug 'srcery-colors/srcery-vim'
 
 " EDITING: further improve editing
 Plug 'machakann/vim-sandwich'
@@ -105,6 +106,8 @@ Plug 'superDross/ticket.vim'
 
 call plug#end()
 
+" hard/medium/soft contrast
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
