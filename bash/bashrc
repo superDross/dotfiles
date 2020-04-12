@@ -1,100 +1,76 @@
+###################
+#    VARIABLES    #
+###################
+
 # store operating system
 os=$(uname -s)
 
-#### UBUNTU DEFAULTS
-export SESSION_MANAGER=xfce4-session
 
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# for examples
-# set -x
-# If not running interactively, don't do anything
-case $- in
-*i*) ;;
-*) return ;;
-esac
+#################
+#    ALIASES    #
+#################
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# use gls for macs
+[[ $os = 'Darwin' ]] && list='gls' || list='ls'
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# rename executables
+alias h="history"
+alias extract="unp"
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-xterm-color) color_prompt=yes ;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
+# hide unwanted files, make directories first shown, then show files.
+alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
+alias ll='ls -alF'
 
 # grep colours
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# custom grep commands
+alias hgrep="history | grep"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+# allows sudo to work with alias command
+alias sudo='sudo '
+
+# SSH shorthands
+alias osmc="ssh osmc@192.168.1.7"
+
+# prevent all the clutter from appearing in tree
+alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
+
+# copy a file, usage: `copy <file>`
+if [[ $os = 'Darwin' ]]; then
+  alias copy="pbcopy <"
+else
+  alias copy="xclip -sel c <"
 fi
 
-#### SETTINGS ####################################################################
+# an alias for clear and list details & another with details
+alias cls="clear; ls"
+alias cll="clear; ls -lh"
+alias c="clear"
 
-export PATH=$PATH:$HOME/.npm-global/bin
+# fix pirate-get error
+alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
-
-#### HISTORY ####################################################################
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-# Combine multiline commands into one in history
-shopt -s cmdhist
-
-# don't put duplicate lines or lines starting with space in the history.
-export HISTCONTROL=ignoreboth
-export HISTSIZE=100000
-export HISTFILESIZE=200000
-MY_BASH_GREEN="\033[38;5;82m"
-MY_BASH_NOCOLOR="\033[0m"
-HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
+# connect to vpn
+computer=$(uname -n | tr -d "\n")
+if [ "$computer" == 'david-work' ]; then
+  # put 'push' as the second password
+  alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
+else
+  alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
+fi
 
 
-#### FUNCTIONS ####################################################################
+####################
+#    FUNCTIONS     #
+####################
 
-# FFind
-#
-# rg/grep wrapper
-#   ffind <file-ext> <query>
-#
-# Example:
-#   find all class in all python files recursively
-#     ffind py class
 ffind() {
   if cmd="$(type -p "rg")" || [[ -x $cmd ]]; then
     rg "${@:2}" --type "$1" -g '!**/venv/*' -g '!**/.tox/*'
@@ -177,55 +153,70 @@ vlc-stream() {
 }
 
 
-#### ALIASES ###############################################################
+#################
+#    OPTIONS    #
+#################
 
-# use gls for macs
-[[ $os = 'Darwin' ]] && list='gls' || list='ls'
+export SESSION_MANAGER=xfce4-session
+export PATH=$PATH:$HOME/.npm-global/bin
 
-# hide unwanted files, make directories first shown, then show files.
-alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
+# VI mode
+set -o vi
 
-# allows sudo to work with alias command
-alias sudo='sudo '
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
-# shorthand for connecting to remote
-alias osmc="ssh osmc@192.168.1.7"
+# append to the history file, don't overwrite it
+shopt -s histappend
 
-# shorthand for software
-alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
+# Combine multiline commands into one in history
+shopt -s cmdhist
 
-# copy a file, usage: `copy <file>`
-if [[ $os = 'Darwin' ]]; then
-  alias copy="pbcopy <"
-else
-  alias copy="xclip -sel c <"
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+# shopt -s globstar
+
+# use dircolor options
+# if [ -x /usr/bin/dircolors ]; then
+#   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+#   test -r ~/.dir_colors && eval "$(dircolors -b ~/.dir_colors)" || eval "$(dircolors -b)"
+# fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
-alias extract="unp"
 
-# an alias for clear and list details & another with details
-alias cls="clear; ls"
-alias cll="clear; ls -lh"
-alias c="clear"
+#################
+#    HISTORY    #
+#################
 
-alias h="history"
-alias hgrep="history | grep"
+# don't put duplicate lines or lines starting with space in the history.
+export HISTCONTROL=ignoreboth
+export HISTSIZE=100000
+export HISTFILESIZE=200000
+# don't show repeated commands (&), ls, ls *, etc.
+export HISTIGNORE="&:history:hgrep:h:cll:cls:c:c *:ls:ls *:cd:cd *:ps:ps -A:[bf]g:fg:tmux:vim:j:exit"
+MY_BASH_GREEN="\033[38;5;82m"
+MY_BASH_NOCOLOR="\033[0m"
+HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
 
-# fix pirate-get error
-alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
-# connect to vpn
-computer=$(uname -n | tr -d "\n")
-if [ "$computer" == 'david-work' ]; then
-  # put 'push' as the second password
-  alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo ssluk.yougov.net"
-else
-  alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
-fi
+#################
+#    COLOURS    #
+#################
 
-#### COLOURS ###############################################################
 # change the colour of the dirs and executable files
-export LS_COLORS=$LS_COLORS:'di=1;35;95:ex=1;32;33:fi=0:ln=1;31:*.md=0;37'
+# NOTE: see `dircolors` cmd & ~/.dir_colors for colouring specific extensions
+export LS_COLORS=$LS_COLORS:'di=38;5;165:ex=38;5;226:fi=0:ln=38;5;204:*.md=0;37:*.txt=0;37'
 
 # Cloured Man Pages
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -237,19 +228,22 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 # coloured less pages
-export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-#### EDITOR ###############################################################
-# vim to be default editor
+
+#################
+#    EDITOR     #
+#################
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
 
-#### PLUGINS #############################################################
-# install these plugins
-# https://github.com/wting/autojump
-# https://github.com/junegunn/fzf
+
+#################
+#    PLUGINS    #
+#################
 
 # venv settings
 export WORKON_HOME=$HOME/.virtualenvs
@@ -266,27 +260,14 @@ else
 fi
 
 [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 
-#### PROMPT ############################################################
-#
-# Numbers/color meaning:
-#
-#   green  - git stash
-#   cyan   - bg processes
-#   orange - active tmux sessions
-#
-# Reference:
-#   https://misc.flogisoft.com/bash/tip_colors_and_formatting
-#
-########################################################################
+#################
+#    PROMPT     #
+#################
 
 export PS1="\u \w"\
 "\e[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
 "\e[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# VI mode
-set -o vi
