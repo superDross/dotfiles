@@ -109,6 +109,10 @@ call plug#end()
 " hard/medium/soft contrast
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
+" sets background truly black and whites truly white
+" highlight Normal guibg=black guifg=white
+" match terminal background color
+highlight Normal guibg=#0F0F0F
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
