@@ -42,3 +42,6 @@ set convert-meta off
 
 # keeps colours on when autocompleting
 set colored-stats on
+
+# only match hidden files if starts with a dot
+set match-hidden-files off
