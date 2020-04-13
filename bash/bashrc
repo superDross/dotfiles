@@ -54,8 +54,8 @@ else
 fi
 
 # an alias for clear and list details & another with details
-alias cls="clear; ls"
-alias cll="clear; ls -lh"
+alias cls="clear; ls -F"
+alias cll="clear; ls -lFh"
 alias c="clear"
 
 # fix pirate-get error
