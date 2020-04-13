@@ -21,8 +21,8 @@ set $wallpaper ~/Downloads/wallpaper.jpg
 # colors
 set $yellow #ffee00
 set $cyan #0ee1ed
-set $light_gray #efefef
-set $gray #adadad
+set $silver #c0c0c0
+set $grey #adadad
 set $black #000000
 set $white #ffffff
 set $very_purple #3d0ae5
@@ -34,7 +34,6 @@ set $pale_green #c4fcf0
 set $muddy_green #4c8076
 
 
-
 ############################
 #    WINDOW APPEARANCE     #
 ############################
@@ -43,7 +42,7 @@ set $muddy_green #4c8076
 for_window [class="^.*"] border pixel 3
 
 # class                 border  backgr. text    indicator child_border
-client.focused          $grey  $white  $black  $light_teal
+client.focused          $grey   $silver   $black  $light_teal
 client.focused_inactive #333333 #5f676a $white #484e50   #5f676a
 client.unfocused        #333333 #333333 #888888 #292d2e   #222222
 client.urgent           #2f343a #900000 $white #900000   #900000
