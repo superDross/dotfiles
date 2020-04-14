@@ -4,6 +4,14 @@ All commands are prefixed with Ctrl-b.
 
 Check out [this](https://tmuxcheatsheet.com/) for the ultimate cheatsheeet thingy.
 
+## Commands
+
+Command line:
+
+```
+Ctrl-b :
+```
+
 ## Sessions
 
 Creating a new session:
@@ -108,4 +116,4 @@ Ctrl-b p
 Ctrl-b 3
 ```
 
-MOve
+Move

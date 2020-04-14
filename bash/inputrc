@@ -1,0 +1,47 @@
+#################
+#    VI MODE    #
+#################
+
+# set vi mode for all shells; bash, psql etc.
+set editing-mode vi
+
+# blinking thin cursor in cmd mode at command prompt
+set show-mode-in-prompt on
+set vi-cmd-mode-string \1\e[5 q\2
+set vi-ins-mode-string \1\e[2 q\2
+
+# rebind some vi mode keys
+$if mode=vi
+  set keymap vi-command
+		"gg": beginning-of-history
+		"G": end-of-history
+  set keymap vi-insert
+		"jj": vi-movement-mode
+		"\C-h": history-search-backward
+    "\C-l": clear-screen
+
+
+#################
+#    GENERAL    #
+#################
+
+# Make Tab autocomplete regardless of filename case
+set completion-ignore-case on
+
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
+# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+# Readline used by Bash 4.)
+set skip-completed-text on
+
+# allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# keeps colours on when autocompleting
+set colored-stats on
+
+# only match hidden files if starts with a dot
+set match-hidden-files off

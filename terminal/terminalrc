@@ -1,6 +1,9 @@
 [Configuration]
 ColorForeground=#eeeeeeeeecec
-ColorBackground=#0f5c0f5c0f5c
+/* REALLY BLACK */
+/* ColorBackground=#0f5c0f5c0f5c */
+/* gruvbox bg colour matching */
+ColorBackground=#1d1d20202121
 ColorCursor=#0f4999
 ColorSelection=#757550507b7b
 ColorSelectionUseDefault=FALSE

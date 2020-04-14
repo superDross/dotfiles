@@ -53,8 +53,10 @@ function update_and_install(){
     xfce4 \
     vlc \
     telegram-desktop \
+    unp \
     npm \
     nodejs \
+    ruby \
     tmux \
     yarn \
     evince \
@@ -80,6 +82,10 @@ function update_and_install(){
   pamac build python37
 }
 
+
+function install_gems(){
+  gem install sqlint
+}
 
 function install_npm_packages(){
   # change npm global dir inside the user space
@@ -147,6 +153,7 @@ function setup_files(){
 lmxappearance
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
+  ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
   cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config

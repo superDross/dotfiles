@@ -68,7 +68,8 @@ Plug 'machakann/vim-highlightedyank'
 
 " COLORSCHEMES: various colorschemes
 Plug 'morhetz/gruvbox'
-Plug 'Lokaltog/vim-monotone'
+Plug 'huyvohcmc/atlas.vim'
+Plug 'srcery-colors/srcery-vim'
 
 " EDITING: further improve editing
 Plug 'machakann/vim-sandwich'
@@ -105,7 +106,18 @@ Plug 'superDross/ticket.vim'
 
 call plug#end()
 
+"""" COLOURS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" deepen gruvbox contrast
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_sign_column = 'bg0'
+let g:gruvbox_color_column = 'bg0'
 colorscheme gruvbox
+
+" sets background truly black and whites truly white
+" highlight Normal guibg=black guifg=white
+
+" match terminal background color
+" highlight Normal guibg=#0F0F0F ctermbg=0
 
 """" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! KeyCheat()
@@ -264,11 +276,12 @@ let g:ale_echo_msg_format = '%s [%linter%]'
 let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
+" underline errors
+highlight ALEError ctermbg=none cterm=underline
+" highlight ALEWarning ctermbg=none cterm=underline
 
-" hover docstrings
-" set mouse=n
-" set balloonevalterm
-" let g:ale_set_balloons = 1
+" ALEHover in popup (NOT YET WORKING, in a PR)
+let g:ale_set_popups = 1
 
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
