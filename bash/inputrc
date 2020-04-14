@@ -19,6 +19,7 @@ $if mode=vi
 		"jj": vi-movement-mode
 		"\C-h": history-search-backward
     "\C-l": clear-screen
+$endif
 
 
 #################
@@ -36,9 +37,10 @@ set completion-ignore-case on
 set skip-completed-text on
 
 # allow UTF-8 input and output, instead of showing stuff like $'\0123\0456'
+set meta-flag on
 set input-meta on
-set output-meta on
 set convert-meta off
+set output-meta on
 
 # keeps colours on when autocompleting
 set colored-stats on

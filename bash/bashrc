@@ -208,7 +208,7 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=100000
 export HISTFILESIZE=200000
 # don't show repeated commands (&), ls, ls *, etc.
-export HISTIGNORE="&:history:hgrep:h:cll:cls:c:c *:ls:ls *:cd:cd *:ps:ps -A:[bf]g:fg:tmux:vim:j:exit"
+export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c *:ls:ls *:cd:cd *:ps:ps -A:[bf]g:fg:tmux:vim:j:exit"
 MY_BASH_GREEN="\033[38;5;82m"
 MY_BASH_NOCOLOR="\033[0m"
 HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
@@ -266,12 +266,15 @@ fi
 [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #################
 #    PROMPT     #
 #################
 
 export PS1="\u \w"\
-"\e[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
-"\e[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
+"\[\033[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
+"\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
