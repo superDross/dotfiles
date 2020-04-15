@@ -42,6 +42,10 @@
 - [Threading](python/thread_module.py)
 - [Multiprocessing/MultiThreading](python/processing_vs_threads.py)
 
+## JavaScript
+
+- [AngularJS](javascript/angularjs.md)
+
 ## AWS
 
 - [Connect](aws/connect.md)
