@@ -1,0 +1,2 @@
+\setenv PAGER less
+\set PROMPT1 '[%M] %n@%/%R%#%x '

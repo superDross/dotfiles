@@ -154,6 +154,7 @@ lmxappearance
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
   ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
+  ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
   cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
