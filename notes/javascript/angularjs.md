@@ -45,6 +45,9 @@ If you want the whole app to be treated as an angular app, you can place it in t
   <head>
     ...
     <script src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular/angular-route.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
 ```
 
 `ng-model` binds user input as a variable that can be used as an expression.
@@ -133,3 +136,21 @@ Order by a attribute name in reverse:
 ```html
 <li ng-repeat="item in artists | orderBy:'name'":reverse>
 ```
+
+Using an model for ordering:
+
+```html
+<input data-ng-model="artistOrder">
+<li ng-repeat="item in artists | orderBy:artistOrder":reverse>
+```
+
+## Deep Linking
+
+Deep Linking; making URLs load different content
+
+Handled with `ngRoute` and can be configured with the `$routeProvider`
+which can specify which URLs can load what content.
+
+The directive `ng-view` will load up the code depending on your URL.
+
+To Be Continued (don't need to know more now)

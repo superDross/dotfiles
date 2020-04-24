@@ -55,4 +55,5 @@
 
 ## Tools
 
+- [Docker](tooling/docker.md)
 - [Tmux](tooling/tmux.md)
