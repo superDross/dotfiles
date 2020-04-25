@@ -10,6 +10,11 @@ os=$(uname -s)
 #    ALIASES    #
 #################
 
+# system specific aliases
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+
 # use gls for macs
 [[ $os = 'Darwin' ]] && list='gls' || list='ls'
 
