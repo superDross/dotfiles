@@ -29,7 +29,7 @@ endfunction
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
-call SourceBaseRc('base.vim')
+call SourceBaseRc('base.vimrc')
 
 " TESTING FRAMEWORK: unit testing
 Plug 'junegunn/vader.vim'
