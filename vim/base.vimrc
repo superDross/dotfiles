@@ -27,6 +27,13 @@ set backspace=indent,eol,start
 " always show statusline
 set laststatus=2
 
+" ignore casing when searching
+set ignorecase
+set smartcase
+
+" incremental highlighting
+set incsearch
+
 " all required for numerous plugins to work as expected
 set nocompatible
 filetype on
