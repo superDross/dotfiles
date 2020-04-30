@@ -199,7 +199,7 @@ nnoremap <silent> <leader>k :ALEPrevious<CR>
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
-nnoremap <silent> <Leader>s :ALEGoToDefinitionInSplit<CR>
+nnoremap <silent> <Leader>x :ALEGoToDefinitionInSplit<CR>
 
 " Notes bindings
 nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/notes/index.md'<CR>
