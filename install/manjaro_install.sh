@@ -150,11 +150,8 @@ function setup_vim(){
 
 
 function setup_files(){
-  mkdir -p ~/bin ~/.vim/
-  git clone http://github.com/superdross/dotfiles
-
   sudo cp \
-    ~/bin/dotfiles/images/wallpaper.jpg
+    ${DOTFILESDIR}/images/wallpaper.jpg
     /usr/share/backgrounds/
 
   mv ~/.vimrc ~/.vimrc_OG
