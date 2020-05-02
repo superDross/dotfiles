@@ -9,7 +9,6 @@
 # NOTE: to install postgres
 #   sudo su postgres -l # or sudo -u postgres -i
 #   initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
-#   exit
 
 # NOTE: change GRUB_TIMEOUT_STYLE from hidden to menu in /etc/default/grub
 #       GRUB_TIMEOUT_STYLE=menu (
@@ -34,7 +33,7 @@ function autojump(){
 
 
 function i3lock(){
-	mkdir -p ~/bin/
+  mkdir -p ~/bin/
   cd ~/bin/
   git clone https://github.com/meskarune/i3lock-fancy.git
   cd i3lock-fancy
@@ -149,20 +148,29 @@ function setup_vim(){
 }
 
 
+function setup_postgres(){
+  sudo su postgres -l # or sudo -u postgres -i
+  initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
+  sudo systemctl enable --now postgresql.service
+}
+
+
 function setup_files(){
   sudo cp \
-    ${DOTFILESDIR}/images/wallpaper.jpg
+    ${DOTFILESDIR}/images/wallpaper.jpg \
     /usr/share/backgrounds/
 
-  mv ~/.vimrc ~/.vimrc_OG
-  ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   mv ~/.bashrc ~/.bashrc_OG
+  mv ~/.i3/config ~/.i3/config_OG
+  mkdir -p /home/david/.config/xfce4/terminal/
+  mkdir -p ~/.vim/
+
+  ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
   ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
   ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
   cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
-  mv ~/.i3/config ~/.i3/config_OG
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
   ln -s ${DOTFILESDIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
@@ -186,6 +194,7 @@ function main(){
     install_snap_stuff
     setup_files
     setup_vim
+    setup_postgres
   fi
 
   echo "Plesase reboot your system"

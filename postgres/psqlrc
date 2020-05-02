@@ -8,4 +8,4 @@
 \set COMP_KEYWORD_CASE upper
 
 -- [host] user@database=#
-\set PROMPT1 '[%[%033[1;31m%]%M%[%033[0m%]] %n@%/%R%#%x '
+\set PROMPT1 '%033[1;31m%]%M%[%033[0m%] %n@%/%R%#%x '
