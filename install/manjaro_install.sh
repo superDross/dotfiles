@@ -67,9 +67,11 @@ function update_and_install(){
     cups \
     clang \
     simple-scan \
+    unclutter \
     ripgrep \
     ttf-hack \
     ttf-font-awesome \
+    ttf-roboto-mono \
     ctags \
     scrot \
     feh \
