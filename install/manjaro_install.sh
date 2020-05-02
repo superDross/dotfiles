@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# To create a bootable usb:
+#   sudo dd bs=4M if=/path/to/iso of=/dev/sdx status=progress oflag=sync 
+
 # NOTE: use lxappearance to matcha-dark-aliz
 #       use lightdm-settings to change the theme for the login screen
 
@@ -11,17 +14,17 @@
 # NOTE: change GRUB_TIMEOUT_STYLE from hidden to menu in /etc/default/grub
 #       GRUB_TIMEOUT_STYLE=menu (
 
+# set -o xtrace           # Trace the execution of the script (debug)
 set -o errexit          # Exit on most errors (see the manual)
 set -o errtrace         # Make sure any error trap is inherited
 set -o pipefail         # Use last non-zero exit code in a pipeline
-# set -o xtrace          # Trace the execution of the script (debug)
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
 function autojump(){
-	mkdir -p ~/bin/
+  mkdir -p ~/bin/
 	cd ~/bin/
 	git clone git://github.com/wting/autojump.git
 	cd autojump
@@ -31,6 +34,7 @@ function autojump(){
 
 
 function i3lock(){
+	mkdir -p ~/bin/
   cd ~/bin/
   git clone https://github.com/meskarune/i3lock-fancy.git
   cd i3lock-fancy
@@ -40,9 +44,9 @@ function i3lock(){
 
 
 function update_and_install(){
-  pacman -Syu
+  sudo pacman -Syu
 
-  pacman -Syu \
+  sudo pacman -Syu \
     firefox \
     the_silver_searcher \
     pulseaudio-bluetooth \
@@ -146,17 +150,22 @@ function setup_vim(){
 
 
 function setup_files(){
-  mkdir -p ~/projects
+  mkdir -p ~/bin ~/.vim/
   git clone http://github.com/superdross/dotfiles
 
-  cp ~/projects/dotfiles/images/wallpaper.jpg /usr/share/backgrounds/
-lmxappearance
+  sudo cp \
+    ~/bin/dotfiles/images/wallpaper.jpg
+    /usr/share/backgrounds/
+
+  mv ~/.vimrc ~/.vimrc_OG
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
+  mv ~/.bashrc ~/.bashrc_OG
   ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
   ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
   ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
   cp ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
+  mv ~/.i3/config ~/.i3/config_OG
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
   ln -s ${DOTFILESDIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
@@ -164,13 +173,25 @@ lmxappearance
 }
 
 
-echo "dotfiles dir is set as: ${DOTFILESDIR}"
+function main(){
+  echo "Dotfiles dir is set as: ${DOTFILESDIR}"
 
-# update_and_install
-# autojump
-# i3lock
-# install_npm_packages
-# install_python_packages
-# install_snap_stuff
-# setup_files
-# setup_vim
+  read -p "Are you sure you wish to continue? " -n 1 -r
+  echo    # (optional) move to a new line
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    update_and_install
+    autojump
+    i3lock
+    install_gems
+    install_npm_packages
+    install_python_packages
+    install_snap_stuff
+    setup_files
+    setup_vim
+  fi
+
+  echo "Plesase reboot your system"
+}
+
+main
