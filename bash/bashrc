@@ -279,7 +279,18 @@ export NVM_DIR="$HOME/.nvm"
 #    PROMPT     #
 #################
 
-export PS1="\u \w"\
+# Red username in prompt if remote accessing a computer
+# Assumes hostname on original hardware has hostname with david in it
+case $(hostname -s) in
+david*)
+  export USER_PS1="\u"
+  ;;
+*)
+  export USER_PS1="\[\033[1;31m\]\u@\h\[\033[00m\]"
+  ;;
+esac
+
+export PS1="$USER_PS1 \w"\
 "\[\033[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
 "\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
