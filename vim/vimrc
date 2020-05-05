@@ -37,26 +37,17 @@ Plug 'junegunn/vader.vim'
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'liuchengxu/vista.vim'
 
-" GUTENTAGS: automatic tag generation
-" Plug 'ludovicchabant/vim-gutentags'
-
 " LINTER: syntax checkers
 Plug 'w0rp/ale'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
 
-" FILES: explore dirs in another buffer
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeFind', 'NERDTreeToggle'] }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeFind', 'NERDTreeToggle']}
-
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
-Plug 'jlfwong/vim-mercenary'
 Plug 'mhinz/vim-signify'
 
 "MARKDOWN: preview markdown files
-Plug 'iamcco/markdown-preview.nvim', {'do': 'cd app & yarn install'}
 Plug 'masukomi/vim-markdown-folding'
 
 "OUTPUT: execute commands in a new buffer
@@ -96,9 +87,6 @@ Plug 'junegunn/fzf.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
-
-" DIFF: check differences between lines
-Plug 'AndrewRadev/linediff.vim'
 
 " PERSONAL: my plugins
 Plug 'superDross/class-builder'
@@ -180,8 +168,6 @@ nnoremap <leader><leader> za
 " function keys
 noremap <leader>3 :call KeyCheat() <CR>
 nnoremap <leader>4 :ALEFix<CR>
-nnoremap <leader>5 : NERDTreeToggle<CR>
-nnoremap <leader>6 :NERDTreeFind<CR>
 nnoremap <leader>8 :Vista!!<CR>
 nnoremap <buffer> <leader>9 :exec extension_command<Bar>exec 'resize 40'<CR>
 
@@ -299,9 +285,6 @@ if v:version >= 802
 \ }
 endif
 
-"""" GUTENTAGS """"""""""""""""""""""""""""""""""""""
-let g:gutentags_ctags_exclude = ['node_modules', 'venv', '.git', '*.log', '.bundle', 'tmp', '*.pyc', '*.pyo', '*.json', 'bundle', 'gulp']
-
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " no longer show mode in bottom line
 set noshowmode
@@ -351,40 +334,6 @@ let g:taboo_renamed_tab_format = ' %l %m '
 
 """" VISTA """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vista#renderer#enable_icon = 0
-
-"""" NERDTree """""""""""""""""""""""""""""""""""""""""""""
-" refresh the file tree upon opening
-function! NERDTreeRefresh()
-    if &filetype ==# 'nerdtree'
-        silent exe substitute(mapcheck('R'), '<CR>', '', '')
-    endif
-endfunction
-
-autocmd BufEnter * call NERDTreeRefresh()
-
-" git symbol definitions
-let g:NERDTreeIndicatorMapCustom = {
-\   'Modified'  : '✹',
-\   'Staged'    : '✚',
-\   'Untracked' : '✭',
-\   'Renamed'   : '➜',
-\   'Unmerged'  : '═',
-\   'Deleted'   : '✖',
-\   'Dirty'     : '✗',
-\   'Clean'     : '✔︎',
-\   'Ignored'   : '☒',
-\   'Unknown'   : '?'
-\ }
-
-
-" NERDTree thingy
-let g:NERDTreeDirArrows = 1
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let NERDTreeMinimalUI=1
-
-" Hide .pyc files in NERDTree
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree"
 
 """" RUNVIEW """"""""""""""""""""""""""""""""""""""""""""
 " runview works with python
