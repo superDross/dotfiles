@@ -49,6 +49,9 @@ endif
 set relativenumber
 set number
 
+" turns off mouse use in vim
+set mouse=c
+
 " use system clipboard
 if has('macunix')
   set clipboard+=unnamed
@@ -115,47 +118,6 @@ runtime macros/matchit.vim
 " automatically resizes the window when it has moved
 autocmd VimResized * wincmd =
 
-"""" FUNCTIONS """""""""""""""""""""""""""""""
-" open terminal
-function! TerminalSize(...)
-  if len(a:000) ==# 0
-    let rows = 15
-  else
-    let rows = a:1
-  endif
-  execute ':terminal ++rows=' . rows . '<CR>'
-endfunction
-
-command! -nargs=? LittleTerminal :call TerminalSize(<f-args>)
-cnoreabbrev sterm LittleTerminal
-
-" update the tag file
-function! UpdateTagFile()
-  let cmd =  '!ctags -R' .
-             \ ' --exclude=.git' .
-             \ ' --exclude=node_modules' .
-             \ ' --exclude=venv' .
-             \ ' --exclude=*.log' .
-             \ ' --exclude=bundle' .
-             \ ' --exclude=tmp' .
-             \ ' --exclude=*.pyc' .
-             \ ' --exclude=*.json' .
-             \ ' --exclude=*.pyo'
-  execute cmd
-endfunction
-
-command! UpdatedTags :call UpdateTagFile()
-nnoremap <Leader>u : UpdatedTags<CR><CR>:echom 'Tag generation completed'<CR>
-
-" convert a series of space delimited string to a list
-function! String2List()
-  execute ':s/\ /",\ "/g'
-  execute ':s/^/["/'
-  execute ':s/$/"]/'
-endfunction
-
-command! ListIt :call String2List()
-
 """" KEY BINDINGS """"""""""""""""""""""""""""""""""""
 " make space leader
 nnoremap <SPACE> <Nop>
@@ -171,32 +133,13 @@ nnoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 
-" turns off mouse use in vim
-set mouse=c
-
-" source vimrc
-nnoremap <leader>S :exec 'source $VIMRC'<CR>
-
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<CR>
 
 " function keys
-set pastetoggle=<F2>
-nnoremap <leader>1 :call VimCheat() <CR>
-nnoremap <leader>2 :call NewCommands()<CR>
 noremap <leader>0 :set hlsearch! hlsearch?<CR>
 noremap <leader>5 :Lexplore<CR>
 noremap <F1> <nop>
@@ -214,9 +157,6 @@ set foldnestmax=2
 if expand('%:t') =~# 'vimrc' || expand('%:e') ==# 'vim'
     set foldmethod=expr
     set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
-elseif expand('%t') =~# 'md'
-    set foldmethod=expr
-    set foldexpr=getline(v:lnum)=~#'^\#'?'\>1':'='
 else
     set foldmethod=indent
 endif
@@ -323,86 +263,3 @@ iabbrev pdb import pdb;pdb.set_trace()
 iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 6900).set_trace()
 iabbrev ipdb import ipdb;ipdb.set_trace()
 iabbrev pytrace import pytest;pytest.set_trace()
-
-"""" CHEATSHEET """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! VimCheat()
-  echo 'OPERATORS'
-  echo '   c           change'
-  echo '   d           delete'
-  echo '   y           yank into register (does not change the text)'
-  echo '   gq          text formatting'
-  echo '   ~           swap case (only if tildeop is set)'
-  echo '   >           shift right'
-  echo '   <           shift left'
-  echo '   !           filter through an external program'
-  echo 'MOTIONS'
-  echo '   l           a letter'
-  echo '   b           last word'
-  echo '   aw          a word'
-  echo '   as          a sentence'
-  echo '   ap          a paragraph'
-  echo '   aa          an argument'
-  echo '   a(          a parenthesis'
-  echo '   at          a tag (html)'
-  echo '   ia          in argument'
-  echo '   i(          inside paranthesis'
-  echo '   it          inside tag'
-  echo '   t(          to paranthesis'
-  echo '   f(          find paranthesis'
-  echo 'NAVIGATION'
-  echo '   zz          move cursor to middle screen'
-  echo '   zt          move cursor to top screen'
-  echo '   zb          move cursor to bottom screen'
-  echo '   C-y         move screen up'
-  echo '   C-e         move screen down'
-  echo '   ^           first non whitespace character on the line'
-  echo '   g_          last non whitespace character on the line'
-  echo '   +           got to first non whitespace character on the next line'
-  echo '   -           got to first non whitespace character on the previous line'
-  echo '   W           move next big word'
-  echo '   B           move to last big word'
-  echo '   E           move to end big word'
-  echo '   /pass       to "pass"'
-  echo '   *           got to next occurrence of the string under the cursor'
-  echo '   £           got to last occurrence of the string under the cursor'
-  echo '   10%         move down 10% of the file'
-  echo 'COMPLETION'
-  echo '   <C-x><C-]>  tag completion'
-  echo '   <C-x><C-f>  file completion'
-  echo '   <C-x><C-o>  language aware completion'
-  echo '   <C-x><C-l>  line completion'
-  echo '   <C-n>       word completion'
-  echo 'MARKS'
-  echo '   mq          set mark to q'
-  echo '   `q          move to mark'
-  echo "   'q          move to the start of the marks line"
-endfunction
-
-function! NewCommands()
-  echo 'NORMAL MODE'
-  echo '   gi                                   start insert mode at the last inserted position'
-  echo '   gx                                   open link under cursor in browser'
-  echo '   6gcc                                 comment next 6 lines'
-  echo '   ysw"                                 surround word with quotes'
-  echo '   cs[{                                 change brackets to curly'
-  echo '   z=                                   suggest spelling for word under cusor'
-  echo '   gv                                   reselct last visual selection'
-  echo '   C-o                                  normal mode for one command'
-  echo '   *                                    search for word under cursor'
-  echo '   d/Node                               delete from current os to word apple'
-  echo 'COMMAND MODE'
-  echo '   :tag ClassName                       jump to tag ClassName'
-  echo '   :tjump ClassName                     jump to selected tag ClassName'
-  echo '   :j                                   all selected text on the same line'
-  echo '   :g/^$/d                              delete all empty lines'
-  echo '   :v/^$/d                              delete all NON empty lines'
-  echo '   :s/Hi\ /&David/                      append David to Hi (& represents the match)'
-  echo '   :s/David/Hi\ &/                      prepend Hi to David'
-  echo '   :read !ls                            results of ls pate into buffer'
-  echo '   :earier 10m                          undo to buffer 10 minutes ago'
-  echo 'VISUAL'
-  echo '   u                                    change to lower case'
-  echo '   U                                    change to upper case'
-  echo 'COMMANDLINE'
-  echo '   find . -name "*.py" | xargs -o vim   open all py files in vim buffers'
-endfunction
