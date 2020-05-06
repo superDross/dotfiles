@@ -92,6 +92,9 @@ Plug 'gcmt/taboo.vim'
 Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 
+Plug 'Jorengarenar/fauxClip'
+let g:fauxClip_always_use = 1
+
 call plug#end()
 
 """" COLOURS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
