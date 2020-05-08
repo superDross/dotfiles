@@ -92,9 +92,6 @@ Plug 'gcmt/taboo.vim'
 Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 
-Plug 'Jorengarenar/fauxClip'
-let g:fauxClip_always_use = 1
-
 call plug#end()
 
 """" COLOURS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -235,7 +232,8 @@ let g:ale_fixers = {
       \    'html': ['prettier'],
       \    'css': ['prettier', 'stylelint'],
       \    'markdown': ['prettier'],
-      \    'rust': ['rustfmt']
+      \    'rust': ['rustfmt'],
+      \    'sql': ['sqlformat'],
       \ }
 
 " so isort matches pre-commit and CI configs
@@ -251,6 +249,7 @@ let g:ale_linters = {
       \   'python': ['pyls', 'mypy'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
+      \   'sql': ['sqlint'],
       \ }
 
 " completion settings
