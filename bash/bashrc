@@ -167,7 +167,7 @@ vlc-stream() {
 #################
 
 export SESSION_MANAGER=xfce4-session
-export PATH=$PATH:$HOME/.npm-global/bin
+export PATH=$PATH:$HOME/.npm-global/bin:$HOME/.gem/ruby/2.7.0/bin
 
 # VI mode
 set -o vi
