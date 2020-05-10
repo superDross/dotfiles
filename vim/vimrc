@@ -236,8 +236,9 @@ let g:ale_fixers = {
       \    'sql': ['sqlformat'],
       \ }
 
-" so isort matches pre-commit and CI configs
+" fixer args
 let g:ale_python_isort_options = '-ws -tc -o=tabulate -w "88"'
+let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 
 " npm install typescript for completion to work in a local project
 " Install:
