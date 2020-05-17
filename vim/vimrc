@@ -43,9 +43,13 @@ Plug 'w0rp/ale'
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
 
+" REPL: move text from vim to terminal
+Plug 'jpalardy/vim-slime'
+
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
+Plug 'rhysd/git-messenger.vim'
 
 "MARKDOWN: preview markdown files
 Plug 'masukomi/vim-markdown-folding'
@@ -247,7 +251,7 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 "   shellcheck
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pyls', 'mypy'],
+      \   'python': ['pyls'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
@@ -367,3 +371,5 @@ if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
   "set background=light
   call Spelling()
 endif
+
+let g:slime_target = "vimterminal"
