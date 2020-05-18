@@ -43,9 +43,6 @@ Plug 'w0rp/ale'
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
 
-" REPL: move text from vim to terminal
-Plug 'jpalardy/vim-slime'
-
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
@@ -371,5 +368,3 @@ if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
   "set background=light
   call Spelling()
 endif
-
-let g:slime_target = "vimterminal"
