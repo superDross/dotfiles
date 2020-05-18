@@ -42,6 +42,10 @@
 - [Threading](python/thread_module.py)
 - [Multiprocessing/MultiThreading](python/processing_vs_threads.py)
 
+### Libraries
+
+- [Weblate](python/libs/weblate.md)
+
 ## JavaScript
 
 - [AngularJS](javascript/angularjs.md)

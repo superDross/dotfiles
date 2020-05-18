@@ -206,6 +206,36 @@ Search docker hub for manjaro:
 docker search ubuntu
 ```
 
+## Dockerfiles
+
+Yaml that describe how to create an image that can be built with `docker build`.
+
+```
+docker build -t name-of-result ./
+```
+
+Each step/line in the dockerfile is cached, so if the line has not changed since it was last
+run then it won't be reexecuted.
+
+The parts you change most should exist at the end of the Dockerfile.
+
+*NOTE* - processes you start on one line will not running on next line, so you may have to run
+something over the same line if two processes need to communicate.
+
+### Commands
+
+`ENV` allows env vars to be used across lines.
+
+`RUN` - lets you execute commands inside of your docker image during build time and get written
+into your image as a new layer
+
+This coule be used when wanting to mkdir or add a package.
+
+`CMD` - lets you define a default command to run everytime your container starts.
+
+Like a runtime operation so something like `python myapp/cli.py web` would be useful here.
+
+
 ## Command Cheatsheet
 
 Create an image:
