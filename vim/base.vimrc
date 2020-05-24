@@ -123,15 +123,9 @@ autocmd VimResized * wincmd =
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
-" Stop using the arrow keys in both Insert and Escape mode respectively
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
+" Copy and paste to clipboard
+nnoremap <Leader>y "+y
+nnoremap <Leader>p "+p
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>

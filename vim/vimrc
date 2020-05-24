@@ -90,8 +90,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
-Plug 'superDross/class-builder'
+Plug 'superDross/class-builder', {'branch': 'vimscript'}
 Plug 'superDross/ticket.vim'
+
+" TRAINING: git gud @ vim
+Plug 'takac/vim-hardtime'
 
 call plug#end()
 
@@ -368,3 +371,10 @@ if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
   "set background=light
   call Spelling()
 endif
+
+"""" HARDTIME """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:hardtime_default_on = 1
+let g:hardtime_showmsg = 1
+let g:hardtime_ignore_quickfix = 1
+let g:hardtime_allow_different_key = 1
+let g:hardtime_maxcount = 1
