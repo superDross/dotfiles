@@ -1,8 +1,7 @@
 """" FUNCTIONS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
-let g:dotfilesdir = g:vimdir . '/..'
-let g:notesdir = g:dotfilesdir . '/notes/'
+let g:notesdir = fnamemodify(vimdir, ':h') . '/notes/'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
@@ -92,6 +91,7 @@ Plug 'gcmt/taboo.vim'
 " PERSONAL: my plugins
 Plug 'superDross/class-builder', {'branch': 'vimscript'}
 Plug 'superDross/ticket.vim'
+Plug 'superDross/picobook'
 
 " TRAINING: git gud @ vim
 Plug 'takac/vim-hardtime'
@@ -190,13 +190,6 @@ nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinitionInSplit<CR>
-
-" Notes bindings
-nnoremap <silent> <Leader>ww :execute 'edit' g:dotfilesdir . '/notes/index.md'<CR>
-nnoremap <silent> <Leader>wf :execute 'edit' g:notesdir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wt :execute 'tabe' g:notesdir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wv :execute 'vs' g:notesdir . expand('<cfile>')<CR>
-nnoremap <silent> <Leader>wx :execute 'sp' g:notesdir . expand('<cfile>')<CR>
 
 " Completion Bound to TAB
 inoremap <silent> <expr> <TAB>
@@ -377,4 +370,4 @@ let g:hardtime_default_on = 1
 let g:hardtime_showmsg = 1
 let g:hardtime_ignore_quickfix = 1
 let g:hardtime_allow_different_key = 1
-let g:hardtime_maxcount = 1
+let g:hardtime_maxcount = 2
