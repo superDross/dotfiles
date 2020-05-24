@@ -1,6 +1,7 @@
 """" FUNCTIONS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
+" for picobook
 let g:notesdir = fnamemodify(vimdir, ':h') . '/notes/'
 
 function! SourceBaseRc(f)
@@ -209,6 +210,8 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 nnoremap <leader>f :FZF<CR>
 nnoremap <Leader>a :Ag<CR>
 nnoremap <Leader>g :Rg<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>c :Commits<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
@@ -359,6 +362,7 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
+
 """" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
 if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
   "set background=light
