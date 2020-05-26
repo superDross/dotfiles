@@ -10,7 +10,22 @@
 " let g:matchparen_insert_timeout = 2
 " set noshowmatch
 
+"""" FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""
+" assert & configure spell settings
+function! SpellingToggle()
+  if &spell ==# 0
+    echo 'spelling on'
+    set spell spelllang=en_gb
+    hi SpellBad cterm=underline ctermfg=Red
+  else
+    echo 'spelling off'
+    set nospell
+    hi clear SpellBad
+  endif
+endfunction
+
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
 " vertical split adds to right of current window
 set splitright
@@ -34,10 +49,11 @@ set smartcase
 " incremental highlighting
 set incsearch
 
-" all required for numerous plugins to work as expected
+" do not maintain compatability with vi
 set nocompatible
-filetype on
-filetype plugin on
+
+" filetype detection with plugin and indentation loading
+filetype plugin indent on
 
 " syntax highlighting on for first 200 characters of each line
 syntax on
@@ -64,11 +80,6 @@ endif
 set background=dark
 set t_Co=256
 
-" " termguicolors causes tmux vim sessions to go monochrome
-" if !exists('$TMUX')
-"   set termguicolors
-" endif
-
 " Enable true colours in TMUX
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -86,13 +97,12 @@ set splitbelow
 " previw window height set to 10
 set previewheight=10
 
-" sustain tab names over sessions
-set sessionoptions+=tabpages,globals
-
 " prevents autocompletion and auto selection, must press key to complete
 set completeopt+=noinsert,noselect
+
 " allow menu popup even if there is only one match
 set completeopt+=menu,menuone
+
 " disable preview window with completions, but allow popup
 set completeopt-=preview
 if v:version >= 802
@@ -105,11 +115,6 @@ set shortmess=c
 " Vim jumps to the last position when reopening a file
 if has('autocmd')
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-" spellchecker for commit messages
-if expand('%:t') ==# 'COMMIT_EDITMSG'
-  set spell spelllang=en_gb
 endif
 
 " extends functionality of %
@@ -141,6 +146,9 @@ inoremap <F1> <nop>
 
 " open terminal
 nnoremap <silent> <Leader>t :term ++rows=15<CR>
+
+" toggle spelling
+nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
 """" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
@@ -204,9 +212,6 @@ set undodir=~/.vim/vimundo/
 set undofile
 
 """" PYTHON SETTINGS """"""""""""""""""""""""""""""""""""""""""""""
-" automatic indentation i.e. after def(x):
-filetype plugin indent on
-
 " UTF8 for python use
 set encoding=utf-8
 
