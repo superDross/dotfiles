@@ -90,7 +90,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
-Plug 'superDross/class-builder', {'branch': 'vimscript'}
+Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
 
@@ -276,8 +276,7 @@ let g:ale_set_popups = 1
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-" popup window if using vim 8.2
-if v:version >= 802
+if v:version >= 802 || has('nvim-0.4')
   let g:fzf_layout = {
 \   'window': {
 \     'width': 0.9,
