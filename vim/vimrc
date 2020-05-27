@@ -1,4 +1,4 @@
-"""" FUNCTIONS """""""""""""""""""""""""""""""""""
+"""" GLOBALS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 " for picobook
@@ -6,24 +6,6 @@ let g:notesdir = fnamemodify(vimdir, ':h') . '/notes/'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
-endfunction
-
-" not sure what this does but is required for tab completion
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" assert & configure spell settings
-function! Spelling()
-  if expand('%:t') !=# 'index.md'
-    " required to allow mispellings to be highlighted
-    let g:gruvbox_guisp_fallback='bg'
-    colorscheme gruvbox
-    set spell spelllang=en_gb
-    hi clear SpellBad
-    hi SpellBad cterm=underline ctermfg=Red
-  endif
 endfunction
 
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
@@ -90,7 +72,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'gcmt/taboo.vim'
 
 " PERSONAL: my plugins
-Plug 'superDross/class-builder', {'branch': 'vimscript'}
+Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
 
@@ -112,85 +94,39 @@ colorscheme gruvbox
 " match terminal background color
 " highlight Normal guibg=#0F0F0F ctermbg=0
 
-"""" CHEATSHEETS """""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! KeyCheat()
-  echo 'KEY BINDINGS'
-  echo '    L-0            = toggle highlight search'
-  echo '    L-1            = view vim cheat sheet'
-  echo '    L-2            = view new command cheat sheet'
-  echo '    L-3            = view this cheat sheet'
-  echo '    L-4            = ALEFix'
-  echo '    L-5            = NERDTreeToggle'
-  echo '    L-6            = NERDTreeFind'
-  echo '    L-7            ='
-  echo '    L-8            = TagBarToggle'
-  echo '    L-9            = RunView'
-  echo 'NOTES'
-  echo '    L-ww           = open notes index page'
-  echo '    L-wf           = open note file referenced in index page'
-  echo 'ALE'
-  echo '    L-h            = ALEHover'
-  echo '    L-r            = ALEFindReference'
-  echo '    L-d            = ALEGoToDefinition'
-  echo '    L-n            = ALEGoToDefinitionInTab'
-  echo '    L-v            = ALEGoToDefinitionInVSplit'
-  echo '    L-s            = ALEGoToDefinitionInSplit'
-  echo '    L-j            = ALENext'
-  echo '    L-k            = ALEPrevious'
-  echo 'TAGS'
-  echo '    C-]            = go to definition location'
-  echo '    g-]            = give a list of all possible locations'
-  echo '    C-t            = got to previous location'
-  echo 'FZF'
-  echo '    L-f            = fuzzy find file'
-  echo '    L-a            = fuzzy grep using Ag'
-  echo '    L-*            = fuzzy grep word under the cursor'
-  echo '    C-v            = open fuzzy found file in a vs window'
-  echo '    C-s            = open fuzzy found file in a sp window'
-  echo '    C-t            = open fuzzy found file in a new tab window'
-  echo 'SESSIONS'
-  echo '   :mks t.vim      = create vim session'
-  echo '   vim -S t.vim    = reopen vim session'
-  echo 'TABS'
-  echo '   L-Num           = go tab number'
-  echo '   C-l             = go to next tab'
-  echo '   C-h             = go to previous tab'
-  echo '   :tabe f.txt     = open file in a new tab'
-  echo '   TabooRename s   = rename current tab to s'
-  echo 'GENERAL'
-  echo '   L-t             = open small terminal'
-  echo '   K               = show docs (python only)'
-  echo '   C-w x           = swap column/row panes'
-  echo '   C-w K           = move window to the topmost'
-  echo '   C-w H           = move window to the bottomost'
-  echo '   C-w N           = switch to vim mode in terminal'
-endfunction
-
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
 " remap folding
 nnoremap <leader><leader> za
 
 " function keys
-noremap <leader>3 :call KeyCheat() <CR>
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>8 :Vista!!<CR>
 nnoremap <buffer> <leader>9 :exec extension_command<Bar>exec 'resize 40'<CR>
 
-" Hovering
+" ALE shortcuts
 nnoremap <silent> <leader>h :ALEHover<CR>
-
-" References
 nnoremap <silent> <leader>r :ALEFindReferences<CR>
-
-" Linting Jump
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
-
-" Jump to Definitions
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinitionInSplit<CR>
+
+" fuzzy file/word finder key
+nnoremap <leader>f :FZF<CR>
+nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>g :Rg<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>c :Commits<CR>
+nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
+
+"""" TAB COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""
+" not sure what this does but is required for tab completion
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Completion Bound to TAB
 inoremap <silent> <expr> <TAB>
@@ -205,14 +141,6 @@ inoremap <silent> <expr> <CR>
 
 " auto close preview window when the popup menu is not visible
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" fuzzy file/word finder key
-nnoremap <leader>f :FZF<CR>
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>g :Rg<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :Commits<CR>
-nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 " only use autopep8 ale fixer on work laptop
@@ -276,8 +204,7 @@ let g:ale_set_popups = 1
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
-" popup window if using vim 8.2
-if v:version >= 802
+if v:version >= 802 || has('nvim-0.4')
   let g:fzf_layout = {
 \   'window': {
 \     'width': 0.9,
@@ -332,6 +259,7 @@ let g:polyglot_disabled = ['graphql', 'markdown']
 """" TABOO """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sustain tab names over sessions
 set sessionoptions+=tabpages,globals
+
 " naming format
 let g:taboo_renamed_tab_format = ' %l %m '
 
@@ -362,12 +290,6 @@ let g:user_emmet_settings = {
 \      'quote_char': "'",
 \  },
 \ }
-
-"""" MARKDOWN SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""
-if expand('%:e') ==# 'md' || expand('%:e') ==# 'tex'
-  "set background=light
-  call Spelling()
-endif
 
 """" HARDTIME """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:hardtime_default_on = 1
