@@ -130,7 +130,9 @@ let mapleader = "\<Space>"
 
 " Copy and paste to clipboard
 nnoremap <Leader>y "+y
+vnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
+vnoremap <Leader>p "+p
 
 " tab commands
 nnoremap <C-j> :tabprevious<CR>
