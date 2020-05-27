@@ -4,7 +4,7 @@
 
 - [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)
 - [Cache](web/cache.md)
-- [E-Tags](web/e-tags): Entity Tags
+- [E-Tags](web/e-tags.md): Entity Tags
 - [GrapQL](web/graphql.md): Data query and manipulation language for APIs
 - [HTTP Proxy](web/proxy.md)
 - [HTTP](web/http.md): Hyper Text Transfer Protocol
