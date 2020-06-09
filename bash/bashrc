@@ -19,9 +19,9 @@ fi
 [[ $os = 'Darwin' ]] && list='gls' || list='ls'
 
 # rename executables
-alias h="history"
-alias extract="unp"
-alias vi="vim"
+alias h='history'
+alias extract='unp'
+alias vi='vim'
 
 # hide unwanted files, make directories first shown, then show files.
 alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
@@ -80,7 +80,7 @@ fi
 #    FUNCTIONS     #
 ####################
 
-ffind() {
+function ffind() {
   if cmd="$(type -p "rg")" || [[ -x $cmd ]]; then
     rg "${@:2}" --type "$1" -g '!**/venv/*' -g '!**/.tox/*'
   # add ag alternative
@@ -89,8 +89,12 @@ ffind() {
   fi
 }
 
+function ftype() {
+  find . -iname "*.${@}"
+}
+
 # parse git or hg branch name and stash number
-parse_git_branch() {
+function parse_git_branch() {
   if [[ $(command -v git) ]]; then
     if git ls-files >&/dev/null; then
       branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
@@ -106,21 +110,21 @@ parse_git_branch() {
   fi
 }
 
-bg_process_num() {
+function bg_process_num() {
   num=$(jobs | grep -v autojump | wc -l | sed 's/^ *//g')
   if [ $num != 0 ]; then
     echo " $num"
   fi
 }
 
-tmux_session() {
+function tmux_session() {
   # if tmux on system and in a session
   if [[ $(command -v tmux) ]] && [ -n "$TMUX" ]; then
     echo "(tmux) "
   fi
 }
 
-tmux_session_num() {
+function tmux_session_num() {
   # if tmux on system and not in a session
   if [[ $(command -v tmux) ]] && [ -z "$TMUX" ]; then
     session_num=$(tmux ls 2> /dev/null | wc -l | sed 's/^ *//g')
@@ -131,7 +135,7 @@ tmux_session_num() {
 }
 
 # multiple git 'aliases'
-git() {
+function git() {
   if [[ $@ == 'graph' ]]; then
     command git log --graph --oneline --decorate --all
   elif [[ $@ == 'current-tag' ]]; then
@@ -143,7 +147,7 @@ git() {
 
 # go up x many dirs:
 #    up 2 == cd ../../
-up() {
+function up() {
   if [[ "$#" == 0 ]]; then
     cd ..
   else
@@ -156,7 +160,7 @@ up() {
 }
 
 # stream torrent magnet in VLC
-vlc-stream() {
+function vlc-stream() {
   # use CTRL+Z and then type `bg` to take back your terminal
   peerflix "$1" --remove --vlc --quiet --list
 }

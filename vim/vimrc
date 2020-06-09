@@ -1,8 +1,10 @@
 """" GLOBALS """""""""""""""""""""""""""""""""""
 let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
+
 " for picobook
 let g:notesdir = fnamemodify(vimdir, ':h') . '/notes/'
+let g:noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f

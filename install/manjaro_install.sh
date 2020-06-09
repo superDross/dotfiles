@@ -48,6 +48,7 @@ function update_and_install(){
   sudo pacman -Syu \
     firefox \
     the_silver_searcher \
+    fd \
     pulseaudio-bluetooth \
     xclip \
     docker \

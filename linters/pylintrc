@@ -10,4 +10,4 @@ disable=
     c-extension-no-member
 
 [FORMAT]
-max-line-length=88
+max-line-length=120
