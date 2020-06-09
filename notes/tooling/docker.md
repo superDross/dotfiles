@@ -54,7 +54,7 @@ Setting up example server
 docker run --rm --ti -p 4567:4567 --name server ubuntu:14.04 bash
 
 # 4567:4567 means expose port 4567 and connect it to 4567; expose the same port
-# on the inside of the containeras on the outside.
+# on the inside of the container as on the outside.
 
 # create a netcat server and parse data to other port
 nc -lp 4567 | nc -lp 9989
@@ -224,7 +224,11 @@ something over the same line if two processes need to communicate.
 
 ### Commands
 
-`ENV` allows env vars to be used across lines.
+`FROM` - image to start from like debian/python (multiple can be used); should use Alpine liux
+
+`MAINTAINER` - person whom maintains the image
+
+`ENV` - allows env vars to be used across lines.
 
 `RUN` - lets you execute commands inside of your docker image during build time and get written
 into your image as a new layer
@@ -234,6 +238,52 @@ This coule be used when wanting to mkdir or add a package.
 `CMD` - lets you define a default command to run everytime your container starts.
 
 Like a runtime operation so something like `python myapp/cli.py web` would be useful here.
+
+`ENTRYPOINT` - like CMD but specifies the start of the command to run; the binary that is being executed.
+
+*The exact use case over CMD is not clear*
+
+You will likely only need to use CMD
+
+Example:
+
+```
+ENTRYPOINT ["ls"]
+CMD ["-l", "/some/where/"]
+```
+
+`VOLUME` - defines a shared or ephemeral volumes.
+
+`WORKDIR` - define pwd.
+
+`USER` - sets which user the container will run as.
+
+`ADD` - adds a local file, file from URL or contents of tar achives.
+
+
+## Under the Hood
+
+### Network
+
+Docker Client <--> Socket <--> Docker Server <--> Docker Container(s)
+
+Docker uses bridges to create virtual networks in your computer
+
+Bridges control the ethernet layer.
+
+Routing controls moving packets between networks.
+
+Namespaces allows to create network isolation, keeping them safe from other docker networks.
+
+Show networks/bridges:
+
+```
+brctl show
+```
+
+### Storage
+
+Unix Copy on Write filesystem & FUSE allows for layering.
 
 
 ## Command Cheatsheet
