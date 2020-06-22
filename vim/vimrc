@@ -68,6 +68,7 @@ if has('macunix')
 else
   Plug '~/.fzf'
 endif
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions

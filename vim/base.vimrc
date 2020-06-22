@@ -30,6 +30,9 @@ nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 " vertical split adds to right of current window
 set splitright
 
+" reduce update time; good for multiple async plugins
+set updatetime=100
+
 " stops the wrap text over line from doing so mid-word
 set linebreak
 
