@@ -98,6 +98,8 @@ function parse_git_branch() {
   if [[ $(command -v git) ]]; then
     if git ls-files >&/dev/null; then
       branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+      # remove feature/bugfix etc. from branch name
+      branch=$(echo $branch | sed 's/[a-zA-Z].*\///')
       stash_num=$(git stash list | grep "$branch" | wc -l | sed 's/^ *//g')
       if [ "$stash_num" = 0 ]; then
         echo " (${branch})"
