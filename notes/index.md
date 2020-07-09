@@ -2,7 +2,6 @@
 
 ## Web
 
-- [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)
 - [Cache](web/cache.md)
 - [E-Tags](web/e-tags.md): Entity Tags
 - [GrapQL](web/graphql.md): Data query and manipulation language for APIs
@@ -58,6 +57,9 @@
 - [Debugging & Executing Lambda Code Locally](aws/local_execution.md)
 
 ## SQL
+
+- [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)
+- [Query Processing](sql/query_processing.md): Logical Query Processing
 
 ### Postgres
 
