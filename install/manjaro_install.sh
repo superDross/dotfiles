@@ -43,6 +43,10 @@ function i3lock(){
 
 
 function update_and_install(){
+  # Other tools (not in script):
+  #   peek - gif record
+  #   simplescreenrecorder - record screen
+
   sudo pacman -Syu
 
   sudo pacman -Syu \
