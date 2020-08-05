@@ -80,7 +80,7 @@ Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
 
 " TRAINING: git gud @ vim
-Plug 'takac/vim-hardtime'
+" Plug 'takac/vim-hardtime'
 
 call plug#end()
 
@@ -201,6 +201,7 @@ highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
 
 " ALEHover in popup (NOT YET WORKING, in a PR)
+let g:ale_hover_cursor = 0
 let g:ale_set_popups = 1
 
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
