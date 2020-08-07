@@ -71,16 +71,17 @@ All `Null`s in a column are treated as a single group in `GROUP BY`.
 
 Stuff
 
+### 5. Presentation (ORDER BY)
 
+Argument that the DB should not be handelling ordering, should be within the business layer (backend).
 
+Ordering, in some SQL languages, of rows can be returned randomly. Using `ORDER BY` removes ambiguity.
 
+`Null` in SQL when ordering are not standardised. Seems to be ordered last in postgres.
 
+### 6. Paging (Offset/Fetch)
 
-
-
-
-
-
+Stuff
 
 ## Visually Processing Order
 

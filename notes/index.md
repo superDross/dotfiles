@@ -48,6 +48,7 @@
 ## JavaScript
 
 - [AngularJS](javascript/angularjs.md)
+- [Angular](javascript/angular.md)
 
 ## AWS
 
@@ -69,3 +70,4 @@
 
 - [Docker](tooling/docker.md)
 - [Tmux](tooling/tmux.md)
+- [Kubernetes](tooling/kubernetes.md)
