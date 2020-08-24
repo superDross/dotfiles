@@ -113,8 +113,8 @@ nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
-nnoremap <silent> <Leader>v :ALEGoToDefinitionInVSplit<CR>
-nnoremap <silent> <Leader>x :ALEGoToDefinitionInSplit<CR>
+nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
+nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
 
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
