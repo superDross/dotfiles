@@ -10,6 +10,10 @@ function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
 endfunction
 
+"""" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" work around for the PolyGlot GraphQL error in Javascript files
+let g:polyglot_disabled = ['graphql', 'markdown']
+
 """" PLUGINS """"""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
@@ -112,7 +116,7 @@ nnoremap <silent> <leader>r :ALEFindReferences<CR>
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
-nnoremap <silent> <Leader>n :ALEGoToDefinitionInTab<CR>
+nnoremap <silent> <Leader>n :ALEGoToDefinition -tab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
 
@@ -255,10 +259,6 @@ let g:lightline = {
 if g:colors_name ==# 'gruvbox'
   let g:lightline.colorscheme = 'gruvbox'
 endif
-
-"""" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" work around for the PolyGlot GraphQL error in Javascript files
-let g:polyglot_disabled = ['graphql', 'markdown']
 
 """" TABOO """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " sustain tab names over sessions

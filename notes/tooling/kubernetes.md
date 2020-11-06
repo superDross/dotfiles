@@ -157,6 +157,18 @@ Selectors; operators for labels via the command line.
 
 Namespaces; label for multiple virtual clusters backed by the same physical cluster.
 
+## Tooling
+
+### Helm
+
+A package manager for kubernetes.
+
+Helm charts help you define, install and upgrade kubernetes applications.
+
+A chart is a collection of files that describe a related set of k8s resources.
+
+Can be used to deploy an application.
+
 ## Tools to Run K8s
 
 - Minkube; used primarily for people that want to expermient with K8s
@@ -189,3 +201,7 @@ kubectl get deployment/helloworld -o yaml
 kubectl get service/helloworld -o yaml
 
 ```
+
+## Configuration
+
+Config file is within `~/.kube/config`
