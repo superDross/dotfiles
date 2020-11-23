@@ -71,3 +71,4 @@
 - [Docker](tooling/docker.md)
 - [Tmux](tooling/tmux.md)
 - [Kubernetes](tooling/kubernetes.md)
+- [Git](tooling/git.md)
