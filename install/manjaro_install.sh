@@ -31,6 +31,11 @@ function autojump(){
 	cd
 }
 
+function git_completion(){
+  curl \
+    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+    -o ~/.git-completion.bash
+}
 
 function i3lock(){
   mkdir -p ~/bin/
@@ -194,6 +199,7 @@ function main(){
   then
     update_and_install
     autojump
+    git_completion
     i3lock
     install_gems
     install_npm_packages
