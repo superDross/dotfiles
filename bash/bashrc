@@ -154,17 +154,6 @@ log-grep() {
      ( [[ ! '$3' ]] && cat || grep $3':[0-9][0-9]:[0-9][0-9]' )"
 }
 
-# multiple git 'aliases'
-function git() {
-  if [[ $@ == 'graph' ]]; then
-    command git log --graph --oneline --decorate --all
-  elif [[ $@ == 'current-tag' ]]; then
-    command git describe --tags --abbrev=0
-  else
-    command git "$@"
-  fi
-}
-
 # go up x many dirs:
 #    up 2 == cd ../../
 function up() {
@@ -236,7 +225,7 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=100000
 export HISTFILESIZE=200000
 # don't show repeated commands (&), ls, ls *, etc.
-export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c *:ls:ls *:cd:cd *:ps:ps -A:[bf]g:fg:tmux:vim:j:exit"
+export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c -A:[bf]g:fg:tmux:j:exit"
 MY_BASH_GREEN="\033[38;5;82m"
 MY_BASH_NOCOLOR="\033[0m"
 HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
