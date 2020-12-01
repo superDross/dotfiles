@@ -325,3 +325,41 @@ git show <commit-sha>
 # diff between current branch and master
 git diff master...
 ```
+
+## Log
+
+```
+# git log with diffs
+
+git log -p
+
+git log --author "David Ross"
+
+git log --until "1 week ago" --since "5 months ago"
+
+git log --after "2020-01-01" --before "2020-06-01"
+
+git log --after "today"
+
+git log -i --grep "dra-350"
+
+git log setup.py
+
+git log -S "def main()"
+
+git log master..develop
+
+git log --merges
+
+# show commits by John between Jan -> June 2020
+# that altered the main function and a commit message
+# with the word 'delete' in it in main.py
+
+git log \
+  --author "John Hancock" \
+  --after "2020-01-01" \
+  --before "2020-06-01" \
+  -i --grep "delete" \
+  -S "def main()" \
+  main.py
+```
