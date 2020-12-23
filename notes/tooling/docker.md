@@ -228,7 +228,9 @@ something over the same line if two processes need to communicate.
 
 `MAINTAINER` - person whom maintains the image
 
-`ENV` - allows env vars to be used across lines.
+`ENV` - export environment variables to your *running* container
+
+`ARGS` - variables that can be used in the Dockerfile during the building process
 
 `RUN` - lets you execute commands inside of your docker image during build time and get written
 into your image as a new layer
