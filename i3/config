@@ -231,6 +231,9 @@ exec --no-startup-id clipit
 exec --no-startup-id telegram-desktop
 # Tray icon for pulse audio
 exec --no-startup-id pasystray
+# kdeconnect
+exec --no-startup-id /usr/lib/kdeconnectd
+exec --no-startup-id kdeconnect-indicator
 
 bindsym $mod+Ctrl+m exec xfce4-terminal --hide-menubar -e 'alsamixer'
 
