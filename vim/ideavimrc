@@ -1,0 +1,4 @@
+source ~/bin/dotfiles/vim/base.vimrc
+
+set highlightedyank
+set commentary

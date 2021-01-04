@@ -56,6 +56,8 @@ function update_and_install(){
 
   sudo pacman -Syu \
     firefox \
+    foliate \
+    kdeconnect \
     the_silver_searcher \
     fd \
     pulseaudio-bluetooth \
