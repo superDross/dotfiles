@@ -84,7 +84,7 @@ Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
 
 " TRAINING: git gud @ vim
-Plug 'takac/vim-hardtime'
+" Plug 'takac/vim-hardtime'
 
 call plug#end()
 
