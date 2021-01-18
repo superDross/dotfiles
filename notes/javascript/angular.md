@@ -27,11 +27,25 @@ Pipes allow you to transform data without building additional logic. Users can c
 ```js
 <p>
   My name is {{name | uppercase}}
+</p>
 ```
 
+Interpolation; data binding to views by applying curly braces around a component property
+
+```
+<h1>{{movie.title}}</h1>
+```
 
 Dependency injection (DI) are used in class constructors.
 
-Service; a JS class/function that encapsulates some business logic.
+Inversion of control; architect code in a way that you provide modules with other modules it needs.
+
+DI uses IoC
+
+Service; a JS class/function that encapsulates some business logic as a service for our app.
+
+Service; used to create components that can be used across the entrie app
 
 Components use services (do not place business logic within components)
+
+Routing;

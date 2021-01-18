@@ -243,25 +243,27 @@ Like a runtime operation so something like `python myapp/cli.py web` would be us
 
 `ENTRYPOINT` - like CMD but specifies the start of the command to run; the binary that is being executed.
 
-*The exact use case over CMD is not clear*
-
-You will likely only need to use CMD
-
-Example:
-
-```
-ENTRYPOINT ["ls"]
-CMD ["-l", "/some/where/"]
-```
-
-`VOLUME` - defines a shared or ephemeral volumes.
-
 `WORKDIR` - define pwd.
 
 `USER` - sets which user the container will run as.
 
 `ADD` - adds a local file, file from URL or contents of tar achives.
 
+
+### CMD vs ENTRYPOINT
+
+The default ENTRYPOINT is `/bin/bash -c`.
+
+The ENTRYPOINT specifies a command that will always be executed when the container starts.
+
+The CMD specifies arguments that will be fed to the ENTRYPOINT.
+
+Thats why something like this can work:
+
+```
+ENTRYPOINT ["ls"]
+CMD ["-l", "/some/where/"]
+```
 
 ## Under the Hood
 

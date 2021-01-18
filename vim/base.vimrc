@@ -255,6 +255,6 @@ set omnifunc=syntaxcomplete#Complete
 iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)
 iabbrev pudb import pudb;pudb.set_trace()
 iabbrev pdb import pdb;pdb.set_trace()
-iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 6900).set_trace()
+iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()
 iabbrev ipdb import ipdb;ipdb.set_trace()
 iabbrev pytrace import pytest;pytest.set_trace()

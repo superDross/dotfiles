@@ -197,7 +197,6 @@ bindsym $mod+Shift+10 move container to workspace 10
 
 # opens specific applications in given workspace windows
 assign [class="firefox"] $workspace4
-assign [class="TelegramDesktop"] $workspace6
 assign [class="Chromium"] $workspace6
 for_window [class="Spotify"] move to workspace $workspace6
 assign [class="Slack"] $workspace7
@@ -228,7 +227,7 @@ exec --no-startup-id xfce4-power-manager
 # backup system
 exec --no-startup-id timeshift
 exec --no-startup-id clipit
-exec --no-startup-id telegram-desktop
+exec --no-startup-id signal-desktop --start-in-tray
 # Tray icon for pulse audio
 exec --no-startup-id pasystray
 # kdeconnect
