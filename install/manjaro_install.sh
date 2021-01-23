@@ -57,6 +57,7 @@ function update_and_install(){
   sudo pacman -Syu \
     firefox \
     foliate \
+    rlwrap \
     kdeconnect \
     the_silver_searcher \
     fd \

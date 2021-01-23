@@ -58,6 +58,11 @@ $ git log --oneline
     d77e384 first
 ```
 
+If you find merge conflicts along the way, resolve and add them then:
+
+```
+git cherry-pick --continue
+```
 
 
 
