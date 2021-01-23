@@ -45,6 +45,9 @@ alias bsource='source ~/.bashrc'
 # allows sudo to work with alias command
 alias sudo='sudo '
 
+# used for debugging with docker and remote-pdb
+alias debug='rlwrap nc 127.0.0.1 4444'
+
 # SSH shorthands
 alias osmc="ssh osmc@192.168.1.7"
 
@@ -137,23 +140,6 @@ function tmux_session_num() {
       echo " $session_num"
     fi
   fi
-}
-
-# LogGrep
-#
-# grep yteam prod logs
-#   log-grep <app> <process> <hour>
-#
-# Examples:
-#   check capn process yt2 log through 3pm-4pm:
-#     log-grep capn yt2 15
-#   check datum process yt4 log for errors plus subsequent 3 lines
-#     log-grep datum yt4 | grep -A 3 Errno
-log-grep() {
-  ssh -t david.ross@ng.ldc.yougov.local \
-    "find /mnt/syslogng/yhost_procs/ . -name 'yproc-$1.log' | \
-     xargs grep $2 | \
-     ( [[ ! '$3' ]] && cat || grep $3':[0-9][0-9]:[0-9][0-9]' )"
 }
 
 # go up x many dirs:
