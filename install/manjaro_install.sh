@@ -58,6 +58,7 @@ function update_and_install(){
     firefox \
     foliate \
     rlwrap \
+  gnu-netcat \
     kdeconnect \
     the_silver_searcher \
     fd \
