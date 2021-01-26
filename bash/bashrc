@@ -72,14 +72,8 @@ alias c="clear"
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to vpn
-computer=$(uname -n | tr -d "\n")
-if [ "$computer" == 'david-work' ]; then
-  # put 'push' as the second password
-  alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh ssluk.yougov.net"
-  alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh sslus.yougov.net"
-else
-  alias vpn="sudo openvpn --config ~/.openvpn/cz/openvpn.ovpn"
-fi
+alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh ssluk.yougov.net"
+alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh sslus.yougov.net"
 
 
 ####################
