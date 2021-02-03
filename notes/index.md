@@ -16,6 +16,7 @@
 - [Web Server](web/web_server.md)
 - [Web Sockets](web/web_sockets.md): Full Duplex Communication Protocol
 - [Common Issues](web/common_issues.md)
+- [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
 
 ## Data Structures
 
