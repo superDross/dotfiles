@@ -34,7 +34,6 @@ Plug 'sheerun/vim-polyglot'
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
 Plug 'mhinz/vim-signify'
-Plug 'rhysd/git-messenger.vim'
 
 "MARKDOWN: preview markdown files
 Plug 'masukomi/vim-markdown-folding'
@@ -127,6 +126,8 @@ nnoremap <Leader>g :Rg<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :Commits<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
+" like git-messanger but with a popup
+nnoremap <silent><Leader>m :call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
 
 """" TAB COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""
 " not sure what this does but is required for tab completion
@@ -301,7 +302,3 @@ let g:hardtime_showmsg = 1
 let g:hardtime_ignore_quickfix = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 5
-
-"""" GIT MESSENGER """"""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:git_messenger_close_on_cursor_moved = v:false
-let g:git_messenger_always_into_popup = v:true
