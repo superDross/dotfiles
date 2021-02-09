@@ -18,6 +18,10 @@
 - [Common Issues](web/common_issues.md)
 - [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
 
+## Design
+
+- [Code Smells](design/code_smells.md)
+
 ## Data Structures
 
 - [Linked Lists](data_structures/linkedlist.py)
