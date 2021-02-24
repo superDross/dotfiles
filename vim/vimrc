@@ -22,7 +22,12 @@ call SourceBaseRc('base.vimrc')
 " TESTING FRAMEWORK: unit testing
 Plug 'junegunn/vader.vim'
 
-Plug 'mbbill/undotree'
+" UNDOTREE: visualise undotrees
+if has('python3') || has('python')
+  Plug 'simnalamburt/vim-mundo'
+else
+  Plug 'mbbill/undotree'
+endif
 
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'liuchengxu/vista.vim'
@@ -114,7 +119,11 @@ nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
 
 " undo tree
-nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+if has('python3') || has('python')
+  nnoremap <silent> <Leader>u :MundoToggle<CR>
+else
+  nnoremap <silent> <Leader>u :UndotreeToggle<CR>
+endif
 
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
@@ -284,3 +293,5 @@ let extension_command = get(extension_dict, expand('%:e'))
 """" UNDOTREE """""""""""""""""""""""""""""""""""""""""""""""""""
 let g:undotree_WindowLayout = 2
 let g:undotree_ShortIndicators = 1
+
+let g:mundo_preview_bottom = 1
