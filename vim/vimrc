@@ -294,4 +294,4 @@ let extension_command = get(extension_dict, expand('%:e'))
 let g:undotree_WindowLayout = 2
 let g:undotree_ShortIndicators = 1
 
-let g:mundo_preview_bottom = 1
+let g:mundo_width = 60
