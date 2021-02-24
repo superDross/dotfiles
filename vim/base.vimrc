@@ -155,6 +155,9 @@ nnoremap <silent> <Leader>t :term ++rows=15<CR>
 " toggle spelling
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
+" toggle netrw
+nnoremap <silent> <Leader>e :Lex<CR>
+
 """" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
 let g:SimpylFold_docstring_preview=1

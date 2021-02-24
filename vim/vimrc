@@ -22,6 +22,8 @@ call SourceBaseRc('base.vimrc')
 " TESTING FRAMEWORK: unit testing
 Plug 'junegunn/vader.vim'
 
+Plug 'mbbill/undotree'
+
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'liuchengxu/vista.vim'
 
@@ -103,13 +105,16 @@ nnoremap <buffer> <leader>9 :exec extension_command<Bar>exec 'resize 40'<CR>
 
 " ALE shortcuts
 nnoremap <silent> <leader>h :ALEHover<CR>
-nnoremap <silent> <leader>r :ALEFindReferences<CR>
+nnoremap <silent> <leader>r :ALEFindReferences -relative<CR>
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
 nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
 nnoremap <silent> <Leader>n :ALEGoToDefinition -tab<CR>
 nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
+
+" undo tree
+nnoremap <silent> <Leader>u :UndotreeToggle<CR>
 
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
@@ -275,3 +280,7 @@ let extension_dict = {
 \ }
 let extension_command = get(extension_dict, expand('%:e'))
 
+
+"""" UNDOTREE """""""""""""""""""""""""""""""""""""""""""""""""""
+let g:undotree_WindowLayout = 2
+let g:undotree_ShortIndicators = 1
