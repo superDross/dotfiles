@@ -58,7 +58,7 @@ function update_and_install(){
     firefox \
     foliate \
     rlwrap \
-  gnu-netcat \
+    gnu-netcat \
     kdeconnect \
     the_silver_searcher \
     fd \
@@ -99,6 +99,7 @@ function update_and_install(){
   
   pamac build spotify
   pamac build python37
+  pamac build hadolint
 }
 
 
