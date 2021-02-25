@@ -23,7 +23,7 @@ call SourceBaseRc('base.vimrc')
 Plug 'junegunn/vader.vim'
 
 " UNDOTREE: visualise undotrees
-if has('python3') || has('python')
+if has('nvim') || has('python3') || has('python')
   Plug 'simnalamburt/vim-mundo'
 else
   Plug 'mbbill/undotree'
@@ -119,7 +119,7 @@ nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
 nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
 
 " undo tree
-if has('python3') || has('python')
+if has('nvim') || has('python3') || has('python')
   nnoremap <silent> <Leader>u :MundoToggle<CR>
 else
   nnoremap <silent> <Leader>u :UndotreeToggle<CR>
