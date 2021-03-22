@@ -78,3 +78,7 @@
 - [Tmux](tooling/tmux.md)
 - [Kubernetes](tooling/kubernetes.md)
 - [Git](tooling/git.md)
+
+## Vim
+
+- [Global](vim/global.md)
