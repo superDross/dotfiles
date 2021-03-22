@@ -51,6 +51,14 @@ Move all lines starting with `##` to line 0:
 :g/^##/m0
 ```
 
+## Put
+
+Paste contents from register `a` after substitution section:
+
+```
+:g/^## Substitution/pu a
+```
+
 ## Substitution
 
 Select lines not starting with `##` and sub `print` for `console`
