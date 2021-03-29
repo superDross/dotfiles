@@ -80,6 +80,10 @@ alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd
 #    FUNCTIONS     #
 ####################
 
+function fuzzy-kill() {
+  sudo kill $(ps -aef | grep "$1" | awk '{print $2}' | xargs)
+}
+
 function ffind() {
   if cmd="$(type -p "rg")" || [[ -x $cmd ]]; then
     rg "${@:2}" --type "$1" -g '!**/venv/*' -g '!**/.tox/*'
