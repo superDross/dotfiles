@@ -81,7 +81,12 @@ alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd
 ####################
 
 function fuzzy-kill() {
+  # kills all processes containing the given substring, be careful
   sudo kill $(ps -aef | grep "$1" | awk '{print $2}' | xargs)
+}
+
+function docker_stop_all(){
+  docker stop $(docker ps -q)
 }
 
 function ffind() {
