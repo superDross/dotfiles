@@ -230,6 +230,13 @@ if v:version >= 802 || has('nvim-0.4')
 \ }
 endif
 
+" do not match file names when using Rg in Fzf
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep(
+      \ 'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+      \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0
+      \)
+
 """" LIGHTLINE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 " no longer show mode in bottom line
 set noshowmode
