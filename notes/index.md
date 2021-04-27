@@ -46,6 +46,7 @@
 - [Queues](python/que.py)
 - [Threading](python/thread_module.py)
 - [Multiprocessing/MultiThreading](python/processing_vs_threads.py)
+- [Parallel and Concurrent Programming](python/multi/concurrent_parallel.md)
 
 ### Libraries
 
