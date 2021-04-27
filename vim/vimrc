@@ -296,6 +296,30 @@ let extension_dict = {
 \ }
 let extension_command = get(extension_dict, expand('%:e'))
 
+" NOTE: works but is kind of broken, sets new window into not be modifiable
+" NOTE: sucks, refactor the :exec in the function
+
+" function! RunCodeInWindow()
+"   let fftype = &ft
+"   " echo fftype
+"   let extension_dict = {
+"   \    'python': '%RunView!python3',
+"   \    'sh': '%RunView!sh',
+"   \    'javascript.jsx': '%RunView!node',
+"   \    'javascript': '%RunView!node'
+"   \ }
+
+"   echo get(extension_dict, fftype)
+"   let extension_cmd = get(extension_dict, fftype)
+"   :exec extension_cmd | exec 'resize 40'
+"   " echo extension_command
+" endfunction
+
+" nnoremap <buffer> <leader>9 :exec extension_command<Bar>exec 'resize 40'<CR>
+
+" command! RunCodeBelow :call RunCodeInWindow()
+" nnoremap <leader>7 :RunCodeBelow<CR>
+
 
 """" UNDOTREE """""""""""""""""""""""""""""""""""""""""""""""""""
 let g:undotree_WindowLayout = 2
