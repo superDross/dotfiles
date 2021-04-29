@@ -41,6 +41,9 @@ endfunction
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
+" stop vim equalising window sizes when a window is closed or opened
+set noequalalways
+
 " vertical split adds to right of current window
 set splitright
 
