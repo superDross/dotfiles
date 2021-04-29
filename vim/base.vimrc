@@ -24,6 +24,20 @@ function! SpellingToggle()
   endif
 endfunction
 
+" run current buffers code in a terminal
+function! RunScriptInTerminal()
+  let fftype = &ft
+  echo fftype
+  let extension_dict = {
+  \    'python': 'python',
+  \    'sh': 'sh',
+  \    'javascript.jsx': 'node',
+  \    'javascript': 'node'
+  \ }
+  let cmd = get(extension_dict, fftype, fftype)
+  return "term " . cmd  . " " . expand('%:p')
+endfunction
+
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
@@ -146,6 +160,10 @@ nnoremap <C-l> :tabnext<CR>
 " function keys
 noremap <leader>0 :set hlsearch! hlsearch?<CR>
 noremap <leader>5 :Lexplore<CR>
+" does not work for neovim
+if v:version > 800
+  nnoremap <leader>9 :exec RunScriptInTerminal()<Bar>exec 'resize 15'<CR>
+endif
 noremap <F1> <nop>
 inoremap <F1> <nop>
 
