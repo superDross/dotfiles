@@ -27,10 +27,7 @@ endfunction
 " run current buffers code in a terminal
 function! RunScriptInTerminal()
   let fftype = &ft
-  echo fftype
   let extension_dict = {
-  \    'python': 'python',
-  \    'sh': 'sh',
   \    'javascript.jsx': 'node',
   \    'javascript': 'node'
   \ }
