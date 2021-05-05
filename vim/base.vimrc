@@ -32,6 +32,7 @@ function! RunScriptInTerminal()
   \    'javascript': 'node'
   \ }
   let cmd = get(extension_dict, fftype, fftype)
+  :w
   return "term " . cmd  . " " . expand('%:p')
 endfunction
 
