@@ -81,6 +81,7 @@ Plug 'gcmt/taboo.vim'
 Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
+Plug 'superDross/run-with-me.vim'
 
 call plug#end()
 
@@ -104,6 +105,7 @@ nnoremap <leader><leader> za
 " function keys
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>8 :Vista!!<CR>
+nmap <leader>9 <Plug>(run_code)
 
 " ALE shortcuts
 nnoremap <silent> <leader>h :ALEHover<CR>
