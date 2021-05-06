@@ -29,7 +29,8 @@ function! RunScriptInTerminal()
   let fftype = &ft
   let extension_dict = {
   \    'javascript.jsx': 'node',
-  \    'javascript': 'node'
+  \    'javascript': 'node',
+  \    'vim': 'vim -N -u NONE -n -c "set nomore" -S'
   \ }
   let cmd = get(extension_dict, fftype, fftype)
   return "term " . cmd  . " " . expand('%:p')
