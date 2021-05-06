@@ -25,13 +25,30 @@ function! SpellingToggle()
 endfunction
 
 " run current buffers code in a terminal
+" TODO: consider makeing this a seperate plugin
 function! RunScriptInTerminal()
   let fftype = &ft
+
+  " prevent execution
+  if fftype ==# ""
+    return
+  endif
+
   let extension_dict = {
   \    'javascript.jsx': 'node',
   \    'javascript': 'node'
   \ }
   let cmd = get(extension_dict, fftype, fftype)
+
+  " delete any existing terminals that contained the same command output
+  let name = "!" . cmd . " " . expand('%:p')
+  for bufinfo in getbufinfo()
+    if bufinfo.name ==# name
+      :execute 'bd ' . bufinfo.bufnr
+    endif
+  endfor
+
+  " save and return the command
   :w
   return "term " . cmd  . " " . expand('%:p')
 endfunction
