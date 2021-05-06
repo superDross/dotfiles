@@ -51,7 +51,9 @@ alias debug='rlwrap nc 127.0.0.1 4444'
 # SSH shorthands
 alias osmc="ssh osmc@192.168.1.7"
 
+# various tools I forget the names to
 alias epub="foliate"
+alias gif-recorder="peek"
 
 # prevent all the clutter from appearing in tree
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
