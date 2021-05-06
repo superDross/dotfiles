@@ -25,15 +25,35 @@ function! SpellingToggle()
 endfunction
 
 " run current buffers code in a terminal
+" TODO: consider transforming this into a seperate plugin
+" TODO: get it working with neovim
 function! RunScriptInTerminal()
   let fftype = &ft
+
+  " prevent execution
+  if fftype ==# ""
+    return
+  endif
+
   let extension_dict = {
   \    'javascript.jsx': 'node',
   \    'javascript': 'node',
   \    'vim': 'vim -N -u NONE -n -c "set nomore" -S'
   \ }
   let cmd = get(extension_dict, fftype, fftype)
-  return "term " . cmd  . " " . expand('%:p')
+
+  " delete any existing terminals that contained the same command output
+  let name = "!" . cmd . " " . expand('%:p')
+  for bufinfo in getbufinfo()
+    if bufinfo.name =~# name && bufexists(bufinfo.bufnr)
+      :execute 'silent! bd! ' . bufinfo.bufnr
+    endif
+  endfor
+
+  " save and return the command
+  :w
+  " TODO: make rowsize configurable
+  return "term ++rows=15 " . cmd  . " " . expand('%:p')
 endfunction
 
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
@@ -163,7 +183,7 @@ noremap <leader>0 :set hlsearch! hlsearch?<CR>
 noremap <leader>5 :Lexplore<CR>
 " does not work for neovim
 if v:version > 800
-  nnoremap <leader>9 :exec RunScriptInTerminal()<Bar>exec 'resize 15'<CR>
+  nnoremap <leader>9 :exec RunScriptInTerminal()<Bar>exec 'wincmd p'<CR>
 endif
 noremap <F1> <nop>
 inoremap <F1> <nop>

@@ -1,4 +1,3 @@
-
 import threading
 import time
 from random import random
@@ -31,7 +30,7 @@ def count(thread_name, lock_a, lock_b):
         try:
             COUNT += 1
             print(f"{thread_name} is incrementing COUNT to equal: {COUNT}")
-        # incase of unexpected thread termination
+        # in case of unexpected thread termination
         finally:
             lock_b.release()
             lock_a.release()
@@ -50,7 +49,7 @@ def main_thread():
     counter2.join()
     counter3.join()
 
-    # the threads keey releasing locks until infinetly
+    # the threads key releasing locks until infinitely
 
     print(f"COUNT: {COUNT}")
 
