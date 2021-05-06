@@ -39,7 +39,7 @@ def number_deducter(thread_id):
 
 
 def main_thread():
-    # you will find they are spending must of there time waiting for their turn
+    # you will find they are spending must of there time waiting for their turn without a CV
     for thread_id in range(5):
         threading.Thread(target=number_deducter, args=(thread_id,)).start()
 
