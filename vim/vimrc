@@ -103,6 +103,7 @@ colorscheme gruvbox
 nnoremap <leader><leader> za
 
 " function keys
+nmap <leader>1 <Plug>(run_tests)
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>8 :Vista!!<CR>
 nmap <leader>9 <Plug>(run_code)
@@ -283,15 +284,11 @@ let g:taboo_renamed_tab_format = ' %l %m '
 """" VISTA """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vista#renderer#enable_icon = 0
 
-
-
-
-
-
-
-
 """" UNDOTREE """""""""""""""""""""""""""""""""""""""""""""""""""
 let g:undotree_WindowLayout = 2
 let g:undotree_ShortIndicators = 1
 
 let g:mundo_width = 60
+
+"""" PERSONAL """""""""""""""""""""""""""""""""""""""""""""""""""
+let g:default_testing_cmd = "make test"
