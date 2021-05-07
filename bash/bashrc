@@ -52,6 +52,7 @@ alias debug='rlwrap nc 127.0.0.1 4444'
 alias osmc="ssh osmc@192.168.1.7"
 
 alias epub="foliate"
+alias record="simplescreenrecorder"
 
 # prevent all the clutter from appearing in tree
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
