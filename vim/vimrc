@@ -82,6 +82,7 @@ Plug 'superDross/class-builder'
 Plug 'superDross/ticket.vim'
 Plug 'superDross/picobook'
 Plug 'superDross/run-with-me.vim'
+Plug 'superDross/scrappy.vim'
 
 call plug#end()
 
@@ -104,6 +105,7 @@ nnoremap <leader><leader> za
 
 " function keys
 nmap <leader>1 <Plug>(run_tests)
+nmap <leader>2 <Plug>(create_scratchpad_vertical)
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>8 :Vista!!<CR>
 nmap <leader>9 <Plug>(run_code)
