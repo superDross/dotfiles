@@ -233,6 +233,20 @@ git pull origin master
 
 It download
 
+## Syncing Forked Repo
+
+https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
+
+Add remote to original:
+
+```
+git remote add upstream https://github.com/WeblateOrg/wlc
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
+```
+
 ## Deleting
 
 ```

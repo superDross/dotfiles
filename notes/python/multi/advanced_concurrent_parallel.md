@@ -1,5 +1,7 @@
 # Advanced Parallel and Concurrent Programming
 
+TODO: consider altering this document to a jupyter notebook
+
 Example scripts are available in the same dir as this document.
 
 ## Synchronisation
@@ -72,7 +74,7 @@ No counter, can only be locked or unlocked like a normal mutex.
 The difference is that a mutex can only be acquired/released by the same thread, while a semaphore this can be aqcuired/released by separate thread.
 
 
-### Race Conditions
+### Race Conditions & Barriers
 
 Data races occur when two or more threads concurrently access the same memory location.
 
@@ -81,3 +83,99 @@ Race conditions are flaws in timing ordering that causes undesirable behaviour.
 They can occur together or apart.
 
 Barriers can prevent a group of threads from proceeding until enough threads have reached the barrier, thereby preventing a race condition.
+
+
+##  Asynchronous Tasks
+
+
+### Computational Graph
+
+Help to visualise the asynchronicity and order of executables.
+
+Can determine the critical path; path that takes the longest time to execute.
+
+Its a visual helper nothing more. Not sure how much utility this has for me.
+
+
+### Thread Pool
+
+Thread pool; creates and maintains a collection of worker threads
+
+It reuses existing worker threads to execute tasks (efficient).
+
+Sometimes this is more efficient than creating numerous threads.
+
+This is more efficient as we are reusing threads, instead of recreating them, we reduce the overhead involved with creating new ones.
+
+This is an advantage only when the time it takes to execute the task is **less** than the time required to create a new thread.
+
+
+### Future
+
+Future; A placeholder for a result that will be available later (like promises in JS)
+
+An asynchronous task will eventually write the result to the Future when it is finished processing.
+
+
+### Divide & Conquer Algorithms
+
+1. divide the problem into subproblems of equal size
+2. recursively solve the subproblems
+3. combine the solutions to the subproblems
+
+
+They can be parallel in different processors.
+
+The example was not good or clear to me, find another.
+
+
+## Evaluating Parallel Performance
+
+### Speedup, Latency & Throughput
+
+Strong Scaling; breaking down and spreading a problem across multiple processors to execute the program faster
+
+Throughput; number of tasks over time
+
+Latency; the amount of time to complete a task
+
+Speedup; ratio of the sequential execution time over the parallel execution time with N workers (so how much faster it becomes when adding additional processes)
+
+Throughput would increase as you add more processors; applying strong scaling. Which would increase the speedup ratio
+
+
+### Amdahl's Law
+
+Estimating speedup for entire program. Useful for determining whether it is worth parallelizing a program.
+
+Overall Speedup = 1 / (1 - P) + (P/S)
+
+P = portion of program thats parallelizable
+S = speedup of the parallelized portion
+
+Example, we know that 95% of our program can be executed in parallel and using two processors equals a speedup of 2:
+
+P = 0.95
+S = 2
+
+Overall Speedup = 1 / ( (1 - 0.95) + (0.95 / 2) )= 1.9
+
+The higher S (speedup; number of processors) the higher the overall speedup, **but** eventually the 5% sequentially executed code will create an upper limit. So no matter how many processors you throw at the problem, eventually it will not be able to go faster.
+
+
+### Measuring Speedup
+
+Speedup; ratio of the sequential execution time over the parallel execution time with N workers (so how much faster it becomes when adding additional processes)
+
+Efficiency; how well additional resource are utilised.
+
+Efficiency = speedup / n. processors
+
+
+Example, we have a task that sequentially took 25 seconds but parallelised took 17 seconds
+
+speedup = 25 / 17 = 1.47
+
+efficiency = (1.47 / 2) * 100 = 73.5%
+
+You may want to warm up your code before measuring speedup
