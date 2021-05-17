@@ -5,6 +5,17 @@
 # store operating system
 os=$(uname -s)
 
+# no colour reset
+NC='\033[0m'
+# all light colours
+GRAY='\033[1;30m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+PURPLE='\033[1;35m'
+CYAN='\033[1;36m'
+WHITE='\033[1;37m'
 
 #################
 #    ALIASES    #
@@ -90,6 +101,32 @@ function fuzzy-kill() {
 
 function docker_stop_all(){
   docker stop $(docker ps -q)
+}
+
+function docker_plus(){
+  # Wrapper for some docker cli commands: 
+  #   $1: docker_plus command
+  #   $2: part or full container name
+  container_id=$(docker ps | awk '$NF ~ /'$2'/ {print $1}' | head -n 1)
+  container_name=$(docker ps | awk '$NF ~ /'$2'/ {print $NF}' | head -n 1)
+  case $1 in
+    help)
+      echo -e "Commands:\n  logs: see containers logs\n  bash: jump into a containers shell"
+      ;;
+    logs | log)
+      echo -e "Getting logs for ${YELLOW}${container_name}${NC}..."
+      sleep 1
+      docker logs $container_id -f
+      ;;
+    bash | shell)
+      echo -e "Jumping into ${YELLOW}${container_name}${NC} shell..."
+      sleep 1
+      docker exec -it $container_id bash
+      ;;
+    *)
+      echo "ERROR: ${2} is not a valid command. See 'docker_plus help'."
+      ;;
+  esac
 }
 
 function ffind() {
