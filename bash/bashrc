@@ -107,7 +107,7 @@ function docker_plus(){
   # Wrapper for some docker cli commands: 
   #   $1: docker_plus command
   #   $2: part or full container name
-  if [ -z $(docker ps -q)]; then
+  if [ -z "$(docker ps -q)" ]; then
     echo "No docker containers are running."
     return
   fi
