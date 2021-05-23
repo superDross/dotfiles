@@ -11,7 +11,6 @@
 " set noshowmatch
 
 """" FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""
-" assert & configure spell settings
 function! SpellingToggle()
   if &spell ==# 0
     echo 'spelling on'
@@ -22,6 +21,16 @@ function! SpellingToggle()
     set nospell
     hi clear SpellBad
   endif
+endfunction
+
+function! ShowLeaderMappings()
+  redir @a
+  execute "silent! map \<leader\>"
+  redir END
+  let mappings = split(getreg("a"), "\n")
+  let mappingz = map(mappings, "v:val[1:]")
+  let sorted_maps = join(uniq(sort(mappingz)), "\n")
+  echo "LEADER MAPPINGS:\n" . sorted_maps
 endfunction
 
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
@@ -158,8 +167,8 @@ nnoremap <silent> <Leader>t :term ++rows=15<CR>
 " toggle spelling
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
-" toggle netrw
-nnoremap <silent> <Leader>e :Lex<CR>
+" show all leader mappings
+nnoremap <Leader>l :call ShowLeaderMappings()<CR>
 
 """" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
