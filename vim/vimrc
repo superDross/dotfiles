@@ -11,6 +11,12 @@ function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
 endfunction
 
+function! GitLinePopUp()
+  " like git-messanger but with a popup
+  " TODO: clean up
+  call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
+endfunction
+
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
 let g:polyglot_disabled = ['graphql', 'markdown']
@@ -73,6 +79,8 @@ else
 endif
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" for FZFMarks only
+Plug 'chengzeyi/fzf-preview.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
 Plug 'gcmt/taboo.vim'
@@ -129,13 +137,13 @@ endif
 
 " fuzzy file/word finder key
 nnoremap <leader>f :FZF<CR>
-nnoremap <Leader>a :Ag<CR>
+nnoremap <Leader>a :RgContents<CR>
 nnoremap <Leader>g :Rg<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :Commits<CR>
+nnoremap <Leader>` :FZFMarks<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
-" like git-messanger but with a popup
-nnoremap <silent><Leader>m :call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
+nnoremap <silent><Leader>m :call GitLinePopUp()<CR>
 
 """" TAB COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""
 " not sure what this does but is required for tab completion
@@ -232,8 +240,8 @@ if v:version >= 802 || has('nvim-0.4')
 \ }
 endif
 
-" overrides Ag to use Rg but to not match file names when using Rg in Fzf
-command! -bang -nargs=* Ag
+" use Rg but to not match file names when using Rg in Fzf
+command! -bang -nargs=* RgContents
       \ call fzf#vim#grep(
       \ 'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
       \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0
