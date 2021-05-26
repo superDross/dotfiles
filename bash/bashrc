@@ -123,9 +123,16 @@ function docker_plus(){
       docker logs $container_id -f
       ;;
     bash | shell)
-      echo -e "Jumping into ${YELLOW}${container_name}${NC} shell..."
+      echo -e "Jumping into ${YELLOW}${container_name}${NC} bash shell..."
       sleep 1
       docker exec -it $container_id bash
+      ;;
+    psql)
+      # $3: database name
+      db_name=$([ -z "$3" ] && echo "postgres" || echo "$3")
+      echo -e "Jumping into ${YELLOW}${container_name}${NC} (${db_name}) psql shell..."
+      sleep 1
+      docker exec -it $container_id psql -U postgres -d $db_name
       ;;
     *)
       echo "ERROR: ${2} is not a valid command. See 'docker_plus help'."
