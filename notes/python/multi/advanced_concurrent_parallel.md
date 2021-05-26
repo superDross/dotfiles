@@ -1,8 +1,8 @@
 # Advanced Parallel and Concurrent Programming
 
-TODO: consider altering this document to a jupyter notebook
-
 Example scripts are available in the same dir as this document.
+
+Celery is used to asynchronously distribute work across threads or machines
 
 ## Synchronisation
 
@@ -179,3 +179,55 @@ speedup = 25 / 17 = 1.47
 efficiency = (1.47 / 2) * 100 = 73.5%
 
 You may want to warm up your code before measuring speedup
+
+
+## Designing Parallel Programs
+
+There 4 stages:
+
+- partitioning
+- communication
+- agglomeration
+- mapping
+
+### Partitioning
+
+Domain decomposition; break down data into smaller chunks where each chunk is processed by a different thread
+
+Cyclic decomposition; threads cyclic process data
+
+Functional decomposition; divides the work based on task and data. These are then grouped based on them.
+
+### Communication
+
+Only required sometimes, usually when the threads need to know what the other is doing for co-ordinating task order.
+
+Co-ordinate task execution between threads.
+
+Overhead; compute time/resources spent on communication
+
+Bandwidth; amount of data communicated per seconds (GB/s)
+
+### Agglomeration
+
+Fine Grained Parallelism
+
+- Large number of small tasks
+- Good distribution of workload (load balancing)
+- Low computation to communication ratio (lots of computation to break down the task)
+
+Coarse Grained Parallelism
+
+- Small number of large tasks
+- Less time splitting up tasks and more time processing the data
+- Inefficient load balancing
+
+Usually a middle ground is found between both these agglomeration methods.
+
+Keep flexibility in mind when designing so you can add more CPU etc.
+
+### Mapping
+
+OS usually do this; scheduling task.
+
+Only needed for distributed systems.
