@@ -205,3 +205,8 @@ kubectl get service/helloworld -o yaml
 ## Configuration
 
 Config file is within `~/.kube/config`
+
+
+## Stuff
+
+ConfigMap; key value map storing non-confidential data, they 

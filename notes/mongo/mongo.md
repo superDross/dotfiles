@@ -111,6 +111,12 @@ Print a single doc:
 db.user.findOne()
 ```
 
+As above but only print the state key/values in the document only:
+
+```
+db.user.findOne({}, {state: 1, _id: 0})
+```
+
 Find entries with New York state in zips collection in your current database:
 
 ```mongo
@@ -198,28 +204,86 @@ db.user.deleteOne({"name": "jim"})
 
 There are other operators like $set, $push, $inc, $or, $ne, $exp, $lt, $gt
 
-$expr is used to compare two fields. The number of companies that have the same permalink as their `twitter_username`
-
-```
-db.companies.find({
-  "$expr": {"$eq": ["$permalink", "$twitter_username"]}
-  }).count()
-```
-
 Find all birth years equal to 1998:
 
 ```
 db.trips.find({"birth year": 1998}).count()
 ```
 
-Find all birth years greater than 1998:
-
-```
-db.trips.find({"birth year": {"$gt": 1998}}).count()
-```
-
 Get properties few type house and have a changing table:
 
 ```
+// is the default operator
+db.listingsAndReviews.find({property_type: "House", amenities: "Changing table"}).count()
+
 db.listingsAndReviews.find({ $and: [{property_type: "House"}, {amenities: "Changing table"}]}).count()
 ```
+
+Find all birth years greater than 1998 but less than 2005:
+
+```
+// works as the $and is the default operator
+db.trips.find({"birth year": {"$gt": 1998, "$lt": 2005}}).count()
+```
+
+Return the documents that do not contain the two given values for result key:
+
+```
+ db.inspections.find({$nor: [{result: "No Violation Issued"}, {result: "Violation Issued"}]})
+```
+
+#### Chaining Operators
+
+Get routes with destinatoin or src airport KZN and has an airplane of CR2 or A81
+
+```js
+db.routes.find({ "$and": [ { "$or" :[ { "dst_airport": "KZN" },
+                                    { "src_airport": "KZN" }
+                                  ] },
+                          { "$or" :[ { "airplane": "CR2" },
+                                     { "airplane": "A81" } ] }
+                         ]})
+```
+
+#### Aggregation
+
+$expr; use aggregation of expressions
+
+$expr allows us to use variables and conditional statements
+
+$expr is used to compare two fields. The number of companies that have the same permalink as their `twitter_username`
+
+```
+// we have to use $ for the document keys
+db.companies.find({
+  "$expr": {"$eq": ["$permalink", "$twitter_username"]}
+  }).count()
+```
+
+
+### Array Operators
+
+All entries must have internet, wifi, kitchen etc. in the amenities array and has 20 elements within the array:
+```
+db.listingsAndReviews.find({ "amenities": {
+                                  "$size": 20,
+                                  "$all": [ "Internet", "Wifi",  "Kitchen",
+                                           "Heating", "Family/kid friendly",
+                                           "Washer", "Dryer", "Essentials",
+                                           "Shampoo", "Hangers",
+                                           "Hair dryer", "Iron",
+                                           "Laptop friendly workspace" ]
+                                         }
+                            }).pretty()
+```
+
+
+Find any score values in the array of scores that are greater than 85:
+
+```
+db.grades.find({ "scores": { "$elemMatch": { "score": { "$gt": 85 } } } })
+
+// this also works
+db.grades.find({ "scores.score": { "$gt": 85 } })
+```
+              
