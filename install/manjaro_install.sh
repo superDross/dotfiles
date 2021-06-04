@@ -100,6 +100,7 @@ function update_and_install(){
   pamac build spotify
   pamac build python37
   pamac build hadolint
+  pamac build mongodb-shell
 }
 
 
