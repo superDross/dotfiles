@@ -55,6 +55,9 @@ function update_and_install(){
   sudo pacman -Syu
 
   sudo pacman -Syu \
+    bash-completion \
+    helm \
+    kubectl \
     firefox \
     foliate \
     rlwrap \
