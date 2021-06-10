@@ -17,6 +17,7 @@
 - [Web Sockets](web/web_sockets.md): Full Duplex Communication Protocol
 - [Common Issues](web/common_issues.md)
 - [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
+- [Testing](web/testing.md): Various forms of testing web applications
 
 ## Design
 

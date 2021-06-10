@@ -245,7 +245,11 @@ db.routes.find({ "$and": [ { "$or" :[ { "dst_airport": "KZN" },
                          ]})
 ```
 
-#### Aggregation
+### Aggregation
+
+Aggregation is operations group values form multiple documents together allowing various operations to be goruped on the data.
+
+Mongo uses a data pipeline approach.
 
 $expr; use aggregation of expressions
 
@@ -258,6 +262,47 @@ $expr is used to compare two fields. The number of companies that have the same 
 db.companies.find({
   "$expr": {"$eq": ["$permalink", "$twitter_username"]}
   }).count()
+```
+
+Match the given criteria and project the given fields:
+
+```js
+db.listingsAndReviews.aggregate([
+  { "$match": { "amenities": "Wifi" } },
+  { "$project": { "price": 1,
+                  "address": 1,
+                  "_id": 0 }}
+])
+```
+
+Group by address.country and count the number of distinct values across all documents:
+
+```
+db.listingsAndReviews.aggregate([
+  { "$project": { "address": 1, "_id": 0 }},
+  { "$group": { "_id": "$address.country",
+                "count": { "$sum": 1 } } }
+])
+```
+
+### Sort and Limit
+
+Sort by population (lowest first) and limit to 2 results:
+
+```js
+db.zips.find().sort({"pop": 1}).limit(2)
+```
+
+To get highest first use `{"pop": -1}`
+
+### Upsert
+
+Update and insert a document.
+
+We should only do it if we want to insert OR update an existing record if there.
+
+```
+db.collection.updateOne({"name": "jimmy"}, {"upsert": true})
 ```
 
 
@@ -287,3 +332,16 @@ db.grades.find({ "scores": { "$elemMatch": { "score": { "$gt": 85 } } } })
 db.grades.find({ "scores.score": { "$gt": 85 } })
 ```
               
+
+### Indexing
+
+Indexes optimise queries.
+
+Create an index in a collection for the birth year fo the trips collection.
+
+```
+// we can use multiple fields
+db.trips.createIndex({ "birth year": 1 })
+```
+
+
