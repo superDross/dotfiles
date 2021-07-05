@@ -84,6 +84,7 @@
 - [Tmux](tooling/tmux.md)
 - [Kubernetes](tooling/kubernetes.md)
 - [Git](tooling/git.md)
+- [Pact](tooling/pact.md)
 
 ## Vim
 
