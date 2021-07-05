@@ -17,6 +17,7 @@
 - [Web Sockets](web/web_sockets.md): Full Duplex Communication Protocol
 - [Common Issues](web/common_issues.md)
 - [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
+- [Testing](web/testing.md): Various forms of testing web applications
 
 ## Design
 
@@ -70,6 +71,9 @@
 - [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)
 - [Query Processing](sql/query_processing.md): Logical Query Processing
 
+## NoSQL
+- [MongoDB](mongo/mongo.md): Basic Mongo
+
 ### Postgres
 
 - [General](sql/postgres/general.md)
@@ -80,6 +84,7 @@
 - [Tmux](tooling/tmux.md)
 - [Kubernetes](tooling/kubernetes.md)
 - [Git](tooling/git.md)
+- [Pact](tooling/pact.md)
 
 ## Vim
 

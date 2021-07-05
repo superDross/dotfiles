@@ -105,6 +105,15 @@ function docker_stop_all(){
   docker stop $(docker ps -q)
 }
 
+function docker_plus_help(){
+cat <<- EOF
+Commands:
+  logs: see containers logs
+  bash: jump into a containers bash shell
+  psql: jump into a postgres containers psql shell
+EOF
+}
+
 function docker_plus(){
   # Wrapper for some docker cli commands: 
   #   $1: docker_plus command
@@ -117,7 +126,7 @@ function docker_plus(){
   container_name=$(docker ps | awk '$NF ~ /'$2'/ {print $NF}' | head -n 1)
   case $1 in
     help)
-      echo -e "Commands:\n  logs: see containers logs\n  bash: jump into a containers shell"
+      docker_plus_help
       ;;
     logs | log)
       echo -e "Getting logs for ${YELLOW}${container_name}${NC}..."
@@ -334,6 +343,20 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
+
+if command -v kubectl &> /dev/null
+then
+  source <(kubectl completion bash)
+fi
+
+if command -v helm &> /dev/null
+then
+  source <(helm completion bash)
+fi
 
 #################
 #    PROMPT     #
