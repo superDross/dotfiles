@@ -67,6 +67,7 @@ Can be used between HTTP services or message queues.
 
 
 Pact; an agreement between two or more services.
+Pact; a collection of interactions between a consumer & provider
 
 Contract Testing; a contract file showing the expected request and response between two services (I DONT LIKE THIS DEF)
 
@@ -88,4 +89,62 @@ Consumer Pact tests operate on each interaction described earlier to say:
 “assuming the provider returns the expected response for this request, does the consumer code correctly generate the request and handle the expected response?”
 
 The consumer 
+
+
+
+
+
+
+
+
+
+# How Pact Works
+
+```
+https://pactflow.io/how-pact-works/?utm_source=ossdocs&utm_campaign=getting_started#slide-1
+```
+
+We need to be sure an application works with dependant services/applications (integration tests).
+
+Traditionally we run integration tests using live deployed applications.
+
+PROS:
+ - give us confidence that the changes play well with dependancies
+
+CONS:
+ - introduces dependencies
+ - give slow feedback
+ - can be fragile
+ - requires maintenance
+
+
+ Running isolated tests that mock the dependent service
+
+ PROS:
+  - run independently (no need to have service live)
+  - are stable
+  - easier to maintain
+
+CONS:
+  - no confidence to release
+
+There is nothing to ensure that the simulated applications behave the same way as the real ones
+
+
+
+Pact solves the problem of keeping two sets of a "contract/pact"
+
+During the consumer tests each request made to a pact mock provider is recorded into a contract/pact file along with the expected responses.
+
+
+A pact simulated consumer then replays each request against the real provider and compares the actual and expected responses.
+
+If they match, we have verified that the mocks behave in the same way as the real application.
+
+Therefore, the 2 real applications should communicate correctly when they interact in production.
+
+
+So it gives us an extra level of confidence opppossed to just using mocks.
+
+
 
