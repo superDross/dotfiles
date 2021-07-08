@@ -136,7 +136,7 @@ function docker_plus(){
     bash | shell)
       echo -e "Jumping into ${YELLOW}${container_name}${NC} bash shell..."
       sleep 1
-      docker exec -it $container_id bash
+      docker exec -it $container_id /bin/sh
       ;;
     psql)
       # $3: database name
@@ -232,7 +232,8 @@ function vlc-stream() {
 #    OPTIONS    #
 #################
 
-export PATH=$PATH:$HOME/.npm-global/bin:$HOME/.gem/ruby/2.7.0/bin:$HOME/.cargo/bin
+GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin
 
 # VI mode
 set -o vi

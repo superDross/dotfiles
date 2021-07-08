@@ -148,3 +148,70 @@ So it gives us an extra level of confidence opppossed to just using mocks.
 
 
 
+
+
+
+Each consumer defines what it expects the provider to deliver and the provider has to do the checking. It’s about shifting the responsibility for the integration to the providing side.
+
+
+## Using with CI
+
+```
+https://docs.pact.io/pact_nirvana/step_4/
+```
+
+- The consumer CI build generate the pacts during test execution & publishes them to the broker
+- The provider CI retrieves the pacts, performs the verification locally & then publishes the verification results to the broker
+
+- Both CI's check with the broker before deploying; to ensure that they are compatible with one another.
+
+- Tags are used to bookmark important stuff; staging, uat & prod
+
+- Webhooks are most commonly used to trigger a provider build when a pact with new content is published (and vice versa)
+- Can have webhooks to complain to a slack channel if a failure detected
+
+
+
+
+The Actual for the Consumer Pipeline:
+
+Consumer
+
+1. consumer is built
+2. execute the unit tests
+3. this generates a pact file
+4. this is published to the pact broker
+
+Broker
+
+5. webhook in the broker verifies the pact against the Provider
+6. provider publishes results
+
+Consumer
+
+7. consumer executes `can-i-deploy` script which calls the broker to ensure the pacts have passed verification
+8. the consumer then tags the pact
+
+9. options to deploy to where ever
+
+
+
+Provider Pipeline:
+
+Provider
+
+1. provider is built
+2. execute the unit tests
+3. verify the pacts in the broker are compatible with the provider changes
+4. provider executes `can-i-deploy`
+5. the provider then contacts the broker to tag the version (?)
+6. options to deploy
+
+
+
+
+Pact Broker deployment options:
+
+```
+https://github.com/pact-foundation/pact_broker
+```
