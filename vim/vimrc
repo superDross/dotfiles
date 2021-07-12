@@ -167,13 +167,6 @@ inoremap <silent> <expr> <CR>
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
-" only use autopep8 ale fixer on work laptop
-if system('uname -n | tr -d "\n"') ==# 'david-work'
-  let auto = 'autopep8'
-else
-  let auto = 'black'
-endif
-
 let g:ale_fixers = {
       \    '*': ['remove_trailing_lines', 'trim_whitespace'],
       \    'python': ['isort', 'black'],
@@ -221,9 +214,8 @@ let g:ale_sign_warning = '--'
 highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
 
-" ALEHover in popup (NOT YET WORKING, in a PR)
-let g:ale_hover_cursor = 0
-let g:ale_set_popups = 1
+" ALEHover in preview
+let g:ale_hover_to_preview = 1
 
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
