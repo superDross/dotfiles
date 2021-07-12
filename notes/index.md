@@ -81,6 +81,7 @@
 ## Tools
 
 - [Docker](tooling/docker.md)
+- [Helm](tooling/helm.md)
 - [Tmux](tooling/tmux.md)
 - [Kubernetes](tooling/kubernetes.md)
 - [Git](tooling/git.md)

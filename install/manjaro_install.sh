@@ -139,7 +139,7 @@ function install_npm_packages(){
 
 function install_python_packages(){
   pip install \
-    python-language-server \
+    python-lsp-server \
     ipython \
     flake8 \
     black \

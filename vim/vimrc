@@ -199,7 +199,7 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 "   shellcheck
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pyls'],
+      \   'python': ['pylsp'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
