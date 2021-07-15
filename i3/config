@@ -199,6 +199,7 @@ bindsym $mod+Shift+10 move container to workspace 10
 assign [class="firefox"] $workspace4
 for_window [class="Spotify"] move to workspace $workspace6
 assign [class="Chromium"] $workspace7
+assign [class="zoom"] $workspace6
 
 # only works on floating windows
 for_window [instance=vlc] sticky enable
