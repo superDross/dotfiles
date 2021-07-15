@@ -219,7 +219,9 @@ exec blueman-tray
 
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id compton -b
+# exec --no-startup-id compton -b
+# resolves zoom drawing issues
+exec --no-startup-id xcompmgr -c -l0 -t0 -r0 -o.00
 # network manager (nmcli) icon and gui
 exec --no-startup-id nm-applet
 # required for brightness keys to work
