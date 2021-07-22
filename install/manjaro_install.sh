@@ -54,8 +54,12 @@ function update_and_install(){
 
   sudo pacman -Syu
 
+  # make sure to execute: xcompmgr -c -l0 -t0 -r0 -o.00
+  # this stops the black screen issue when drawing in zoom
+
   sudo pacman -Syu \
     bash-completion \
+    xcompmgr \
     helm \
     kubectl \
     firefox \

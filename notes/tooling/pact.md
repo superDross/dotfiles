@@ -216,3 +216,20 @@ Pact Broker deployment options:
 ```
 https://github.com/pact-foundation/pact_broker
 ```
+
+
+
+## Talking with Molko
+
+- the relationship should be between 2 services. If the provider relies on another service then it will need to be stubbed out as part of the contract testing.
+- `--enable-pending` flag seems interesting not sure if `pact-verifier` or `can-i-deploy` script
+- the version should be a git commit sha (there is an env var for this in .gitlab-ci.yml
+- tags can be used to test specific branches or git tags of the consumer and provider (needs some research on how to do this)
+- cannot test pact against public apis or third party applications you have no control over (can't alter provider state and pact cant be installed)
+  - apparently this will change if third party applications have the openapi installed (there is a pact blog post about this, read it)
+- python client could not upload the pacts at one point (was a bug)
+- python client can be slow due to the reliance on a ruby server doing the work
+- provider state setup is the most time consuming part
+- there is compatability for both python2.7 and python3.x (would like to read more about this as I am sure python2.7 is compatible with pact specification 1.0)
+- they have the provider set up as a service in gitlab-ci (I don't like this, I think it defeats the purpose of the test)
+

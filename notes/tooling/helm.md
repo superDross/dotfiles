@@ -67,3 +67,19 @@ kubectl run mongo --image=mongo:latest --port=27017
 kubectl port-forward pods/mongo 27017:27017
 ```
 
+
+### Pushing images to minikubes docker
+
+Only relevant on minikube using docker vm
+
+```
+docker build ...
+minikube cache add image-name:version
+```
+
+
+#### Get pods for a specific node
+
+```
+kubectl -n devops --context ldc2 get pods -o wide --field-selector spec.nodeName=k33
+```
