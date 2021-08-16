@@ -91,13 +91,18 @@ alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh ssluk.yougov.net"
 alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh sslus.yougov.net"
 
+# docker_plus alias
+alias dp="docker_plus"
 
 ####################
 #    FUNCTIONS     #
 ####################
 
 function fuzzy-kill() {
-  # kills all processes containing the given substring, be careful
+  # BE CAREFUL: kills all processes containing the given substring
+  if [[ -z "$1" ]]; then
+    echo "You must provide an argument"
+  fi
   sudo kill $(ps -aef | grep "$1" | awk '{print $2}' | xargs)
 }
 
@@ -133,8 +138,13 @@ function docker_plus(){
       sleep 1
       docker logs $container_id -f
       ;;
-    bash | shell)
+    bash)
       echo -e "Jumping into ${YELLOW}${container_name}${NC} bash shell..."
+      sleep 1
+      docker exec -it $container_id /bin/bash
+      ;;
+    shell)
+      echo -e "Jumping into ${YELLOW}${container_name}${NC} shell..."
       sleep 1
       docker exec -it $container_id /bin/sh
       ;;

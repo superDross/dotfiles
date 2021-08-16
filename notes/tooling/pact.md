@@ -232,3 +232,30 @@ https://github.com/pact-foundation/pact_broker
 - there is compatability for both python2.7 and python3.x (would like to read more about this as I am sure python2.7 is compatible with pact specification 1.0)
 - they have the provider set up as a service in gitlab-ci (I don't like this, I think it defeats the purpose of the test)
 
+
+
+
+## POC
+
+Implementing a proof of concept between two small applications that have a clearly defined consumer and provider relationship would be preferable.
+
+The Dragoman-client (consumer) and the Dragoman-API (provider) seems like two good candidates for a proof of concept. Both code bases are relatively small, they are well known services between members of the working group and are (relatively) self contained. 
+
+Work required to get this up and running would be to:
+
+create the pact tests on the consumer
+create the verification code on the provider
+implement stubs in the provider to prevent Weblate calls from being made during the verification process
+spin of a provider swarm with limited resources for the verification process (or alternatively use staging)
+set up the CI pipeline to have the following stages:
+execute the consumer tests
+upload the pact files to the consumer*
+initiate the verification process (process that verifies the pact against the provider)**
+check whether the pacts have been verified successfully
+
+* Can be performed as part of the pact client tests or within the CI pipeline.
+** Can be initiated with a web-hook on the pact broker or a stage using the pact-verify binary within the CI pipeline.
+
+We are stubbing out the Weblate calls as we wish to test the contract between Dragoman-client and Dragoman-API. The contract should only ever be testing two services and not any further third-party dependent services, hence the need to stub the Weblate client code. We would need to create further contracts between Dragoman-API and Weblate if we wished to test these applications together, which I think is outside the scope of the POC.
+
+We have permission to utilise the YG online teams pact broker so would not have to set this up ourselves.
