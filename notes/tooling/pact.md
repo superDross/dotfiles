@@ -171,6 +171,7 @@ https://docs.pact.io/pact_nirvana/step_4/
 - Can have webhooks to complain to a slack channel if a failure detected
 
 
+The pact version should be the git commit SHA
 
 
 The Actual for the Consumer Pipeline:

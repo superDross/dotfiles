@@ -61,10 +61,13 @@ Plug 'morhetz/gruvbox'
 Plug 'huyvohcmc/atlas.vim'
 Plug 'srcery-colors/srcery-vim'
 
-" EDITING: further improve editing
+" TEXT OBJECT EXTENSIONS: further improve editing
 Plug 'machakann/vim-sandwich'
 Plug 'tpope/vim-commentary'
 Plug 'wellle/targets.vim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'machakann/vim-swap'
+Plug 'machakann/vim-textobj-delimited'
 
 " STATUSLINE: lightweight status line
 Plug 'itchyny/lightline.vim'
