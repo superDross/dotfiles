@@ -70,7 +70,7 @@ alias screen-recorder="simplescreenrecorder"
 alias gif-recorder="peek"
 
 # prevent all the clutter from appearing in tree
-alias tree="tree -I '*.egg-info|*.pyc|__pycache__|__init__.py|node_modules'"
+alias tree="tree -I '*.egg-info|*.pyc|__pycache__|node_modules'"
 
 # copy a file, usage: `copy <file>`
 if [[ $os = 'Darwin' ]]; then
