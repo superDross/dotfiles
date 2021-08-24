@@ -19,6 +19,11 @@
 - [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
 - [Testing](web/testing.md): Various forms of testing web applications
 
+
+## Systems Design
+
+- [Scalability](system_design/scalability.md)
+
 ## Design
 
 - [Code Smells](design/code_smells.md)

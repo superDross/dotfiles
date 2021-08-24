@@ -83,3 +83,10 @@ minikube cache add image-name:version
 ```
 kubectl -n devops --context ldc2 get pods -o wide --field-selector spec.nodeName=k33
 ```
+
+
+#### Scale replicas to 0
+
+```
+kubectl -n g --context ldc2 scale deploy ivwbot-production-app --replicas=0
+```
