@@ -54,6 +54,7 @@
 - [Multiprocessing/MultiThreading](python/processing_vs_threads.py)
 - [Parallel and Concurrent Programming](python/multi/concurrent_parallel.md)
 - [Advanced Parallel and Concurrent Programming](python/multi/advanced_concurrent_parallel.md)
+- [Metaclasses](python/metaclass.py)
 
 ### Libraries
 
