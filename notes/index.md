@@ -96,3 +96,7 @@
 ## Vim
 
 - [Global](vim/global.md)
+
+## Linux
+
+- [Troubleshooting](linux/troubleshooting.md)
