@@ -108,12 +108,14 @@ function update_and_install(){
 
 function install_aur_packages(){
   pamac build spotify
-  pamac build python38
-  pamac build python37
-  pamac build python36
-  pamac build python2
-  pamac build hadolint
-  pamac build mongodb-shell
+    python38 \
+    python37 \
+    python36 \
+    python2 \
+    hadolint \
+    mongodb-shell \
+    mongodb-compass \
+    postman-bin
 }
 
 
