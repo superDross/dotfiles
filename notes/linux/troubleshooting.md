@@ -55,7 +55,7 @@ umount /mnt
 
 ## Retry Update
 
-[Chroot into your internal OS](#chroot-into-your-device)
+[Chroot into your internal OS](#chroot-into-your-drive)
 
 Then simply try `sudo pacman -Syu`.
 
@@ -72,7 +72,6 @@ Back up all system and python packages:
 
 ```sh
 pacman -Qqen > ~/system-packages.txt
-pip3 freeze > ~/python-system-packages.txt
 ```
 
 Get out of chroot by executing `exit`.
@@ -107,14 +106,25 @@ It may be worth untarring and checking everything looks good before continuing.
 
 ## Install Backed Up Home Direct
 
+**When you install new manjaro make sure the username is the same as the previous install (david)!**
+
 In your new fancy sexy freshly installed Manjaro:
 
 ```sh
+mount /dev/sda1 /mnt
 cd /home/david
-tar -xpzf home-backup.tar.gz 
+rm -rf *
+tar -xpzf /mnt/home-backup.tar.gz 
 ```
 
+Install all pacman packages:
 
-TBC...
+```
+pacman -S - < system--packages.txt
+```
 
+Virtual envs will likely be corrupt so we should remove them:
 
+```
+rmvirtualenv $(lsvirtualenv -b)
+```
