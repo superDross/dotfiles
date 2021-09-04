@@ -104,8 +104,14 @@ function update_and_install(){
     pulseaudio-alsa \
     postgresql
   
+}
+
+function install_aur_packages(){
   pamac build spotify
+  pamac build python38
   pamac build python37
+  pamac build python36
+  pamac build python2
   pamac build hadolint
   pamac build mongodb-shell
 }
@@ -118,7 +124,7 @@ function install_gems(){
 function install_npm_packages(){
   # change npm global dir inside the user space
   # otherwise you will get a user error every time you install with -g
-  mkdir ~/.npm-global
+  mkdir -p ~/.npm-global
   npm config set prefix '~/.npm-global'
   export PATH=~/.npm-global/bin:$PATH
   
@@ -142,7 +148,7 @@ function install_npm_packages(){
 
 
 function install_python_packages(){
-  pip install \
+  pip3 install \
     python-lsp-server \
     ipython \
     flake8 \
@@ -170,13 +176,6 @@ function setup_vim(){
 
   mkdir -p ~/.vim/vimundo ~/.vim/colors
   chmod -R +777 ~/.vim
-}
-
-
-function setup_postgres(){
-  sudo su postgres -l # or sudo -u postgres -i
-  initdb --locale $LANG -E UTF8 -D '/var/lib/postgres/data/'
-  sudo systemctl enable --now postgresql.service
 }
 
 
@@ -217,10 +216,10 @@ function main(){
     install_gems
     install_npm_packages
     install_python_packages
+    install_aur_packages
     install_snap_stuff
     setup_files
     setup_vim
-    setup_postgres
   fi
 
   echo "Plesase reboot your system"
