@@ -201,6 +201,8 @@ function setup_files(){
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
   ln -s ${DOTFILESDIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
   ln -s ${DOTFILESDIR}/words/thesaurus.txt ~/.vim/thesaurus.txt
+  ln -s ${DOTFILESDIR}/postactivate ~/.virtualenvs/postactivate
+  ln -s ${DOTFILESDIR}/postmkvirtualenv ~/.virtualenvs/postmkvirtualenv
 }
 
 

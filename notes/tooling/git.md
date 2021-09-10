@@ -382,3 +382,18 @@ git log \
   -S "def main()" \
   main.py
 ```
+
+
+## Apply a Patch
+
+Create a patch:
+
+```sh
+git diff > my.patch
+```
+
+Apply the patch to a different machine (this can be shared amongst devs):
+
+```sh
+git apply my.patch
+```
