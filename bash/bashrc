@@ -97,6 +97,12 @@ alias dp="docker_plus"
 # work screen layout
 alias workscreen="bash ~/.screenlayout/work.sh"
 
+# ebook reader
+alias ebook="foliate"
+
+# jetbrains toolbox
+alias jetbrains="~/bin/jetbrains-toolbox-1.21.9712/jetbrains-toolbox"
+
 ####################
 #    FUNCTIONS     #
 ####################
