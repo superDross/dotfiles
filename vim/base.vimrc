@@ -163,6 +163,8 @@ inoremap <F1> <nop>
 
 " open terminal
 nnoremap <silent> <Leader>t :term ++rows=15<CR>
+nnoremap <silent> <Leader>T :vertical terminal<CR>
+
 
 " toggle spelling
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>

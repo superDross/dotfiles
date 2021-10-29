@@ -44,6 +44,7 @@ Plug 'w0rp/ale'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
+Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
