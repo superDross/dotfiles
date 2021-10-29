@@ -78,6 +78,10 @@
 - [SAM](aws/sam.md)
 - [Debugging & Executing Lambda Code Locally](aws/local_execution.md)
 
+## Cypher
+
+- [CheatSheet](cypher/query_cheatsheet.cyp)
+
 ## SQL
 
 - [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)

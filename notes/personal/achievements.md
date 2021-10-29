@@ -295,3 +295,7 @@ inserted into each one randomly and found the average execution time for:
 
 - The old function is 8.9 seconds
 - The new funciton is  0.0000009 seconds
+
+## 29th Oct
+
+- Convinced team to use Neo4J as the graph database of choice by showing an academic paper with query time estimates across multiple graph databases
