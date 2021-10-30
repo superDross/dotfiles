@@ -168,3 +168,125 @@ CALL
 MATCH (m) WHERE m.released=2000
 RETURN m.title, m.released
 
+
+
+// CREATE NODES
+
+// Add label to an existing node
+MATCH (m:Movie)
+WHERE m.title = 'Batman Begins'
+SET m:Fantasy
+RETURN labels(m)
+
+// Create multiple nodes
+CREATE
+(:Person {name: 'Michael Caine', born: 1933}),
+(:Person {name: 'Liam Neeson', born: 1952}),
+(:Person {name: 'Katie Holmes', born: 1978}),
+(:Person {name: 'Benjamin Melniker', born: 1913})
+
+// Create nodes with labels and properties
+CREATE (m:Movie:Action {title: 'Batman Begins'})
+RETURN m
+
+// Create or Update a Node
+MERGE (m:Movie {title: 'Sunshine'})
+RETURN m
+
+
+// Delete Nodes
+MATCH (m:Movie)
+WHERE m.title = "Batman Begins"
+DELETE (m)
+
+// Get properties of an node
+MATCH (m:Movie)
+WHERE m.title = "Batman Begins"
+RETURN properties(m)
+
+// Remove label from nodes
+MATCH (label:Action)
+WHERE label.title = "Batman Begins"
+REMOVE label:Action
+
+// Set property on an existing node
+MATCH (m:Movie)
+WHERE m.title = 'Batman Begins'
+SET m.released = 2005, m.lengthInMinutes = 140
+RETURN m
+
+// Set property using a map
+MATCH (m:Movie)
+WHERE m.title = 'Batman Begins'
+SET  m = {title: 'Batman Begins',
+          released: 2005,
+          lengthInMinutes: 140,
+          videoFormat: 'DVD',
+          grossMillions: 206.5}
+RETURN m
+
+
+// Update properties
+MATCH (m:Movie)
+WHERE m.title = 'Batman Begins'
+SET  m += { grossMillions: 300,
+            awards: 66}
+RETURN m
+
+
+
+// RELATIONSHIPS
+
+// CASE to set relationship properties
+
+MATCH (p:Person)-[rel:ACTED_IN]->(m:Movie)
+WHERE m.title = 'Forrest Gump'
+SET rel.roles =
+CASE p.name
+  WHEN 'Tom Hanks' THEN ['Forrest Gump']
+  WHEN 'Robin Wright' THEN ['Jenny Curran']
+  WHEN 'Gary Sinise' THEN ['Lieutenant Dan Taylor']
+END
+
+//create a relationship with properties
+MATCH (a:Person), (m:Movie)
+WHERE a.name = 'Katie Holmes' AND m.title = 'Batman Begins'
+CREATE (a)-[rel:ACTED_IN {roles: ['Rachel','Rachel Dawes']}]->(m)
+RETURN a.name, rel, m.title
+
+// Create multiple realtionships to same node
+MATCH (m:Movie)
+WHERE m.title = 'Forrest Gump'
+MATCH (p:Person)
+WHERE p.name = 'Tom Hanks' OR p.name = 'Robin Wright' OR p.name = 'Gary Sinise'
+CREATE (p)-[r:ACTED_IN]->(m)
+RETURN p, r, m
+
+// Create Multiple Relationships
+MATCH (a:Person {name: 'Liam Neeson'}),
+      (m:Movie {title: 'Batman Begins'}),
+      (p:Person {name: 'Benjamin Melniker'})
+CREATE (a)-[:ACTED_IN]->(m),
+       (p)-[:PRODUCED]->(m)
+RETURN a, m, p
+
+// Create nodes and relationships
+MATCH (m:Movie {title: 'Batman Begins'})
+CREATE (a:Person {name: 'Gary Oldman', born: 1958})-[:ACTED_IN]->(m)
+RETURN a, m
+
+// Create relationship
+MATCH (a:Person), (m:Movie)
+WHERE a.name = 'Michael Caine' AND m.title = 'Batman Begins'
+CREATE (a)-[:ACTED_IN]->(m)
+RETURN a, m
+
+// Remove relationship properties
+MATCH (p:Person {name: "Christian Bale"})-[r:ACTED_IN]-(m:Movie {title: "RescueDawn"})
+REMOVE r.roles
+RETURN p, r, m
+
+// Set relatinship properties
+MATCH (p:Person {name: "Christian Bale"})-[r:ACTED_IN]-(m:Movie {title: "RescueDawn"})
+SET r.roles = ["unknown", "someone"]
+RETURN p, r, m
