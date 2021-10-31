@@ -55,6 +55,11 @@ RETURN p.name, p.born AS `birth year`
 MATCH path=(a:Person)-[:ACTED_IN]->(m:Movie {title: "The Matrix"})
 RETURN path  // equivalent to RETURN a, m
 
+// Add default value to all node properties
+MATCH (p:Person)
+WHERE NOT exists(p.born)
+SET p.born = 0
+
 //String manipulation
 MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
 WHERE toLower(p.name) STARTS WITH 'm' and toLower(m.tagline) CONTAINS 'the'
@@ -189,15 +194,19 @@ CREATE
 CREATE (m:Movie:Action {title: 'Batman Begins'})
 RETURN m
 
-// Create or Update a Node
+// Upsert a Node
 MERGE (m:Movie {title: 'Sunshine'})
 RETURN m
-
 
 // Delete Nodes
 MATCH (m:Movie)
 WHERE m.title = "Batman Begins"
 DELETE (m)
+
+// Delete node & associated relationships
+MATCH (p:Person)
+WHERE p.name = 'Liam Neeson'
+DETACH DELETE  p
 
 // Get properties of an node
 MATCH (m:Movie)
@@ -233,6 +242,51 @@ SET  m += { grossMillions: 300,
             awards: 66}
 RETURN m
 
+// Upsert and set properties only if node does not exist
+MERGE (a:Person {name: 'Sir Michael Caine'})
+ON CREATE SET a.birthPlace = 'London',
+              a.born = 1934
+RETURN a
+
+// Upsert and set properties only if node exists
+MERGE (a:Person {name: 'Sir Michael Caine'})
+ON MATCH SET a.birthPlace = 'UK'
+RETURN a
+
+// Create a relationship between existing nodes
+MATCH (p:Person), (m:Movie)
+WHERE m.title = 'Batman Begins' AND p.name ENDS WITH 'Caine'
+MERGE (p)-[:ACTED_IN]->(m)
+RETURN p, m
+
+
+
+// CONSTRAINTS
+
+// Print all constraints
+CALL db.constraints()
+
+// Create constraint on movie title
+CREATE CONSTRAINT UniqueMovieTitleConstraint ON (m:Movie)
+ASSERT m.title IS UNIQUE
+
+// Create a constraint on a relationship
+CREATE CONSTRAINT ActedInRolesExistConstraint
+ON ()-[r:ACTED_IN]-()
+ASSERT r.roles IS NOT NULL
+
+// Remove constraint
+DROP CONSTRAINT ExistsMovieTagline
+
+// Create existence constraint on tagline
+// NOTE: only available on enterprise edition
+CREATE CONSTRAINT ExistsMovieTagline ON (m:Movie)
+ASSERT m.tagline IS NOT NULL
+
+// Constraint key with multiple properties
+// NOTE: only available on enterprise edition
+CREATE CONSTRAINT UniqueNameBornConstraint
+ON (p:Person) ASSERT (p.name, p.born) IS NODE KEY
 
 
 // RELATIONSHIPS
