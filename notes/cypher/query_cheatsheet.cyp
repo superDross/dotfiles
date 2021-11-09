@@ -263,6 +263,67 @@ RETURN p, m
 
 
 
+// INDEXES
+
+// List all indexes
+CALL db.indexes()
+// or
+SHOW INDEXES
+
+// Single point index on released property
+CREATE INDEX MovieReleased FOR (m:Movie) ON (m.released)
+
+// Composite index based on two properties; released and video format
+CREATE INDEX MovieReleasedVideoFormat FOR (m:Movie)
+ON (m.released, m.videoFormat)
+
+// Full text schema index on name and movie title
+// these can be used on multiple properties/lables/relationships
+CALL db.index.fulltext.createNodeIndex(
+      'MovieTitlePersonName',['Movie', 'Person'], ['title', 'name'])
+
+// Getting full text schema indexed nodes
+CALL db.index.fulltext.queryNodes(
+     'MovieTitlePersonName', 'Jerry') YIELD node
+RETURN node
+
+// Delete an index
+DROP INDEX MovieReleasedVideoFormat
+
+// Delete a full text schema index
+CALL db.index.fulltext.drop('MovieTitlePersonName')
+
+
+// OTHER
+
+// Setting parameters
+:param actorName => 'Tom Hanks'
+
+// Setting multipl parameters
+:params {actorName: 'Tom Cruise', movieName: 'Top Gun'}
+
+// Using parameters
+MATCH (n) WHERE n.name = $actorName
+RETURN n
+
+// Clear all params
+:params {}
+
+// View all params
+:params
+
+// EXPLAIN
+// Shows the query processing; the cypher query plan
+// This is useful for identifying cypher processing steps and query efficiency
+EXPLAIN MATCH (n) WHERE n.name = $actorName
+RETURN n
+
+// profile query (see cache hits/misses and query timing in ms)
+PROFILE MATCH (n) WHERE n.name = $actorName
+RETURN n
+
+
+
 // CONSTRAINTS
 // they act as primary keys but also as single property indexes
 
