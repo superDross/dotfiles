@@ -299,3 +299,14 @@ inserted into each one randomly and found the average execution time for:
 ## 29th Oct
 
 - Convinced team to use Neo4J as the graph database of choice by showing an academic paper with query time estimates across multiple graph databases
+- Did an analysis of most promising graph databases and documented the pros and cons
+https://confluence.yougov.net/display/SST/Graph+Databases+Comparision
+
+## 5th Nov
+- found various issues with our setup:
+  - added release stage pipeline to graph-utils ci
+  - convinced team to use neo4j enterprise (constraints locked behind it, can't have PK without it)
+  - inputted and critisced the data model made suggestions the team employed
+
+- Created test data for the project
+  

@@ -2,6 +2,8 @@
 // download the movie dataset with the below command in the neo4j browser
 // :play movie graph
 
+// CHEATSHEET: https://neo4j.com/docs/cypher-refcard/4.0/
+
 
 // BASICS
 
@@ -80,12 +82,12 @@ LIMIT 5
 
 
 
+
 // TRAVERSAL
 
 // Get all nodes related via a foreign relationship
 MATCH (meg:Person)-[:ACTED_IN]->(m:Movie),
-      (d:person)-[:DIRECTED]->(m),
-      (other:Person)-[:ACTED_IN]->(m)
+      (d:person)-[:DIRECTED]->(m), (other:Person)-[:ACTED_IN]->(m)
 WHERE meg.name = 'Meg Ryan'
 RETURN m.title as movie, d.name AS director , other.name AS `co-actors`
 
@@ -262,6 +264,7 @@ RETURN p, m
 
 
 // CONSTRAINTS
+// they act as primary keys but also as single property indexes
 
 // Print all constraints
 CALL db.constraints()
