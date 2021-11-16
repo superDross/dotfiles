@@ -303,6 +303,9 @@ inserted into each one randomly and found the average execution time for:
 https://confluence.yougov.net/display/SST/Graph+Databases+Comparision
 
 ## 5th Nov
+
+Graph Database
+
 - found various issues with our setup:
   - added release stage pipeline to graph-utils ci
   - convinced team to use neo4j enterprise (constraints locked behind it, can't have PK without it)
@@ -310,3 +313,8 @@ https://confluence.yougov.net/display/SST/Graph+Databases+Comparision
 
 - Created test data for the project
   
+
+## 12th Nov
+
+- Part of a presentation showing our POC to directors/stakeholders
+- Added some endpoints to the poc

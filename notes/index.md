@@ -96,6 +96,7 @@
 
 ## Tools
 
+- [Docker Tips](tooling/docker_tips.md)
 - [Docker](tooling/docker.md)
 - [Helm](tooling/helm.md)
 - [Tmux](tooling/tmux.md)

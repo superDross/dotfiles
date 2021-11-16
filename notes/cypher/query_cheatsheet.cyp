@@ -294,7 +294,8 @@ DROP INDEX MovieReleasedVideoFormat
 CALL db.index.fulltext.drop('MovieTitlePersonName')
 
 
-// OTHER
+
+// PARAMS
 
 // Setting parameters
 :param actorName => 'Tom Hanks'
@@ -312,7 +313,9 @@ RETURN n
 // View all params
 :params
 
-// EXPLAIN
+
+
+// PROFILING
 // Shows the query processing; the cypher query plan
 // This is useful for identifying cypher processing steps and query efficiency
 EXPLAIN MATCH (n) WHERE n.name = $actorName
@@ -351,6 +354,7 @@ ASSERT m.tagline IS NOT NULL
 // NOTE: only available on enterprise edition
 CREATE CONSTRAINT UniqueNameBornConstraint
 ON (p:Person) ASSERT (p.name, p.born) IS NODE KEY
+
 
 
 // RELATIONSHIPS
