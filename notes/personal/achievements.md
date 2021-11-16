@@ -318,3 +318,8 @@ Graph Database
 
 - Part of a presentation showing our POC to directors/stakeholders
 - Added some endpoints to the poc
+
+## 19th Nov
+
+- Developed a means to wait for neo4j to start before executing tests. This allowed us to use the neo4j service with our tests.
+ https://gitlab.yougov.net/sst/POC_gotoproject/-/commit/16f8a499e450c0ae99151c5f8aa9fa6cfe207f1e
