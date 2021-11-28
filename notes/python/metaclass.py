@@ -94,6 +94,28 @@ class Foo(metaclass=LowerAttrMetaclass):
 assert "name" in dir(Foo())
 
 
+# sometimes a class decorator is simply more readable and appropriate
+
+
+def lower_attr(cls):
+    to_change = []
+    for key, value in cls.__dict__.items():
+        if not key.startswith("__") and not key.islower():
+            to_change.append(key)
+
+    for key in to_change:
+        delattr(cls, key)
+        setattr(cls, key.lower(), value)
+    return cls
+
+
+@lower_attr
+class FooTwo:
+    NAME = "no one"
+
+
+assert "name" in dir(FooTwo())
+
 # We can parse custom args to metaclasses too (see `n` arg)
 
 
