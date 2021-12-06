@@ -128,6 +128,43 @@ Commands:
 EOF
 }
 
+
+function remove_debugger() {
+  # Removes all python debugger statements from py files in a given dir
+  #   $1: directory to recursively search for py files (default: current directory)
+
+  directory="$1"
+
+  if [ -z "$1" ]; then
+    directory="."
+  fi
+
+  # TODO: find a way to get the exist status without having to execute twice
+  rg "import pdb;pdb.set_trace|from remote_pdb import RemotePdb;RemotePdb" $directory
+  message=$(rg "import pdb;pdb.set_trace|from remote_pdb import RemotePdb;RemotePdb" $directory)
+
+  if [ -z "$message" ]; then
+    echo "No debugging statements found. Exiting..."
+    return 0
+  fi
+
+  read -p "Do you want to remove the above debugger lines? (y/n) $ " answer
+
+  case $answer in
+    y | yes | Y | YES)
+      find ${directory} -name "*.py" -not -path '*/\.*' | xargs \
+        sed -i '/import pdb;pdb.set_trace/d;/from remote_pdb import RemotePdb;RemotePdb/d'
+      echo "Complete"
+      ;;
+    n | no | N | NO)
+      echo "Exiting..."
+      ;;
+    *)
+      echo "Answer ${answer} unknown. Exiting..."
+      ;;
+  esac
+}
+
 function docker_plus(){
   # Wrapper for some docker cli commands: 
   #   $1: docker_plus command
