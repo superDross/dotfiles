@@ -31,3 +31,6 @@ Things to consider when caching.
 You can check by jumping into the prod container and trying `cd /app/data/`
 
 
+## HTTPS to HTTP
+
+Moving to from either one may change caching of the response as the loadbalancer may have different caching rules for HTTP/HTTPS

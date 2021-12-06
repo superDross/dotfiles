@@ -323,3 +323,9 @@ Graph Database
 
 - Developed a means to wait for neo4j to start before executing tests. This allowed us to use the neo4j service with our tests.
  https://gitlab.yougov.net/sst/POC_gotoproject/-/commit/16f8a499e450c0ae99151c5f8aa9fa6cfe207f1e
+
+- Setup AWS Neptune with our graph POC implementation.
+
+## 3rd Dec
+
+- Completed the Goto Graphs POC
