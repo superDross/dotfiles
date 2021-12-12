@@ -58,6 +58,7 @@ function update_and_install(){
   # this stops the black screen issue when drawing in zoom
 
   sudo pacman -Syu \
+    alacritty \
     bash-completion \
     xcompmgr \
     helm \
@@ -196,6 +197,7 @@ function setup_files(){
   ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
   ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
   ln -s ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/terminalrc
+  ln -s ${DOTFILESDIR}/terminal/.alacritty.yml ~/.alacritty.yml
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
   ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
