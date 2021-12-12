@@ -214,7 +214,7 @@ for_window [instance=vlc] sticky enable
 
 # NOTE: use `lightdm-settings` to change the login screen wallpaper
 exec_always feh --bg-fill $wallpaper
-exec xfce4-terminal --hide-menubar
+exec alacritty
 exec unclutter
 exec blueman-tray
 # delay startup so they are assigned to their correct workspaces
