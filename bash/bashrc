@@ -415,6 +415,12 @@ then
   source <(helm completion bash)
 fi
 
+if command -v stern &> /dev/null
+then
+  source <(stern --completion=bash)
+fi
+
+
 #################
 #    PROMPT     #
 #################
