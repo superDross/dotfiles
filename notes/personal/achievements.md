@@ -296,6 +296,60 @@ inserted into each one randomly and found the average execution time for:
 - The old function is 8.9 seconds
 - The new funciton is  0.0000009 seconds
 
+```
+def _adjust_interlude_charno(self, subtree, decoded_src):
+    """
+    Adjusts a given interlude character number after decoding the qsl src code.
+
+    Decoding qsl source containing non-ascii characters will reduce its length,
+    we will therefore need to adjust the interlude location to ensure it is
+    accurate relative to the decoded version.
+
+    We adjust the interlude start and ending indexes based upon the difference in length.
+    If the resulting indexes can be used to slice the expected interlude code from the
+    decoded source then we have the correct index number.
+
+    Otherwise, we have unicode character(s) after or within the interlude of interest.
+    We therefore have to use a sliding window technique to find the true interlude
+    starting index number in the decoded string.
+
+    if unicode characters are used within the interlude, then the interlude will be of a
+    different length. Hence the need for `starswith` method.
+
+    Note: decoded strings are always shorter e.g. 'D\xc3\xbcff' decodes to u'D\xfcff'
+
+    :param: subtree: contains interludes start and end characters indexes
+    :type: interlude_charno: tuple
+    :param: decoded_src: a decoded version of self.src
+    :type: decoded_src: str
+    :rtype: int
+    """
+    inter_idx, inter_idx_end = subtree[1], subtree[2]
+    diff = len(self.src) - len(decoded_src)
+
+    if diff:
+        # adjust the decoded interlude starting index based on qsl length difference
+        dec_inter_idx = inter_idx - diff
+        dec_inter_idx_end = dec_inter_idx + (inter_idx_end - inter_idx)
+
+        interlude_code = self.src[inter_idx:inter_idx_end].decode("utf-8")
+        decoded_interlude_code = decoded_src[dec_inter_idx:dec_inter_idx_end]
+
+        if interlude_code == decoded_interlude_code:
+            return dec_inter_idx
+
+        while dec_inter_idx < inter_idx:
+            dec_inter_idx += 1
+            decoded_interlude_code_start = decoded_src[dec_inter_idx:]
+            if decoded_interlude_code_start.startswith(interlude_code):
+                return dec_inter_idx
+
+    return inter_idx
+```
+
+Final solution
+
+
 ## 29th Oct
 
 - Convinced team to use Neo4J as the graph database of choice by showing an academic paper with query time estimates across multiple graph databases
@@ -329,3 +383,8 @@ Graph Database
 ## 3rd Dec
 
 - Completed the Goto Graphs POC
+
+
+## 10th Dec
+
+Not sure if there is anything note worthy this week...
