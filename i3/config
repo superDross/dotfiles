@@ -62,7 +62,8 @@ bindsym $mod+Shift+s sticky toggle
 bindsym Print exec scrot
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec xfce4-terminal --hide-menubar
+# bindsym $mod+Return exec alacritty
 
 # lock screen activation
 bindsym $mod+Shift+x exec i3lock-fancy
@@ -214,7 +215,8 @@ for_window [instance=vlc] sticky enable
 
 # NOTE: use `lightdm-settings` to change the login screen wallpaper
 exec_always feh --bg-fill $wallpaper
-exec alacritty
+# exec alacritty
+exec xfce4-terminal --hide-menubar
 exec unclutter
 exec blueman-tray
 # delay startup so they are assigned to their correct workspaces
