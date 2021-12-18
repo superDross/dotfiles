@@ -131,29 +131,38 @@ EOF
 
 function remove_debugger() {
   # Removes all python debugger statements from py files in a given dir
-  #   $1: directory to recursively search for py files (default: current directory)
+  #   $1: directory to recursively search for py files must be absolute path (default: current directory)
 
   directory="$1"
+  suffix="py"
 
   if [ -z "$1" ]; then
-    directory="."
+    directory=$(pwd)
   fi
 
-  # TODO: find a way to get the exist status without having to execute twice
-  rg "import pdb;pdb.set_trace|from remote_pdb import RemotePdb;RemotePdb" $directory
-  message=$(rg "import pdb;pdb.set_trace|from remote_pdb import RemotePdb;RemotePdb" $directory)
+  message=$(\
+    rg \
+    'import pdb.*|.*pdb.set_trace.*|.*remote_pdb.*|.*RemotePdb.*|.*breakpoint\(\)' \
+    --type $suffix \
+    --pretty \
+    $directory \
+  )
+  # get only the file names (sed removes colours)
+  files=$(echo "$message" | sed 's/\x1b\[[0-9;]*m//g' | grep "\.${suffix}\>")
 
   if [ -z "$message" ]; then
     echo "No debugging statements found. Exiting..."
     return 0
   fi
 
+  echo "$message"
   read -p "Do you want to remove the above debugger lines? (y/n) $ " answer
 
   case $answer in
     y | yes | Y | YES)
-      find ${directory} -name "*.py" -not -path '*/\.*' | xargs \
-        sed -i '/import pdb;pdb.set_trace/d;/from remote_pdb import RemotePdb;RemotePdb/d'
+      echo $files | \
+        xargs sed --in-place \
+        '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint\(\)/d'
       echo "Complete"
       ;;
     n | no | N | NO)
