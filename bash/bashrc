@@ -162,7 +162,7 @@ function remove_debugger() {
     y | yes | Y | YES)
       echo $files | \
         xargs sed --in-place \
-        '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint\(\)/d'
+        '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint()/d'
       echo "Complete"
       ;;
     n | no | N | NO)
