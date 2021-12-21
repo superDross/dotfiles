@@ -116,7 +116,9 @@ function fuzzy-kill() {
 }
 
 function docker_stop_all(){
-  docker stop $(docker ps -q)
+  # not using `docker ps -q` as we want to make minikube an exception
+  containers=$(docker ps | tail -n +2 | grep -v minikube | awk '{print $1}')
+  docker stop $containers
 }
 
 function docker_plus_help(){
@@ -150,19 +152,24 @@ function remove_debugger() {
   # get only the file names (sed removes colours)
   files=$(echo "$message" | sed 's/\x1b\[[0-9;]*m//g' | grep "\.${suffix}\>")
 
-  if [ -z "$message" ]; then
+  # remove the 4444:4444 exposed port liness from the docker-compose files
+  port_message=$(rg --files -g '*docker-compose.*' | xargs rg --pretty '4444:4444')
+  docker_files=$(echo "$port_message" | sed 's/\x1b\[[0-9;]*m//g' | rg "docker-compose")
+
+  if [ -z "$message" ] && [ -z "$port_message" ]; then
     echo "No debugging statements found. Exiting..."
     return 0
   fi
 
   echo "$message"
+  echo "$port_message"
   read -p "Do you want to remove the above debugger lines? (y/n) $ " answer
 
   case $answer in
     y | yes | Y | YES)
-      echo $files | \
+      echo $files $docker_files | \
         xargs sed --in-place \
-        '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint()/d'
+        '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint()/d;/4444:4444/d'
       echo "Complete"
       ;;
     n | no | N | NO)

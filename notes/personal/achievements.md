@@ -388,3 +388,25 @@ Graph Database
 ## 10th Dec
 
 Not sure if there is anything note worthy this week...
+
+
+## 17th Dec
+
+Created new method for history interlude syntax. Add `get` method where you can return a default value.
+
+This checks for the answers an panelist gave for a given surveys question and supplies a given default value if none are found.
+
+```py
+{
+  answer = 'no'
+  if 1 in history.survey.get('question', []):
+      answer = 'yes'
+}
+```
+
+Was difficult as there was no documentation on how to do this:
+
+  - https://gitlab.yougov.net/G/queso/-/merge_requests/170
+  - https://gitlab.yougov.net/G/queso/-/merge_requests/172
+  - https://gitlab.yougov.net/G/queso/-/merge_requests/173
+
