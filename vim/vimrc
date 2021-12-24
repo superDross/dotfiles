@@ -17,6 +17,12 @@ function! GitLinePopUp()
   call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")
 endfunction
 
+"""" SKELETON """""""""""""""""""""""""""""""""""""""""
+" skeleton files
+augroup templates
+  execute 'autocmd BufNewFile *.sh 0r ' . g:vimdir . '/templates/template.sh'
+augroup END
+
 """" POLYGLOT """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " work around for the PolyGlot GraphQL error in Javascript files
 let g:polyglot_disabled = ['graphql', 'markdown']
