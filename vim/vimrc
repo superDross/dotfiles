@@ -150,7 +150,7 @@ nnoremap <Leader>g :Rg<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>c :Commits<CR>
 nnoremap <Leader>` :FZFMarks<CR>
-nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
+nnoremap <Leader>* :execute 'Rg' expand('<cword>')<CR>
 nnoremap <silent><Leader>m :call GitLinePopUp()<CR>
 
 """" TAB COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""
