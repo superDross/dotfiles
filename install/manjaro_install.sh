@@ -78,7 +78,7 @@ function update_and_install(){
 }
 
 function install_aur_packages(){
-  pamac build \
+  pamac build --no-confirm \
     autojump \
     git-completion \
     i3lock-fancy-git \
@@ -118,9 +118,6 @@ function install_snap_stuff(){
 function install_ale_tools(){
   # install all ALE tooling used for IDE like features with vim
 
-  # dockerfile linter
-  pamac build hadolint
-
   # python linters and formatters
   pip3 install \
     flake8 \
@@ -147,14 +144,10 @@ function install_ale_tools(){
     eslint-plugin-prettier
 
   # javascript language server
-  npm install --unsafe-perm -g \
-    javascript-typescript-langserver
+  npm install --unsafe-perm -g javascript-typescript-langserver
 
   # json linter
   pacman -Syu jq
-
-  # html linters
-  npm install --unsafe-perm -g htmlhint
 
   # vimscript linters
   pip3 install vim-vint
@@ -162,18 +155,23 @@ function install_ale_tools(){
   # vimscript language server
   npm install -g --save-dev vim-language-server
 
-  # c/c++ language server
-  # snap install ccls --classic
-
   # bash linter
   pacman -Syu shellcheck
 
   # bash language server
-  npm install --unsafe-perm -g \
-    bash-language-server
+  npm install --unsafe-perm -g bash-language-server
 
   # fzf functionality
   pacman -Syu ripgrep
+
+  # html linters
+  npm install --unsafe-perm -g htmlhint
+
+  # dockerfile linter
+  pamac build --no-confirm hadolint
+
+  # c/c++ language server
+  snap install ccls --classic
 }
 
 
