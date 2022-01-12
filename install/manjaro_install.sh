@@ -51,7 +51,6 @@ function update_and_install(){
     nodejs \
     npm \
     pasystray \
-    postgresql \
     pulseaudio \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
@@ -165,6 +164,9 @@ function install_ale_tools(){
 
   # c/c++ language server
   # snap install ccls --classic
+
+  # bash linter
+  pacman -Syu shellcheck
 
   # bash language server
   npm install --unsafe-perm -g \
