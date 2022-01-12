@@ -59,7 +59,6 @@ function update_and_install(){
 
   sudo pacman -Syu \
     alacritty \
-    bash-completion \
     xcompmgr \
     helm \
     kubectl \
@@ -68,7 +67,6 @@ function update_and_install(){
     rlwrap \
     gnu-netcat \
     kdeconnect \
-    the_silver_searcher \
     fd \
     pulseaudio-bluetooth \
     xclip \
@@ -77,7 +75,6 @@ function update_and_install(){
     xfce4-terminal \
     xfce4 \
     vlc \
-    telegram-desktop \
     unp \
     npm \
     nodejs \
@@ -90,7 +87,6 @@ function update_and_install(){
     clang \
     simple-scan \
     unclutter \
-    ripgrep \
     ttf-hack \
     ttf-font-awesome \
     ttf-roboto-mono \
@@ -109,20 +105,16 @@ function update_and_install(){
 
 function install_aur_packages(){
   pamac build spotify
+    python39 \
     python38 \
     python37 \
     python36 \
     python2 \
-    hadolint \
     mongodb-shell \
     mongodb-compass \
     postman-bin
 }
 
-
-function install_gems(){
-  gem install sqlint
-}
 
 function install_npm_packages(){
   # change npm global dir inside the user space
@@ -131,6 +123,41 @@ function install_npm_packages(){
   npm config set prefix '~/.npm-global'
   export PATH=~/.npm-global/bin:$PATH
   
+  npm install -g --save-dev tldr n
+}
+
+
+function install_python_packages(){
+  pip3 install ipython grip pdbpp remote-pdb
+}
+
+
+function install_snap_stuff(){
+  snap install pre-commit --classic
+}
+
+
+function install_ale_tools(){
+  # install all ALE tooling used for IDE like features with vim
+
+  # dockerfile linter
+  pamac build hadolint
+
+  # python linters and formatters
+  pip3 install \
+    flake8 \
+    black \
+    autoimport \
+    isort \
+    mypy
+
+  # python language server
+  pip3 install python-lsp-server
+
+  # sql linters
+  gem install sqlint
+
+  # javascript linters & formatters (no idea which of these I actually use)
   npm install -g --save-dev \
     eslint \
     flow-bin \
@@ -139,36 +166,33 @@ function install_npm_packages(){
     stylelint \
     prettier \
     eslint-config-prettier \
-    eslint-plugin-prettier \
-    tldr 
+    eslint-plugin-prettier
 
+  # javascript language server
   npm install --unsafe-perm -g \
-    htmlhint \
-    n \
-    javascript-typescript-langserver \
-    bash-language-server
-}
+    javascript-typescript-langserver
 
+  # json linter
+  pacman -Syu jq
 
-function install_python_packages(){
-  pip3 install \
-    python-lsp-server \
-    ipython \
-    flake8 \
-    black \
-    vim-vint \
-    grip \
-    autopep8 \
-    mypy \
-    autoimport \
-    isort
-}
+  # html linters
+  npm install --unsafe-perm -g htmlhint
 
+  # vimscript linters
+  pip3 install vim-vint
 
-function install_snap_stuff(){
+  # vimscript language server
+  npm install -g --save-dev vim-language-server
+
   # c/c++ language server
-  snap install ccls --classic
-  snap install pre-commit --classic
+  # snap install ccls --classic
+
+  # bash language server
+  npm install --unsafe-perm -g \
+    bash-language-server
+
+  # fzf functionality
+  pacman -Syu ripgrep
 }
 
 
@@ -220,11 +244,11 @@ function main(){
     autojump
     git_completion
     i3lock
-    install_gems
     install_npm_packages
     install_python_packages
     install_aur_packages
     install_snap_stuff
+    install_ale_tools
     setup_files
     setup_vim
   fi
