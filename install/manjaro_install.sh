@@ -22,31 +22,6 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
-function autojump(){
-  mkdir -p ~/bin/
-	cd ~/bin/
-	git clone git://github.com/wting/autojump.git
-	cd autojump
-	./install.py
-	cd
-}
-
-function git_completion(){
-  curl \
-    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
-    -o ~/.git-completion.bash
-}
-
-function i3lock(){
-  mkdir -p ~/bin/
-  cd ~/bin/
-  git clone https://github.com/meskarune/i3lock-fancy.git
-  cd i3lock-fancy
-  sudo make install
-  cd
-}
-
-
 function update_and_install(){
   # Other tools (not in script):
   #   peek - gif record
@@ -104,7 +79,10 @@ function update_and_install(){
 }
 
 function install_aur_packages(){
-  pamac build spotify
+  pamac build \
+    autojump \
+    git-completion \
+    i3lock-fancy-git \
     mongodb-compass \
     mongodb-shell \
     postman-bin \
@@ -112,7 +90,8 @@ function install_aur_packages(){
     python36 \
     python37 \
     python38 \
-    python39 
+    python39 \
+    spotify 
 }
 
 
@@ -241,9 +220,6 @@ function main(){
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     update_and_install
-    autojump
-    git_completion
-    i3lock
     install_npm_packages
     install_python_packages
     install_aur_packages
