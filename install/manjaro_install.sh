@@ -59,60 +59,60 @@ function update_and_install(){
 
   sudo pacman -Syu \
     alacritty \
-    xcompmgr \
-    helm \
-    kubectl \
+    clang \
+    ctags \
+    cups \
+    docker \
+    evince \
+    fd \
+    feh \
     firefox \
     foliate \
-    rlwrap \
-    gnu-netcat \
-    kdeconnect \
-    fd \
-    pulseaudio-bluetooth \
-    xclip \
-    docker \
     git \
-    xfce4-terminal \
-    xfce4 \
-    vlc \
-    unp \
-    npm \
+    gnu-netcat \
+    helm \
+    kdeconnect \
+    kubectl \
     nodejs \
-    ruby \
-    tmux \
-    yarn \
-    evince \
-    zathura \
-    cups \
-    clang \
-    simple-scan \
-    unclutter \
-    ttf-hack \
-    ttf-font-awesome \
-    ttf-roboto-mono \
-    ctags \
-    scrot \
-    feh \
+    npm \
     pasystray \
-    redshift \
-    timeshift \
-    python-virtualenvwrapper \
+    postgresql \
     pulseaudio \
     pulseaudio-alsa \
-    postgresql
+    pulseaudio-bluetooth \
+    python-virtualenvwrapper \
+    redshift \
+    rlwrap \
+    ruby \
+    scrot \
+    simple-scan \
+    timeshift \
+    tmux \
+    ttf-font-awesome \
+    ttf-hack \
+    ttf-roboto-mono \
+    unclutter \
+    unp \
+    vlc \
+    xclip \
+    xcompmgr \
+    xfce4 \
+    xfce4-terminal \
+    yarn \
+    zathura
   
 }
 
 function install_aur_packages(){
   pamac build spotify
-    python39 \
-    python38 \
-    python37 \
-    python36 \
-    python2 \
-    mongodb-shell \
     mongodb-compass \
-    postman-bin
+    mongodb-shell \
+    postman-bin \
+    python2 \
+    python36 \
+    python37 \
+    python38 \
+    python39 
 }
 
 
