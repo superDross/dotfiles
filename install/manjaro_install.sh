@@ -160,6 +160,7 @@ function install_python_packages(){
     grip \
     autopep8 \
     mypy \
+    autoimport \
     isort
 }
 

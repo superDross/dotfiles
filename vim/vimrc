@@ -177,7 +177,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 """" ALE """"""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_fixers = {
       \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \    'python': ['isort', 'black'],
+      \    'python': ['autoimport', 'isort', 'black'],
       \    'c': ['clang-format'],
       \    'sh': ['shfmt'],
       \    'javascript': ['eslint'],
