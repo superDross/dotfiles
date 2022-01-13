@@ -22,31 +22,6 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
-function autojump(){
-  mkdir -p ~/bin/
-	cd ~/bin/
-	git clone git://github.com/wting/autojump.git
-	cd autojump
-	./install.py
-	cd
-}
-
-function git_completion(){
-  curl \
-    https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
-    -o ~/.git-completion.bash
-}
-
-function i3lock(){
-  mkdir -p ~/bin/
-  cd ~/bin/
-  git clone https://github.com/meskarune/i3lock-fancy.git
-  cd i3lock-fancy
-  sudo make install
-  cd
-}
-
-
 function update_and_install(){
   # Other tools (not in script):
   #   peek - gif record
@@ -59,70 +34,65 @@ function update_and_install(){
 
   sudo pacman -Syu \
     alacritty \
-    bash-completion \
-    xcompmgr \
-    helm \
-    kubectl \
+    clang \
+    ctags \
+    cups \
+    docker \
+    evince \
+    fd \
+    feh \
     firefox \
     foliate \
-    rlwrap \
-    gnu-netcat \
-    kdeconnect \
-    the_silver_searcher \
-    fd \
-    pulseaudio-bluetooth \
-    xclip \
-    docker \
     git \
-    xfce4-terminal \
-    xfce4 \
-    vlc \
-    telegram-desktop \
-    unp \
-    npm \
+    gnu-netcat \
+    helm \
+    kdeconnect \
+    kubectl \
     nodejs \
-    ruby \
-    tmux \
-    yarn \
-    evince \
-    zathura \
-    cups \
-    clang \
-    simple-scan \
-    unclutter \
-    ripgrep \
-    ttf-hack \
-    ttf-font-awesome \
-    ttf-roboto-mono \
-    ctags \
-    scrot \
-    feh \
+    npm \
     pasystray \
-    redshift \
-    timeshift \
-    python-virtualenvwrapper \
     pulseaudio \
     pulseaudio-alsa \
-    postgresql
+    pulseaudio-bluetooth \
+    python-virtualenvwrapper \
+    redshift \
+    rlwrap \
+    ruby \
+    scrot \
+    simple-scan \
+    timeshift \
+    tmux \
+    ttf-font-awesome \
+    ttf-hack \
+    ttf-roboto-mono \
+    unclutter \
+    unp \
+    vlc \
+    xclip \
+    xcompmgr \
+    xfce4 \
+    xfce4-terminal \
+    yarn \
+    zathura
   
 }
 
 function install_aur_packages(){
-  pamac build spotify
-    python38 \
-    python37 \
-    python36 \
-    python2 \
-    hadolint \
-    mongodb-shell \
+  pamac build --no-confirm \
+    autojump \
+    git-completion \
+    i3lock-fancy-git \
     mongodb-compass \
-    postman-bin
+    mongodb-shell \
+    postman-bin \
+    python2 \
+    python36 \
+    python37 \
+    python38 \
+    python39 \
+    spotify 
 }
 
-
-function install_gems(){
-  gem install sqlint
-}
 
 function install_npm_packages(){
   # change npm global dir inside the user space
@@ -131,6 +101,38 @@ function install_npm_packages(){
   npm config set prefix '~/.npm-global'
   export PATH=~/.npm-global/bin:$PATH
   
+  npm install -g --save-dev tldr n
+}
+
+
+function install_python_packages(){
+  pip3 install ipython grip pdbpp remote-pdb
+}
+
+
+function install_snap_stuff(){
+  snap install pre-commit --classic
+}
+
+
+function install_ale_tools(){
+  # install all ALE tooling used for IDE like features with vim
+
+  # python linters and formatters
+  pip3 install \
+    flake8 \
+    black \
+    autoimport \
+    isort \
+    mypy
+
+  # python language server
+  pip3 install python-lsp-server
+
+  # sql linters
+  gem install sqlint
+
+  # javascript linters & formatters (no idea which of these I actually use)
   npm install -g --save-dev \
     eslint \
     flow-bin \
@@ -139,35 +141,37 @@ function install_npm_packages(){
     stylelint \
     prettier \
     eslint-config-prettier \
-    eslint-plugin-prettier \
-    tldr 
+    eslint-plugin-prettier
 
-  npm install --unsafe-perm -g \
-    htmlhint \
-    n \
-    javascript-typescript-langserver \
-    bash-language-server
-}
+  # javascript language server
+  npm install --unsafe-perm -g javascript-typescript-langserver
 
+  # json linter
+  pacman -Syu jq
 
-function install_python_packages(){
-  pip3 install \
-    python-lsp-server \
-    ipython \
-    flake8 \
-    black \
-    vim-vint \
-    grip \
-    autopep8 \
-    mypy \
-    isort
-}
+  # vimscript linters
+  pip3 install vim-vint
 
+  # vimscript language server
+  npm install -g --save-dev vim-language-server
 
-function install_snap_stuff(){
+  # bash linter
+  pacman -Syu shellcheck
+
+  # bash language server
+  npm install --unsafe-perm -g bash-language-server
+
+  # fzf functionality
+  pacman -Syu ripgrep
+
+  # html linters
+  npm install --unsafe-perm -g htmlhint
+
+  # dockerfile linter
+  pamac build --no-confirm hadolint
+
   # c/c++ language server
   snap install ccls --classic
-  snap install pre-commit --classic
 }
 
 
@@ -216,14 +220,11 @@ function main(){
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
     update_and_install
-    autojump
-    git_completion
-    i3lock
-    install_gems
     install_npm_packages
     install_python_packages
     install_aur_packages
     install_snap_stuff
+    install_ale_tools
     setup_files
     setup_vim
   fi
