@@ -409,4 +409,13 @@ Was difficult as there was no documentation on how to do this:
   - https://gitlab.yougov.net/G/queso/-/merge_requests/170
   - https://gitlab.yougov.net/G/queso/-/merge_requests/172
   - https://gitlab.yougov.net/G/queso/-/merge_requests/173
+  - https://gitlab.yougov.net/G/gryphon/-/merge_requests/1221
 
+
+## 23rd Dec
+
+- DRA-514 moved dragoman over to k8s
+- DRA-514 dockerised dragoman/weblate application
+
+- DAT-5454: fixed a bug in the codebook permissions whereby the permission is not set when a new category or entry is created
+https://gitlab.yougov.net/y/datum/-/merge_requests/1094/diffs
