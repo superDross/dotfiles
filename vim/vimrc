@@ -42,6 +42,10 @@ else
   Plug 'mbbill/undotree'
 endif
 
+" READING: for focusing when reading
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 " TAG BROWSER: get class/function names in a sidebar
 Plug 'liuchengxu/vista.vim'
 
@@ -152,6 +156,9 @@ nnoremap <Leader>c :Commits<CR>
 nnoremap <Leader>` :FZFMarks<CR>
 nnoremap <Leader>* :execute 'Ag' expand('<cword>')<CR>
 nnoremap <silent><Leader>m :call GitLinePopUp()<CR>
+
+" quiet focused reading mode
+nnoremap <Leader>q :Goyo <bar> Limelight!! <CR>
 
 """" TAB COMPLETION """"""""""""""""""""""""""""""""""""""""""""""""
 " not sure what this does but is required for tab completion
