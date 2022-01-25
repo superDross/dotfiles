@@ -1,6 +1,11 @@
 # Development
 
 
+## Interview Questions
+
+- [Administrate](interview/administrate.py)
+
+
 ## Personal
 
 - [Achievements](personal/achievements.md)
