@@ -419,3 +419,16 @@ Was difficult as there was no documentation on how to do this:
 
 - DAT-5454: fixed a bug in the codebook permissions whereby the permission is not set when a new category or entry is created
 https://gitlab.yougov.net/y/datum/-/merge_requests/1094/diffs
+
+
+## 14th Jan
+
+- Deploying dragoman to k8s
+- Used AST to detect '_' calls in qsl and give warning: https://gitlab.yougov.net/G/queso/-/merge_requests/178
+
+
+## 21st Jan
+
+- 100% dragoman to k8s
+- Fixed a bug that caused the widget text to be shown in english regard less of requested language
+  - https://jira.yougov.net/browse/GRYP-7498
