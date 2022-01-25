@@ -147,7 +147,7 @@ function install_ale_tools(){
   npm install --unsafe-perm -g javascript-typescript-langserver
 
   # json linter
-  pacman -Syu jq
+  sudo pacman -Sy jq
 
   # vimscript linters
   pip3 install vim-vint
@@ -155,14 +155,14 @@ function install_ale_tools(){
   # vimscript language server
   npm install -g --save-dev vim-language-server
 
-  # bash linter
-  pacman -Syu shellcheck
+  # bash linter and formatting
+  sudo pacman -Sy shellcheck shfmt
 
   # bash language server
   npm install --unsafe-perm -g bash-language-server
 
   # fzf functionality
-  pacman -Syu ripgrep
+  sudo pacman -Sy ripgrep
 
   # html linters
   npm install --unsafe-perm -g htmlhint
