@@ -1,11 +1,6 @@
 # Development
 
 
-## Interview Questions
-
-- [Administrate](interview/administrate.py)
-
-
 ## Personal
 
 - [Achievements](personal/achievements.md)
@@ -116,3 +111,14 @@
 ## Linux
 
 - [Troubleshooting](linux/troubleshooting.md)
+
+
+## Interviewing
+
+- [Questions to Ask](interview/questions-to-ask.md)
+- [Tell me a time](interview/tell-me-a-time.md)
+
+
+### Company Questions
+
+- [Administrate](interview/administrate.py)

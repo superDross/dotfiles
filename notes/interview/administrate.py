@@ -1,5 +1,7 @@
 # 1. SQL -> Higher Than 75 Marks
 
+## WRONG QUESTION
+
 """
 Query the Name of any student in STUDENTS who scored higher than Marks.
 
@@ -9,7 +11,8 @@ If two or more students both have names ending in the same last three characters
 secondary sort them by ascending ID.
 """
 
-# Answer
+# Answer (WRONG)
+
 """
 SELECT name FROM students
 WHERE marks > 75
