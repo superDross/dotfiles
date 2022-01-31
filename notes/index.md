@@ -122,3 +122,4 @@
 ### Company Questions
 
 - [Administrate](interview/administrate.py)
+- [Administrate QA](interveiw/administrate.md)

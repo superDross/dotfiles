@@ -432,3 +432,7 @@ https://gitlab.yougov.net/y/datum/-/merge_requests/1094/diffs
 - 100% dragoman to k8s
 - Fixed a bug that caused the widget text to be shown in english regard less of requested language
   - https://jira.yougov.net/browse/GRYP-7498
+
+## 28th Jan
+
+Nothin I am particularly proud of
