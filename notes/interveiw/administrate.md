@@ -49,31 +49,51 @@ Only MacOS, they are keen on standardisation of all equipments and environments.
 Never, but a seasonally on call rota is being produced
 
 
+### What is the biggest process improvement you have made over the last year to make devs lives better?
 
+Cloud based dev environment. All the guys in Lebanon were having issues downloading large Docker images so this was a good move.
+
+
+### What is your system architecture?
+
+Flask/AWS/TypeScript/ElasticBeanStalk/Docker
+
+
+### What are the biggest tech debt issues at this time?
+
+Moving over to from being a feature factory to actually paying that technical debt done.
+
+They have clients whom no longer want features pushed out (this could change).
+
+So they have **part** of 25% of the budget/time to reduce this technical debt.
+
+
+### What would you expect in the first 3-6 months from a successful candidate?
+
+Unblocking people is very important to them. Very!
+
+The manager described it as the hardest job you ever had because, fuck knows :shrug:
+
+
+
+
+
+## Not Asked
 
 ## Third Round Interview Q/A
-
-Ask about cloud env.
-
-
-- What is the systems architecture?
 
 - Do you employ static code analysis? If so, what tools are you using and when (CI)?
 
 - What tools do you use for project organisation (Jira/confluence/boards)?
 
-- What are the biggest tech debt issues at this time?
 
 
 ## To Managers
 
-- What is the biggest process improvement you have made over the last year to make devs lives better?
 
 - What is the process for determining what task I'll be working on?
 
 - Is there a career advancement for IC above senior level? If, so what is the review process like for this?
-
-- What would you expect in the first 3-6 months from a successful candidate?
 
 - How often do you encourage your devs to explore new technologies? (IF YES), When was the last time you did this and what was the problem to solve?
 

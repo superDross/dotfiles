@@ -29,11 +29,12 @@ General questions to tease out company culture and development practises.
 
 - What tools do you use for project organisation (Jira/confluence/boards)?
 
-- What are the biggest tech debt issues at this time?
+- What are the biggest tech debt issues at this time? Are you actively reducing this debt and if so how?
 
 - How do engineers collaborate? Design meetings, pair programming etc.
 
 - What OS do devs use?
+
 
 ## To Managers
 
@@ -53,3 +54,9 @@ General questions to tease out company culture and development practises.
 
 - How often do you guys do meetings? What are the purpose of those meetings?
 
+
+## Reduced Work Week
+
+- How do you ensure you do not have reduced productivity in a 4 day work week? (THIS NEED REPHRASING)
+
+- How do you ensure you are ahead of your competitors when your devs work one less day than the competition?
