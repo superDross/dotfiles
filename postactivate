@@ -1,13 +1,15 @@
 #!/bin/bash
 # This hook is sourced after every virtualenv is activated.
 
-here=$(basename $(pwd))
-venv_name=$(basename $VIRTUAL_ENV)
+# Go to the project directory in which the virtualenv belongs
+
 # check the virtualenv name is the same as a directory in the dev folder
-has_a_dir=$(ls ~/dev | xargs | grep -F -w "$venv_name")
+here="$(basename "$(pwd)")"
+venv_name="$(basename "$VIRTUAL_ENV")"
+has_dir=$(find ~/dev -maxdepth 1 -name "$venv_name")
 
 # if there is a dev directory with venv name and you are
 # not currently in said dir, then cd into it
-if [ -n "$has_a_dir" ] && [ $here != $venv_name ]; then
-  cd ~/dev/${venv_name}
+if [ -n "$has_dir" ] && [ "$here" != "$venv_name" ]; then
+  cd ~/dev/"${venv_name}" || return
 fi
