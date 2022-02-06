@@ -89,6 +89,7 @@
 - [Query Processing](sql/query_processing.md): Logical Query Processing
 
 ## NoSQL
+
 - [MongoDB](mongo/mongo.md): Basic Mongo
 
 ### Postgres
