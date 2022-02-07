@@ -199,3 +199,46 @@ productSold = ["eggs", "eggs", "cheese", "milk"]
 soldPrice = [2.89, 2.99, 5.97, 3.29]
 
 assert priceCheck(products, productPrices, productSold, soldPrice) == 2
+
+
+# 5. Live Coding part of the interview (NOT HACKER RANK)
+# find overlapping booking events
+
+
+from collections import namedtuple
+from typing import List, Tuple
+
+Booking = namedtuple("Booking", "id start_hour end_hour")
+
+# (id, start_hour, end_hour)
+bookings = [
+    Booking(1, 1, 3),
+    Booking(2, 2, 4),
+    Booking(3, 4, 6),
+    Booking(4, 5, 7),
+    Booking(5, 7, 9),
+]
+
+
+def find_overlaps(bookings: List[Tuple[int, int, int]]) -> List[Tuple[int, int]]:
+    """
+    Find overlapping bookings, return both ids of the overlapping bookings.
+    """
+    i = 0
+    j = 1
+
+    while j <= len(bookings) - 1:
+        booking1 = bookings[i]
+        booking2 = bookings[j]
+
+        booking1_hours = range(booking1.start_hour, booking1.end_hour)
+        booking2_hours = range(booking2.start_hour, booking2.end_hour)
+
+        if set(booking1_hours).intersection(set(booking2_hours)):
+            yield (booking1.id, booking2.id)
+
+        i += 1
+        j += 1
+
+
+assert list(find_overlaps(bookings)) == [(1, 2), (3, 4)]
