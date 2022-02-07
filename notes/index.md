@@ -117,6 +117,7 @@
 ## Interviewing
 
 - [Questions to Ask](interview/questions-to-ask.md)
+- [Questions to Ask Recruiters](interview/ask-recrutier.md)
 - [Tell me a time](interview/tell-me-a-time.md)
 
 
@@ -124,3 +125,4 @@
 
 - [Administrate](interview/administrate.py)
 - [Administrate QA](interveiw/administrate.md)
+- [Administrate Whiteboard](interview/administrate-whiteboard.md)
