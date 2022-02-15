@@ -2,3 +2,8 @@
 # This hook is sourced after a new virtualenv is activated.
 
 pip install pdbpp remote-pdb
+
+# install requirements if present
+if [[ $(find . -maxdepth 1 -name "requirements.txt") ]]; then
+  pip install -r requirements.txt
+fi
