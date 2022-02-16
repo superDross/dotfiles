@@ -127,7 +127,12 @@ function install_ale_tools(){
     mypy
 
   # python language server
-  pip3 install python-lsp-server
+  pip3 install \
+    python-lsp-server \
+    python-lsp-black \
+    pyls-isort \
+    pyls-flake8 \
+    pylsp-mypy
 
   # sql linters
   gem install sqlint
