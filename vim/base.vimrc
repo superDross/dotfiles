@@ -14,12 +14,11 @@
 function! SpellingToggle()
   if &spell ==# 0
     echo 'spelling on'
-    set spell spelllang=en_gb
+    setlocal spell spelllang=en_gb
     hi SpellBad cterm=underline ctermfg=Red
   else
     echo 'spelling off'
-    set nospell
-    hi clear SpellBad
+    setlocal nospell
   endif
 endfunction
 

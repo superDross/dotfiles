@@ -207,7 +207,7 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 "   shellcheck
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pylsp'],
+      \   'python': ['pylsp', 'mypy'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
@@ -308,4 +308,4 @@ let g:undotree_ShortIndicators = 1
 let g:mundo_width = 60
 
 """" PERSONAL """""""""""""""""""""""""""""""""""""""""""""""""""
-let g:default_testing_cmd = "make test"
+let g:default_testing_cmd = 'make test'
