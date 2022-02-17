@@ -208,7 +208,7 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 "   shellcheck
 let g:ale_linters = {
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pylsp', 'mypy'],
+      \   'python': ['pylsp'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
@@ -218,6 +218,8 @@ let g:ale_linters = {
 let g:ale_completion_enabled = 1
 let g:ale_completion_max_suggestions = 30
 let g:ale_lint_delay = 0
+" NOTE: experimenting with this
+let g:ale_completion_autoimport = 1
 
 " linter msg formatting
 let g:ale_echo_msg_format = '%s [%linter%]'
@@ -231,7 +233,8 @@ highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
 
 " ALEHover in preview
-let g:ale_hover_to_preview = 1
+let g:ale_hover_to_floating_preview = 1
+let g:ale_floating_window_border = repeat([''], 6)
 
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
