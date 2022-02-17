@@ -111,6 +111,7 @@ call plug#end()
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_sign_column = 'bg0'
 let g:gruvbox_color_column = 'bg0'
+let $BAT_THEME='gruvbox-dark'
 colorscheme gruvbox
 
 " sets background truly black and whites truly white

@@ -34,6 +34,7 @@ function update_and_install(){
 
   sudo pacman -Syu \
     alacritty \
+    bat \
     clang \
     ctags \
     cups \
