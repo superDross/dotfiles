@@ -133,6 +133,7 @@ nmap <leader>9 <Plug>(run_code)
 
 " ALE shortcuts
 nnoremap <silent> <leader>h :ALEHover<CR>
+nnoremap <silent> <leader>e :ALEDetail<CR>
 nnoremap <silent> <leader>r :ALEFindReferences -relative<CR>
 nnoremap <silent> <leader>j :ALENext<CR>
 nnoremap <silent> <leader>k :ALEPrevious<CR>
@@ -203,23 +204,30 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 
 " npm install typescript for completion to work in a local project
 " Install:
-"   python-language-server, tsserver, bash-language-server,
+"   python-language-server, pyright, tsserver, bash-language-server,
 "   stylelint, csslint, jsonlint, mdl, vint, gitlint,
-"   shellcheck
+"   shellcheck, flake8
 let g:ale_linters = {
+      \   'bash': ['bash-language-server'],
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['pylsp'],
+      \   'python': ['flake8', 'pyright'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
       \ }
 
+" turn flake8 and pycodestyle errors into warnings
+let g:ale_type_map = {
+  \  'flake8': {'ES': 'WS', 'E': 'W'},
+  \  'pycodestyle': {'ES': 'WS', 'E': 'W'},
+  \ }
+
 " completion settings
 let g:ale_completion_enabled = 1
 let g:ale_completion_max_suggestions = 30
 let g:ale_lint_delay = 0
-" NOTE: experimenting with this
-let g:ale_completion_autoimport = 1
+" let g:ale_cursor_detail = 1  " show error as soon as your cursor is on line
+let g:ale_maximum_file_size = 200000  " don't use ALE on files bigger than 200kb
 
 " linter msg formatting
 let g:ale_echo_msg_format = '%s [%linter%]'
@@ -229,14 +237,15 @@ let g:ale_sign_error = '>>'
 let g:ale_sign_warning = '--'
 
 " underline errors
+let g:ale_set_highlights = 1
 highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
 
-" ALEHover in preview
-let g:ale_hover_to_floating_preview = 1
+" ALEHover & ALEDetail in popup
+let g:ale_floating_preview = 1
 let g:ale_floating_window_border = repeat([''], 6)
 
-" ensure documentation can be shown in completion popup
+" ensure documentation can be shown in completion popup (workaround for completeopt bug)
 set completeopt=menu,menuone,popup,noselect,noinsert
 
 
