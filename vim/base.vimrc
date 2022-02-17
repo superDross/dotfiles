@@ -178,8 +178,8 @@ set foldnestmax=2
 
 " Enable folding,
 if expand('%:t') =~# 'vimrc' || expand('%:e') ==# 'vim'
-    set foldmethod=expr
-    set foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
+    setlocal foldmethod=expr
+    setlocal foldexpr=getline(v:lnum)=~#'^\"\"\"\"'?'\>1':'='
 else
     set foldmethod=indent
 endif
