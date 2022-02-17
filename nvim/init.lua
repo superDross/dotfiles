@@ -1,7 +1,8 @@
 -- TODO: change ticket default mappings (e.g. <leader>no)
--- TODO: remove git signs default mappings
 -- TODO: alter personal plugins to be compatible with neovim
 -- TODO: get isort and mypy plugins working
+-- NOTE: lsp actions (e.g. goto def) only works you *directly* open in neovim (won't work if you use tabe <file> or telescope)
+-- NOTE: helpful for converting to lua: https://github.com/nanotee/nvim-lua-guide
 
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
