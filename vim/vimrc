@@ -236,6 +236,10 @@ highlight ALEError ctermbg=none cterm=underline
 let g:ale_hover_to_floating_preview = 1
 let g:ale_floating_window_border = repeat([''], 6)
 
+" ensure documentation can be shown in completion popup
+set completeopt=menu,menuone,popup,noselect,noinsert
+
+
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
