@@ -1,4 +1,5 @@
 -- TODO: change ticket default mappings (e.g. <leader>no)
+-- TODO: remove git signs default mappings
 -- TODO: alter personal plugins to be compatible with neovim
 -- TODO: get isort and mypy plugins working
 
@@ -80,7 +81,7 @@ vim.api.nvim_set_keymap('v', '<leader>p', '"+p', opts)
 vim.api.nvim_set_keymap('n', '<leader>u', '<cmd>MundoToggle<CR>', opts)
 -- git mappings
 vim.g.git_messenger_no_default_mappings = true
-vim.api.nvim_set_keymap('n', '<leader>m', '<cmd>GitMessenger<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>m', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', opts)
 -- tab mappings
 vim.api.nvim_set_keymap('n', '<C-h>', ':tabprevious<CR>', opts)
 vim.api.nvim_set_keymap('n', '<C-l>', ':tabnext<CR>', opts)
@@ -146,7 +147,6 @@ require('packer').startup(function()
   -- text object extensions
   use 'machakann/vim-sandwich'
   -- git enhancers
-  use 'rhysd/git-messenger.vim'
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
   use {
@@ -180,7 +180,10 @@ end)
 
 
 -- GIT ------------------------------------------------------------
-require('gitsigns').setup()
+require('gitsigns').setup({
+  keymaps = {}  -- removes all default mappings
+})
+
 
 
 -- STATUSLINE ------------------------------------------------------------
@@ -304,3 +307,4 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+-- TSInstall all
