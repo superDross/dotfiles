@@ -130,6 +130,7 @@ function install_ale_tools(){
   # python language server
   pip3 install \
     python-lsp-server \
+    pyright \
     python-lsp-black \
     pyls-isort \
     pyls-flake8 \
