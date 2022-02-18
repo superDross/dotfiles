@@ -1,7 +1,6 @@
 -- TODO: change ticket default mappings (e.g. <leader>no)
 -- TODO: alter personal plugins to be compatible with neovim
 -- TODO: get isort and mypy plugins working
--- NOTE: lsp actions (e.g. goto def) only works you *directly* open in neovim (won't work if you use tabe <file> or telescope)
 -- NOTE: helpful for converting to lua: https://github.com/nanotee/nvim-lua-guide
 
 -- BASIC SETTINGS ------------------------------------------------------------
@@ -71,47 +70,72 @@ vim.api.nvim_command([[
 -- MAPPINGS ------------------------------------------------------------
 local opts = { noremap=true, silent=true }
 vim.g.mapleader = ' '
---folding
-vim.api.nvim_set_keymap('n', '<leader><leader>', 'za', opts)
--- clipboard
-vim.api.nvim_set_keymap('n', '<leader>y', '"+y', opts)
-vim.api.nvim_set_keymap('v', '<leader>y', '"+y', opts)
-vim.api.nvim_set_keymap('n', '<leader>p', '"+p', opts)
-vim.api.nvim_set_keymap('v', '<leader>p', '"+p', opts)
--- undo mappings
-vim.api.nvim_set_keymap('n', '<leader>u', '<cmd>MundoToggle<CR>', opts)
--- git mappings
-vim.g.git_messenger_no_default_mappings = true
-vim.api.nvim_set_keymap('n', '<leader>m', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>', opts)
--- tab mappings
-vim.api.nvim_set_keymap('n', '<C-h>', ':tabprevious<CR>', opts)
-vim.api.nvim_set_keymap('n', '<C-l>', ':tabnext<CR>', opts)
--- leader number mappings
-vim.api.nvim_set_keymap('n', '<leader>0', ':set hlsearch! hlsearch?<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>4', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>8', '<cmd>Vista!!<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>s', '<cmd>lua SpellingToggle()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>t', '<cmd>sp | term<CR>', opts)
--- lsp
-vim.api.nvim_buf_set_option('n', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-vim.api.nvim_buf_set_keymap('n', 'n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-vim.api.nvim_buf_set_keymap('n', 'n', '<leader>n', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>', opts)
-vim.api.nvim_buf_set_keymap('n', 'n', '<leader>x', '<cmd>split | lua vim.lsp.buf.definition()<CR>', opts)
-vim.api.nvim_buf_set_keymap('n', 'n', '<leader>v', '<cmd>vert split | lua vim.lsp.buf.definition()<CR>', opts)
-vim.api.nvim_buf_set_keymap('n', 'n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>k', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>j', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
--- vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
--- telescope
--- TODO: so many! https://github.com/nvim-telescope/telescope.nvim#pickers
-vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>Telescope find_files<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>Telescope live_grep<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>Telescope git_commits<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Telescope diagnostics<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>*', '<cmd>Telescope grep_string<CR>', opts)
+
+function SetKeymap (mode, mappings, opts)
+  -- set mappings based upon {key: command}
+  for map, func in pairs(mappings) do
+    vim.api.nvim_set_keymap(mode, map, func, opts)
+  end
+end
+
+local visual_mappings = {
+  -- clipboard
+  ['<leader>y'] = '"+y',
+  ['<leader>p'] = '"+p',
+}
+
+local normal_mappings = {
+  -- folding
+  ['<leader><leader>'] = 'za',
+  -- clipboard
+  ['<leader>y'] = '"+y',
+  ['<leader>p'] = '"+p',
+  -- undo mappings
+  ['<leader>u'] = '<cmd>MundoToggle<CR>',
+  -- git mappings
+  ['<leader>m'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+  -- tab mappings
+  ['<C-h>'] = ':tabprevious<CR>',
+  ['<C-l>'] = ':tabnext<CR>',
+  -- leader number mappings
+  ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
+  ['<leader>8'] = '<cmd>Vista!!<CR>',
+  ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
+  ['<leader>t'] = '<cmd>sp | term<CR>',
+  -- lsp
+  ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
+  ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+  ['<leader>j'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
+  ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
+  -- Telescope
+  -- TODO: so many! https://github.com/nvim-telescope/telescope.nvim#pickers
+  ['<leader>f'] =  '<cmd>Telescope find_files<CR>',
+  ['<leader>g'] =  '<cmd>Telescope live_grep<CR>',
+  ['<leader>b'] =  '<cmd>Telescope buffers<CR>',
+  ['<leader>c'] =  '<cmd>Telescope git_commits<CR>',
+  ['<leader>z'] =  '<cmd>Telescope diagnostics<CR>',
+  ['<leader>*'] =  '<cmd>Telescope grep_string<CR>',
+}
+
+SetKeymap('n', normal_mappings, opts)
+SetKeymap('v', normal_mappings, opts)
+
+local on_attach = function(client, bufnr)
+  -- this is required so the LSP takes effect on all buffers
+  vim.api.nvim_buf_set_option('n', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  local mappings = {
+    ['<leader>d'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['<leader>h'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>4'] =  '<cmd>lua vim.lsp.buf.formatting()<CR>',
+    ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+  }
+  for map, func in pairs(mappings) do
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
+  end
+end
 
 
 -- FUNCTIONS ------------------------------------------------------------
@@ -226,10 +250,27 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
-require'lspconfig'.pylsp.setup{}
-require'lspconfig'.bashls.setup{}
-require'lspconfig'.vimls.setup{}
+
+require'lspconfig'.pyright.setup{
+    on_attach = on_attach,
+    settings = {
+      pyright = {
+        autoImportCompletion = true,
+      },
+      python = {
+        analysis = {
+          autoSearchPaths = true,
+          diagnosticMode = "workspace",
+          useLibraryCodeForTypes = true,
+          typeCheckingMode = 'basic'
+        }
+      }
+    },
+}
+require'lspconfig'.bashls.setup{on_attach = on_attach}
+require'lspconfig'.vimls.setup{on_attach = on_attach}
 require'lspconfig'.sumneko_lua.setup{
+  on_attach = on_attach,
   settings = {
     Lua = {
         diagnostics = {
