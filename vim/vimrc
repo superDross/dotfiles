@@ -222,6 +222,19 @@ let g:ale_type_map = {
   \  'pycodestyle': {'ES': 'WS', 'E': 'W'},
   \ }
 
+" consider turing typeCheckingMode off by default (for old projects)
+let g:ale_python_pyright_config = {
+  \ 'pyright': {
+  \   'autoImportCompletions': v:true,
+  \ },
+  \ 'python': {
+  \   'analysis': {
+  \     'typeCheckingMode': 'basic',
+  \     'useLibraryCodeForTypes': v:true,
+  \   }
+  \  }
+  \ }
+
 " completion settings
 let g:ale_completion_enabled = 1
 let g:ale_completion_max_suggestions = 30
