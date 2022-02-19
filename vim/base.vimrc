@@ -154,6 +154,11 @@ nnoremap <C-k> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 
+" make escape work for terminal
+if v:version >= 802
+  tnoremap <Esc> <C-w>N
+endif
+
 " function keys
 noremap <leader>0 :set hlsearch! hlsearch?<CR>
 noremap <leader>5 :Lexplore<CR>

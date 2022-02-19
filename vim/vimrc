@@ -68,7 +68,7 @@ Plug 'markonm/traces.vim'
 Plug 'machakann/vim-highlightedyank'
 
 " COLORSCHEMES: various colorschemes
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 Plug 'huyvohcmc/atlas.vim'
 Plug 'srcery-colors/srcery-vim'
 
