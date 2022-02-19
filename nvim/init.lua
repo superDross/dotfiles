@@ -49,9 +49,9 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexi
 vim.api.nvim_command([[
 au TermOpen * setlocal listchars= nonumber norelativenumber
 ]])
-vim.api.nvim_command([[
-au TermOpen * startinsert
-]])
+-- vim.api.nvim_command([[
+-- au TermOpen * startinsert
+-- ]])
 -- indentation spacing
 vim.api.nvim_command([[
 augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.lua
@@ -78,6 +78,13 @@ function SetKeymap (mode, mappings, opts)
   end
 end
 
+local terminal_mappings = {
+  -- make escape work in terminal mode
+  ['<Esc>'] = '<C-\\><C-n>',
+  -- make changing windows similar to vims terminal commands
+  ['<C-w>'] = '<C-\\><C-n><C-w>',
+}
+
 local visual_mappings = {
   -- clipboard
   ['<leader>y'] = '"+y',
@@ -99,9 +106,11 @@ local normal_mappings = {
   ['<C-l>'] = ':tabnext<CR>',
   -- leader number mappings
   ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
+  ['<leader>1'] = '<cmd>RunTests 0<CR>',
   ['<leader>8'] = '<cmd>Vista!!<CR>',
+  ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
-  ['<leader>t'] = '<cmd>sp | term<CR>',
+  ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
   -- lsp
   ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
   ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
@@ -118,7 +127,8 @@ local normal_mappings = {
 }
 
 SetKeymap('n', normal_mappings, opts)
-SetKeymap('v', normal_mappings, opts)
+SetKeymap('v', visual_mappings, opts)
+SetKeymap('t', terminal_mappings, opts)
 
 local on_attach = function(client, bufnr)
   -- this is required so the LSP takes effect on all buffers
@@ -172,7 +182,7 @@ require('packer').startup(function()
   -- text object extensions
   use 'machakann/vim-sandwich'
   -- git enhancers
-  use 'tpope/vim-commentary'
+  use 'terrortylor/nvim-comment'
   use 'tpope/vim-fugitive'
   use {
     'lewis6991/gitsigns.nvim',
@@ -194,21 +204,21 @@ require('packer').startup(function()
   use 'superDross/class-builder'
   use 'superDross/ticket.vim'
   use 'superDross/picobook'
-  -- use 'superDross/run-with-me.vim'
+  use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
 end)
 
 
 -- PERSONAL ------------------------------------------------------------
 -- TODO: setup picobook
--- TODO: make run-with-me compatible with neovim
+vim.g.default_testing_cmd = 'make test'
 
 
 -- GIT ------------------------------------------------------------
 require('gitsigns').setup({
   keymaps = {}  -- removes all default mappings
 })
-
+require('nvim_comment').setup()
 
 
 -- STATUSLINE ------------------------------------------------------------
