@@ -280,6 +280,7 @@ require'lspconfig'.pyright.setup{
     },
 }
 require'lspconfig'.bashls.setup{on_attach = on_attach}
+require'lspconfig'.dockerls.setup{}
 require'lspconfig'.vimls.setup{on_attach = on_attach}
 require'lspconfig'.sumneko_lua.setup{
   on_attach = on_attach,

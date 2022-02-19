@@ -168,6 +168,9 @@ function install_ale_tools(){
   # bash language server
   npm install --unsafe-perm -g bash-language-server
 
+  # docker language server
+  npm install -g dockerfile-language-server-nodejs
+
   # fzf functionality
   sudo pacman -Sy ripgrep
 
