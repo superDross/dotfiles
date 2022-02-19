@@ -22,13 +22,17 @@ vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
 
 
--- COLOURSCHEMES ------------------------------------------------------------
-vim.g.gruvbox_contrast_dark = "hard"
-vim.g.gruvbox_sign_column = 'bg0'
-vim.g.gruvbox_color_column = 'bg0'
-vim.opt.termguicolors = true
-vim.o.background = 'dark'
-vim.cmd([[colorscheme gruvbox]])
+-- FUNCTIONS ------------------------------------------------------------
+function SpellingToggle()
+  if vim.o.spell == false then
+    print("spelling on")
+    vim.cmd('setlocal spell spelllang=en_gb')
+    vim.cmd('hi SpellBad cterm=underline ctermfg=Red')
+  else
+    print('spelling off')
+    vim.cmd('setlocal nospell')
+  end
+end
 
 
 -- SNIPPETS ------------------------------------------------------------
@@ -65,6 +69,65 @@ augroup END
 vim.api.nvim_command([[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]])
+
+
+
+-- PLUGINS ------------------------------------------------------------
+local use = require('packer').use
+require('packer').startup(function()
+  -- package manager
+  use 'wbthomason/packer.nvim'
+  -- nvim enhancements
+  use 'liuchengxu/vista.vim'
+  use 'neovim/nvim-lspconfig'
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate'
+  }
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  -- undo tree
+  use 'simnalamburt/vim-mundo'
+  -- colorschemes
+  use 'ellisonleao/gruvbox.nvim'
+  -- text object extensions
+  use 'machakann/vim-sandwich'
+  -- git enhancers
+  use 'terrortylor/nvim-comment'
+  use 'tpope/vim-fugitive'
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    tag = 'release'
+  }
+  -- file searcher
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  -- statusline
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+  -- personal plugins
+  use 'superDross/class-builder'
+  use 'superDross/ticket.vim'
+  use 'superDross/picobook'
+  use 'superDross/run-with-me.vim'
+  use 'superDross/scrappy.vim'
+end)
+
+
+-- COLOURSCHEMES ------------------------------------------------------------
+vim.g.gruvbox_contrast_dark = "hard"
+vim.g.gruvbox_sign_column = 'bg0'
+vim.g.gruvbox_color_column = 'bg0'
+vim.opt.termguicolors = true
+vim.o.background = 'dark'
+vim.cmd([[colorscheme gruvbox]])
 
 
 -- MAPPINGS ------------------------------------------------------------
@@ -148,67 +211,6 @@ local on_attach = function(client, bufnr)
 end
 
 
--- FUNCTIONS ------------------------------------------------------------
-function SpellingToggle()
-  if vim.o.spell == false then
-    print("spelling on")
-    vim.cmd('setlocal spell spelllang=en_gb')
-    vim.cmd('hi SpellBad cterm=underline ctermfg=Red')
-  else
-    print('spelling off')
-    vim.cmd('setlocal nospell')
-  end
-end
-
-
--- PLUGINS ------------------------------------------------------------
-local use = require('packer').use
-require('packer').startup(function()
-  -- package manager
-  use 'wbthomason/packer.nvim'
-  -- nvim enhancements
-  use 'liuchengxu/vista.vim'
-  use 'neovim/nvim-lspconfig'
-  use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
-  }
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  -- undo tree
-  use 'simnalamburt/vim-mundo'
-  -- colorschemes
-  use 'ellisonleao/gruvbox.nvim'
-  -- text object extensions
-  use 'machakann/vim-sandwich'
-  -- git enhancers
-  use 'terrortylor/nvim-comment'
-  use 'tpope/vim-fugitive'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
-    tag = 'release'
-  }
-  -- file searcher
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  -- personal plugins
-  use 'superDross/class-builder'
-  use 'superDross/ticket.vim'
-  use 'superDross/picobook'
-  use 'superDross/run-with-me.vim'
-  use 'superDross/scrappy.vim'
-end)
-
-
 -- PERSONAL ------------------------------------------------------------
 -- TODO: setup picobook
 vim.g.default_testing_cmd = 'make test'
@@ -247,7 +249,7 @@ require('lualine').setup({
           info  = 'DiagnosticInfo',
           hint  = 'DiagnosticHint',
         },
-        symbols = {error = '✘ ', warn = '⏶ ', info = 'I', hint = 'H'},
+        symbols = {error = '✘ ', warn = '⏶ ', info = 'ℹ ', hint = '? '},
         colored = true,
         update_in_insert = false,
         always_visible = false,
@@ -298,6 +300,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- change gutter symbols
 vim.fn.sign_define("DiagnosticSignWarn", { text = "--", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignError", { text = ">>", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignHint", { text = "?", texthl = "DiagnosticSignHint"})
 
 
 -- COMPLETION ------------------------------------------------------------
