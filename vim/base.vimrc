@@ -154,10 +154,10 @@ nnoremap <C-k> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 
-" make escape work for terminal
-if v:version >= 802
-  tnoremap <Esc> <C-w>N
-endif
+" make escape work for terminal (causes issues with fzf)
+" if v:version >= 802
+"   tnoremap <Esc> <C-w>N
+" endif
 
 " function keys
 noremap <leader>0 :set hlsearch! hlsearch?<CR>
