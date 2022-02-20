@@ -50,9 +50,6 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexi
 vim.api.nvim_command([[
 au TermOpen * setlocal listchars= nonumber norelativenumber
 ]])
--- vim.api.nvim_command([[
--- au TermOpen * startinsert
--- ]])
 -- indentation spacing
 vim.api.nvim_command([[
 augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.lua
@@ -66,7 +63,6 @@ augroup END
 vim.api.nvim_command([[
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 ]])
-
 
 
 -- PLUGINS ------------------------------------------------------------
@@ -98,15 +94,13 @@ require('packer').startup(function()
   use 'tpope/vim-fugitive'
   use {
     'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
+    requires = { 'nvim-lua/plenary.nvim' },
     tag = 'release'
   }
   -- file searcher
   use {
     'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+    requires = { 'nvim-lua/plenary.nvim' }
   }
   -- statusline
   use {
@@ -143,9 +137,7 @@ function SetKeymap (mode, mappings, opts)
 end
 
 local terminal_mappings = {
-  -- make escape work in terminal mode
   ['<Esc>'] = '<C-\\><C-n>',
-  -- make changing windows similar to vims terminal commands
   ['<C-w>'] = '<C-\\><C-n><C-w>',
 }
 
@@ -182,7 +174,6 @@ local normal_mappings = {
   ['<leader>j'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
   ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- Telescope
-  -- TODO: so many! https://github.com/nvim-telescope/telescope.nvim#pickers
   ['<leader>f'] =  '<cmd>Telescope find_files<CR>',
   ['<leader>g'] =  '<cmd>Telescope live_grep<CR>',
   ['<leader>b'] =  '<cmd>Telescope buffers<CR>',
@@ -204,7 +195,6 @@ local on_attach = function(client, bufnr)
     ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
-    -- ['<leader>4'] =  '<cmd>lua vim.lsp.buf.formatting()<CR>',
     ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
   }
   for map, func in pairs(mappings) do
@@ -220,9 +210,7 @@ vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 
 -- GIT ------------------------------------------------------------
-require('gitsigns').setup({
-  keymaps = {}  -- removes all default mappings
-})
+require('gitsigns').setup({ keymaps = {} })
 require('nvim_comment').setup()
 
 
@@ -269,7 +257,6 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
-
 require'lspconfig'.pyright.setup{
     on_attach = on_attach,
     settings = {
@@ -348,15 +335,11 @@ local has_words_before = function()
 end
 -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#no-snippet-plugin
 -- compare completion methods https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-
 local cmp = require('cmp')
-
 cmp.setup {
-
   completion = {
     autocomplete = false,
   },
-
   mapping = {
       ['<Tab>'] = function(fallback)
         if not cmp.select_next_item() then
@@ -367,7 +350,6 @@ cmp.setup {
           end
         end
       end,
-
     ['<S-Tab>'] = function(fallback)
       if not cmp.select_prev_item() then
         if vim.bo.buftype ~= 'prompt' and has_words_before() then
@@ -377,19 +359,15 @@ cmp.setup {
         end
       end
     end,
-
     ['<C-e>'] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
-
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
   })
-
 }
 
 
@@ -399,5 +377,4 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-}
--- TSInstall all
+} -- TSInstall all
