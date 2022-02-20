@@ -303,13 +303,6 @@ require('formatter').setup({
     python = {
       function()
         return {
-          exe = "autoimport",
-          args = { "-" },
-          stdin = true,
-        }
-      end,
-      function()
-        return {
           exe = "isort",
           args = { "-" },
           stdin = true,
