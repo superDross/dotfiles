@@ -1,11 +1,6 @@
 # Development
 
 
-## Personal
-
-- [Achievements](personal/achievements.md)
-
-
 ## Web
 
 - [System Design](web/system_design.md)
@@ -63,9 +58,9 @@
 - [Advanced Parallel and Concurrent Programming](python/multi/advanced_concurrent_parallel.md)
 - [Metaclasses](python/metaclass.py)
 
-### Libraries
+## Lua
 
-- [Weblate](python/libs/weblate.md)
+- [Basics](lua/basics.lua)
 
 ## JavaScript
 
@@ -127,3 +122,8 @@
 - [Administrate](interview/administrate.py)
 - [Administrate QA](interveiw/administrate.md)
 - [Administrate Whiteboard](interview/administrate-whiteboard.md)
+
+
+## Personal
+
+- [Achievements](personal/achievements.md)
