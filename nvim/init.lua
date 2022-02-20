@@ -1,6 +1,3 @@
--- TODO: change ticket default mappings (e.g. <leader>no)
--- TODO: alter personal plugins to be compatible with neovim
--- TODO: get isort and mypy plugins working
 -- NOTE: helpful for converting to lua: https://github.com/nanotee/nvim-lua-guide
 
 -- BASIC SETTINGS ------------------------------------------------------------
@@ -77,15 +74,19 @@ local use = require('packer').use
 require('packer').startup(function()
   -- package manager
   use 'wbthomason/packer.nvim'
-  -- nvim enhancements
-  use 'liuchengxu/vista.vim'
+  -- lsp configs
   use 'neovim/nvim-lspconfig'
   use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
   }
+  -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
+  -- formatter
+  use 'mhartington/formatter.nvim'
+  -- symbol viewer
+  use 'simrat39/symbols-outline.nvim'
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
@@ -170,7 +171,8 @@ local normal_mappings = {
   -- leader number mappings
   ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1'] = '<cmd>RunTests 0<CR>',
-  ['<leader>8'] = '<cmd>Vista!!<CR>',
+  ['<leader>4'] = '<cmd>Format<CR>',
+  ['<leader>8'] = '<cmd>SymbolsOutline<CR>',
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
   ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
@@ -202,7 +204,7 @@ local on_attach = function(client, bufnr)
     ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>4'] =  '<cmd>lua vim.lsp.buf.formatting()<CR>',
+    -- ['<leader>4'] =  '<cmd>lua vim.lsp.buf.formatting()<CR>',
     ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
   }
   for map, func in pairs(mappings) do
@@ -212,8 +214,9 @@ end
 
 
 -- PERSONAL ------------------------------------------------------------
--- TODO: setup picobook
 vim.g.default_testing_cmd = 'make test'
+vim.g.notesdir = vim.fn.expand('%:p:h') .. '/notes/'
+vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 
 -- GIT ------------------------------------------------------------
@@ -221,6 +224,10 @@ require('gitsigns').setup({
   keymaps = {}  -- removes all default mappings
 })
 require('nvim_comment').setup()
+
+
+-- TAGBAR ----------------------------------------------------------------
+vim.g.symbols_outline = {auto_preview = false}
 
 
 -- STATUSLINE ------------------------------------------------------------
@@ -280,7 +287,7 @@ require'lspconfig'.pyright.setup{
     },
 }
 require'lspconfig'.bashls.setup{on_attach = on_attach}
-require'lspconfig'.dockerls.setup{}
+require'lspconfig'.dockerls.setup{on_attach = on_attach}
 require'lspconfig'.vimls.setup{on_attach = on_attach}
 require'lspconfig'.sumneko_lua.setup{
   on_attach = on_attach,
@@ -302,6 +309,36 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.fn.sign_define("DiagnosticSignWarn", { text = "--", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignError", { text = ">>", texthl = "DiagnosticSignError"})
 vim.fn.sign_define("DiagnosticSignHint", { text = "?", texthl = "DiagnosticSignHint"})
+
+
+-- FORMATTERS ------------------------------------------------------------
+require('formatter').setup({
+  filetype = {
+    python = {
+      function()
+        return {
+          exe = "autoimport",
+          args = { "-" },
+          stdin = true,
+        }
+      end,
+      function()
+        return {
+          exe = "isort",
+          args = { "-" },
+          stdin = true,
+        }
+      end,
+      function()
+        return {
+          exe = "black",
+          args = { "-" },
+          stdin = true,
+        }
+      end
+    }
+  }
+})
 
 
 -- COMPLETION ------------------------------------------------------------
