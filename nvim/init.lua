@@ -90,7 +90,7 @@ require('packer').startup(function()
   -- text object extensions
   use 'machakann/vim-sandwich'
   -- git enhancers
-  use 'terrortylor/nvim-comment'
+  use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
   use {
     'lewis6991/gitsigns.nvim',
@@ -211,7 +211,6 @@ vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 -- GIT ------------------------------------------------------------
 require('gitsigns').setup({ keymaps = {} })
-require('nvim_comment').setup()
 
 
 -- TAGBAR ----------------------------------------------------------------
