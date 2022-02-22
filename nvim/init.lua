@@ -98,10 +98,7 @@ require('packer').startup(function()
     tag = 'release'
   }
   -- file searcher
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { 'nvim-lua/plenary.nvim' }
-  }
+  use 'junegunn/fzf.vim'
   -- statusline
   use {
     'nvim-lualine/lualine.nvim',
@@ -122,6 +119,7 @@ vim.g.gruvbox_sign_column = 'bg0'
 vim.g.gruvbox_color_column = 'bg0'
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
+vim.cmd([[let $BAT_THEME='gruvbox-dark']])
 vim.cmd([[colorscheme gruvbox]])
 
 
@@ -173,13 +171,14 @@ local normal_mappings = {
   ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>j'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
   ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
-  -- Telescope
-  ['<leader>f'] =  '<cmd>Telescope find_files<CR>',
-  ['<leader>g'] =  '<cmd>Telescope live_grep<CR>',
-  ['<leader>b'] =  '<cmd>Telescope buffers<CR>',
-  ['<leader>c'] =  '<cmd>Telescope git_commits<CR>',
-  ['<leader>z'] =  '<cmd>Telescope diagnostics<CR>',
-  ['<leader>*'] =  '<cmd>Telescope grep_string<CR>',
+  -- FZF
+  ['<leader>f'] = '<cmd>FZF<CR>',
+  ['<Leader>a'] = '<cmd>RgContents<CR>',
+  ['<Leader>g'] = '<cmd>Rg<CR>',
+  ['<Leader>b'] = '<cmd>Buffers<CR>',
+  ['<Leader>c'] = '<cmd>Commits<CR>',
+  ['<Leader>`'] = '<cmd>FZFMarks<CR>',
+  ['<Leader>*'] = "<cmd>execute 'Rg' expand('<cword>')<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -260,12 +259,12 @@ require'lspconfig'.pyright.setup{
     on_attach = on_attach,
     settings = {
       pyright = {
-        autoImportCompletion = true,
+        autoImportCompletion = false,
       },
       python = {
         analysis = {
           autoSearchPaths = true,
-          diagnosticMode = "workspace",
+          diagnosticMode = 'workspace',
           useLibraryCodeForTypes = true,
           typeCheckingMode = 'basic'
         }
