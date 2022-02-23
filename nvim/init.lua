@@ -369,3 +369,13 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 } -- TSInstall all
+
+
+-- FZF --------------------------------------------------------------------
+vim.cmd([[
+command! -bang -nargs=* RgContents
+  \ call fzf#vim#grep(
+  \ 'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0
+  \)
+]])
