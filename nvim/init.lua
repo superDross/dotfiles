@@ -17,6 +17,7 @@ vim.o.hlsearch = false
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
+vim.o.showmode = false
 
 
 -- FUNCTIONS ------------------------------------------------------------
@@ -24,7 +25,7 @@ function SpellingToggle()
   if vim.o.spell == false then
     print("spelling on")
     vim.cmd('setlocal spell spelllang=en_gb')
-    vim.cmd('hi SpellBad cterm=underline ctermfg=Red')
+    vim.cmd('hi SpellBad cterm=underline ctermfg=Red ctermbg=none')
   else
     print('spelling off')
     vim.cmd('setlocal nospell')
@@ -99,6 +100,7 @@ require('packer').startup(function()
   }
   -- file searcher
   use 'junegunn/fzf.vim'
+  use 'chengzeyi/fzf-preview.vim'
   -- statusline
   use {
     'nvim-lualine/lualine.nvim',
@@ -204,7 +206,7 @@ end
 
 -- PERSONAL ------------------------------------------------------------
 vim.g.default_testing_cmd = 'make test'
-vim.g.notesdir = vim.fn.expand('%:p:h') .. '/notes/'
+vim.g.notesdir = '~/bin/dotfiles/notes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 
@@ -372,6 +374,9 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- FZF --------------------------------------------------------------------
+vim.cmd([[
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+]])
 vim.cmd([[
 command! -bang -nargs=* RgContents
   \ call fzf#vim#grep(
