@@ -436,3 +436,9 @@ https://gitlab.yougov.net/y/datum/-/merge_requests/1094/diffs
 ## 28th Jan
 
 Nothin I am particularly proud of
+
+## 18th Feb
+
+- Migration of compass data
+- Setup deployment environments
+- Update underscore AST to find instances when func is called within concatenation and not caseted as a string
