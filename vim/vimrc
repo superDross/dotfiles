@@ -91,7 +91,6 @@ else
 endif
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" for FZFMarks only
 Plug 'chengzeyi/fzf-preview.vim'
 
 " TAB RENAMING: allows one to rename vim tabs and sustain them over sessions
@@ -210,7 +209,7 @@ let g:ale_sql_sqlformat_options = '--keywords upper --identifiers lower'
 let g:ale_linters = {
       \   'bash': ['bash-language-server'],
       \   'javascript': ['flow', 'eslint', 'tsserver'],
-      \   'python': ['flake8', 'pyright'],
+      \   'python': ['pylsp'],
       \   'cfn': ['cfn-lint'],
       \   'rust': ['rls', 'cargo'],
       \   'sql': ['sqlint'],
@@ -264,7 +263,7 @@ set completeopt=menu,menuone,popup,noselect,noinsert
 
 """" FZF """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use ag instead of find, whcih is faster and repects .gitignore
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 if v:version >= 802 || has('nvim-0.4')
   let g:fzf_layout = {
@@ -334,7 +333,6 @@ let g:vista#renderer#enable_icon = 0
 """" UNDOTREE """""""""""""""""""""""""""""""""""""""""""""""""""
 let g:undotree_WindowLayout = 2
 let g:undotree_ShortIndicators = 1
-
 let g:mundo_width = 60
 
 """" PERSONAL """""""""""""""""""""""""""""""""""""""""""""""""""
