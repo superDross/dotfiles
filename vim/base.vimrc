@@ -32,6 +32,11 @@ function! ShowLeaderMappings()
   echo "LEADER MAPPINGS:\n" . sorted_maps
 endfunction
 
+augroup Mkdir
+  autocmd!
+  autocmd BufWritePre * call mkdir(expand("<afile>:p:h"), "p")
+augroup END
+
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
@@ -174,7 +179,7 @@ nnoremap <silent> <Leader>T :vertical terminal<CR>
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
 " show all leader mappings
-nnoremap <Leader>l :call ShowLeaderMappings()<CR>
+nmap <Leader>l :call ShowLeaderMappings()<CR>
 
 """" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code

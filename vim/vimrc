@@ -35,6 +35,9 @@ call SourceBaseRc('base.vimrc')
 " TESTING FRAMEWORK: unit testing
 Plug 'junegunn/vader.vim'
 
+" LEADER GUIDE: view leader key bindings 
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
 " UNDOTREE: visualise undotrees
 if has('nvim') || has('python3') || has('python')
   Plug 'simnalamburt/vim-mundo'
@@ -122,6 +125,9 @@ colorscheme gruvbox
 """" CUSTOM KEY BINDINGS """"""""""""""""""""""""""""""""""""""
 " remap folding
 nnoremap <leader><leader> za
+
+" show all leader mappings in a nice pop up (overwrites custom function)
+nmap <silent> <leader>l :<c-u>WhichKey '<Space>'<CR>
 
 " function keys
 nmap <leader>1 <Plug>(run_tests)
