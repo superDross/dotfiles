@@ -174,7 +174,7 @@ nnoremap <silent> <Leader>T :vertical terminal<CR>
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
 
 " show all leader mappings
-nnoremap <Leader>l :call ShowLeaderMappings()<CR>
+nmap <Leader>l :call ShowLeaderMappings()<CR>
 
 """" FOLDING """"""""""""""""""""""""""""""""
 " see docstring for folded code
