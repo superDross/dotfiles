@@ -33,6 +33,8 @@ General questions to tease out company culture and development practises.
 
 - How do engineers collaborate? Design meetings, pair programming etc.
 
+- Do teams own specific projects? Or are they assigned to whatever project needs worke done at any given time?
+
 - What OS do devs use?
 
 

@@ -6,6 +6,19 @@ There are three of the same branches at any given time:
 2. Local snapshot of the remote branch (AKA remote tracking branch) (`origin/bugfix`)
 3. Local branch, tracking the remote branch (`bugfix`)
 
+## Revert
+
+```
+git checkout -b revert/thing
+git revert <commit-id>
+git push origin revert/thing
+# get it merged
+git checkout master
+git pull
+git checkout -b feature/reverted
+git revert <reverted-comitt-id>
+git commit and push and 
+```
 ## Cherry-Picking Commits
 
 Get a specific commit from one branch and applying it to another branch.

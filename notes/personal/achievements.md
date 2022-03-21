@@ -442,3 +442,7 @@ Nothin I am particularly proud of
 - Migration of compass data
 - Setup deployment environments
 - Update underscore AST to find instances when func is called within concatenation and not caseted as a string
+
+## 11th March
+
+- created pipeline jobs to detect changes in transltion POT file and upload it if found: https://gitlab.yougov.net/G/gryphon/-/merge_requests/1548
