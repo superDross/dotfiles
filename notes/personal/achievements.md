@@ -446,3 +446,7 @@ Nothin I am particularly proud of
 ## 11th March
 
 - created pipeline jobs to detect changes in transltion POT file and upload it if found: https://gitlab.yougov.net/G/gryphon/-/merge_requests/1548
+
+## 25th March
+
+- Add endpoint to panoptic to ensure we can get rid of panman RPC

@@ -1,5 +1,9 @@
 # Development
 
+## Soft Skills
+
+- [Reviewer Checklist](soft_skills/reviewer_checklist.md)
+- [Code Review](soft_skills/code_review.md)
 
 ## Web
 
