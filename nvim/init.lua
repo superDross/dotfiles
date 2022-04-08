@@ -45,6 +45,11 @@ vim.cmd("iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip")
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
+-- TODO: vim.api.nvim_create_autocmd() when 0.7 is released
+-- EXAMPLE: vim.api.nvim_create_autocmd("TextYankPost", {
+--   callback = vim.highlight.on_yank,
+--   silent = true
+-- })
 vim.api.nvim_command([[
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
 ]])
@@ -268,7 +273,7 @@ require'lspconfig'.pyright.setup{
           autoSearchPaths = true,
           diagnosticMode = 'workspace',
           useLibraryCodeForTypes = true,
-          typeCheckingMode = 'basic'
+          typeCheckingMode = 'off'
         }
       }
     },
