@@ -90,3 +90,22 @@ kubectl -n devops --context ldc2 get pods -o wide --field-selector spec.nodeName
 ```
 kubectl -n g --context ldc2 scale deploy ivwbot-production-app --replicas=0
 ```
+
+### Delete 
+
+When seeing this error:
+
+```
+Error: UPGRADE FAILED: "app" has no deployed releases
+```
+
+Do this to recover
+
+```
+# find the app helm release
+helm list --kube-context ldc2 -n g | grep app
+# delete it
+helm delete -n g --kube-context ldc2 app-ivw-ldc2-staging
+```
+
+Retry the deployment
