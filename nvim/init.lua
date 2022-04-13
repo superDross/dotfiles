@@ -262,22 +262,24 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
-require'lspconfig'.pyright.setup{
-    on_attach = on_attach,
-    settings = {
-      pyright = {
-        autoImportCompletion = false,
-      },
-      python = {
-        analysis = {
-          autoSearchPaths = true,
-          diagnosticMode = 'workspace',
-          useLibraryCodeForTypes = true,
-          typeCheckingMode = 'off'
-        }
-      }
-    },
-}
+-- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+-- require'lspconfig'.pyright.setup{
+--     on_attach = on_attach,
+--     settings = {
+--       pyright = {
+--         autoImportCompletion = false,
+--       },
+--       python = {
+--         analysis = {
+--           autoSearchPaths = true,
+--           diagnosticMode = 'workspace',
+--           useLibraryCodeForTypes = true,
+--           typeCheckingMode = 'off'
+--         }
+--       }
+--     },
+-- }
+require'lspconfig'.pylsp.setup{on_attach = on_attach}
 require'lspconfig'.bashls.setup{on_attach = on_attach}
 require'lspconfig'.dockerls.setup{on_attach = on_attach}
 require'lspconfig'.vimls.setup{on_attach = on_attach}
