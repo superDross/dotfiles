@@ -53,8 +53,10 @@ vim.cmd("iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip")
 vim.api.nvim_command([[
 autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
 ]])
+-- make terminal more like vim (no nums, insert mode when switching to term win)
 vim.api.nvim_command([[
-au TermOpen * setlocal listchars= nonumber norelativenumber
+autocmd TermOpen * setlocal listchars= nonumber norelativenumber
+autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | silent! normal i | endif
 ]])
 -- indentation spacing
 vim.api.nvim_command([[
@@ -279,6 +281,8 @@ require('lualine').setup({
 --       }
 --     },
 -- }
+-- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+-- e.g. settings = { pylsp = { plugins = { flake8 = { maxLineLength = 10 } } } }
 require'lspconfig'.pylsp.setup{on_attach = on_attach}
 require'lspconfig'.bashls.setup{on_attach = on_attach}
 require'lspconfig'.dockerls.setup{on_attach = on_attach}
