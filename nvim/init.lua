@@ -272,23 +272,6 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
--- https://github.com/microsoft/pyright/blob/main/docs/settings.md
--- require'lspconfig'.pyright.setup{
---     on_attach = on_attach,
---     settings = {
---       pyright = {
---         autoImportCompletion = false,
---       },
---       python = {
---         analysis = {
---           autoSearchPaths = true,
---           diagnosticMode = 'workspace',
---           useLibraryCodeForTypes = true,
---           typeCheckingMode = 'off'
---         }
---       }
---     },
--- }
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 -- e.g. settings = { pylsp = { plugins = { flake8 = { maxLineLength = 10 } } } }
 require'lspconfig'.pylsp.setup{on_attach = on_attach}
