@@ -1,4 +1,6 @@
--- NOTE: helpful for converting to lua: https://github.com/nanotee/nvim-lua-guide
+-- NOTE: helpful for converting to lua: 
+-- https://github.com/nanotee/nvim-lua-guide
+-- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
 
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
