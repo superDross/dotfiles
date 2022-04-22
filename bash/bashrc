@@ -40,6 +40,9 @@ alias vi='vim'
 alias ls='$list --color=auto --hide="*.pyc" --hide="*.egg-info" --hide="__pycache__" --group-directories-first --sort=extension'
 alias ll='ls -alF'
 
+# try neovim for a while
+alias vim='nvim'
+
 # grep colours
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -383,7 +386,7 @@ export LESS=' -R '
 #    EDITOR     #
 #################
 
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
 
