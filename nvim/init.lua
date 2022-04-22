@@ -136,7 +136,7 @@ vim.g.gruvbox_sign_column = 'bg0'
 vim.g.gruvbox_color_column = 'bg0'
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
-vim.cmd([[let $BAT_THEME='gruvbox-dark']])
+vim.env.BAT_THEME = "gruvbox-dark"
 vim.cmd([[colorscheme gruvbox]])
 
 
@@ -376,9 +376,7 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- FZF --------------------------------------------------------------------
-vim.cmd([[
-let $FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-]])
+vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden --follow --glob '!.git'"
 vim.cmd([[
 command! -bang -nargs=* RgContents
   \ call fzf#vim#grep(
