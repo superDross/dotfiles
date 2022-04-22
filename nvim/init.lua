@@ -1,4 +1,4 @@
--- NOTE: helpful for converting to lua: 
+-- NOTE: helpful for converting to lua:
 -- https://github.com/nanotee/nvim-lua-guide
 -- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
 
@@ -81,7 +81,10 @@ require('packer').startup(function()
   -- package manager
   use 'wbthomason/packer.nvim'
   -- lsp configs
-  use 'neovim/nvim-lspconfig'
+  use {
+      'neovim/nvim-lspconfig',
+      tag = 'v0.1.3',  -- REMOVE AFTER UPDATING TO NVIM 0.7
+  }
   use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
@@ -96,7 +99,10 @@ require('packer').startup(function()
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
-  use 'ellisonleao/gruvbox.nvim'
+  use {
+    'ellisonleao/gruvbox.nvim',
+    commit = 'dc6bae93ded04ac542d429ff5cc87189dde44294' -- REMOVE AFTER UPDATING TO NVIM 0.7
+  }
   -- text object extensions
   use 'machakann/vim-sandwich'
   -- git enhancers
