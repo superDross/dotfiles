@@ -20,6 +20,7 @@ vim.o.completeopt = "menu,menuone,noselect"
 vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
 vim.o.showmode = false
+vim.o.laststatus = 3
 
 
 -- FUNCTIONS ------------------------------------------------------------
@@ -47,17 +48,17 @@ vim.cmd("iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip")
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
--- TODO: vim.api.nvim_create_autocmd() when 0.7 is released
--- EXAMPLE: vim.api.nvim_create_autocmd("TextYankPost", {
---   callback = vim.highlight.on_yank,
---   silent = true
--- })
-vim.api.nvim_command([[
-autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
-]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function() vim.highlight.on_yank{timeout=500} end,
+})
 -- make terminal more like vim (no nums, insert mode when switching to term win)
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+  end
+})
 vim.api.nvim_command([[
-autocmd TermOpen * setlocal listchars= nonumber norelativenumber
 autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | silent! normal i | endif
 ]])
 -- indentation spacing
@@ -71,7 +72,7 @@ augroup END
 ]])
 -- jumps to the last position when reopening a file
 vim.api.nvim_command([[
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 ]])
 
 
@@ -81,10 +82,7 @@ require('packer').startup(function()
   -- package manager
   use 'wbthomason/packer.nvim'
   -- lsp configs
-  use {
-      'neovim/nvim-lspconfig',
-      tag = 'v0.1.3',  -- REMOVE AFTER UPDATING TO NVIM 0.7
-  }
+  use 'neovim/nvim-lspconfig'
   use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
@@ -99,10 +97,7 @@ require('packer').startup(function()
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
-  use {
-    'ellisonleao/gruvbox.nvim',
-    commit = 'dc6bae93ded04ac542d429ff5cc87189dde44294' -- REMOVE AFTER UPDATING TO NVIM 0.7
-  }
+  use 'ellisonleao/gruvbox.nvim'
   -- text object extensions
   use 'machakann/vim-sandwich'
   -- git enhancers
@@ -147,7 +142,7 @@ vim.g.mapleader = ' '
 function SetKeymap (mode, mappings, opts)
   -- set mappings based upon {key: command}
   for map, func in pairs(mappings) do
-    vim.api.nvim_set_keymap(mode, map, func, opts)
+    vim.keymap.set(mode, map, func, opts)
   end
 end
 
@@ -204,7 +199,7 @@ SetKeymap('t', terminal_mappings, opts)
 
 local on_attach = function(client, bufnr)
   -- this is required so the LSP takes effect on all buffers
-  vim.api.nvim_buf_set_option('n', 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local mappings = {
     ['<leader>d'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
     ['<leader>h'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
