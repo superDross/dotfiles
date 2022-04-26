@@ -230,7 +230,10 @@ vim.g.symbols_outline = {auto_preview = false}
 
 -- STATUSLINE ------------------------------------------------------------
 require('lualine').setup({
-  options = { theme = 'gruvbox' },
+  options = {
+    theme = 'gruvbox',
+    globalstatus = true
+  },
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff'},
