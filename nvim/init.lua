@@ -63,7 +63,7 @@ autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | silent! normal i | en
 ]])
 -- indentation spacing
 vim.api.nvim_command([[
-augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.lua
+augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.lua,*.vue
   setlocal expandtab
   setlocal tabstop=2
   setlocal softtabstop=2
@@ -286,6 +286,7 @@ require'lspconfig'.sumneko_lua.setup{
     }
   }
 }
+require'lspconfig'.tsserver.setup{}
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
