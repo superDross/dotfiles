@@ -76,9 +76,25 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
   end
 })
 -- jumps to the last position when reopening a file
-vim.api.nvim_command([[
-autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-]])
+vim.api.nvim_create_autocmd(
+    {'BufReadPost'},{
+    pattern = {'*'},
+    callback = function()
+        local ft = vim.opt_local.filetype:get()
+        -- don't apply to git messages
+        if (ft:match('commit') or ft:match('rebase')) then
+            return
+        end
+        -- get position of last saved edit
+        local markpos = vim.api.nvim_buf_get_mark(0,'"')
+        local line = markpos[1]
+        local col = markpos[2]
+        -- if in range, go there
+        if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
+            vim.api.nvim_win_set_cursor(0,{line,col})
+        end
+    end
+})
 
 
 -- PLUGINS ------------------------------------------------------------
