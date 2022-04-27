@@ -58,18 +58,23 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false
   end
 })
-vim.api.nvim_command([[
-autocmd BufWinEnter,WinEnter * if &buftype == 'terminal' | silent! normal i | endif
-]])
+vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter"}, {
+  callback = function()
+    if vim.bo.buftype == "terminal" then
+      vim.cmd("startinsert")
+    end
+  end
+})
 -- indentation spacing
-vim.api.nvim_command([[
-augroup BufNewFile,BufRead *.js,*.html,*.css,*.jsx,*.lua,*.vue
-  setlocal expandtab
-  setlocal tabstop=2
-  setlocal softtabstop=2
-  setlocal shiftwidth=2
-augroup END
-]])
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = {"*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vua"},
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.tabstop = 2
+    vim.opt_local.softtabstop = 2
+    vim.opt_local.shiftwidth = 2
+  end
+})
 -- jumps to the last position when reopening a file
 vim.api.nvim_command([[
 autocmd BufRead * autocmd FileType <buffer> ++once if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
@@ -178,6 +183,7 @@ local normal_mappings = {
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
   ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
+  ['<leader>T'] = '<cmd>startinsert | vs | term<CR>',
   -- lsp
   ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
   ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
