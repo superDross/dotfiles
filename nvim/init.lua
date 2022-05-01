@@ -106,6 +106,7 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   -- lsp configs
   use 'neovim/nvim-lspconfig'
+  use 'williamboman/nvim-lsp-installer'
   use {
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate'
@@ -294,6 +295,10 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
+require("nvim-lsp-installer").setup{
+  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lus", "texlab" },
+  automatic_installation = true,
+}
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 -- e.g. settings = { pylsp = { plugins = { flake8 = { maxLineLength = 10 } } } }
 require'lspconfig'.pylsp.setup{on_attach = on_attach}
@@ -310,7 +315,8 @@ require'lspconfig'.sumneko_lua.setup{
     }
   }
 }
-require'lspconfig'.tsserver.setup{}
+require'lspconfig'.tsserver.setup{on_attach = on_attach}
+require'lspconfig'.texlab.setup{on_attach = on_attach}
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
