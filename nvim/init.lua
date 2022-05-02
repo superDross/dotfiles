@@ -53,23 +53,28 @@ iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank{timeout=500} end,
 })
--- make terminal more like vim (no nums, insert mode when switching to term win)
+-- make neovim terminal more like vim terminal
+local vim_term = vim.api.nvim_create_augroup("vim_term", { clear = true })
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.relativenumber = false
     vim.opt_local.number = false
-  end
+  end,
+  group = vim_term
 })
 vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter"}, {
   callback = function()
-    if vim.bo.buftype == "terminal" then
-      vim.cmd("startinsert")
-    end
-  end
+    if vim.bo.buftype == "terminal" then vim.cmd("startinsert") end
+  end,
+  group = vim_term
+})
+vim.api.nvim_create_autocmd("TermClose", {
+  callback = function() vim.cmd("stopinsert") end,
+  group = vim_term
 })
 -- indentation spacing
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-  pattern = {"*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vua"},
+  pattern = {"*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vue"},
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.tabstop = 2
