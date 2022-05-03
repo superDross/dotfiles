@@ -168,10 +168,10 @@ vim.cmd([[colorscheme gruvbox]])
 local opts = { noremap=true, silent=true }
 vim.g.mapleader = ' '
 
-function SetKeymap (mode, mappings, opts)
+function SetKeymap (mode, mappings, options)
   -- set mappings based upon {key: command}
   for map, func in pairs(mappings) do
-    vim.keymap.set(mode, map, func, opts)
+    vim.keymap.set(mode, map, func, options)
   end
 end
 
@@ -227,7 +227,7 @@ SetKeymap('n', normal_mappings, opts)
 SetKeymap('v', visual_mappings, opts)
 SetKeymap('t', terminal_mappings, opts)
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local mappings = {
@@ -301,7 +301,7 @@ require('lualine').setup({
 
 -- LSP ------------------------------------------------------------
 require("nvim-lsp-installer").setup{
-  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lus", "texlab" },
+  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lua", "texlab" },
   automatic_installation = true,
 }
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
