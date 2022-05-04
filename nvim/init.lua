@@ -38,13 +38,10 @@ end
 
 -- SNIPPETS ------------------------------------------------------------
 vim.cmd([[
-iabbrev pudb_remote from pudb.remote import set_trace; set_trace(term_size=(160, 40),host='0.0.0.0', port=6900)  # fmt: skip
-iabbrev pudb import pudb;pudb.set_trace()  # fmt: skip
 iabbrev pdb import pdb;pdb.set_trace()  # fmt: skip
 iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip
 iabbrev rpdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip
-iabbrev ipdb import ipdb;ipdb.set_trace()  # fmt: skip
-iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip
+iabbrev scriptline if __name__ == '__main__':<CR>
 ]])
 
 
