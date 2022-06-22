@@ -52,6 +52,8 @@
 ## Python
 
 - [Async](python/async_module.py)
+- [Async HTTP](python/async_http.py)
+- [Async Redis](python/async_redis.py)
 - [Cython](python/cython_tutorial.pyx)
 - [Coroutines](python/coroutine.py)
 - [Generators](python/generator.py)

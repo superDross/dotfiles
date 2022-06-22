@@ -450,3 +450,10 @@ Nothin I am particularly proud of
 ## 25th March
 
 - Add endpoint to panoptic to ensure we can get rid of panman RPC
+
+## 27th May
+
+- GRYP-8188 moved logic to using database error alerts data instead of getting slack post, modying and updating them
+https://gitlab.yougov.net/sst/ivwbot/-/merge_requests/113
+
+Not a trivial task, took a lot of work and testing to ensure it was good prior to deploying to production.

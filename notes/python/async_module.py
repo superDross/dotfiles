@@ -36,6 +36,31 @@ Event Loop; a central executor in asyncio.
 - each task calls next step of the coroutine
 - coroutine calls another coroutine e.g. await coroutine-name
 
+TODO: read more about how this works
 """
 
+# Simple example showing how to chain coroutines
 
+
+import asyncio
+import datetime
+
+
+async def sleep_five():
+    await asyncio.sleep(5)
+    print("sleep five done")
+
+
+async def sleep_three_then_five():
+    await asyncio.sleep(3)
+    await sleep_five()
+    print("sleep three then five done")
+
+
+async def main():
+    await asyncio.gather(sleep_five(), sleep_three_then_five())
+
+
+start = datetime.datetime.now()
+asyncio.run(main())
+print(f"{(datetime.datetime.now() - start).total_seconds()} seconds have passed")
