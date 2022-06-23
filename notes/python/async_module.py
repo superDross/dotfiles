@@ -36,7 +36,19 @@ Event Loop; a central executor in asyncio.
 - each task calls next step of the coroutine
 - coroutine calls another coroutine e.g. await coroutine-name
 
+
+
 TODO: read more about how this works
+
+
+https://www.aeracode.org/2018/02/19/python-async-simplified/
+
+Everything runs on an event loop. This loop allows one to run several coroutines at once.
+Coroutines run synchronously until they hit an await and then they pause, give up control
+to the event loop. The event loop then allows another coroutine to be active.
+
+TLDR; coroutines have to explicitly give up control via an await. This is different to threads or
+greenlets which context-switch at ANY time.
 """
 
 # Simple example showing how to chain coroutines

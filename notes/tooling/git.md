@@ -279,8 +279,63 @@ git push origin --delete feature/login
 
 ## Patch Staging
 
-Allows you to `git add` portions of a changed file; a hunk.
+### Only Adding Part of a Files Change
 
+Allows you to `git add --patch` portions of a changed file; a hunk.
+
+A more fine grained way to do this is using `git add -i`:
+
+```
+david ~/temp (master) $ git add -i
+           staged     unstaged path
+  1:    unchanged        +4/-0 main.py
+
+*** Commands ***
+  1: status	  2: update	  3: revert	  4: add untracked
+  5: patch	  6: diff	  7: quit	  8: help
+What now> 5
+           staged     unstaged path
+  1:    unchanged        +4/-0 main.py
+Patch update>> 1
+           staged     unstaged path
+* 1:    unchanged        +4/-0 main.py
+Patch update>> 
+diff --git a/main.py b/main.py
+index b03e677..dc2176b 100644
+--- a/main.py
++++ b/main.py
+@@ -1,6 +1,7 @@
+ class Person:
+     def __init__(self, name, age, gender):
+         self.name = name
++        self.sex = "default"
+         self.age = age
+         self.gender = gender
+ 
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,?]? y
+@@ -9,3 +10,6 @@ class Person:
+ 
+     def say_hi(self):
+         print(f"Hi my name is {self.name}")
++
++    def say_what(self):
++        print("what")
+(2/2) Stage this hunk [y,n,q,a,d,K,g,/,e,?]? n
+
+*** Commands ***
+  1: status	  2: update	  3: revert	  4: add untracked
+  5: patch	  6: diff	  7: quit	  8: help
+What now> q
+Bye.
+```
+
+### Splitting a Hunk Automatically
+
+Do the same as before but type 's' for split to split the hunk.
+
+### Splitting a Hunk Manually
+
+Do the same as before but type 'e' for edit to split the hunk manually.
 
 ## Tags
 
@@ -409,4 +464,23 @@ Apply the patch to a different machine (this can be shared amongst devs):
 
 ```sh
 git apply my.patch
+```
+
+### Create and Apply multiple patches
+
+The shas should be from `<older>..<newer>`.
+
+Create and deposit within the patches directory.
+
+```
+david ~/temp (master) $ git format-patch 73d695b..e6a1fd4 -o ./patches
+./patches/0001-Add-say_age-method.patch
+./patches/0002-Add-say_hi-method.patch
+./patches/0003-jj.patch
+```
+
+Apply all patches to local repo:
+
+```
+git am patches/*.patch
 ```
