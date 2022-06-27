@@ -51,9 +51,11 @@
 
 ## Python
 
-- [Async](python/async_module.py)
+- [Async](python/async.md)
+- [Async Simple Example](python/async_module.py)
 - [Async HTTP](python/async_http.py)
 - [Async Redis](python/async_redis.py)
+- [Async Sync Code Mixing](python/async_sync.py)
 - [Cython](python/cython_tutorial.pyx)
 - [Coroutines](python/coroutine.py)
 - [Generators](python/generator.py)

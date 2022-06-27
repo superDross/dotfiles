@@ -1,78 +1,57 @@
 """
-AsyncIO
-
-See the [corotine notes](python/coroutine.py) for more details.
-
-Keywords:
-
-    async; marks a function as an asynchronous generator or coroutine.
-
-    await; tells the event loop to suspend function until what you are waiting on
-           returns and do something else in the meantime.
-
-
-Example Usage:
-
-Lets say you have to make requests to 3 different servers.
-
-If one of the requests takes too long then it will slow down the rest of the program.
-
-
-AysncIO is not threading nor multiprocessing, it is a different way to write concurrent code.
-
-It has a single thread, single process design; via cooperative multitasking.
-
-It uses coroutines and scedulers to achieve this.
-
-
-Coroutines; generators that consume data, but does not generate it.
-
-Tasks; scheduler for coroutines.
-
-Event Loop; a central executor in asyncio.
-
-- the event loop is running in a thread
-- it grabs tasks from the queue
-- each task calls next step of the coroutine
-- coroutine calls another coroutine e.g. await coroutine-name
-
-
-
-TODO: read more about how this works
-
-
-https://www.aeracode.org/2018/02/19/python-async-simplified/
-
-Everything runs on an event loop. This loop allows one to run several coroutines at once.
-Coroutines run synchronously until they hit an await and then they pause, give up control
-to the event loop. The event loop then allows another coroutine to be active.
-
-TLDR; coroutines have to explicitly give up control via an await. This is different to threads or
-greenlets which context-switch at ANY time.
+Simple example showing how to chain coroutines.
 """
-
-# Simple example showing how to chain coroutines
 
 
 import asyncio
 import datetime
 
 
+# Async converts the function into a coroutine
 async def sleep_five():
+    # Await explicitly gives up control of the coroutine to the event loop and suspends it until IO task is finished,
     await asyncio.sleep(5)
     print("sleep five done")
 
 
 async def sleep_three_then_five():
-    await asyncio.sleep(3)
-    await sleep_five()
+    # The below commented code is run synchronously
+    # await asyncio.sleep(3)
+    # await sleep_five()
+
+    # The create_task function can be used to run coroutines concurrently, an alternative
+    # to asyncio.gather()
+    # This is essentially what asyncio.gather() is abstracting away.
+    task1 = asyncio.create_task(asyncio.sleep(3))
+    task2 = asyncio.create_task(sleep_five())
+    await task1
+    await task2
+
     print("sleep three then five done")
 
 
 async def main():
+    # use gather to run coroutines concurrently
+    # all coroutines are scheduled as tasks and run concurrently, all produced values are returned
     await asyncio.gather(sleep_five(), sleep_three_then_five())
 
 
+def async_run(func_call):
+    """
+    Demonstrates what async.run() is actually calling.
+
+    Create an event loop, set the loop in the global space and run async function until complete.
+
+    The event loop is added to the global state inside asyncio so you don't have to parse the event
+    loop explicitly to each coroutine.
+    """
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    return loop.run_until_complete(func_call)
+
+
 start = datetime.datetime.now()
-asyncio.run(main())
+# Method run() runs the parsed coroutine, taking care of creating & managing the asyncio event loop,
+# finalizing asynchronous generators, & closing the threadpool.
+asyncio.run(main(), debug=True)
 print(f"{(datetime.datetime.now() - start).total_seconds()} seconds have passed")

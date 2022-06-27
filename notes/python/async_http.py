@@ -16,8 +16,6 @@ URLS = [
     "https://api.github.com/orgs/php",
     "https://api.github.com/orgs/ruby",
     "https://api.github.com/orgs/perl",
-    "https://api.github.com/orgs/javascript",
-    "https://api.github.com/orgs/npm",
 ]
 
 
