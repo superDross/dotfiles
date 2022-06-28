@@ -39,7 +39,8 @@ augroup END
 
 """" GENERAL """"""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>s :call SpellingToggle()<CR>
-
+nnoremap <silent> <Leader>; :norm ]s1z=<CR>
+nnoremap <silent> <Leader>: :norm [s1z=<CR>
 " stop vim equalising window sizes when a window is closed or opened
 set noequalalways
 
