@@ -7,7 +7,6 @@
 
 ## Web
 
-- [System Design](web/system_design.md)
 - [Cache](web/cache.md)
 - [E-Tags](web/e-tags.md): Entity Tags
 - [GrapQL](web/graphql.md): Data query and manipulation language for APIs
