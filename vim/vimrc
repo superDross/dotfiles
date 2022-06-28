@@ -308,7 +308,7 @@ let g:lightline = {
 \                [ 'linter_errors', 'linter_warnings'] ]
 \   },
 \ 'component_function': {
-\     'gitbranch': 'fugitive#head',
+\     'gitbranch': 'FugitiveHead',
 \     'gutentags': 'gutentags#statusline',
 \   },
 \ 'component_expand': {
