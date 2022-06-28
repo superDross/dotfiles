@@ -203,19 +203,21 @@ local normal_mappings = {
   ['<leader>8'] = '<cmd>SymbolsOutline<CR>',
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
+  ['<leader>;'] = ']s1z=',  -- fix next spelling mistake with first suggestion
+  ['<leader>:'] = '[s1z=',  -- fix previous spelling mistake with first suggestion
   ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T'] = '<cmd>startinsert | vs | term<CR>',
   -- lsp
   ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
-  ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>j'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
+  ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
-  ['<leader>f'] = '<cmd>FZF<CR>',
   ['<Leader>a'] = '<cmd>RgContents<CR>',
-  ['<Leader>g'] = '<cmd>Rg<CR>',
   ['<Leader>b'] = '<cmd>Buffers<CR>',
   ['<Leader>c'] = '<cmd>Commits<CR>',
+  ['<Leader>g'] = '<cmd>Rg<CR>',
+  ['<leader>f'] = '<cmd>FZF<CR>',
   ['<Leader>`'] = '<cmd>FZFMarks<CR>',
   ['<Leader>*'] = "<cmd>execute 'Rg' expand('<cword>')<CR>",
 }
@@ -231,9 +233,9 @@ local on_attach = function(_, bufnr)
     ['<leader>d'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
     ['<leader>h'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
   }
   for map, func in pairs(mappings) do
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
