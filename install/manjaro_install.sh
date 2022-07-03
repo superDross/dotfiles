@@ -48,6 +48,7 @@ function update_and_install(){
     gnu-netcat \
     helm \
     kdeconnect \
+    kitty \
     kubectl \
     nodejs \
     npm \
