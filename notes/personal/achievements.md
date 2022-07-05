@@ -457,3 +457,9 @@ Nothin I am particularly proud of
 https://gitlab.yougov.net/sst/ivwbot/-/merge_requests/113
 
 Not a trivial task, took a lot of work and testing to ensure it was good prior to deploying to production.
+
+## 1st July
+
+- GRYP-8406 separated nr streamer into a new project
+
+- GRYP-8348 refactored some of the logic along with fulfilling the tickets AC (I WANT TO HAVE MULTIPLE CASES OF THIS PRESENT OVER THE YEAR)

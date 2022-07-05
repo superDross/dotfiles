@@ -50,8 +50,10 @@ Any lost data is then copied back to the other drive.
 
 There is multiple forms of RAID.
 
-Replication of load balancers is possible through various toolings
 
+### LB Replication
+
+Replication of load balancers is possible through various toolings
 
 active:passive LB; duplicated LB's whereby the if the active LB breaks we promote the passive LB to active (takes over active IP address)
 
@@ -63,9 +65,31 @@ High availability (HA); paradigm that eliminates single points of failure to ens
 
 
 
+## Databases
+
+Taken from [here](https://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database)
+
+Databases can be a bottle neck. To scale this there are two options.
+
+### Solution one
+
+First is to perform a master slave replication whereby the slave db servers are for write only and the single master server is used for writing. The master server will require significant vertical scaling (especially RAM upgrades).
+
+If there are still issues the master server can be sharded which is a horizontal partition of rows of data across multiple database servers. Sharding can be based on something like EU customers vs US customers.
+
+This can reduce index size & individual server load.
+
+The issue with sharding is it results in a reliance on the interconnection between the servers and increases query latency (when more than one shard needs to be searched). Cross shard consistency and durability is very challenging and there can no guarantee of adherence.
+
+### Solution Two
+
+Denormalise data from the beginning and disallow join queries in the database. Instead make all joins occur at the application code level.
+
+If you are doing that then perhaps using a NoSQL database would be better to use after all..
+
+### Data Loss Prevention
+
 Replication of databases is possible to mitigate data loss
-
-
 
 This can have multiple slaves (completely different servers) where they essentially store a copy of the master database. That way 3 slave databases will contain the exact same data as master.
 
@@ -78,15 +102,6 @@ We can use another paradigm where there are 2 masters (for writing operations) e
 This second approach is more HA as we will always have master available to use.
 
 We can use a load balancer to direct to slave databases (does not matter which one as only reading)
-
-
-
-Database Partitioning; splitting large table into smaller individual tables.
-
-Partitioning allows you to run faster queries as each table has less data.
-
-Example; users partitioned between 2 tables one with usernames beginning with a-m and another with n-z.
-
 
 ```
 database master slave paradigm
@@ -127,32 +142,6 @@ database master slave paradigm
               Replication            └───────────┘
 ```
 
-
-Memcache or Redis can be used as in store memory caching
-
-
-
-## Databases
-
-Taken from [here](https://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database)
-
-Databases can be a bottle neck. To scale this there are two options.
-
-### Solution one
-
-First is to perform a master slave replication whereby the slave db servers are for write only and the single master server is used for writing. The master server will require significant vertical scaling (especially RAM upgrades).
-
-If there are still issues the master server can be sharded which is a horizontal partition of rows of data across multiple database servers. Sharding can be based on something like EU customers vs US customers.
-
-This can reduce index size & individual server load.
-
-The issue with sharding is it results in a reliance on the interconnection between the servers and increases query latency (when more than one shard needs to be searched). Cross shard consistency and durability is very challenging and there can no guarantee of adherence.
-
-### Solution Two
-
-Denormalise data from the beginning and disallow join queries in the database. Instead make all joins occur at the application code level.
-
-If you are doing that then perhaps using a NoSQL database would be better to use after all..
 
 ### Optimisation Techniques
 
@@ -204,3 +193,52 @@ Disadvantages:
 - Backing up becomes complex; back up of shards must be co-ordinated
 - Operational complexity; adding indexes or columns, modifying schema becomes much more difficult
 
+
+
+
+## Caching
+
+### In Memory Caching
+
+In memory caches like Redis are key value stores that should be separated from your application layer.
+
+All data is stored in RAM and is therefore very fast. We should always be checking cache first before retrieve data from a database.
+
+There are two major cache patterns that are used:
+
+Cached Database Queries; the DB query results are stored in the cache with the key being the query itself.
+
+Cached Objects; store the complete instance of an object into the cache (I guess in conjunction with the `pickle` lib)
+
+The cached objects approach means we write to the cache anytime the object changes, using an id to track the object itself (key for the object in the cache).
+
+#### Cache-Aside
+
+The most common used caching approach.
+
+1. Application checks the cache, if found we have a hit and return it.
+2. If cache miss, the application get the data from the db, store it in the cache and return it.
+
+Pros:
+
+- great when using read-heavy workloads
+- if Redis goes down then the system still works as the application will simply go to the DB instead
+
+Cons:
+
+- can be out of sync with the DB if not using a TTL or an system to update the cache regularly.
+
+#### Read-Through Caching
+
+1. Application checks the cache.
+2. Cache returns it if available, else cache gets it from the db, stores it in itself then returns it to the application
+
+
+
+### LRU Caching
+
+This is not suitable for storing any objects that will be used across multiple applications servers e.g. session data.
+
+Essentially caching the function response against the args as a key in a dict.
+
+Example, suitable for caching request responses that never change.
