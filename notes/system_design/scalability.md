@@ -1,6 +1,6 @@
 # Scalability
 
-[test](#Load Balancer)
+[test](#load-balancer)
 
 Resources:
 
