@@ -24,11 +24,15 @@ vim.o.laststatus = 3
 
 
 -- FUNCTIONS ------------------------------------------------------------
+function ActivateSpelling()
+  vim.cmd('setlocal spell spelllang=en_gb')
+  vim.cmd('hi SpellBad cterm=underline ctermfg=Red ctermbg=none')
+end
+
 function SpellingToggle()
   if vim.o.spell == false then
     print("spelling on")
-    vim.cmd('setlocal spell spelllang=en_gb')
-    vim.cmd('hi SpellBad cterm=underline ctermfg=Red ctermbg=none')
+    ActivateSpelling()
   else
     print('spelling off')
     vim.cmd('setlocal nospell')
@@ -97,6 +101,14 @@ vim.api.nvim_create_autocmd(
         if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
             vim.api.nvim_win_set_cursor(0,{line,col})
         end
+    end
+})
+-- automatically set spelling settings on when opening certain file types
+vim.api.nvim_create_autocmd(
+    {'BufRead', 'BufNewFile'}, {
+    pattern = {'*.md', '*.txt', '*.rst'},
+    callback = function()
+      ActivateSpelling()
     end
 })
 
