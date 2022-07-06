@@ -286,3 +286,7 @@ iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).s
 iabbrev rpdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip
 iabbrev ipdb import ipdb;ipdb.set_trace()  # fmt: skip
 iabbrev pytrace import pytest;pytest.set_trace()  # fmt: skip
+
+"""" MARKDOWN """"""""""""""""""""""""""""""""""""""""
+" display markdown embedded code blocks in their own language highlighting 
+let g:markdown_fenced_languages = ['html', 'python', 'javascript', 'vim']
