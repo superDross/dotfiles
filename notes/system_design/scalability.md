@@ -206,7 +206,7 @@ All data is stored in RAM and is therefore very fast. We should always be checki
 
 There are two major cache patterns that are used:
 
-Cached Database Queries; the DB query results are stored in the cache with the key being the query itself.
+Cached Database Queries; the database query results are stored in the cache with the key being the query itself.
 
 Cached Objects; store the complete instance of an object into the cache (I guess in conjunction with the `pickle` lib)
 
@@ -216,23 +216,77 @@ The cached objects approach means we write to the cache anytime the object chang
 
 The most common used caching approach.
 
-1. Application checks the cache, if found we have a hit and return it.
-2. If cache miss, the application get the data from the db, store it in the cache and return it.
+The application is responsible for reading and writing to both the cache and database.
 
-Pros:
+The cache is kept "aside" as a faster and more scalable data store, but is not utilised as the primary data store.
+
+1. Application checks the cache, if found we have a hit and return it.
+2. If cache miss, the application get the data from the database, store it in the cache and return it.
+
+**Pros**:
 
 - great when using read-heavy workloads
-- if Redis goes down then the system still works as the application will simply go to the DB instead
+- if Redis goes down then the system still works as the application will simply go to the database instead
 
-Cons:
+**Cons**:
 
-- can be out of sync with the DB if not using a TTL or an system to update the cache regularly.
+- Can be out of sync with the database even when implementing a TTL
 
-#### Read-Through Caching
+Work around is to invalidate the cache and update it anytime there is a database entry update. Although, this requires some work to implement.
 
+#### Read-Through & Write-Through Caching
+
+This is where the application treats the cache as the main data store by reading and writing data to it.
+
+So the application code does not interact with the database.
+
+It is the caches responsibility to update the database.
+
+In write-through, data is simultaneously updated to cache and memory.
+
+Read Through:
 1. Application checks the cache.
-2. Cache returns it if available, else cache gets it from the db, stores it in itself then returns it to the application
+2. Cache returns it if available, else cache gets it from the database, stores it in itself then returns it to the application
 
+Write Through:
+1. Application writes to the cache
+2. Cache writes to the database
+
+
+**Pros**
+
+- simplifies application code, as the cache takes care of maintaining the database entries.
+- much better data consistency guarantee 
+- data in cache is *always* up to date.
+- simplifies the overall system design
+
+**Cons**
+
+- if the cache fails we cannot access data from the database directly; we have a new single point of failure
+- writing to the cache & database every time adds latency and server cost.
+
+Best method to use when data consistency is absolutely essential.
+
+#### Read Through & Write Back Caching
+
+Cache is responsible for both reading and writing from the database.
+
+Write back is a storage method in which data is written into the cache every time a change occurs, but is written into the corresponding location in main memory only at specified intervals or under certain conditions.
+
+Essentially there is a delay before writing to the database.
+
+**Pros**
+
+- simplifies application code, as the cache takes care of maintaining the database entries.
+- improve write performance compared to Write Through method (better for latency and cost)
+
+**Cons**
+
+- if the cache fails we cannot access data from the database directly; we have a new single point of failure
+- delay to writing to the database means there is a risk of data loss if the cache goes down
+
+
+DAX in AWS utilises this method.
 
 
 ### LRU Caching
