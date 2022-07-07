@@ -111,6 +111,17 @@ vim.api.nvim_create_autocmd(
       ActivateSpelling()
     end
 })
+-- automatically generate pdf upon saving a latex file
+vim.api.nvim_create_autocmd(
+   {'BufWritePost'}, {
+   pattern = {'*.tex'},
+   callback = function()
+     if vim.fn.executable('pdflatex') == 1 then
+       -- TODO: make async
+       vim.api.nvim_command('silent !pdflatex %')
+      end
+   end
+})
 
 
 -- PLUGINS ------------------------------------------------------------
