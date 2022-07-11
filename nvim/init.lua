@@ -111,6 +111,27 @@ vim.api.nvim_create_autocmd(
       ActivateSpelling()
     end
 })
+-- automatically generate pdf upon saving a latex file
+vim.api.nvim_create_autocmd(
+   'BufWritePost', {
+   pattern = {'*.tex'},
+   callback = function()
+     if vim.fn.executable('pdflatex') == 1 then
+       -- TODO: make async (guide: https://phelipetls.github.io/posts/async-make-in-nvim-with-lua/)
+       vim.api.nvim_command('silent !pdflatex %')
+      end
+   end
+})
+-- start git messages in insert mode
+vim.api.nvim_create_autocmd('FileType', {
+    pattern  = { 'gitcommit', 'gitrebase' },
+    command  = 'startinsert | 1'
+})
+-- reload config file on change
+vim.api.nvim_create_autocmd('BufWritePost', {
+    pattern  = vim.env.MYVIMRC,
+    command  = 'silent source %'
+})
 
 
 -- PLUGINS ------------------------------------------------------------
