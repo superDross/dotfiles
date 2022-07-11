@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter"}, {
   group = vim_term
 })
 vim.api.nvim_create_autocmd("TermClose", {
-  callback = function() vim.cmd("stopinsert") end,
+  command = "stopinsert",
   group = vim_term
 })
 -- indentation spacing
@@ -104,12 +104,17 @@ vim.api.nvim_create_autocmd(
     end
 })
 -- automatically set spelling settings on when opening certain file types
+local spelling = vim.api.nvim_create_augroup("spelling", { clear = true })
 vim.api.nvim_create_autocmd(
     {'BufRead', 'BufNewFile'}, {
     pattern = {'*.md', '*.txt', '*.rst'},
-    callback = function()
-      ActivateSpelling()
-    end
+    callback = function() ActivateSpelling() end,
+    group = spelling,
+})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern  = {'gitcommit', 'gitrebase'},
+    callback = function() ActivateSpelling() end,
+    group = spelling,
 })
 -- automatically generate pdf upon saving a latex file
 vim.api.nvim_create_autocmd(
@@ -121,11 +126,6 @@ vim.api.nvim_create_autocmd(
        vim.api.nvim_command('silent !pdflatex %')
       end
    end
-})
--- start git messages in insert mode
-vim.api.nvim_create_autocmd('FileType', {
-    pattern  = { 'gitcommit', 'gitrebase' },
-    command  = 'startinsert | 1'
 })
 -- reload config file on change
 vim.api.nvim_create_autocmd('BufWritePost', {
