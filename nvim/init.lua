@@ -216,7 +216,9 @@ local normal_mappings = {
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
   ['<leader>;'] = ']s1z=',  -- fix next spelling mistake with first suggestion
+  ['<M-l>']     = ']s1z=',
   ['<leader>:'] = '[s1z=',  -- fix previous spelling mistake with first suggestion
+  ['<M-h>']     = '[s1z=',
   ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T'] = '<cmd>startinsert | vs | term<CR>',
   -- lsp
@@ -246,6 +248,7 @@ local on_attach = function(_, bufnr)
     ['<leader>h'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    ['<leader>~'] = '<cmd>lua vim.lsp.buf.references()<CR>',
     ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
   }
