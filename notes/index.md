@@ -112,6 +112,7 @@
 ## Vim
 
 - [Global](vim/global.md)
+- [Multi File Changes](vim/multi-file.md)
 
 ## Linux
 
