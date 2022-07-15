@@ -232,8 +232,9 @@ local normal_mappings = {
   -- leader number mappings
   ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1'] = '<cmd>RunTests 0<CR>',
+  ['<leader>3'] = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4'] = '<cmd>Format<CR>',
-  ['<leader>5'] = '<cmd>MarkdownPreviewToggle<CR>',
+  ['<leader>5'] = '<cmd>Vexplore<CR>',
   ['<leader>8'] = '<cmd>SymbolsOutline<CR>',
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
@@ -254,7 +255,6 @@ local normal_mappings = {
   ['<Leader>c'] = '<cmd>Commits<CR>',
   ['<Leader>g'] = '<cmd>Rg<CR>',
   ['<leader>f'] = '<cmd>FZF<CR>',
-  ['<leader>x'] = '<cmd>Vexplore<CR>',
   ['<Leader>`'] = '<cmd>FZFMarks<CR>',
   ['<Leader>*'] = "<cmd>execute 'Rg' expand('<cword>')<CR>",
 }
