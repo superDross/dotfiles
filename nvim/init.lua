@@ -335,8 +335,9 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
+-- :LspInstallInfo (it installs everything within ~/.local/share/nvim/lsp_servers/)
 require("nvim-lsp-installer").setup{
-  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lua", "texlab" },
+  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lua", "dockerls", "vimls" },
   automatic_installation = true,
 }
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
@@ -356,7 +357,7 @@ require'lspconfig'.sumneko_lua.setup{
   }
 }
 require'lspconfig'.tsserver.setup{on_attach = on_attach}
-require'lspconfig'.texlab.setup{on_attach = on_attach}
+require'lspconfig'.ltex.setup{on_attach = on_attach, filetypes = {"tex"}}  -- spelling
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
