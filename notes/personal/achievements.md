@@ -463,3 +463,10 @@ Not a trivial task, took a lot of work and testing to ensure it was good prior t
 - GRYP-8406 separated nr streamer into a new project
 
 - GRYP-8348 refactored some of the logic along with fulfilling the tickets AC (I WANT TO HAVE MULTIPLE CASES OF THIS PRESENT OVER THE YEAR)
+
+## 15th July
+
+- refactored ivwbot logic further, including organising meeting with other devs about how we want to abstract the db model for ErrorAlert
+ - Create a base model class that has pydantic base model as a parent: https://jira.yougov.net/browse/GRYP-8400
+
+
