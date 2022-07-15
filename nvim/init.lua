@@ -23,6 +23,12 @@ vim.o.showmode = false
 vim.o.laststatus = 3
 
 
+-- NETRW SETTINGS -------------------------------------------------------
+vim.g.netrw_preview   = 1
+vim.g.netrw_liststyle = 3
+vim.g.netrw_winsize   = 30
+
+
 -- FUNCTIONS ------------------------------------------------------------
 function ActivateSpelling()
   vim.cmd('setlocal spell spelllang=en_gb')
@@ -170,6 +176,11 @@ require('packer').startup(function()
   use 'superDross/picobook'
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
+  -- markdown previewer
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
 end)
 
 
@@ -242,6 +253,7 @@ local normal_mappings = {
   ['<Leader>c'] = '<cmd>Commits<CR>',
   ['<Leader>g'] = '<cmd>Rg<CR>',
   ['<leader>f'] = '<cmd>FZF<CR>',
+  ['<leader>x'] = '<cmd>Vexplore<CR>',
   ['<Leader>`'] = '<cmd>FZFMarks<CR>',
   ['<Leader>*'] = "<cmd>execute 'Rg' expand('<cword>')<CR>",
 }
@@ -443,3 +455,9 @@ command! -bang -nargs=* RgContents
   \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0
   \)
 ]])
+
+
+-- Markdown Previewer ------------------------------------------------------
+vim.g.mkdp_auto_start = 1
+vim.g.mkdp_theme = 'light'
+vim.g.mkdp_browser = 'firefox'
