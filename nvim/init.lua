@@ -233,6 +233,7 @@ local normal_mappings = {
   ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1'] = '<cmd>RunTests 0<CR>',
   ['<leader>4'] = '<cmd>Format<CR>',
+  ['<leader>5'] = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>8'] = '<cmd>SymbolsOutline<CR>',
   ['<leader>9'] = '<cmd>RunCode 0<CR>',
   ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
@@ -458,6 +459,5 @@ command! -bang -nargs=* RgContents
 
 
 -- Markdown Previewer ------------------------------------------------------
-vim.g.mkdp_auto_start = 1
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
