@@ -146,8 +146,6 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-nvim-lsp'
   -- formatter
   use 'mhartington/formatter.nvim'
-  -- symbol viewer
-  use 'simrat39/symbols-outline.nvim'
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
@@ -289,10 +287,6 @@ vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 -- GIT ------------------------------------------------------------
 require('gitsigns').setup({ keymaps = {} })
-
-
--- TAGBAR ----------------------------------------------------------------
-vim.g.symbols_outline = {auto_preview = false}
 
 
 -- STATUSLINE ------------------------------------------------------------
