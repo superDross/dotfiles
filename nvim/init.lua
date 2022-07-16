@@ -124,7 +124,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 -- reload config file on change
 vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern  = vim.env.MYVIMRC,
+    pattern  = 'init.lua',
     command  = 'silent source %'
 })
 
