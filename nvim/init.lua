@@ -21,6 +21,7 @@ vim.o.foldmethod = "indent"
 vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
+vim.o.updatetime = 100
 
 
 -- NETRW SETTINGS -------------------------------------------------------
@@ -121,11 +122,6 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern  = {'gitcommit', 'gitrebase'},
     callback = function() ActivateSpelling() end,
     group = spelling,
-})
--- reload config file on change
-vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern  = 'init.lua',
-    command  = 'silent source %'
 })
 
 
