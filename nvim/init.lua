@@ -168,17 +168,17 @@ require('packer').startup(function()
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+  -- markdown previewer
+  use {
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  }
   -- personal plugins
   use 'superDross/class-builder'
   use 'superDross/ticket.vim'
   use 'superDross/picobook'
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
-  -- markdown previewer
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
 end)
 
 
