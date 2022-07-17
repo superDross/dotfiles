@@ -2,14 +2,124 @@
 
 **Contents**:
 
-- [Load Balancer](#load-balancer)
-- [Databases](#databases)
-- [Caching](#caching)
+[[toc]]
 
+## Resources
 
-Resources:
-
+- https://github.com/donnemartin/system-design-primer
 - https://www.youtube.com/watch?v=-W9F__D3oY4
+
+## Definitions
+
+**Performance**: usually refers to systems speed for a single user
+
+**Scalability**: usually refers to systems speed under heavy load.
+
+**Latency**: the time to produce a result.
+
+**Throughput**: the number of results per unit of time.
+
+## CAP Theorem
+
+We can only support 2 of these distributed systems, one of which **must** always be *partition tolerance*:
+
+**Consistency**: every request receives the most recent write
+
+**Availability**: every request receives a response, without guarantee of the most recent version of the data
+
+**Partition Tolerance**: partition refers to a communication break within a distributed system, tolerance means the cluster must continue to work despite breakdowns between nodes in the system
+
+**CP**: good choice if the business requires atomic reads and writes.
+
+**AP**: good choice if the business requires the system to continue working despite external errors.
+
+### Consistency Patterns
+
+**Weak Consistency**: After a write, reads may or may not return it (video chat, MMORPGs etc.)
+
+**Eventual Consistency**: After a write, reads will see it eventually, data is replicated async (DNS, email etc.)
+
+**Strong Consistency**: After a write, reads will see it, data is replicated sync (Postgres etc.)
+
+### Availability Patterns
+
+**High Availability (HA)**: ability of a system to operate continuously without failing for a designated period of time.
+
+Availability is measured as a percentage of uptime and defines the proportion of time that a system is functional and working.
+
+HA is the goal and there are two main patterns to achieve this:
+
+**Fail-Over Active-Passive AKA Master-Slave**: heartbeats are sent between servers from active to passive. If hearbeat fails then the passive becomes the active server.
+
+**Fail-Over Active-Active AKA Master-Master**: both servers manage traffic spreading the load between them.
+
+Quantified by service uptime as a percentage with 99.9% (three 9s) being a minimum target.
+
+
+## Domain Name System (DNS)
+
+Translates a domain name (`www.google.com`) into an IP address (173.194.115.96)
+
+Below is how the request for a domain name is handled with each system having a possible cache layer so the requests are not constantly made.
+
+Browsers usually use a TTL cache.
+
+```plantuml
+@startuml
+Laptop -> ISP_DNS_Server: Request Domain IP
+ISP_DNS_Server -> Laptop: Return IP
+ISP_DNS_Server -> Root_DNS_Server: Request Domain IP
+Root_DNS_Server -> ISP_DNS_Server: Return IP
+@enduml
+```
+
+CloudFlare, Googles 8.8.8.8 and OpenDNS are examples of managed DNS services.
+
+DNS services are susceptible to DDoS attacks.
+
+
+## Content Delivery Network (CDN)
+
+A globally distributed network of proxy servers, serving content closer to the user.
+
+Generally static files such as HTML/CSS/JS/ or media content are served from CDN.
+
+The sites DNS resolution will tell clients which server to contact.
+
+**Advantages**:
+- user gets content faster as the data center selected is the closest to them
+- your app server does not have to serve the requests the CDN fulfils.
+
+**Disadvantages**:
+- content might be stale if it is updated before the TTL expires it
+- expensive so have to carefully consider cost effectiveness
+- another point of failure, but it is out of your control
+
+AWS CloudFront is a CDN that is often used.
+
+### Types
+
+**Push CDNs**: receive new content whenever changes occur on your server.
+
+Advantages:
+- you determine when content is delivered to CDN and when it expires
+- efficient as CDNs are more up-to-date so less requests to app server
+
+Disadvantages:
+- high storage consumption
+- requires detailed configuration
+
+**Pull CDNs**: grab new content from your server when the first user requests the content.
+
+Advantages:
+- CDN does most of the work
+- minimises storage consumption
+
+Disadvantages:
+- slower for first visitors
+
+Push is more expensive (more data being transferred, increase amount stored on CDN) but ensures CDNs are kept up to data, pull is less expensive but can serve outdated content
+
 
 
 ## Load Balancer
