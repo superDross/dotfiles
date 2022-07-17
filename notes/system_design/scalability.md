@@ -64,13 +64,8 @@ Below is how the request for a domain name is handled with each system having a 
 
 Browsers usually use a TTL cache.
 
-```plantuml
-@startuml
-Laptop -> ISP_DNS_Server: Request Domain IP
-ISP_DNS_Server -> Laptop: Return IP
-ISP_DNS_Server -> Root_DNS_Server: Request Domain IP
-Root_DNS_Server -> ISP_DNS_Server: Return IP
-@enduml
+```
+Laptop <--> ISP DNS Server <--> Root DNS Server 
 ```
 
 CloudFlare, Googles 8.8.8.8 and OpenDNS are examples of managed DNS services.
