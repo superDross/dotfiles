@@ -11,7 +11,7 @@ vim.o.linebreak = true
 vim.o.breakindent = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.undolevels=10000000
+vim.o.undolevels = 10000000
 vim.o.undofile = true
 vim.o.path = vim.o.path .. "**"
 vim.o.wildignore = '*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*,*.pyc'
@@ -58,7 +58,7 @@ end
 
 function Format()
   -- determines if filetype should use Format plugin or lsp formatter
-  local custom_formatter = {"python"}
+  local custom_formatter = { "python" }
   if HasValue(custom_formatter, vim.bo.filetype) then
     vim.api.nvim_command("Format")
   else
@@ -78,7 +78,7 @@ iabbrev scriptline if __name__ == '__main__':<CR>
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function() vim.highlight.on_yank{timeout=500} end,
+  callback = function() vim.highlight.on_yank { timeout = 500 } end,
 })
 -- make neovim terminal more like vim terminal
 local vim_term = vim.api.nvim_create_augroup("vim_term", { clear = true })
@@ -89,7 +89,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
   group = vim_term
 })
-vim.api.nvim_create_autocmd({"BufWinEnter", "WinEnter"}, {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
   callback = function()
     if vim.bo.buftype == "terminal" then vim.cmd("startinsert") end
   end,
@@ -100,8 +100,8 @@ vim.api.nvim_create_autocmd("TermClose", {
   group = vim_term
 })
 -- indentation spacing
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-  pattern = {"*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vue"},
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vue" },
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.tabstop = 2
@@ -111,36 +111,36 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
 })
 -- jumps to the last position when reopening a file
 vim.api.nvim_create_autocmd(
-    {'BufReadPost'},{
-    pattern = {'*'},
-    callback = function()
-        local ft = vim.opt_local.filetype:get()
-        -- don't apply to git messages
-        if (ft:match('commit') or ft:match('rebase')) then
-            return
-        end
-        -- get position of last saved edit
-        local markpos = vim.api.nvim_buf_get_mark(0,'"')
-        local line = markpos[1]
-        local col = markpos[2]
-        -- if in range, go there
-        if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
-            vim.api.nvim_win_set_cursor(0,{line,col})
-        end
+  { 'BufReadPost' }, {
+  pattern = { '*' },
+  callback = function()
+    local ft = vim.opt_local.filetype:get()
+    -- don't apply to git messages
+    if (ft:match('commit') or ft:match('rebase')) then
+      return
     end
+    -- get position of last saved edit
+    local markpos = vim.api.nvim_buf_get_mark(0, '"')
+    local line = markpos[1]
+    local col = markpos[2]
+    -- if in range, go there
+    if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
+      vim.api.nvim_win_set_cursor(0, { line, col })
+    end
+  end
 })
 -- automatically set spelling settings on when opening certain file types
 local spelling = vim.api.nvim_create_augroup("spelling", { clear = true })
 vim.api.nvim_create_autocmd(
-    {'BufRead', 'BufNewFile'}, {
-    pattern = {'*.md', '*.txt', '*.rst'},
-    callback = function() ActivateSpelling() end,
-    group = spelling,
+  { 'BufRead', 'BufNewFile' }, {
+  pattern = { '*.md', '*.txt', '*.rst' },
+  callback = function() ActivateSpelling() end,
+  group = spelling,
 })
 vim.api.nvim_create_autocmd('FileType', {
-    pattern  = {'gitcommit', 'gitrebase'},
-    callback = function() ActivateSpelling() end,
-    group = spelling,
+  pattern  = { 'gitcommit', 'gitrebase' },
+  callback = function() ActivateSpelling() end,
+  group    = spelling,
 })
 
 
@@ -153,8 +153,8 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'williamboman/nvim-lsp-installer'
   use {
-      'nvim-treesitter/nvim-treesitter',
-      run = ':TSUpdate'
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
   }
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -208,10 +208,10 @@ vim.cmd([[colorscheme gruvbox]])
 
 
 -- MAPPINGS ------------------------------------------------------------
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.g.mapleader = ' '
 
-function SetKeymap (mode, mappings, options)
+function SetKeymap(mode, mappings, options)
   -- set mappings based upon {key: command}
   for map, func in pairs(mappings) do
     vim.keymap.set(mode, map, func, options)
@@ -233,43 +233,43 @@ local normal_mappings = {
   -- folding
   ['<leader><leader>'] = 'za',
   -- clipboard
-  ['<leader>y'] = '"+y',
-  ['<leader>p'] = '"+p',
+  ['<leader>y']        = '"+y',
+  ['<leader>p']        = '"+p',
   -- undo mappings
-  ['<leader>u'] = '<cmd>MundoToggle<CR>',
+  ['<leader>u']        = '<cmd>MundoToggle<CR>',
   -- git mappings
-  ['<leader>m'] = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+  ['<leader>m']        = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
   -- tab mappings
-  ['<C-h>'] = ':tabprevious<CR>',
-  ['<C-l>'] = ':tabnext<CR>',
+  ['<C-h>']            = ':tabprevious<CR>',
+  ['<C-l>']            = ':tabnext<CR>',
   -- leader number mappings
-  ['<leader>0'] = ':set hlsearch! hlsearch?<CR>',
-  ['<leader>1'] = '<cmd>RunTests 0<CR>',
-  ['<leader>3'] = '<cmd>MarkdownPreviewToggle<CR>',
-  ['<leader>4'] = '<cmd>lua Format()<CR>',
-  ['<leader>5'] = '<cmd>Vexplore<CR>',
-  ['<leader>8'] = '<cmd>SymbolsOutline<CR>',
-  ['<leader>9'] = '<cmd>RunCode 0<CR>',
-  ['<leader>s'] = '<cmd>lua SpellingToggle()<CR>',
-  ['<leader>;'] = ']s1z=',  -- fix next spelling mistake with first suggestion
-  ['<M-l>']     = ']s1z=',
-  ['<leader>:'] = '[s1z=',  -- fix previous spelling mistake with first suggestion
-  ['<M-h>']     = '[s1z=',
-  ['<leader>t'] = '<cmd>startinsert | sp | resize 15 | term<CR>',
-  ['<leader>T'] = '<cmd>startinsert | vs | term<CR>',
+  ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
+  ['<leader>1']        = '<cmd>RunTests 0<CR>',
+  ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
+  ['<leader>4']        = '<cmd>lua Format()<CR>',
+  ['<leader>5']        = '<cmd>Vexplore<CR>',
+  ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
+  ['<leader>9']        = '<cmd>RunCode 0<CR>',
+  ['<leader>s']        = '<cmd>lua SpellingToggle()<CR>',
+  ['<leader>;']        = ']s1z=', -- fix next spelling mistake with first suggestion
+  ['<M-l>']            = ']s1z=',
+  ['<leader>:']        = '[s1z=', -- fix previous spelling mistake with first suggestion
+  ['<M-h>']            = '[s1z=',
+  ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
+  ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
   -- lsp
-  ['<leader>e'] = '<cmd>lua vim.diagnostic.open_float()<CR>',
-  ['<leader>j'] = '<cmd>lua vim.diagnostic.goto_next()<CR>',
-  ['<leader>k'] = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
-  ['<leader>q'] = '<cmd>lua vim.diagnostic.setloclist()<CR>',
+  ['<leader>e']        = '<cmd>lua vim.diagnostic.open_float()<CR>',
+  ['<leader>j']        = '<cmd>lua vim.diagnostic.goto_next()<CR>',
+  ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+  ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
-  ['<Leader>a'] = '<cmd>RgContents<CR>',
-  ['<Leader>b'] = '<cmd>Buffers<CR>',
-  ['<Leader>c'] = '<cmd>Commits<CR>',
-  ['<Leader>g'] = '<cmd>Rg<CR>',
-  ['<leader>f'] = '<cmd>FZF<CR>',
-  ['<Leader>`'] = '<cmd>FZFMarks<CR>',
-  ['<Leader>*'] = "<cmd>execute 'Rg' expand('<cword>')<CR>",
+  ['<Leader>a']        = '<cmd>RgContents<CR>',
+  ['<Leader>b']        = '<cmd>Buffers<CR>',
+  ['<Leader>c']        = '<cmd>Commits<CR>',
+  ['<Leader>g']        = '<cmd>Rg<CR>',
+  ['<leader>f']        = '<cmd>FZF<CR>',
+  ['<Leader>`']        = '<cmd>FZFMarks<CR>',
+  ['<Leader>*']        = "<cmd>execute 'Rg' expand('<cword>')<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -311,21 +311,21 @@ require('lualine').setup({
     globalstatus = true
   },
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff' },
     lualine_c = {
       {
-	'filename',
-	symbols = {
-	  modified = " | +",
-	  readonly = " | RO",
-	}
+        'filename',
+        symbols = {
+          modified = " | +",
+          readonly = " | RO",
+        }
       }
     },
     lualine_x = {
       {
         'diagnostics',
-        sources = { 'nvim_diagnostic'},
+        sources = { 'nvim_diagnostic' },
         sections = { 'error', 'warn', 'info', 'hint' },
         diagnostics_color = {
           error = 'DiagnosticError',
@@ -333,31 +333,31 @@ require('lualine').setup({
           info  = 'DiagnosticInfo',
           hint  = 'DiagnosticHint',
         },
-        symbols = {error = '✘ ', warn = '⏶ ', info = 'ℹ ', hint = '? '},
+        symbols = { error = '✘ ', warn = '⏶ ', info = 'ℹ ', hint = '? ' },
         colored = true,
         update_in_insert = false,
         always_visible = false,
       }
     },
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
   }
 })
 
 
 -- LSP ------------------------------------------------------------
 -- :LspInstallInfo (it installs everything within ~/.local/share/nvim/lsp_servers/)
-require("nvim-lsp-installer").setup{
+require("nvim-lsp-installer").setup {
   ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lua", "dockerls", "vimls" },
   automatic_installation = true,
 }
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 -- e.g. settings = { pylsp = { plugins = { flake8 = { maxLineLength = 10 } } } }
-require'lspconfig'.pylsp.setup{on_attach = on_attach}
-require'lspconfig'.bashls.setup{on_attach = on_attach}
-require'lspconfig'.dockerls.setup{on_attach = on_attach}
-require'lspconfig'.vimls.setup{on_attach = on_attach}
-require'lspconfig'.sumneko_lua.setup{
+require 'lspconfig'.pylsp.setup { on_attach = on_attach }
+require 'lspconfig'.bashls.setup { on_attach = on_attach }
+require 'lspconfig'.dockerls.setup { on_attach = on_attach }
+require 'lspconfig'.vimls.setup { on_attach = on_attach }
+require 'lspconfig'.sumneko_lua.setup {
   on_attach = on_attach,
   settings = {
     Lua = {
@@ -366,18 +366,18 @@ require'lspconfig'.sumneko_lua.setup{
     }
   }
 }
-require'lspconfig'.tsserver.setup{on_attach = on_attach}
-require'lspconfig'.ltex.setup{on_attach = on_attach, filetypes = {"tex"}}  -- spelling
+require 'lspconfig'.tsserver.setup { on_attach = on_attach }
+require 'lspconfig'.ltex.setup { on_attach = on_attach, filetypes = { "tex" } } -- spelling
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false
+}
 )
 -- change gutter symbols
-vim.fn.sign_define("DiagnosticSignWarn", { text = "--", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignError", { text = ">>", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignHint", { text = "?", texthl = "DiagnosticSignHint"})
+vim.fn.sign_define("DiagnosticSignWarn", { text = "--", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignError", { text = ">>", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "?", texthl = "DiagnosticSignHint" })
 
 
 -- FORMATTERS ------------------------------------------------------------
@@ -416,15 +416,15 @@ cmp.setup {
     autocomplete = false,
   },
   mapping = {
-      ['<Tab>'] = function(fallback)
-        if not cmp.select_next_item() then
-          if vim.bo.buftype ~= 'prompt' and has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
+    ['<Tab>'] = function(fallback)
+      if not cmp.select_next_item() then
+        if vim.bo.buftype ~= 'prompt' and has_words_before() then
+          cmp.complete()
+        else
+          fallback()
         end
-      end,
+      end
+    end,
     ['<S-Tab>'] = function(fallback)
       if not cmp.select_prev_item() then
         if vim.bo.buftype ~= 'prompt' and has_words_before() then
@@ -447,7 +447,7 @@ cmp.setup {
 
 
 -- TREESITTERS ------------------------------------------------------------
-require'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
