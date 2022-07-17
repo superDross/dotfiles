@@ -13,11 +13,11 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.undolevels = 10000000
 vim.o.undofile = true
-vim.o.path = vim.o.path .. "**"
+vim.o.path = vim.o.path .. '**'
 vim.o.wildignore = '*node_modules/*,*bower_components/*,*venv/*,*__pycache__/*,*.pyc'
 vim.o.hlsearch = false
-vim.o.completeopt = "menu,menuone,noselect"
-vim.o.foldmethod = "indent"
+vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.foldmethod = 'indent'
 vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
@@ -38,7 +38,7 @@ end
 
 function SpellingToggle()
   if vim.o.spell == false then
-    print("spelling on")
+    print('spelling on')
     ActivateSpelling()
   else
     print('spelling off')
@@ -58,9 +58,9 @@ end
 
 function Format()
   -- determines if filetype should use Format plugin or lsp formatter
-  local custom_formatter = { "python" }
+  local custom_formatter = { 'python' }
   if HasValue(custom_formatter, vim.bo.filetype) then
-    vim.api.nvim_command("Format")
+    vim.api.nvim_command('Format')
   else
     vim.lsp.buf.formatting()
   end
@@ -77,31 +77,31 @@ iabbrev scriptline if __name__ == '__main__':<CR>
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank { timeout = 500 } end,
 })
 -- make neovim terminal more like vim terminal
-local vim_term = vim.api.nvim_create_augroup("vim_term", { clear = true })
-vim.api.nvim_create_autocmd("TermOpen", {
+local vim_term = vim.api.nvim_create_augroup('vim_term', { clear = true })
+vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
     vim.opt_local.relativenumber = false
     vim.opt_local.number = false
   end,
   group = vim_term
 })
-vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
   callback = function()
-    if vim.bo.buftype == "terminal" then vim.cmd("startinsert") end
+    if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
   end,
   group = vim_term
 })
-vim.api.nvim_create_autocmd("TermClose", {
-  command = "stopinsert",
+vim.api.nvim_create_autocmd('TermClose', {
+  command = 'stopinsert',
   group = vim_term
 })
 -- indentation spacing
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "*.js", "*.html", "*.css", "*.jsx", "*.lua", "*.vue" },
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = { '*.js', '*.html', '*.css', '*.jsx', '*.lua', '*.vue' },
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.tabstop = 2
@@ -130,7 +130,7 @@ vim.api.nvim_create_autocmd(
   end
 })
 -- automatically set spelling settings on when opening certain file types
-local spelling = vim.api.nvim_create_augroup("spelling", { clear = true })
+local spelling = vim.api.nvim_create_augroup('spelling', { clear = true })
 vim.api.nvim_create_autocmd(
   { 'BufRead', 'BufNewFile' }, {
   pattern = { '*.md', '*.txt', '*.rst' },
@@ -185,8 +185,8 @@ require('packer').startup(function()
   }
   -- markdown previewer
   use {
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
   }
   -- personal plugins
   use 'superDross/class-builder'
@@ -198,12 +198,12 @@ end)
 
 
 -- COLOURSCHEMES ------------------------------------------------------------
-vim.g.gruvbox_contrast_dark = "hard"
+vim.g.gruvbox_contrast_dark = 'hard'
 vim.g.gruvbox_sign_column = 'bg0'
 vim.g.gruvbox_color_column = 'bg0'
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
-vim.env.BAT_THEME = "gruvbox-dark"
+vim.env.BAT_THEME = 'gruvbox-dark'
 vim.cmd([[colorscheme gruvbox]])
 
 
@@ -347,8 +347,8 @@ require('lualine').setup({
 
 -- LSP ------------------------------------------------------------
 -- :LspInstallInfo (it installs everything within ~/.local/share/nvim/lsp_servers/)
-require("nvim-lsp-installer").setup {
-  ensure_installed = { "pylsp", "bashls", "tsserver", "sumneko_lua", "dockerls", "vimls" },
+require('nvim-lsp-installer').setup {
+  ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
   automatic_installation = true,
 }
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
@@ -367,17 +367,17 @@ require 'lspconfig'.sumneko_lua.setup {
   }
 }
 require 'lspconfig'.tsserver.setup { on_attach = on_attach }
-require 'lspconfig'.ltex.setup { on_attach = on_attach, filetypes = { "tex" } } -- spelling
+require 'lspconfig'.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
 -- disable inline diagnostics for LSPs
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false
 }
 )
 -- change gutter symbols
-vim.fn.sign_define("DiagnosticSignWarn", { text = "--", texthl = "DiagnosticSignWarn" })
-vim.fn.sign_define("DiagnosticSignError", { text = ">>", texthl = "DiagnosticSignError" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "?", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
+vim.fn.sign_define('DiagnosticSignError', { text = '>>', texthl = 'DiagnosticSignError' })
+vim.fn.sign_define('DiagnosticSignHint', { text = '?', texthl = 'DiagnosticSignHint' })
 
 
 -- FORMATTERS ------------------------------------------------------------
@@ -386,15 +386,15 @@ require('formatter').setup({
     python = {
       function()
         return {
-          exe = "isort",
-          args = { "-" },
+          exe = 'isort',
+          args = { '-' },
           stdin = true,
         }
       end,
       function()
         return {
-          exe = "black",
-          args = { "-" },
+          exe = 'black',
+          args = { '-' },
           stdin = true,
         }
       end
@@ -466,6 +466,6 @@ command! -bang -nargs=* RgContents
 ]])
 
 
--- Markdown Previewer ------------------------------------------------------
+-- MARKDOWN PREVIEWER ------------------------------------------------------
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
