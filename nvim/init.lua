@@ -40,10 +40,10 @@ end
 
 function SpellingToggle()
   if vim.o.spell == false then
-    print('spelling on')
+    print('Spelling On')
     ActivateSpelling()
   else
-    print('spelling off')
+    print('Spelling Off')
     vim.cmd('setlocal nospell')
   end
 end
