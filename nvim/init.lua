@@ -22,6 +22,8 @@ vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
 vim.o.updatetime = 100
+vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
+vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
 
 
 -- NETRW SETTINGS -------------------------------------------------------
@@ -49,9 +51,7 @@ end
 function HasValue(table, val)
   -- check if value is in table (list)
   for _, value in ipairs(table) do
-    if value == val then
-      return true
-    end
+    if value == val then return true end
   end
   return false
 end
@@ -59,11 +59,8 @@ end
 function Format()
   -- determines if filetype should use Format plugin or lsp formatter
   local custom_formatter = { 'python' }
-  if HasValue(custom_formatter, vim.bo.filetype) then
-    vim.api.nvim_command('Format')
-  else
-    vim.lsp.buf.formatting()
-  end
+  local use_custom = HasValue(custom_formatter, vim.bo.filetype)
+  if use_custom then vim.api.nvim_command('Format') else vim.lsp.buf.formatting() end
 end
 
 -- SNIPPETS ------------------------------------------------------------
@@ -173,7 +170,8 @@ require('packer').startup(function()
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    tag = 'release'
+    tag = 'release',
+    config = require('gitsigns').setup({ keymaps = {} })
   }
   -- file searcher
   use 'junegunn/fzf.vim'
@@ -300,10 +298,6 @@ vim.g.notesdir = '~/bin/dotfiles/notes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 
--- GIT ------------------------------------------------------------
-require('gitsigns').setup({ keymaps = {} })
-
-
 -- STATUSLINE ------------------------------------------------------------
 require('lualine').setup({
   options = {
@@ -385,18 +379,10 @@ require('formatter').setup({
   filetype = {
     python = {
       function()
-        return {
-          exe = 'isort',
-          args = { '-' },
-          stdin = true,
-        }
+        return { exe = 'isort', args = { '-' }, stdin = true }
       end,
       function()
-        return {
-          exe = 'black',
-          args = { '-' },
-          stdin = true,
-        }
+        return { exe = 'black', args = { '-' }, stdin = true }
       end
     }
   }
@@ -412,9 +398,7 @@ end
 -- compare completion methods https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require('cmp')
 cmp.setup {
-  completion = {
-    autocomplete = false,
-  },
+  completion = { autocomplete = false },
   mapping = {
     ['<Tab>'] = function(fallback)
       if not cmp.select_next_item() then
@@ -448,10 +432,7 @@ cmp.setup {
 
 -- TREESITTERS ------------------------------------------------------------
 require 'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
+  highlight = { enable = true, additional_vim_regex_highlighting = false },
 } -- TSInstall all
 
 
