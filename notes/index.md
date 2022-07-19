@@ -42,6 +42,8 @@
 
 ## Algorithms
 
+- [Time Complexity](algorithms/time_complexity.md)
+
 ### Searching
 
 - [Linear Search](algorithms/linear_search.py)
