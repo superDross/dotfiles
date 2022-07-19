@@ -37,6 +37,7 @@ function update_and_install(){
     bat \
     clang \
     ctags \
+    cracklib \
     cups \
     docker \
     evince \
