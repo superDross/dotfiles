@@ -276,10 +276,10 @@ local normal_mappings = {
   -- FZF
   ['<Leader>b']        = '<cmd>FzfLua buffers<CR>',
   ['<Leader>c']        = '<cmd>FzfLua git_commits<CR>',
-  ['<Leader>g']        = '<cmd>FzfLua live_grep_native<CR>',
-  ['<leader>f']        = '<cmd>FzfLua files<CR>',
+  ['<Leader>g']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
+  ['<leader>f']        = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
   ['<Leader>`']        = '<cmd>FzfLua marks<CR>',
-  ['<Leader>*']        = "<cmd>FzfLua grep_cword<CR>",
+  ['<Leader>*']        = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
