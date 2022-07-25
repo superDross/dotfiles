@@ -148,7 +148,8 @@ require('packer').startup(function()
   use 'wbthomason/packer.nvim'
   -- lsp configs
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate'
@@ -353,7 +354,8 @@ require('lualine').setup({
 
 -- LSP ------------------------------------------------------------
 -- :LspInstallInfo (it installs everything within ~/.local/share/nvim/lsp_servers/)
-require('nvim-lsp-installer').setup {
+require('mason').setup {}
+require('mason-lspconfig').setup {
   ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
   automatic_installation = true,
 }
