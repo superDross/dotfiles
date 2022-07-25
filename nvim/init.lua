@@ -275,6 +275,7 @@ local normal_mappings = {
   ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
+  ['<Leader>a']        = '<cmd>FzfLua live_grep_resume<CR>',
   ['<Leader>b']        = '<cmd>FzfLua buffers<CR>',
   ['<Leader>c']        = '<cmd>FzfLua git_commits<CR>',
   ['<Leader>g']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
@@ -353,7 +354,7 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
--- :LspInstallInfo (it installs everything within ~/.local/share/nvim/lsp_servers/)
+-- :Mason (it installs everything within ~/.local/share/nvim/mason/)
 require('mason').setup {}
 require('mason-lspconfig').setup {
   ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
@@ -453,3 +454,17 @@ require 'nvim-treesitter.configs'.setup {
 -- MARKDOWN PREVIEWER ------------------------------------------------------
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
+
+
+-- FZF
+local actions = require 'fzf-lua.actions'
+require 'fzf-lua'.setup({
+  actions = {
+    files = {
+      ["default"] = actions.file_edit,
+      ["ctrl-x"]  = actions.file_split,
+      ["ctrl-v"]  = actions.file_vsplit,
+      ["ctrl-t"]  = actions.file_tabedit,
+    }
+  }
+})
