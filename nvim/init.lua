@@ -355,28 +355,33 @@ require('lualine').setup({
 
 -- LSP ------------------------------------------------------------
 -- :Mason (it installs everything within ~/.local/share/nvim/mason/)
+local mason_lspconfig = require('mason-lspconfig')
+local lspconfig = require("lspconfig")
+
 require('mason').setup {}
-require('mason-lspconfig').setup {
+mason_lspconfig.setup {
   ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
   automatic_installation = true,
 }
--- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
--- e.g. settings = { pylsp = { plugins = { flake8 = { maxLineLength = 10 } } } }
-require 'lspconfig'.pylsp.setup { on_attach = on_attach }
-require 'lspconfig'.bashls.setup { on_attach = on_attach }
-require 'lspconfig'.dockerls.setup { on_attach = on_attach }
-require 'lspconfig'.vimls.setup { on_attach = on_attach }
-require 'lspconfig'.sumneko_lua.setup {
-  on_attach = on_attach,
-  settings = {
-    Lua = {
-      runtime = { version = 'LuaJIT' },
-      diagnostics = { globals = { 'vim' } },
+
+-- automatically start each server when the corresponding filetype is opened
+mason_lspconfig.setup_handlers({
+  function(server_name)
+    lspconfig[server_name].setup { on_attach = on_attach }
+  end,
+  -- provide targeted overrides for specific servers.
+  ['sumneko_lua'] = function()
+    lspconfig.sumneko_lua.setup {
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = { 'vim' } },
+        }
+      }
     }
-  }
-}
-require 'lspconfig'.tsserver.setup { on_attach = on_attach }
-require 'lspconfig'.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
+  end,
+})
+
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
