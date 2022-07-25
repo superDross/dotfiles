@@ -174,8 +174,10 @@ require('packer').startup(function()
     config = require('gitsigns').setup({ keymaps = {} })
   }
   -- file searcher
-  use 'junegunn/fzf.vim'
-  use 'chengzeyi/fzf-preview.vim'
+  use {
+    'ibhagwan/fzf-lua',
+    requires = { 'kyazdani42/nvim-web-devicons' }
+  }
   -- statusline
   use {
     'nvim-lualine/lualine.nvim',
@@ -196,12 +198,23 @@ end)
 
 
 -- COLOURSCHEMES ------------------------------------------------------------
-vim.g.gruvbox_contrast_dark = 'hard'
-vim.g.gruvbox_sign_column = 'bg0'
-vim.g.gruvbox_color_column = 'bg0'
+local colors = require('gruvbox.palette')
+require('gruvbox').setup({
+  contrast = 'hard',
+  overrides = {
+    SignColumn = { bg = colors.dark0_hard },
+    -- temp fix for git signs in column https://github.com/ellisonleao/gruvbox.nvim/issues/129
+    GruvboxRedSign = { fg = colors.red, bg = colors.dark0_hard, reverse = false },
+    GruvboxGreenSign = { fg = colors.green, bg = colors.dark0_hard, reverse = false },
+    GruvboxYellowSign = { fg = colors.yellow, bg = colors.dark0_hard, reverse = false },
+    GruvboxBlueSign = { fg = colors.blue, bg = colors.dark0_hard, reverse = false },
+    GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0_hard, reverse = false },
+    GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0_hard, reverse = false },
+    GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0_hard, reverse = false },
+  }
+})
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
-vim.env.BAT_THEME = 'gruvbox-dark'
 vim.cmd([[colorscheme gruvbox]])
 
 
@@ -261,13 +274,12 @@ local normal_mappings = {
   ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
-  ['<Leader>a']        = '<cmd>RgContents<CR>',
-  ['<Leader>b']        = '<cmd>Buffers<CR>',
-  ['<Leader>c']        = '<cmd>Commits<CR>',
-  ['<Leader>g']        = '<cmd>Rg<CR>',
-  ['<leader>f']        = '<cmd>FZF<CR>',
-  ['<Leader>`']        = '<cmd>FZFMarks<CR>',
-  ['<Leader>*']        = "<cmd>execute 'Rg' expand('<cword>')<CR>",
+  ['<Leader>b']        = '<cmd>FzfLua buffers<CR>',
+  ['<Leader>c']        = '<cmd>FzfLua git_commits<CR>',
+  ['<Leader>g']        = '<cmd>FzfLua live_grep_native<CR>',
+  ['<leader>f']        = '<cmd>FzfLua files<CR>',
+  ['<Leader>`']        = '<cmd>FzfLua marks<CR>',
+  ['<Leader>*']        = "<cmd>FzfLua grep_cword<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -434,17 +446,6 @@ cmp.setup {
 require 'nvim-treesitter.configs'.setup {
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 } -- TSInstall all
-
-
--- FZF --------------------------------------------------------------------
-vim.env.FZF_DEFAULT_COMMAND = "rg --files --hidden --follow --glob '!.git'"
-vim.cmd([[
-command! -bang -nargs=* RgContents
-  \ call fzf#vim#grep(
-  \ 'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \ fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0
-  \)
-]])
 
 
 -- MARKDOWN PREVIEWER ------------------------------------------------------
