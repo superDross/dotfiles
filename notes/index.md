@@ -1,5 +1,7 @@
 # Development
 
+[[toc]]
+
 ## Soft Skills
 
 - [Reviewer Checklist](soft_skills/reviewer_checklist.md)
@@ -93,13 +95,13 @@
 - [ACID](web/acid.md): Atomicity, Consistency, Isolation & Durability (ACID)
 - [Query Processing](sql/query_processing.md): Logical Query Processing
 
-## NoSQL
-
-- [MongoDB](mongo/mongo.md): Basic Mongo
-
 ### Postgres
 
 - [General](sql/postgres/general.md)
+
+## NoSQL
+
+- [MongoDB](mongo/mongo.md): Basic Mongo
 
 ## Tools
 
