@@ -118,8 +118,7 @@ vim.api.nvim_create_autocmd(
     end
     -- get position of last saved edit
     local markpos = vim.api.nvim_buf_get_mark(0, '"')
-    local line = markpos[1]
-    local col = markpos[2]
+    local line, col = markpos[1], markpos[2]
     -- if in range, go there
     if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
       vim.api.nvim_win_set_cursor(0, { line, col })
@@ -150,10 +149,7 @@ require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate'
-  }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -461,7 +457,7 @@ vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
 
 
--- FZF
+-- FZF ---------------------------------------------------------------------
 local actions = require 'fzf-lua.actions'
 require 'fzf-lua'.setup({
   actions = {
