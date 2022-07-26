@@ -368,6 +368,7 @@ mason_lspconfig.setup_handlers({
   -- provide targeted overrides for specific servers.
   ['sumneko_lua'] = function()
     lspconfig.sumneko_lua.setup {
+      on_attach = on_attach,
       settings = {
         Lua = {
           runtime = { version = 'LuaJIT' },
