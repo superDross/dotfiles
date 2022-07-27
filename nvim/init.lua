@@ -377,6 +377,9 @@ mason_lspconfig.setup_handlers({
       }
     }
   end,
+  ['ltex'] = function()
+    lspconfig.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
+  end
 })
 
 -- disable inline diagnostics for LSPs
