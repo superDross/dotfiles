@@ -37,7 +37,7 @@ We can only support 2 of these distributed systems, one of which **must** always
 
 **Weak Consistency**: After a write, reads may or may not return it (video chat, MMORPGs etc.)
 
-**Eventual Consistency**: After a write, reads will see it eventually, data is replicated async (DNS, email etc.)
+**Eventual Consistency**: After a write, reads will see it eventually, data is replicated async (MongoDB, DNS, email etc.)
 
 **Strong Consistency**: After a write, reads will see it, data is replicated sync (Postgres etc.)
 
@@ -117,15 +117,28 @@ Push is more expensive (more data being transferred, increase amount stored on C
 
 
 
+
 ## Load Balancer
 
 Public servers of a scalable web service are hidden behind a load balancer.  This load balancer evenly distributes load (requests from your users) onto your group/cluster of  application servers. That means that if, for example, user Steve interacts with your service, he may be served at his first request by server 2, then with his second request by server 9 and then maybe again by server 2 on his third request. 
 
 Every server contains exactly the same codebase and does not store any user-related data, like sessions or profile pictures, on local disc or memory. 
 
-Sessions need to be stored in a centralized data store which is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis. An external persistent cache will have better performance than an external database. By external I mean that the data store does not reside on the application servers. Instead, it is somewhere in or near the data center of your application servers. 
+Sessions **needs** to be stored in a centralized data store which is accessible to all your application servers. It can be an external database or an external persistent cache, like Redis. An external persistent cache will have better performance than an external database. By external, I mean that the data store does not reside on the application servers. Instead, it is somewhere in or near the data centre of your application servers. 
 
 This pattern is called horizontal scaling.
+
+Advantages:
+- prevent request going to unhealthy servers
+- prevent overloading resources
+- eliminates a single point of failure
+
+Disadvantages:
+- LB is a performance bottleneck
+- increase complexity
+- a single load balancer is a single point of failure
+
+Load balancers can be implemented with hardware or software such as HAProxy.
 
 ### Simple Explanation
 
@@ -141,25 +154,25 @@ client2 ---> |             | ----> server1
 
 There are many ways to do this
 
-### Round Robin
+#### Round Robin
 
 Iterate through all the servers ip addresses sequentially for each request.
 
 e.g. request 1 goes to server1, request 2 goes to server2, request 3 goes to server1 etc.
 
-To implement this properly we need to use caching to ensure that cpu intensive tasks are not done over and over again.
+To implement this properly we need to use caching to ensure that CPU intensive tasks are not done over and over again.
 
+#### Layer 4 Load Balancing
 
-Session data is stored on a separate server or RAID so we can share state across all the servers.
+Looks at [layer 4](../web/osi_model.md) to decide how to distribute requests.
 
-Session data could be stored on a shared database that all servers will have access to.
+This involves the source, destination IP address and ports in the header and not the packet contents.
 
+#### Layer 7 Load Balancing
 
-RAID (specifically RAID1) is essentially having multiple HDDs storing the exact same data such that if one HDD fails, your data is not lost.
+Looks at [layer 7](../web/osi_model.md) to decide how to distribute requests.
 
-Any lost data is then copied back to the other drive.
-
-There is multiple forms of RAID.
+This involves layer 4 LB plus cookies etc. are used too to determine routing e.g. can see it is a video and therefore distribute to a video streaming specific server.
 
 
 ### LB Replication
@@ -176,29 +189,31 @@ High availability (HA); paradigm that eliminates single points of failure to ens
 
 
 
-## Databases
 
-Taken from [here](https://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database)
+## Relational Databases Management Systems (RDBMS)
 
-Databases can be a bottle neck. To scale this there are two options.
+A database transaction one that provides ACID properties to database operations.
 
-### Solution one
+**ACID** is a set of relation database transactions.
 
-First is to perform a master slave replication whereby the slave db servers are for write only and the single master server is used for writing. The master server will require significant vertical scaling (especially RAM upgrades).
+- **Atomicity**: each transaction is all or nothing
+- **Consistency**: any transaction will bring the database from one valid state to another
+- **Isolation**: transaction execution performed concurrently has the same results if they were executed serially
+- **Durability**: a committed transaction remains as such
 
-If there are still issues the master server can be sharded which is a horizontal partition of rows of data across multiple database servers. Sharding can be based on something like EU customers vs US customers.
+### Scaling & Optimisation Techniques
 
-This can reduce index size & individual server load.
+#### Replication
 
-The issue with sharding is it results in a reliance on the interconnection between the servers and increases query latency (when more than one shard needs to be searched). Cross shard consistency and durability is very challenging and there can no guarantee of adherence.
+Replicating the database over numerous servers
 
-### Solution Two
+Disadvantages:
+- Master database(s) are a point of failure
+- Writes are relayed to read replicants which can be intensive resulting in inability to respond to read requests
+- Replication lag increases with number of read replicants
+- Replications adds more hardware and complexity
 
-Denormalise data from the beginning and disallow join queries in the database. Instead make all joins occur at the application code level.
-
-If you are doing that then perhaps using a NoSQL database would be better to use after all..
-
-### Data Loss Prevention
+##### Master-Slave Replication
 
 Replication of databases is possible to mitigate data loss
 
@@ -253,8 +268,29 @@ database master slave paradigm
               Replication            └───────────┘
 ```
 
+##### Master-Master Replication
 
-### Optimisation Techniques
+Both masters serve reads & writes and co-ordinate with each other on writes.
+
+This approach has numerous disadvantages:
+
+- Load balancer is required to determine which master to write to
+- Loose consistency or increased write latency due to synchronisation will occur
+
+#### Federation
+
+Federation also known as Functional Partitioning, splits up databases by function.
+
+So instead of a monolithic database you could have three databases; forums, users & product.
+
+Advantages:
+- less read and write traffic to each database
+- smaller databases = more data can fit in memory and cache
+- we can write in parallel as there is no master serialising writes
+
+Disadvantages:
+- joining data is more complex (requires server link)
+- adds more hardware and complexity
 
 #### Denormalisation
 
@@ -304,6 +340,42 @@ Disadvantages:
 - Backing up becomes complex; back up of shards must be co-ordinated
 - Operational complexity; adding indexes or columns, modifying schema becomes much more difficult
 
+
+### Optimisation Strategies
+
+#### Replication & Sharding
+
+First is to perform a master slave replication whereby the slave db servers are for write only and the single master server is used for writing. The master server will require significant vertical scaling (especially RAM upgrades).
+
+If there are still issues the master server can be sharded which is a horizontal partition of rows of data across multiple database servers. Sharding can be based on something like EU customers vs US customers.
+
+This can reduce index size & individual server load.
+
+The issue with sharding is it results in a reliance on the interconnection between the servers and increases query latency (when more than one shard needs to be searched). Cross shard consistency and durability is very challenging and there can no guarantee of adherence.
+
+#### Utilising Denormalisation From the Start
+
+Denormalise data from the beginning and disallow join queries in the database. Instead make all joins occur at the application code level.
+
+If you are doing that then perhaps using a NoSQL database would be better to use after all..
+
+
+
+
+
+## NoSQL Databases
+
+Collections of data items represented in a k/v, document or graph database.
+
+Data is denormalised and joins are performed at the application code level.
+
+NoSQL stores lack ACID transactions and favor eventual consistency instead.
+
+In terms of CAP theorem, availability is considered more important so the AP patterns is favoured.
+
+There are numerous types of databases, which can be viewed [here](https://github.com/donnemartin/system-design-primer#nosql).
+
+[Guide](https://github.com/donnemartin/system-design-primer#sql-or-nosql) showing how to pick between SQL and NoSQL.
 
 
 
@@ -407,3 +479,26 @@ This is not suitable for storing any objects that will be used across multiple a
 Essentially caching the function response against the args as a key in a dict.
 
 Example, suitable for caching request responses that never change.
+
+
+
+## Asynchronism (RabbitMQ etc.)
+
+Async workflows help reduce request time for expensive operations that would traditionally perform synchronously.
+
+### Message Queues
+
+Should be used when an operation is to slow inline.
+
+- app publishes job to the queue
+- worker picks up the queue, processes it & signals job completion.
+
+### Task Queues
+
+Task queues receive tasks and their related data, runs them then delivers the results.
+
+They support scheduling and can be used to run computationally-intensive jobs in the background.
+
+They are usually high level abstractions which implement producer/consumer events. For example, Celery does this and takes away several painful things needed to work with RabbitMQ directly.
+
+Celery is a queue Wrapper/Framework which takes away the complexity of having to manage the underlying AMQP mechanisms/architecture that come with operating RabbitMQ directly.
