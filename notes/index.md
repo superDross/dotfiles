@@ -10,21 +10,22 @@
 ## Web
 
 - [Cache](web/cache.md)
+- [Common Issues](web/common_issues.md)
 - [E-Tags](web/e-tags.md): Entity Tags
 - [GrapQL](web/graphql.md): Data query and manipulation language for APIs
 - [HTTP Proxy](web/proxy.md)
 - [HTTP](web/http.md): Hyper Text Transfer Protocol
 - [OSI Model](web/osi_model.md): Open Systems Interconnection Model
 - [REST API](web/rest_api.md): Representational State Transfer
+- [RPC](web/rpc.md): Remote Procedure Call
 - [RabbitMQ](web/rabbitmq.md): Message Queue
 - [Redis](web/redis.md): An in-memory key-value store NoSQL database
 - [TCP UDP](web/tcp_udp.md)
 - [TLS](web/TLS.md): Transport Layer Security
+- [Testing](web/testing.md): Various forms of testing web applications
+- [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
 - [Web Server](web/web_server.md)
 - [Web Sockets](web/web_sockets.md): Full Duplex Communication Protocol
-- [Common Issues](web/common_issues.md)
-- [WSGI](web/wsgi.md): Web Server Gateway Interface (WSGI) **TBC**
-- [Testing](web/testing.md): Various forms of testing web applications
 
 
 ## Systems Design
@@ -45,6 +46,7 @@
 ## Algorithms
 
 - [Time Complexity](algorithms/time_complexity.md)
+- [Sorting](algorithms/sorting.md)
 
 ### Searching
 

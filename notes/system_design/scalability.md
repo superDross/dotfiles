@@ -502,3 +502,35 @@ They support scheduling and can be used to run computationally-intensive jobs in
 They are usually high level abstractions which implement producer/consumer events. For example, Celery does this and takes away several painful things needed to work with RabbitMQ directly.
 
 Celery is a queue Wrapper/Framework which takes away the complexity of having to manage the underlying AMQP mechanisms/architecture that come with operating RabbitMQ directly.
+
+
+## Communication
+
+### Hypertext Transfer Protocol (HTTP)
+
+Method for encoding and transporting data between a client and a server.
+
+HTTP relies on lower level protocols such as TCP and UDP
+
+| Verb | Description | Idempotent<super>*</super> | Safe | Cacheable |
+|---|---|---|---|---|
+| GET | Reads a resource | Yes | Yes | Yes |
+| POST | Creates a resource or trigger a process that handles data | No | No | Yes if response contains freshness info |
+| PUT | Creates or replace a resource | Yes | No | No |
+| PATCH | Partially updates a resource | No | No | Yes if response contains freshness info |
+| DELETE | Deletes a resource | Yes | No | No |
+
+<super>*</super>An HTTP method is idempotent if an identical request can be made once or several times in a row with the same effect while leaving the server in the same state.
+
+### OSI Model
+
+[Check here](../web/osi_model.md)
+
+### UDP vs TCP
+
+[Check here](../web/tcp_udp.md)
+
+
+### Remote Procedure Call (RPC)
+
+[Check here](../web/rpc.md)

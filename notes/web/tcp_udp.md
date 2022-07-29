@@ -4,7 +4,7 @@
 
 **internet protocol suite**; a set of communication protocols which specifies how data should be packetized, addressed, transmitted, routed, and received.
 
-The internet protocol suite predates the OSI model.
+The internet protocol suite pre-dates the OSI model.
 
 UDP & TCP exist at layer 4 of the OSI model; transport protocol.
 
@@ -21,6 +21,12 @@ An IP address + port is often asserted as a server in this video, which makes se
 Essentially acts as a vehicle for HTTP requests
 
 This protocol was designed to access an application over the network by specifying an ip address and port; allows one server to send a message to another server by specifying an IP and a port number.
+
+Connection is established and terminated using a handshake, which guarantee it reaches the destination in the original order without corruption.
+
+Packets are sent using sequence numbers and checksum fields for each packet, Acks are sent by the receiver to the sender.
+
+If the sender does not receive the correct response the packets will be resent.
 
 ### Pro
 
@@ -40,7 +46,14 @@ This protocol was designed to access an application over the network by specifyi
 
 ## User Datagram Protocol (UDP)
 
+It is connectionless and uses datagrams (like packets) and they do not reach in order and may even not reach the destination at all.
+
+UDP can broadcast to all devices within a subnet.
+
+It is less reliable but works well in real time use cases such as VoIP, MMORPG etc.
+
 ### Pro
+
 - The opposite of the TCP cons
 
 ### Con
@@ -48,3 +61,15 @@ This protocol was designed to access an application over the network by specifyi
 - All the TCP pros are not available in UDP
 - Security; as it is not connection based, anyone can jump on and send stuff if the port is open
 
+## When to use what?
+
+Use TCP when:
+
+- you need all the data to arrive intact
+- you want to automatically make a best estimate use of the network throughput
+
+Use UDP when:
+
+- you need low latency
+- data loss is less important than late data
+- implementing your own connection error is required
