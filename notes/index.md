@@ -127,6 +127,7 @@
 
 ## Interviewing
 
+- [Questions to Answer](interview/questions-to-answer.md)
 - [Questions to Ask](interview/questions-to-ask.md)
 - [Questions to Ask Recruiters](interview/ask-recrutier.md)
 - [Tell me a time](interview/tell-me-a-time.md)
