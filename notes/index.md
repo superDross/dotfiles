@@ -139,6 +139,9 @@
 - [Administrate QA](interveiw/administrate.md)
 - [Administrate Whiteboard](interview/administrate-whiteboard.md)
 
+- [ESG Book Codility Task 1](interview/esg-codility.py)
+- [ESG Book Codility Task 2](interview/esg-codility2.py)
+
 
 ## Personal
 
