@@ -7,6 +7,31 @@ Try and make it 0(n); time correlates with the number of nodes in the list.
 from collections import deque
 
 
+class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+    def __repr__(self):
+        return f"value={self.value}"
+
+    def __str__(self):
+        return self.__repr__()
+
+
+def create_linked_list(values):
+    head_node = None
+    previous_node = None
+    for value in values:
+        node = Node(value)
+        if previous_node:
+            previous_node.next = node
+        else:
+            head_node = node
+        previous_node = node
+    return head_node
+
+
 def solution(llist):
     """
     Initial solution which is 0(n2) (quadratic)
@@ -39,3 +64,10 @@ def solution2(llist):
         backward_list.appendleft(llist.value)
         llist = llist.next
     return forward_list == backward_list
+
+
+llist = create_linked_list([1, 2, 1])
+assert solution2(llist) is True
+
+llist = create_linked_list([1, 2, 1, 3, 5])
+assert solution2(llist) is False
