@@ -19,3 +19,5 @@
 - [ESG Book Codility Task 2](interview/esg-codility2.py)
 - [Codility Demo Task](interview/codility-demo.py)
 
+- [Midnite Task 1](interview/midnite-task1.py)
+- [Midnite Task 2](interview/midnite-task2.py)

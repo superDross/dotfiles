@@ -2,6 +2,30 @@
 
 General questions to tease out company culture and development practises.
 
+##  Most important questions
+
+- What is the systems architecture?
+
+- Describe the levels of engineers on the team and the total number (what percentage composition are senior/mid/junior)
+
+- Say I were to pick up a feature request ticket, can you walk me through what the process would be for me closing that ticket and getting that work deployed to production?
+
+- Do you do scrum? Kanban? Sprints? Estimation? Planning? Retros?
+
+- How often do you and your devs do overtime (work outside the core hours)?
+
+- Do you have tests? What is the coverage? Are tests added as part of each MR?
+
+- What is you deployment process? How often do you deploy?
+
+- Version control setup?
+
+- Is there a standardised development environment and how quickly can a dev setup one locally? Docker?
+
+- What are the biggest tech debt issues at this time? Are you actively reducing this debt and if so how?
+
+- Do teams own specific projects? Or are they assigned to whatever project needs worke done at any given time?
+
 
 ## General
 

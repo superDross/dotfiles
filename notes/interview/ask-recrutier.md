@@ -10,3 +10,12 @@
 
 - What is the salary range for this position?
 
+
+# First Stage Questions
+
+- Number of engineers within the company
+
+- Describe the levels of engineers on the team (what percentage composition are senior/mid/junior)
+
+- Am I right in thinking this is primarily a job board for graduates
+
