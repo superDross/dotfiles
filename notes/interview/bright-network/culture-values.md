@@ -59,14 +59,20 @@ Value: striving to exceed expectations and deliver the highest quality results f
 ## Questions to Ask
 
 Ally Monk (people)
+
   - What has been implemented to encourage/ensure the three cultural values are adhered to?
+    **ANSWER**: hiring, indoctrination through rewards
+
     - How do you encourage people to continue to grow professionally and go the extra mile? 
     - Will to win and push themselves independently?
     - Trusted to deliver; give me an example of a time someone made a mistake that had repercussions on the business, how did you handle that with said person (no blame culture)?
     - Ensure that the best ideas win (people have egos)?
 
 Ailsa Simpson (product)
+
   - Can you give me a time when the developers pushed back against a feature request? How did you deal with that situation?
+    **ANSWER**: took a data driven approach, presented the data as proof that this feature will help
+
   - Is Agile Scrum strictly adhered to? Have you ever adapted it to suit the developers needs, example?
 
 
@@ -74,6 +80,14 @@ Tom Brightwell (CTO)
   - What is your leadership style and how do you like to *be* lead?
   - Opportunities to work on other projects or is one team only working on one project at a time?
   - How do you see the team evolving over the next couple of years?
+
   - What do you think are the biggest challenges that the company face in the upcoming year(s)?
+    **ANSWER**: scaling up from 50 - 200 employees; how to keep the culture, communication.
+              : scaling customers; working with different currencies, languages etc.
+
   - If there is one thing you would like to see your development improve upon, what would it be?
+    **ANSWER**: discussions and collaboration, they are a quiet bunch
+
+
+## Questions they asked
 
