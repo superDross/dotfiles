@@ -345,6 +345,7 @@ require('lualine').setup({
     },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
+    -- TODO: create one for numlock with: io.popen('xset q | grep -i "caps lock: *on"')
   }
 })
 
