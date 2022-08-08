@@ -46,7 +46,7 @@ def solution(nums, k):
     return nums[k - 1]
 
 
-def bubble_sort(arr):
+def bubble_sort(arr: list[int]) -> list[int]:
     total_length = len(arr)
 
     # Traverse through all array elements
@@ -61,7 +61,7 @@ def bubble_sort(arr):
     return arr
 
 
-def solution2(arr, k):
+def solution2(arr: list[int], k: int) -> int:
     bubble_sort(arr)
     return arr[k-1]
 
