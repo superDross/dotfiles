@@ -470,3 +470,8 @@ Not a trivial task, took a lot of work and testing to ensure it was good prior t
  - Create a base model class that has pydantic base model as a parent: https://jira.yougov.net/browse/GRYP-8400
 
 
+## 13th Aug
+
+- created documentation to spin up weblate locally, this was not possible before and required a lot of time to do so.
+  - this was important as it was something we had not had before and was something people did not want to do
+	https://gitlab.yougov.net/G/weblate-deployments/-/merge_requests/115
