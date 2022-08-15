@@ -47,7 +47,11 @@
 
 - [Time Complexity](algorithms/time_complexity.md)
 - [Sorting](algorithms/sorting.md)
-- [Dijkstra shortest path](algorithm/dijkstra.py)
+- [Dijkstra shortest path](algorithms/dijkstra.py)
+
+### Graphs
+
+- [Breadth First Search](algorithms/bfs.py)
 
 ### Searching
 

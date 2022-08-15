@@ -24,6 +24,8 @@ for a returned value of 59
 def solution(power: list[int]) -> int:
     """
     Brute force solution that does not work for larger power lists.
+
+    This solution has a quadratic time complexity 0(n^2)
     """
     # TODO: consider finding a more efficient solution in your own time
     n = len(power)
