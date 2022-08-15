@@ -5,18 +5,18 @@ We search all tree/graphs nodes in a horizontal fashion.
 
 Imagine we have this tree:
 
-              2
+             100
               |
         ------------
         |          |
-        4          5
+       89          91
         |          |
     --------   ---------
     |      |   |       |
-    7      9   8       3
+   12     34  77     82
 
 We would visit each node in the following order with BFS:
-    2, 4, 5, 7, 9, 8, 3
+    100, 89, 91, 12, 34, 77, 82
 
 The following example demonstrates how to implement the BFS algorithm with a binary tree.
 """
@@ -30,14 +30,14 @@ class TreeNode:
 
 
 def construct_tree():
-    root = TreeNode(2)
-    root.left = TreeNode(4)
-    root.left.left = TreeNode(7)
-    root.left.right = TreeNode(9)
+    root = TreeNode(100)
+    root.left = TreeNode(89)
+    root.left.left = TreeNode(12)
+    root.left.right = TreeNode(34)
 
-    root.right = TreeNode(5)
-    root.right.left = TreeNode(8)
-    root.right.right = TreeNode(3)
+    root.right = TreeNode(91)
+    root.right.left = TreeNode(77)
+    root.right.right = TreeNode(82)
     return root
 
 
@@ -66,4 +66,4 @@ def bfs(node):
     return recursive([node])
 
 
-assert bfs(construct_tree()) == [2, 4, 5, 7, 9, 8, 3]
+assert bfs(construct_tree()) == [100, 89, 91, 12, 34, 77, 82]

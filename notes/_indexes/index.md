@@ -52,6 +52,7 @@
 ### Graphs
 
 - [Breadth First Search](algorithms/bfs.py)
+- [Depth First Search](algorithms/dfs.py)
 
 ### Searching
 

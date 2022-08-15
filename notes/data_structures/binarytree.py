@@ -1,7 +1,10 @@
 """
+The left node must ALWAYS have a value less than it's parents value.
+
 Resources:
     - https://www.tutorialspoint.com/data_structures_algorithms/tree_data_structure.htm
 """
+
 from dataclasses import dataclass
 from typing import List, Optional, Tuple
 
