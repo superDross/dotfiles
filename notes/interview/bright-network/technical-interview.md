@@ -5,6 +5,22 @@ Split into 2 parts of 45 minutes:
   - System design problem
 
 
+## System Design
+
+There was a Django app that was dependant upon a slow old system that contained interaction data.
+
+The data in the Django app was stored in a postgres database.
+
+The members data and job data were present separate tables.
+
+
+The answer was to migrate the members data along with all associated jobs applied to into a single documents.
+
+Then migrate all the interaction data via APIs and match with member data and add the interactions as an array to the individual member document.
+
+By doing this no joins are required and all the data is consolidated into one document.
+
+
 ## Questions to Ask
 
 
