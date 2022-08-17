@@ -49,7 +49,7 @@
 - [Sorting](algorithms/sorting.md)
 - [Dijkstra shortest path](algorithms/dijkstra.py)
 
-### Graphs
+### Graphs/Trees
 
 - [Breadth First Search](algorithms/bfs.py)
 - [Depth First Search](algorithms/dfs.py)

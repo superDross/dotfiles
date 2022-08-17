@@ -3,6 +3,48 @@ The left node must ALWAYS have a value less than it's parents value.
 
 Resources:
     - https://www.tutorialspoint.com/data_structures_algorithms/tree_data_structure.htm
+
+There are many means of traversing the tree:
+    - Depth First Traversal
+    - Breadth First Traversal
+    - Inorder Traversal
+    - Preorder Traversal
+    - Postorder Traversal
+
+TODO: the following should be in the graphs alogrithms subsection
+
+
+https://www.freecodecamp.org/news/binary-search-tree-traversal-inorder-preorder-post-order-for-bst/
+
+Imagine we have this tree:
+
+             100
+              |
+        ------------
+        |          |
+       89          91
+        |          |
+    --------   ---------
+    |      |   |       |
+   12     34  77     82
+
+Inorder traversal means visit the left subtree first
+
+We would visit each node in the following order:
+    12, 89, 34, 100, 77, 91, 82
+
+
+Preorder traversal means we visit the root then left, then right subtrees.
+
+We would visit each node in the following order:
+    100, 89, 12, 34, 91, 77, 82
+
+
+Postordeer traversal means we visit the the left then right subtree and then the root.
+
+
+We would visit each node in the following order:
+    12, 34, 89, 77, 82, 91, 100
 """
 
 from dataclasses import dataclass

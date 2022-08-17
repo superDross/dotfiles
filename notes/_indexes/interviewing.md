@@ -23,6 +23,7 @@
 - [Midnite Task 2](interview/midnite/midnite-task2.py)
 
 - [Bright Network Culture](interview/bright-network/culture-values.md)
+- [Bright Network Technical](interview/bright-network/technical-interview.md)
 
 - [Amazon Hacker Rank 1](interview/amazon/hacker-rank1.py)
 - [Amazon Hacker Rank 2](interview/amazon/hacker-rank2.py)
