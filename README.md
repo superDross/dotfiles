@@ -2,8 +2,6 @@
 
 These config files are intended to be utilised within an Manjaro i3 or MacOS environment.
 
-[Wiki Index](notes/index.md)
-
 ## Installation
 
 ```sh
