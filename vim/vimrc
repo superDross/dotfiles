@@ -3,7 +3,7 @@ let g:vimrc = resolve(expand('<sfile>:p'))
 let g:vimdir = fnamemodify(vimrc, ':h')
 
 " for picobook
-let g:notesdir = fnamemodify(vimdir, ':h') . '/notes/'
+let g:notesdir = '~/bin/piconotes/'
 let g:noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 let g:browser = 'chromium'
 
