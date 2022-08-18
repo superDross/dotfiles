@@ -304,7 +304,7 @@ end
 
 -- PERSONAL ------------------------------------------------------------
 vim.g.default_testing_cmd = 'make test'
-vim.g.notesdir = '~/bin/dotfiles/notes/'
+vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 
 
