@@ -141,8 +141,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
 
 -- PLUGINS ------------------------------------------------------------
-local use = require('packer').use
-require('packer').startup(function()
+require('packer').startup(function(use)
   -- package manager
   use 'wbthomason/packer.nvim'
   -- lsp configs
