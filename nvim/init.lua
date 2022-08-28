@@ -138,6 +138,13 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function() ActivateSpelling() end,
   group    = spelling,
 })
+-- ensure all vader files have vim syntax
+vim.api.nvim_create_autocmd(
+  { 'BufNewFile', 'BufRead' }, {
+  pattern = { '*.vader' },
+  callback = function() vim.cmd('set syntax=vim') end,
+})
+
 
 
 -- PLUGINS ------------------------------------------------------------
