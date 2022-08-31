@@ -312,6 +312,9 @@ end
 vim.g.default_testing_cmd = 'make test'
 vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
+vim.g.auto_ticket_open = 1
+vim.g.auto_ticket_git_only = 1
+vim.g.ticket_black_list = {'main', 'master'}
 
 
 -- STATUSLINE ------------------------------------------------------------
