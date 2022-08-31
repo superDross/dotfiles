@@ -142,7 +142,7 @@ vim.api.nvim_create_autocmd('FileType', {
 vim.api.nvim_create_autocmd(
   { 'BufNewFile', 'BufRead' }, {
   pattern = { '*.vader' },
-  callback = function() vim.cmd('set syntax=vim') end,
+  command = 'set syntax=vim',
 })
 
 
