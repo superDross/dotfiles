@@ -6,6 +6,10 @@ let g:vimdir = fnamemodify(vimrc, ':h')
 let g:notesdir = '~/bin/piconotes/'
 let g:noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 let g:browser = 'chromium'
+let g:auto_ticket_open = 1
+let g:auto_ticket_git_only = 1
+let g:ticket_black_list = ['main', 'master']
+let g:ticket_use_fzf_default = 1
 
 function! SourceBaseRc(f)
   exec 'source ' . g:vimdir . '/' . a:f
