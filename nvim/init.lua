@@ -271,19 +271,19 @@ local normal_mappings = {
   ['<M-h>']            = '[s1z=',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
-  -- lsp
+  -- diagnostics
   ['<leader>e']        = '<cmd>lua vim.diagnostic.open_float()<CR>',
   ['<leader>j']        = '<cmd>lua vim.diagnostic.goto_next()<CR>',
   ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
-  ['<Leader>a']        = '<cmd>FzfLua live_grep_resume<CR>',
-  ['<Leader>b']        = '<cmd>FzfLua buffers<CR>',
-  ['<Leader>c']        = '<cmd>FzfLua git_commits<CR>',
-  ['<Leader>g']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
-  ['<leader>f']        = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
-  ['<Leader>`']        = '<cmd>FzfLua marks<CR>',
-  ['<Leader>*']        = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
+  ['<Leader>fa']        = '<cmd>FzfLua live_grep_resume<CR>',
+  ['<Leader>fb']        = '<cmd>FzfLua buffers<CR>',
+  ['<Leader>fc']        = '<cmd>FzfLua git_commits<CR>',
+  ['<Leader>fg']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
+  ['<leader>ff']        = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
+  ['<Leader>f`']        = '<cmd>FzfLua marks<CR>',
+  ['<Leader>f*']        = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -294,13 +294,15 @@ local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local mappings = {
-    ['<leader>d'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
-    ['<leader>h'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
-    ['<leader>n'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>r'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-    ['<leader>~'] = '<cmd>lua vim.lsp.buf.references()<CR>',
-    ['<leader>v'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
-    ['<leader>x'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>lc'] = '<cmd>lua vim.lsp.buf.code_action()<CR>',
+    ['<leader>ld'] = '<cmd>lua vim.lsp.buf.definition()<CR>',
+    ['<leader>lf'] = '<cmd>lua vim.lsp.buf.references()<CR>',
+    ['<leader>lh'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
+    ['<leader>ln'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>lr'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
+    ['<leader>ls'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+    ['<leader>lv'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>lx'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
   }
   for map, func in pairs(mappings) do
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
