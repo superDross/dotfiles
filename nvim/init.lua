@@ -282,6 +282,8 @@ local normal_mappings = {
   ['<Leader>fc']        = '<cmd>FzfLua git_commits<CR>',
   ['<Leader>fg']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
   ['<leader>ff']        = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
+  ['<leader>fr']        = '<cmd>FzfLua lsp_references<CR>',
+  ['<leader>fp']        = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']        = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']        = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
 }
