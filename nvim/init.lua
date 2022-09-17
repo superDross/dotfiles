@@ -159,6 +159,7 @@ require('packer').startup(function(use)
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
   -- formatter
   use 'mhartington/formatter.nvim'
   -- undo tree
@@ -469,10 +470,12 @@ cmp.setup {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    -- NOTE: this may not work as no snippet engine has been configured
+    ['<C-Space>'] = cmp.mapping.confirm { select = true },
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
   })
 }
 
