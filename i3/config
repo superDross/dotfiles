@@ -240,7 +240,8 @@ exec --no-startup-id clipit
 exec --no-startup-id signal-desktop --start-in-tray
 # Tray icon for pulse audio
 exec --no-startup-id pasystray
-
+# Tray icon for screenshot tool
+exec --no-startup-id flameshot
 
 ########################
 #     FLOATING APPS    #

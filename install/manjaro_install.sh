@@ -44,6 +44,7 @@ function update_and_install(){
     fd \
     feh \
     firefox \
+    flameshot \
     foliate \
     git \
     gnu-netcat \
