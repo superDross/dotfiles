@@ -433,7 +433,19 @@ end
 -- compare completion methods https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require('cmp')
 cmp.setup {
-  completion = { autocomplete = false },
+  -- for manual completion only
+  -- completion = { autocomplete = false },
+  enabled = function()
+    -- disable completion in comments
+    local context = require 'cmp.config.context'
+    if vim.api.nvim_get_mode().mode == 'c' then
+      return true
+    else
+      return not context.in_treesitter_capture("comment")
+        and not context.in_syntax_group("Comment")
+    end
+  end,
+  -- tab completion and selection
   mapping = {
     ['<Tab>'] = function(fallback)
       if not cmp.select_next_item() then
