@@ -168,6 +168,7 @@ require('packer').startup(function(use)
   use 'ellisonleao/gruvbox.nvim'
   -- text object extensions
   use 'machakann/vim-sandwich'
+  use 'machakann/vim-swap'
   -- git enhancers
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
@@ -187,11 +188,12 @@ require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  -- markdown previewer
+  -- markdown
   use {
     'iamcco/markdown-preview.nvim',
     run = function() vim.fn['mkdp#util#install']() end,
   }
+  use 'masukomi/vim-markdown-folding'
   -- personal plugins
   use 'superDross/class-builder'
   use 'superDross/ticket.vim'
@@ -266,10 +268,6 @@ local normal_mappings = {
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
   ['<leader>9']        = '<cmd>RunCode 0<CR>',
   ['<leader>s']        = '<cmd>lua SpellingToggle()<CR>',
-  ['<leader>;']        = ']s1z=', -- fix next spelling mistake with first suggestion
-  ['<M-l>']            = ']s1z=',
-  ['<leader>:']        = '[s1z=', -- fix previous spelling mistake with first suggestion
-  ['<M-h>']            = '[s1z=',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
   -- diagnostics
@@ -278,15 +276,18 @@ local normal_mappings = {
   ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
-  ['<Leader>fa']        = '<cmd>FzfLua live_grep_resume<CR>',
-  ['<Leader>fb']        = '<cmd>FzfLua buffers<CR>',
-  ['<Leader>fc']        = '<cmd>FzfLua git_commits<CR>',
-  ['<Leader>fg']        = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
-  ['<leader>ff']        = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
-  ['<leader>fr']        = '<cmd>FzfLua lsp_references<CR>',
-  ['<leader>fp']        = '<cmd>FzfLua lsp_definitions<CR>',
-  ['<Leader>f`']        = '<cmd>FzfLua marks<CR>',
-  ['<Leader>f*']        = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
+  ['<Leader>fa']       = '<cmd>FzfLua live_grep_resume<CR>',
+  ['<Leader>fb']       = '<cmd>FzfLua buffers<CR>',
+  ['<Leader>fc']       = '<cmd>FzfLua git_commits<CR>',
+  ['<Leader>fg']       = '<cmd>FzfLua live_grep_native git_icons=false file_icons=false<CR>',
+  ['<leader>ff']       = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
+  ['<leader>fr']       = '<cmd>FzfLua lsp_references<CR>',
+  ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
+  ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
+  ['<Leader>f*']       = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
+  -- text object mappings
+  ['<M-l>']            = ']s1z=', -- fix next spelling mistake with first suggestion
+  ['<M-h>']            = '[s1z=', -- fix previous spelling mistake with first suggestion
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -319,7 +320,7 @@ vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 vim.g.auto_ticket_open = 1
 vim.g.auto_ticket_git_only = 1
-vim.g.ticket_black_list = {'main', 'master'}
+vim.g.ticket_black_list = { 'main', 'master' }
 vim.g.ticket_use_fzf_default = 1
 vim.g.scrappy_use_fzf_default = 1
 
@@ -443,7 +444,7 @@ cmp.setup {
       return true
     else
       return not context.in_treesitter_capture("comment")
-        and not context.in_syntax_group("Comment")
+          and not context.in_syntax_group("Comment")
     end
   end,
   -- tab completion and selection
