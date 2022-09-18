@@ -144,6 +144,12 @@ vim.api.nvim_create_autocmd(
   pattern = { '*.vader' },
   command = 'set syntax=vim',
 })
+-- create directories if not already there when saving files
+vim.api.nvim_create_autocmd('BufWritePre', {
+  callback = function(ctx)
+    vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ':p:h'), 'p')
+  end
+})
 
 
 
