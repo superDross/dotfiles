@@ -32,22 +32,6 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize   = 30
 
 
--- FUNCTIONS ------------------------------------------------------------
-function ActivateSpelling()
-  vim.cmd('setlocal spell spelllang=en_gb')
-  vim.cmd('hi SpellBad cterm=underline ctermfg=Red ctermbg=none')
-end
-
-function SpellingToggle()
-  if vim.o.spell == false then
-    print('Spelling On')
-    ActivateSpelling()
-  else
-    print('Spelling Off')
-    vim.cmd('setlocal nospell')
-  end
-end
-
 function HasValue(table, val)
   -- check if value is in table (list)
   for _, value in ipairs(table) do
@@ -125,20 +109,6 @@ vim.api.nvim_create_autocmd(
     end
   end
 })
--- automatically set spelling settings on when opening certain file types
-local spelling = vim.api.nvim_create_augroup('spelling', { clear = true })
-vim.api.nvim_create_autocmd(
-  { 'BufRead', 'BufNewFile' }, {
-  pattern = { '*.md', '*.txt', '*.rst' },
-  callback = function() ActivateSpelling() end,
-  group = spelling,
-})
-vim.api.nvim_create_autocmd('FileType', {
-  pattern  = { 'gitcommit', 'gitrebase' },
-  callback = function() ActivateSpelling() end,
-  group    = spelling,
-})
--- ensure all vader files have vim syntax
 vim.api.nvim_create_autocmd(
   { 'BufNewFile', 'BufRead' }, {
   pattern = { '*.vader' },
@@ -206,6 +176,7 @@ require('packer').startup(function(use)
   use 'superDross/picobook'
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
+  use 'superDross/spellbound.nvim'
 end)
 
 
@@ -273,7 +244,6 @@ local normal_mappings = {
   ['<leader>5']        = '<cmd>Vexplore<CR>',
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
   ['<leader>9']        = '<cmd>RunCode 0<CR>',
-  ['<leader>s']        = '<cmd>lua SpellingToggle()<CR>',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
   -- diagnostics
@@ -291,9 +261,6 @@ local normal_mappings = {
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
-  -- text object mappings
-  ['<M-l>']            = ']s1z=', -- fix next spelling mistake with first suggestion
-  ['<M-h>']            = '[s1z=', -- fix previous spelling mistake with first suggestion
 }
 
 SetKeymap('n', normal_mappings, opts)
@@ -318,17 +285,6 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
   end
 end
-
-
--- PERSONAL ------------------------------------------------------------
-vim.g.default_testing_cmd = 'make test'
-vim.g.notesdir = '~/bin/piconotes/'
-vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
-vim.g.auto_ticket_open = 1
-vim.g.auto_ticket_git_only = 1
-vim.g.ticket_black_list = { 'main', 'master' }
-vim.g.ticket_use_fzf_default = 1
-vim.g.scrappy_use_fzf_default = 1
 
 
 -- STATUSLINE ------------------------------------------------------------
@@ -510,3 +466,21 @@ require 'fzf-lua'.setup({
     }
   }
 })
+
+
+-- PERSONAL ------------------------------------------------------------
+vim.g.default_testing_cmd = 'make test'
+vim.g.notesdir = '~/bin/piconotes/'
+vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
+vim.g.auto_ticket_open = 1
+vim.g.auto_ticket_git_only = 1
+vim.g.ticket_black_list = { 'main', 'master' }
+vim.g.ticket_use_fzf_default = 1
+vim.g.scrappy_use_fzf_default = 1
+vim.g.spellbound_settings = {
+  mappings = {
+    fix_right = '<M-l>',
+    fix_left = '<M-h>',
+    toggle_map = '<Leader>s'
+  },
+}
