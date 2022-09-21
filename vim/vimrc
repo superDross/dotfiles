@@ -62,7 +62,6 @@ Plug 'w0rp/ale'
 
 " HIGHLIGHTING: syntax highlighters for non-python languages
 Plug 'sheerun/vim-polyglot'
-Plug 'neo4j-contrib/cypher-vim-syntax'
 
 " GIT: use git/mercurial commands in vim e.g. Gblame
 Plug 'tpope/vim-fugitive'
@@ -142,15 +141,17 @@ nnoremap <leader>8 :Vista!!<CR>
 nmap <leader>9 <Plug>(run_code)
 
 " ALE shortcuts
-nnoremap <silent> <leader>h :ALEHover<CR>
-nnoremap <silent> <leader>e :ALEDetail<CR>
-nnoremap <silent> <leader>r :ALEFindReferences -relative<CR>
-nnoremap <silent> <leader>j :ALENext<CR>
-nnoremap <silent> <leader>k :ALEPrevious<CR>
-nnoremap <silent> <Leader>d :ALEGoToDefinition<CR>
-nnoremap <silent> <Leader>n :ALEGoToDefinition -tab<CR>
-nnoremap <silent> <Leader>v :ALEGoToDefinition -vsplit<CR>
-nnoremap <silent> <Leader>x :ALEGoToDefinition -split<CR>
+nnoremap <silent> <Leader>lc :ALECodeAction<CR>
+nnoremap <silent> <Leader>ld :ALEGoToDefinition<CR>
+nnoremap <silent> <Leader>lf :ALEFindReferences<CR>
+nnoremap <silent> <Leader>ln :ALEGoToDefinition -tab<CR>
+nnoremap <silent> <Leader>lv :ALEGoToDefinition -vsplit<CR>
+nnoremap <silent> <Leader>lx :ALEGoToDefinition -split<CR>
+nnoremap <silent> <leader>le :ALEDetail<CR>
+nnoremap <silent> <leader>lh :ALEHover<CR>
+nnoremap <silent> <leader>lj :ALENext<CR>
+nnoremap <silent> <leader>lk :ALEPrevious<CR>
+nnoremap <silent> <leader>lr :ALEFindReferences -relative<CR>
 
 " undo tree
 if has('nvim') || has('python3') || has('python')
@@ -160,13 +161,13 @@ else
 endif
 
 " fuzzy file/word finder key
-nnoremap <leader>f :FZF<CR>
-nnoremap <Leader>a :RgContents<CR>
-nnoremap <Leader>g :Rg<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :Commits<CR>
-nnoremap <Leader>` :FZFMarks<CR>
-nnoremap <Leader>* :execute 'Rg' expand('<cword>')<CR>
+nnoremap <leader>ff :FZF<CR>
+nnoremap <Leader>fa :RgContents<CR>
+nnoremap <Leader>fg :Rg<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fc :Commits<CR>
+nnoremap <Leader>f` :FZFMarks<CR>
+nnoremap <Leader>f* :execute 'Rg' expand('<cword>')<CR>
 nnoremap <silent><Leader>m :call GitLinePopUp()<CR>
 
 " quiet focused reading mode

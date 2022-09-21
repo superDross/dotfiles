@@ -160,6 +160,12 @@ nnoremap <C-k> :tabnext<CR>
 nnoremap <C-h> :tabprevious<CR>
 nnoremap <C-l> :tabnext<CR>
 
+" resize windows
+nnoremap <C-Up> :resize +5<CR>
+nnoremap <C-Down> :resize -5<CR>
+nnoremap <C-Left> :vertical resize +5<CR>
+nnoremap <C-Right> :vertical resize -5<CR>
+
 " make escape work for terminal (causes issues with fzf)
 " if v:version >= 802
 "   tnoremap <Esc> <C-w>N
