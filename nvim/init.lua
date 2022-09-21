@@ -261,6 +261,11 @@ local normal_mappings = {
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
+  -- window resizing
+  ["<C-Up>"]           = "<cmd>resize +5<CR>",
+  ["<C-Down>"]         = "<cmd>resize -5<CR>",
+  ["<C-Left>"]         = "<cmd>vertical resize +5<CR>",
+  ["<C-Right>"]        = "<cmd>vertical resize -5<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
