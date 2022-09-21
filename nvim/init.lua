@@ -47,14 +47,6 @@ function Format()
   if use_custom then vim.api.nvim_command('Format') else vim.lsp.buf.formatting() end
 end
 
--- SNIPPETS ------------------------------------------------------------
-vim.cmd([[
-iabbrev pdb import pdb;pdb.set_trace()  # fmt: skip
-iabbrev remote_pdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip
-iabbrev rpdb from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip
-iabbrev scriptline if __name__ == '__main__':<CR>
-]])
-
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
@@ -135,6 +127,9 @@ require('packer').startup(function(use)
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
+  use 'saadparwaiz1/cmp_luasnip'
+  -- snippets
+  use 'L3MON4D3/LuaSnip'
   -- formatter
   use 'mhartington/formatter.nvim'
   -- undo tree
@@ -392,6 +387,12 @@ require('formatter').setup({
 })
 
 
+-- SNIPPETS -------------------------------------------------------------
+require("luasnip.loaders.from_lua").load({
+  paths = "~/bin/dotfiles/nvim/snippets/"
+})
+
+
 -- COMPLETION ------------------------------------------------------------
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -437,13 +438,18 @@ cmp.setup {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     }),
-    -- NOTE: this may not work as no snippet engine has been configured
-    ['<C-Space>'] = cmp.mapping.confirm { select = true },
+    ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-  })
+    { name = 'luasnip' },
+  }),
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
 }
 
 
