@@ -122,7 +122,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 
-
 -- PLUGINS ------------------------------------------------------------
 require('packer').startup(function(use)
   -- package manager
@@ -236,6 +235,11 @@ local normal_mappings = {
   -- tab mappings
   ['<C-h>']            = ':tabprevious<CR>',
   ['<C-l>']            = ':tabnext<CR>',
+  -- window resizing
+  ["<C-Up>"]           = "<cmd>resize +5<CR>",
+  ["<C-Down>"]         = "<cmd>resize -5<CR>",
+  ["<C-Left>"]         = "<cmd>vertical resize +5<CR>",
+  ["<C-Right>"]        = "<cmd>vertical resize -5<CR>",
   -- leader number mappings
   ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
@@ -261,11 +265,6 @@ local normal_mappings = {
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
-  -- window resizing
-  ["<C-Up>"]           = "<cmd>resize +5<CR>",
-  ["<C-Down>"]         = "<cmd>resize -5<CR>",
-  ["<C-Left>"]         = "<cmd>vertical resize +5<CR>",
-  ["<C-Right>"]        = "<cmd>vertical resize -5<CR>",
 }
 
 SetKeymap('n', normal_mappings, opts)
