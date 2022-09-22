@@ -61,6 +61,16 @@ local rpdb = snip({
 })
 
 
+local pprint = snip({
+  trig = "pprint",
+  dscr = "Import and execute pprint",
+}, fmt([[
+  __import__('pprint').pprint({})
+]], {
+  insert(1),
+}))
+
+
 local class = snip({
   trig = 'class',
   name = 'class',
@@ -94,6 +104,14 @@ local scriptline = snip({
 }))
 
 
+-- EXPORT
+
 ls.add_snippets(nil, {
-  python = { pdb, rpdb, class, scriptline }
+  python = {
+    pdb,
+    rpdb,
+    pprint,
+    class,
+    scriptline,
+  }
 })
