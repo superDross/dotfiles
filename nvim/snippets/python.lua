@@ -11,6 +11,21 @@ local fmt = require("luasnip.extras.fmt").fmt
 local rep = require('luasnip.extras').rep
 
 
+-- HELPER FUNCTIONS
+
+local function clean_args(arg)
+  -- removes type, white space and default value substrings from args
+  -- e.g. '   arg: str = "string"  ' becomes 'arg'
+  local subs = {'%:.*', '%=.*'}
+  for _, sub in pairs(subs) do
+    arg = arg:gsub(sub, '')
+  end
+  return vim.trim(arg)
+end
+
+
+-- SNIPPETS
+
 local pdb = snip({
   trig = "pdb",
   namr = "pdb",
@@ -43,14 +58,16 @@ local class = snip({
   ]], {
   insert(1, 'ClassName'),
   insert(2),
-  -- TODO: remove default values and types in args when reworking as self.arg
+  -- TODO: split these nested functions up into separate clearer code
   func(function(args)
+    -- return if no args
     if not args[1][1] or args[1][1] == '' then
       return { '' }
     end
+    -- clean and add the lines inside the init method
     local a = vim.tbl_map(function(item)
-      local trimed = vim.trim(item)
-      return '\t\tself.' .. trimed .. ' = ' .. trimed
+      local arg = clean_args(item)
+      return '\t\tself.' .. arg .. ' = ' .. arg
     end, vim.split(
       args[1][1],
       ',',
