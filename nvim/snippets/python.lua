@@ -19,6 +19,7 @@ local pdb = snip({
   text("import pdb;pdb.set_trace()  # fmt: skip")
 })
 
+
 local rpdb = snip({
   trig = "rpdb",
   namr = "rpdb",
@@ -27,21 +28,22 @@ local rpdb = snip({
   text("from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip")
 })
 
--- TODO: use fmt instead of text nodes here for greater readability
---
-local class_constructor = snip({
-  trig = 'cls',
+
+local class = snip({
+  trig = 'class',
   name = 'class',
   dscr = 'Class Constructor',
-}, {
-  text('class '),
-  insert(1, { 'MyClass' }),
-  -- text('('),
-  -- insert(2, { '' }),
-  text({ ':', '\t' }),
-  text({ 'def init(self,' }),
+}, fmt([[
+  class {}:
+      def __init__(self, {}):
+  {}
+
+      def {}(self, {}):
+          {}
+  ]], {
+  insert(1, 'ClassName'),
   insert(2),
-  text({ '):', '' }),
+  -- TODO: remove default values and types in args when reworking as self.arg
   func(function(args)
     if not args[1][1] or args[1][1] == '' then
       return { '' }
@@ -58,9 +60,24 @@ local class_constructor = snip({
   end, {
     2,
   }),
-  insert(0),
-})
+  insert(3, 'method_name'),
+  insert(4, '*args, **kwargs'),
+  insert(5, 'pass'),
+}))
+
+
+local scriptline = snip({
+  trig = "scriptline",
+  description = "Insert a script execution line",
+}, fmt([[
+  if __name__ == "__main__":
+      {}({})
+  ]], {
+  insert(1, 'main'),
+  insert(2),
+}))
+
 
 ls.add_snippets(nil, {
-  python = { pdb, rpdb, class_constructor }
+  python = { pdb, rpdb, class, scriptline }
 })
