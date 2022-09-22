@@ -129,7 +129,7 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'saadparwaiz1/cmp_luasnip'
   -- snippets
-  use 'L3MON4D3/LuaSnip'
+  use ({'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*"})
   -- formatter
   use 'mhartington/formatter.nvim'
   -- undo tree
