@@ -11,18 +11,35 @@ local fmt = require("luasnip.extras.fmt").fmt
 local rep = require('luasnip.extras').rep
 
 
--- HELPER FUNCTIONS
+-- HELPER FUNCTIONS FOR CREATING CLASSES
 
 local function clean_args(arg)
   -- removes type, white space and default value substrings from args
-  -- e.g. '   arg: str = "string"  ' becomes 'arg'
-  local subs = {'%:.*', '%=.*'}
+  -- e.g. '   arg: str = "string"  ' -> 'arg'
+  local subs = { '%:.*', '%=.*' }
   for _, sub in pairs(subs) do
     arg = arg:gsub(sub, '')
   end
   return vim.trim(arg)
 end
 
+local function arg_to_attribute(arg)
+  -- clean an func arg and transform it into an attribute
+  -- e.g. '   arg: str = "string" ' -> 'self.arg = arg'
+  local clean_arg = clean_args(arg)
+  return '\t\tself.' .. clean_arg .. ' = ' .. clean_arg
+end
+
+local function args_to_attributes(arguments)
+  -- takes a string of func args and transforms them into a table of attributes
+  -- e.g. { { 'name: str, age: int = 15 ' } } -> { '\nself.name = name', '\nself.age = age' }
+  local args = arguments[1][1]
+  if not args or args == '' then
+    return { '' }
+  end
+  local args_list = vim.split(args, ',', true)
+  return vim.tbl_map(arg_to_attribute, args_list)
+end
 
 -- SNIPPETS
 
@@ -58,25 +75,7 @@ local class = snip({
   ]], {
   insert(1, 'ClassName'),
   insert(2),
-  -- TODO: split these nested functions up into separate clearer code
-  func(function(args)
-    -- return if no args
-    if not args[1][1] or args[1][1] == '' then
-      return { '' }
-    end
-    -- clean and add the lines inside the init method
-    local a = vim.tbl_map(function(item)
-      local arg = clean_args(item)
-      return '\t\tself.' .. arg .. ' = ' .. arg
-    end, vim.split(
-      args[1][1],
-      ',',
-      true
-    ))
-    return a
-  end, {
-    2,
-  }),
+  func(args_to_attributes, { 2 }),
   insert(3, 'method_name'),
   insert(4, '*args, **kwargs'),
   insert(5, 'pass'),
