@@ -94,13 +94,27 @@ local class = snip({
 
 local scriptline = snip({
   trig = "scriptline",
-  description = "Insert a script execution line",
+  dscr = "Insert a script execution line",
 }, fmt([[
   if __name__ == "__main__":
       {}({})
   ]], {
   insert(1, 'main'),
   insert(2),
+}))
+
+
+local property = snip({
+  trig = "property",
+  dscr = "Add a property method",
+}, fmt([[
+
+  @property
+  def {}(self):
+      {}
+]], {
+  insert(1),
+  insert(2, 'pass'),
 }))
 
 
@@ -112,6 +126,7 @@ ls.add_snippets(nil, {
     rpdb,
     pprint,
     class,
+    property,
     scriptline,
   }
 })
