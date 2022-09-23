@@ -47,7 +47,6 @@ function Format()
   if use_custom then vim.api.nvim_command('Format') else vim.lsp.buf.formatting() end
 end
 
-
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -122,6 +121,7 @@ require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
+  use 'WhoIsSethDaniel/mason-tool-installer.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -129,7 +129,7 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'saadparwaiz1/cmp_luasnip'
   -- snippets
-  use ({'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*"})
+  use({ 'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*" })
   -- formatter
   use 'mhartington/formatter.nvim'
   -- undo tree
@@ -165,7 +165,6 @@ require('packer').startup(function(use)
   }
   use 'masukomi/vim-markdown-folding'
   -- personal plugins
-  use 'superDross/class-builder'
   use 'superDross/ticket.vim'
   use 'superDross/picobook'
   use 'superDross/run-with-me.vim'
@@ -328,14 +327,29 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
--- :Mason (it installs everything within ~/.local/share/nvim/mason/)
 local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require("lspconfig")
+local mason_installer = require('mason-tool-installer')
 
 require('mason').setup {}
+-- autoinstall lsp (seperate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
   automatic_installation = true,
+}
+-- autoinstall formatters and linters
+mason_installer.setup {
+  ensure_installed = {
+    'black',
+    'flake8',
+    'isort',
+    'hadolint',
+    'jq',
+    'prettier',
+    'shellcheck',
+    'shfmt',
+    'vint',
+  },
 }
 
 -- automatically start each server when the corresponding filetype is opened
