@@ -1,7 +1,3 @@
--- NOTE: helpful for converting to lua:
--- https://github.com/nanotee/nvim-lua-guide
--- https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
-
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
@@ -32,18 +28,18 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize   = 30
 
 
-function HasValue(table, val)
-  -- check if value is in table (list)
+-- check if value is in table (list)
+function _G.has_value(table, val)
   for _, value in ipairs(table) do
     if value == val then return true end
   end
   return false
 end
 
-function Format()
-  -- determines if filetype should use Format plugin or lsp formatter
+-- determines if filetype should use Format plugin or lsp formatter
+function _G.format()
   local custom_formatter = { 'python' }
-  local use_custom = HasValue(custom_formatter, vim.bo.filetype)
+  local use_custom = _G.has_value(custom_formatter, vim.bo.filetype)
   if use_custom then vim.api.nvim_command('Format') else vim.lsp.buf.formatting() end
 end
 
@@ -238,7 +234,7 @@ local normal_mappings = {
   ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
-  ['<leader>4']        = '<cmd>lua Format()<CR>',
+  ['<leader>4']        = '<cmd>lua format()<CR>',
   ['<leader>5']        = '<cmd>Vexplore<CR>',
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
   ['<leader>9']        = '<cmd>RunCode 0<CR>',
@@ -340,15 +336,7 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    'black',
-    'flake8',
-    'isort',
-    'hadolint',
-    'jq',
-    'prettier',
-    'shellcheck',
-    'shfmt',
-    'vint',
+    'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shellcheck', 'shfmt', 'vint',
   },
 }
 
