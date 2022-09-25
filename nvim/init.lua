@@ -20,6 +20,8 @@ vim.o.laststatus = 3
 vim.o.updatetime = 100
 vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
 vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
+vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
+vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 
 
 -- NETRW SETTINGS -------------------------------------------------------
@@ -82,9 +84,9 @@ vim.api.nvim_create_autocmd(
   { 'BufReadPost' }, {
   pattern = { '*' },
   callback = function()
-    local ft = vim.opt_local.filetype:get()
     -- don't apply to git messages
-    if (ft:match('commit') or ft:match('rebase')) then
+    local buf = vim.fn.expand('%:t')
+    if buf == 'COMMIT_EDITMSG' or buf == 'git-rebase=todo' then
       return
     end
     -- get position of last saved edit
@@ -106,6 +108,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function(ctx)
     vim.fn.mkdir(vim.fn.fnamemodify(ctx.file, ':p:h'), 'p')
   end
+})
+-- create template files
+vim.api.nvim_create_autocmd('BufNewFile', {
+  pattern = { '*.sh' },
+  command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
 
 
@@ -194,8 +201,8 @@ vim.cmd([[colorscheme gruvbox]])
 local opts = { noremap = true, silent = true }
 vim.g.mapleader = ' '
 
-function SetKeymap(mode, mappings, options)
-  -- set mappings based upon {key: command}
+-- set mappings based upon {key: command}
+function _G.set_key_map(mode, mappings, options)
   for map, func in pairs(mappings) do
     vim.keymap.set(mode, map, func, options)
   end
@@ -257,9 +264,9 @@ local normal_mappings = {
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword git_icons=false file_icons=false<CR>",
 }
 
-SetKeymap('n', normal_mappings, opts)
-SetKeymap('v', visual_mappings, opts)
-SetKeymap('t', terminal_mappings, opts)
+set_key_map('n', normal_mappings, opts)
+set_key_map('v', visual_mappings, opts)
+set_key_map('t', terminal_mappings, opts)
 
 local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
@@ -392,7 +399,7 @@ require('formatter').setup({
 -- SNIPPETS -------------------------------------------------------------
 local luasnip = require("luasnip")
 require("luasnip.loaders.from_lua").load({
-  paths = "~/bin/dotfiles/nvim/snippets/"
+  paths = vim.g.vimdir .. '/snippets/'
 })
 
 
