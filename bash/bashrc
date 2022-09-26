@@ -204,6 +204,12 @@ function remove_debugger() {
   esac
 }
 
+function lua_debugger_download(){
+  # Download lua debugger into current directory
+  wget https://raw.githubusercontent.com/slembcke/debugger.lua/master/debugger.lua
+  echo 'Add `local dbg = require("debugger")` to your script to import it.'
+}
+
 function docker_plus(){
   # Wrapper for some docker cli commands: 
   #   $1: docker_plus command
