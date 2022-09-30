@@ -195,7 +195,6 @@ require('gruvbox').setup({
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 vim.cmd([[colorscheme gruvbox]])
--- for fzf live_grep_native
 vim.env.BAT_THEME = 'gruvbox-dark'
 
 
@@ -259,11 +258,11 @@ local normal_mappings = {
   ['<Leader>fb']       = '<cmd>FzfLua buffers<CR>',
   ['<Leader>fc']       = '<cmd>FzfLua git_commits<CR>',
   ['<Leader>fg']       = '<cmd>FzfLua live_grep_native previewer=bat git_icons=false file_icons=false<CR>',
-  ['<leader>ff']       = '<cmd>FzfLua files git_icons=false file_icons=false<CR>',
+  ['<leader>ff']       = '<cmd>FzfLua files previewer=bat git_icons=false file_icons=false<CR>',
   ['<leader>fr']       = '<cmd>FzfLua lsp_references<CR>',
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
-  ['<Leader>f*']       = "<cmd>FzfLua grep_cword preview=bat git_icons=false file_icons=false<CR>",
+  ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
 }
 
 set_key_map('n', normal_mappings, opts)
@@ -373,9 +372,7 @@ mason_lspconfig.setup_handlers({
 
 -- disable inline diagnostics for LSPs
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false
-}
+  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
 )
 -- change gutter symbols
 vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
