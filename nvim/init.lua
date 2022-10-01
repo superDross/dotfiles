@@ -30,21 +30,6 @@ vim.g.netrw_liststyle = 3
 vim.g.netrw_winsize   = 30
 
 
--- check if value is in table (list)
-function _G.has_value(table, val)
-  for _, value in ipairs(table) do
-    if value == val then return true end
-  end
-  return false
-end
-
--- determines if filetype should use Format plugin or lsp formatter
-function _G.format()
-  local custom_formatter = { 'python' }
-  local use_custom = _G.has_value(custom_formatter, vim.bo.filetype)
-  if use_custom then vim.api.nvim_command('Format') else vim.lsp.buf.formatting() end
-end
-
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -125,6 +110,7 @@ require('packer').startup(function(use)
   use 'williamboman/mason.nvim'
   use 'williamboman/mason-lspconfig.nvim'
   use 'WhoIsSethDaniel/mason-tool-installer.nvim'
+  use 'jose-elias-alvarez/null-ls.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- completion
   use 'hrsh7th/nvim-cmp'
@@ -133,8 +119,6 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
   -- snippets
   use({ 'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*" })
-  -- formatter
-  use 'mhartington/formatter.nvim'
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
@@ -249,7 +233,7 @@ local normal_mappings = {
   ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
-  ['<leader>4']        = '<cmd>lua format()<CR>',
+  ['<leader>4']        = '<cmd>lua vim.lsp.buf.formatting()<CR>',
   ['<leader>5']        = '<cmd>Vexplore<CR>',
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
   ['<leader>9']        = '<cmd>RunCode 0<CR>',
@@ -340,9 +324,10 @@ require('lualine').setup({
 -- LSP ------------------------------------------------------------
 local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require("lspconfig")
+local null_ls = require('null-ls')
 local mason_installer = require('mason-tool-installer')
-
 require('mason').setup {}
+
 -- autoinstall lsp (seperate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
@@ -351,9 +336,15 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shfmt', 'vint',
+    'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shfmt',
+    'vint', 'sql-formatter', 'stylua', 'luacheck',
   },
 }
+-- setup formatters and linters
+local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
+null_ls.setup({
+  sources = { d.hadolint, d.vint, f.black, f.isort, f.jq, f.shfmt, f.sql_formatter },
+})
 
 -- automatically start each server when the corresponding filetype is opened
 mason_lspconfig.setup_handlers({
@@ -378,28 +369,12 @@ mason_lspconfig.setup_handlers({
 })
 
 -- disable inline diagnostics for LSPs
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
-)
+vim.diagnostic.config { virtual_text = false }
+
 -- change gutter symbols
 vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignError', { text = '>>', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '?', texthl = 'DiagnosticSignHint' })
-
-
--- FORMATTERS ------------------------------------------------------------
-require('formatter').setup({
-  filetype = {
-    python = {
-      function()
-        return { exe = 'isort', args = { '-' }, stdin = true }
-      end,
-      function()
-        return { exe = 'black', args = { '-' }, stdin = true }
-      end
-    }
-  }
-})
 
 
 -- SNIPPETS -------------------------------------------------------------
