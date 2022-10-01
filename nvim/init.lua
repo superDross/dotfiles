@@ -229,15 +229,22 @@ local normal_mappings = {
   -- undo mappings
   ['<leader>u']        = '<cmd>MundoToggle<CR>',
   -- git mappings
-  ['<leader>m']        = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+  ['<leader>ga']       = '<cmd>Git add %<CR>',
+  ['<leader>gb']       = '<cmd>Git blame<CR>',
+  ['<leader>gc']       = '<cmd>Git commit -n<CR>',
+  ['<leader>gd']       = '<cmd>Git diff %<CR>',
+  ['<leader>gg']       = '<cmd>Git<CR>',
+  ['<leader>gl']       = '<cmd>Git log<CR>',
+  ['<leader>gm']       = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
+  ['<leader>gs']       = '<cmd>Git status<CR>',
   -- tab mappings
   ['<C-h>']            = ':tabprevious<CR>',
   ['<C-l>']            = ':tabnext<CR>',
   -- window resizing
-  ["<C-Up>"]           = "<cmd>resize +5<CR>",
-  ["<C-Down>"]         = "<cmd>resize -5<CR>",
-  ["<C-Left>"]         = "<cmd>vertical resize +5<CR>",
-  ["<C-Right>"]        = "<cmd>vertical resize -5<CR>",
+  ['<C-Up>']           = '<cmd>resize +5<CR>',
+  ['<C-Down>']         = '<cmd>resize -5<CR>',
+  ['<C-Left>']         = '<cmd>vertical resize +5<CR>',
+  ['<C-Right>']        = '<cmd>vertical resize -5<CR>',
   -- leader number mappings
   ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
