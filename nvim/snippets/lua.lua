@@ -16,7 +16,7 @@ local debug = snip({
   namr = "debug",
   dscr = "Lua debug breakpoint",
 }, {
-  text('local dbg = require("debugger"); dbg()')
+  text('require("debugger")()')
 })
 
 
