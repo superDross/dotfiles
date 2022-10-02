@@ -206,8 +206,13 @@ function remove_debugger() {
 
 function lua_debugger_download(){
   # Download lua debugger into current directory
-  wget https://raw.githubusercontent.com/slembcke/debugger.lua/master/debugger.lua
-  echo 'Add `local dbg = require("debugger")` to your script to import it.'
+  # TODO: would be nice to implement this as part of the lua snippet instead
+  echo -e "${GREEN}Downloading debugger...${NC}\n"
+  wget -nv \
+    https://raw.githubusercontent.com/slembcke/debugger.lua/master/debugger.lua \
+    -O debugger.lua
+  echo -e "\n${GREEN}Add ${YELLOW}local dbg = require('debugger')${GREEN} to your lua script to import it."
+  echo -e "Then execute ${YELLOW}nvim --headless${GREEN} to trigger the debugger.${NC}"
 }
 
 function docker_plus(){
