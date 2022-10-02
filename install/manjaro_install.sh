@@ -58,6 +58,7 @@ function update_and_install(){
     pulseaudio \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
+    python-pynvim \
     python-virtualenvwrapper \
     redshift \
     rlwrap \
@@ -189,6 +190,11 @@ function install_ale_tools(){
 
 
 function setup_vim(){
+  # neovim version management tool
+  cargo install \
+    --git https://github.com/MordechaiHadad/bob.git \
+    --features bob/openssl
+
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 

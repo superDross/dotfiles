@@ -17,6 +17,7 @@ vim.o.foldmethod = 'indent'
 vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
+vim.o.cmdheight = 0
 vim.o.updatetime = 100
 vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
 vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
@@ -132,7 +133,7 @@ require('packer').startup(function(use)
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    tag = 'release',
+    -- tag = 'release',
     config = require('gitsigns').setup({ keymaps = {} })
   }
   -- file searcher
@@ -178,7 +179,7 @@ require('gruvbox').setup({
 })
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd.colorscheme('gruvbox')
 vim.env.BAT_THEME = 'gruvbox-dark'
 
 
@@ -230,10 +231,10 @@ local normal_mappings = {
   ['<C-Left>']         = '<cmd>vertical resize +5<CR>',
   ['<C-Right>']        = '<cmd>vertical resize -5<CR>',
   -- leader number mappings
-  ['<leader>0']        = ':set hlsearch! hlsearch?<CR>',
+  ['<leader>0']        = ':silent set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
-  ['<leader>4']        = '<cmd>lua vim.lsp.buf.formatting()<CR>',
+  ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Vexplore<CR>',
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
   ['<leader>9']        = '<cmd>RunCode 0<CR>',
@@ -485,6 +486,6 @@ vim.g.spellbound_settings = {
   mappings = {
     fix_right = '<M-l>',
     fix_left = '<M-h>',
-    toggle_map = '<Leader>s'
+    toggle_map = '<M-s>'
   },
 }
