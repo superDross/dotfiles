@@ -255,6 +255,15 @@ local normal_mappings = {
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
+  -- ticket.vim
+  ['<Leader>ss']       = '<cmd>SaveSession<CR>',
+  ['<Leader>so']       = '<cmd>OpenSession<CR>',
+  ['<Leader>sd']       = '<cmd>DeleteSession<CR>',
+  ['<Leader>sc']       = '<cmd>CleanupSessions<CR>',
+  ['<Leader>ns']       = '<cmd>SaveNote<CR>',
+  ['<Leader>no']       = '<cmd>OpenNote<CR>',
+  ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
+  ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
 }
 
 set_key_map('n', normal_mappings, opts)
