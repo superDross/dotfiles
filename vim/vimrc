@@ -134,11 +134,12 @@ nnoremap <leader><leader> za
 nmap <silent> <leader>l :<c-u>WhichKey '<Space>'<CR>
 
 " function keys
-nmap <leader>1 <Plug>(run_tests)
+nmap <leader>1 :RunTests<CR>
+nmap <leader>3 :RunTestsVert<CR>
 nmap <leader>2 <Plug>(create_scratchpad_vertical)
 nnoremap <leader>4 :ALEFix<CR>
 nnoremap <leader>8 :Vista!!<CR>
-nmap <leader>9 <Plug>(run_code)
+nmap <leader>9 :RunCode<CR>
 
 " ALE shortcuts
 nnoremap <silent> <Leader>lc :ALECodeAction<CR>
@@ -348,4 +349,4 @@ let g:undotree_ShortIndicators = 1
 let g:mundo_width = 60
 
 """" PERSONAL """""""""""""""""""""""""""""""""""""""""""""""""""
-let g:default_testing_cmd = 'make test'
+let g:default_testing_cmd = 'make test TEST_ARGS='
