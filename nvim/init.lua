@@ -45,6 +45,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
   group = vim_term
 })
+-- TODO: figure out a way to disable this with run-with-me terminals
 vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
   callback = function()
     if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
@@ -237,7 +238,6 @@ local normal_mappings = {
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Vexplore<CR>',
   ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
-  ['<leader>9']        = '<cmd>RunCode 0<CR>',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
   -- diagnostics
@@ -255,6 +255,11 @@ local normal_mappings = {
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
+  -- run-with-me.vim
+  ['<Leader>rc']       = '<cmd>RunCode<CR>',
+  ['<Leader>rv']       = '<cmd>RunCodeVert<CR>',
+  ['<Leader>rt']       = '<cmd>RunTestsVert<CR>',
+  ['<Leader>rn']       = '<cmd>RunNearestTestVert<CR>',
   -- ticket.vim
   ['<Leader>ss']       = '<cmd>SaveSession<CR>',
   ['<Leader>so']       = '<cmd>OpenSession<CR>',
@@ -483,7 +488,7 @@ require 'fzf-lua'.setup({
 
 
 -- PERSONAL ------------------------------------------------------------
-vim.g.default_testing_cmd = 'make test'
+vim.g.default_testing_cmd = 'make test TEST_ARGS='
 vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
 vim.g.auto_ticket_open = 1
