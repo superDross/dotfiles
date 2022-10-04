@@ -259,6 +259,7 @@ local normal_mappings = {
   ['<Leader>rc']       = '<cmd>RunCode<CR>',
   ['<Leader>rv']       = '<cmd>RunCodeVert<CR>',
   ['<Leader>rt']       = '<cmd>RunTestsVert<CR>',
+  ['<Leader>rm']       = '<cmd>RunModuleTestsVert<CR>',
   ['<Leader>rn']       = '<cmd>RunNearestTestVert<CR>',
   -- ticket.vim
   ['<Leader>ss']       = '<cmd>SaveSession<CR>',
