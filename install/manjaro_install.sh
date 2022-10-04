@@ -52,6 +52,7 @@ function update_and_install(){
     kdeconnect \
     kitty \
     kubectl \
+    luarocks \
     nodejs \
     npm \
     pasystray \
