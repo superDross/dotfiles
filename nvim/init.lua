@@ -37,6 +37,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank { timeout = 500 } end,
 })
 -- make neovim terminal more like vim terminal
+-- disable line numbering in terminal mode
 local vim_term = vim.api.nvim_create_augroup('vim_term', { clear = true })
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
@@ -45,15 +46,23 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
   group = vim_term
 })
--- TODO: figure out a way to disable this with run-with-me terminals
+-- start insert mode when moving to a terminal window
 vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
   callback = function()
     if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
   end,
   group = vim_term
 })
+-- prevents insert mode when the terminal process has exited
 vim.api.nvim_create_autocmd('TermClose', {
-  command = 'stopinsert',
+  callback = function(ctx)
+    vim.cmd('stopinsert')
+    vim.api.nvim_create_autocmd('TermEnter', {
+      command = 'stopinsert',
+      buffer = ctx.buf,
+    })
+  end,
+  nested = true,
   group = vim_term
 })
 -- indentation spacing
