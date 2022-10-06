@@ -17,7 +17,6 @@ vim.o.foldmethod = 'indent'
 vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
-vim.o.cmdheight = 0
 vim.o.updatetime = 100
 vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
 vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
