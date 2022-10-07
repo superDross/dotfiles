@@ -497,14 +497,20 @@ require 'fzf-lua'.setup({
 
 
 -- PERSONAL ------------------------------------------------------------
+-- run-with-me
 vim.g.default_testing_cmd = 'make test TEST_ARGS='
+-- piconotes
 vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
+-- ticket.vim
 vim.g.auto_ticket_open = 1
 vim.g.auto_ticket_git_only = 1
 vim.g.ticket_black_list = { 'main', 'master' }
 vim.g.ticket_use_fzf_default = 1
+vim.g.ticket_very_verbose = 1
+-- scrappy
 vim.g.scrappy_use_fzf_default = 1
+-- spellbound.nvim
 vim.g.spellbound_settings = {
   mappings = {
     fix_right = '<M-l>',
