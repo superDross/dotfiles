@@ -352,9 +352,9 @@ local null_ls = require('null-ls')
 local mason_installer = require('mason-tool-installer')
 require('mason').setup {}
 
--- autoinstall lsp (seperate mason_installer so setup_handlers can work)
+-- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
-  ensure_installed = { 'pylsp', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
+  ensure_installed = { 'pyright', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
   automatic_installation = true,
 }
 -- autoinstall formatters and linters
@@ -364,10 +364,21 @@ mason_installer.setup {
     'vint', 'sql-formatter', 'stylua', 'luacheck',
   },
 }
+
+local function swap_error_warning(diagnostic)
+  -- swap error for warning in diagnostic tools, can slow down large files
+  diagnostic.severity = diagnostic.message:find("really") and
+      vim.diagnostic.severity["ERROR"] or
+      vim.diagnostic.severity["WARN"]
+end
+
 -- setup formatters and linters
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
 null_ls.setup({
-  sources = { d.hadolint, d.vint, f.black, f.isort, f.jq, f.shfmt, f.sql_formatter },
+  sources = {
+    d.hadolint, d.vint, d.flake8.with({ diagnostics_postprocess = swap_error_warning }),
+    f.black, f.isort, f.jq, f.shfmt, f.sql_formatter,
+  }
 })
 
 -- automatically start each server when the corresponding filetype is opened
@@ -389,7 +400,26 @@ mason_lspconfig.setup_handlers({
   end,
   ['ltex'] = function()
     lspconfig.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
-  end
+  end,
+  --- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+  ['pyright'] = function()
+    lspconfig.pyright.setup {
+      on_attach = on_attach,
+      settings = {
+        pyright = {
+          autoImportCompletion = true,
+        },
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = 'workspace',
+            useLibraryCodeForTypes = true,
+            typeCheckingMode = 'off'
+          }
+        }
+      }
+    }
+  end,
 })
 
 -- disable inline diagnostics for LSPs
@@ -399,6 +429,7 @@ vim.diagnostic.config { virtual_text = false }
 vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
 vim.fn.sign_define('DiagnosticSignError', { text = '>>', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '?', texthl = 'DiagnosticSignHint' })
+vim.fn.sign_define('DiagnosticSignInfo', { text = '🛈', texthl = 'DiagnosticSignHint' })
 
 
 -- SNIPPETS -------------------------------------------------------------
