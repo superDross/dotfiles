@@ -374,9 +374,10 @@ end
 
 -- setup formatters and linters
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
+local flake8_config = { diagnostics_postprocess = swap_error_warning, extra_args = {"--config", "~/.flake8"}}
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with({ diagnostics_postprocess = swap_error_warning }),
+    d.hadolint, d.vint, d.flake8.with(flake8_config),
     f.black, f.isort, f.jq, f.shfmt, f.sql_formatter,
   }
 })
