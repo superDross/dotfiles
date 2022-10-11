@@ -6,10 +6,16 @@
 # check the virtualenv name is the same as a directory in the dev folder
 here="$(basename "$(pwd)")"
 venv_name="$(basename "$VIRTUAL_ENV")"
+virtualenv_dir="$(dirname "$VIRTUAL_ENV")"
 has_dir=$(find ~/dev -maxdepth 1 -name "$venv_name")
 
 # if there is a dev directory with venv name and you are
 # not currently in said dir, then cd into it
 if [ -n "$has_dir" ] && [ "$here" != "$venv_name" ]; then
   cd ~/dev/"${venv_name}" || return
+fi
+
+# create pyright config if not present for a given directory
+if [ ! -f './pyrightconfig.json' ]; then
+  echo "{ \"venvPath\": \"${virtualenv_dir}\", \"venv\": \"${venv_name}\" }" > pyrightconfig.json
 fi
