@@ -7,3 +7,8 @@ pip install pdbpp remote-pdb
 if [[ $(find . -maxdepth 1 -name "requirements.txt") ]]; then
   pip install -r requirements.txt
 fi
+
+# create pyright config for the new virtualenv
+venv_name="$(basename "$VIRTUAL_ENV")"
+virtualenv_dir="$(dirname "$VIRTUAL_ENV")"
+echo "{ \"venvPath\": \"${virtualenv_dir}\", \"venv\": \"${venv_name}\" }" > pyrightconfig.json
