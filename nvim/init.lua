@@ -375,7 +375,7 @@ end
 
 -- setup formatters and linters
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
-local flake8_config = { diagnostics_postprocess = swap_error_warning, extra_args = {"--config", "~/.flake8"}}
+local flake8_config = { diagnostics_postprocess = swap_error_warning }
 null_ls.setup({
   sources = {
     d.hadolint, d.vint, d.flake8.with(flake8_config),
@@ -425,7 +425,11 @@ mason_lspconfig.setup_handlers({
 })
 
 -- disable inline diagnostics for LSPs
-vim.diagnostic.config { virtual_text = false }
+vim.diagnostic.config({
+  virtual_text = false,
+  float = { source = 'always' },
+  severity_sort = true,
+})
 
 -- change gutter symbols
 vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
