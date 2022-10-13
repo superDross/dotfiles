@@ -375,7 +375,10 @@ end
 
 -- setup formatters and linters
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
-local flake8_config = { diagnostics_postprocess = swap_error_warning }
+local flake8_config = {
+  diagnostics_postprocess = swap_error_warning,
+  extra_args = {'--ignore=W503,E203,E231', '--max-line-length=120' }
+}
 local shfmt_config = { extra_args = {'-i', '4'} }  -- use 4 spaces
 null_ls.setup({
   sources = {
