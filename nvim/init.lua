@@ -275,6 +275,7 @@ local normal_mappings = {
   ['<Leader>so']       = '<cmd>OpenSession<CR>',
   ['<Leader>sd']       = '<cmd>DeleteSession<CR>',
   ['<Leader>sc']       = '<cmd>CleanupSessions<CR>',
+  ['<Leader>sf']       = '<cmd>FindSessions<CR>',
   ['<Leader>ns']       = '<cmd>SaveNote<CR>',
   ['<Leader>no']       = '<cmd>OpenNote<CR>',
   ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
@@ -377,9 +378,9 @@ end
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
 local flake8_config = {
   diagnostics_postprocess = swap_error_warning,
-  extra_args = {'--ignore=W503,E203,E231', '--max-line-length=120' }
+  extra_args = { '--ignore=W503,E203,E231', '--max-line-length=120' }
 }
-local shfmt_config = { extra_args = {'-i', '4'} }  -- use 4 spaces
+local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
     d.hadolint, d.vint, d.flake8.with(flake8_config),
