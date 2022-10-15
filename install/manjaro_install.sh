@@ -40,6 +40,7 @@ function update_and_install(){
     cracklib \
     cups \
     docker \
+    exfatprogs \
     evince \
     fd \
     feh \
