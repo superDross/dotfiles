@@ -32,6 +32,29 @@ local img = snip({
 }))
 
 
+local note = snip({
+  trig = "note",
+  dscr = "create an information box",
+}, fmt([[ 
+  > :information_source: **Note**
+  >
+  > {}
+]], {
+  insert(1)
+}))
+
+
+local warning = snip({
+  trig = "warning",
+  dscr = "create an information box",
+}, fmt([[ 
+  > :warning: **Warning**
+  >
+  > {}
+]], {
+  insert(1)
+}))
+
 ls.add_snippets(nil, {
-  markdown = { link, img }
+  markdown = { link, img, note, warning }
 })
