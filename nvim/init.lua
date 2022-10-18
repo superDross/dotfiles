@@ -524,20 +524,6 @@ vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
 
 
--- FZF ---------------------------------------------------------------------
-local actions = require 'fzf-lua.actions'
-require 'fzf-lua'.setup({
-  actions = {
-    files = {
-      ["default"] = actions.file_edit,
-      ["ctrl-x"]  = actions.file_split,
-      ["ctrl-v"]  = actions.file_vsplit,
-      ["ctrl-t"]  = actions.file_tabedit,
-    }
-  }
-})
-
-
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
 vim.g.default_testing_cmd = 'make test TEST_ARGS='
