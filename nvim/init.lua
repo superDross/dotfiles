@@ -320,7 +320,17 @@ require('lualine').setup({
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff' },
+    lualine_b = { 'branch', 'diff',
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
+        sections = { 'error', 'warn', 'info', 'hint' },
+        symbols = { error = '✘ ', warn = '⏶ ', info = 'ℹ ', hint = '? ' },
+        colored = true,
+        update_in_insert = false,
+        always_visible = false,
+      }
+  },
     lualine_c = {
       {
         'filename',
@@ -330,23 +340,7 @@ require('lualine').setup({
         }
       }
     },
-    lualine_x = {
-      {
-        'diagnostics',
-        sources = { 'nvim_diagnostic' },
-        sections = { 'error', 'warn', 'info', 'hint' },
-        diagnostics_color = {
-          error = 'DiagnosticError',
-          warn  = 'DiagnosticWarn',
-          info  = 'DiagnosticInfo',
-          hint  = 'DiagnosticHint',
-        },
-        symbols = { error = '✘ ', warn = '⏶ ', info = 'ℹ ', hint = '? ' },
-        colored = true,
-        update_in_insert = false,
-        always_visible = false,
-      }
-    },
+    lualine_x = { 'aerial' },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   }
