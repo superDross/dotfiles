@@ -162,6 +162,10 @@ require('packer').startup(function(use)
     run = function() vim.fn['mkdp#util#install']() end,
   }
   use 'masukomi/vim-markdown-folding'
+  -- database
+  use 'tpope/vim-dadbod'
+  use 'kristijanhusak/vim-dadbod-ui'
+  use 'kristijanhusak/vim-dadbod-completion'
   -- personal plugins
   use 'superDross/ticket.vim'
   use 'superDross/picobook'
@@ -504,6 +508,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
+    { name = 'vim-dadbod-completion' },
   }),
   snippet = {
     expand = function(args)
@@ -522,6 +527,14 @@ require 'nvim-treesitter.configs'.setup {
 -- MARKDOWN PREVIEWER ------------------------------------------------------
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
+
+
+-- DADBOD ------------------------------------------------------------------
+
+vim.g.dbs = {
+  dev_postgres = 'postgres://postgres:postgres@localhost:5432',
+  dev_mongo = 'mongodb://localhost:27017',
+}
 
 
 -- PERSONAL ------------------------------------------------------------
