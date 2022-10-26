@@ -166,6 +166,8 @@ require('packer').startup(function(use)
   use 'tpope/vim-dadbod'
   use 'kristijanhusak/vim-dadbod-ui'
   use 'kristijanhusak/vim-dadbod-completion'
+  -- code outline
+  use 'stevearc/aerial.nvim'
   -- personal plugins
   use 'superDross/ticket.vim'
   use 'superDross/picobook'
@@ -250,7 +252,7 @@ local normal_mappings = {
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Vexplore<CR>',
-  ['<leader>8']        = '<cmd>SymbolsOutline<CR>',
+  ['<leader>8']        = '<cmd>AerialToggle!<CR>',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
   -- diagnostics
@@ -290,7 +292,7 @@ set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
 set_key_map('t', terminal_mappings, opts)
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- this is required so the LSP takes effect on all buffers
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local mappings = {
@@ -357,6 +359,7 @@ local lspconfig = require("lspconfig")
 local null_ls = require('null-ls')
 local mason_installer = require('mason-tool-installer')
 require('mason').setup {}
+require('aerial').setup({})
 
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
