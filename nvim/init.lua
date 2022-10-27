@@ -330,7 +330,7 @@ require('lualine').setup({
         update_in_insert = false,
         always_visible = false,
       }
-  },
+    },
     lualine_c = {
       {
         'filename',
@@ -340,7 +340,7 @@ require('lualine').setup({
         }
       }
     },
-    lualine_x = { 'aerial' },
+    lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
     lualine_y = { 'progress' },
     lualine_z = { 'location' }
   }
@@ -502,9 +502,9 @@ cmp.setup {
     ['<CR>'] = cmp.mapping.confirm { select = true },
   },
   sources = cmp.config.sources({
+    { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'luasnip' },
     { name = 'vim-dadbod-completion' },
   }),
   snippet = {
