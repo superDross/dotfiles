@@ -97,6 +97,7 @@ function install_aur_packages(){
     python37 \
     python38 \
     python39 \
+    bob-bin \
     spotify 
 }
 
