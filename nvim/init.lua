@@ -217,8 +217,9 @@ local terminal_mappings = {
 
 local visual_mappings = {
   -- clipboard
-  ['<leader>y'] = '"+y',
-  ['<leader>p'] = '"+p',
+  ['<leader>y']  = '"+y',
+  ['<leader>p']  = '"+p',
+  ['<Leader>rs'] = '<cmd>RunSelectedCode<CR>',
 }
 
 local normal_mappings = {
@@ -261,18 +262,21 @@ local normal_mappings = {
   ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
+  ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
+  ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
   ['<Leader>fa']       = '<cmd>FzfLua live_grep_resume previewer=bat git_icons=false file_icons=false<CR>',
   ['<Leader>fb']       = '<cmd>FzfLua buffers<CR>',
   ['<Leader>fc']       = '<cmd>FzfLua git_commits<CR>',
   ['<Leader>fg']       = '<cmd>FzfLua live_grep_native previewer=bat git_icons=false file_icons=false<CR>',
+  ['<Leader>fn']       = '<cmd>GrepNotes<CR>',
+  ['<Leader>fs']       = '<cmd>FindSessions<CR>',
   ['<leader>ff']       = '<cmd>FzfLua files previewer=bat git_icons=false file_icons=false<CR>',
-  ['<leader>fr']       = '<cmd>FzfLua lsp_references<CR>',
   ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
-  ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
-  ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
+  ['<leader>fr']       = '<cmd>FzfLua lsp_references<CR>',
   -- run-with-me.vim
   ['<Leader>rc']       = '<cmd>RunCode<CR>',
   ['<Leader>rv']       = '<cmd>RunCodeVert<CR>',
+  ['<Leader>rs']       = '<cmd>RunSelectedCode<CR>',
   ['<Leader>rt']       = '<cmd>RunTestsVert<CR>',
   ['<Leader>rm']       = '<cmd>RunModuleTestsVert<CR>',
   ['<Leader>rn']       = '<cmd>RunNearestTestVert<CR>',
