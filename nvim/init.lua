@@ -24,6 +24,9 @@ vim.o.mouse = nil
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 
+-- NOTE: for development purposes only
+-- vim.opt.runtimepath:append(',~/dev/super-session.nvim/')
+
 
 -- NETRW SETTINGS -------------------------------------------------------
 vim.g.netrw_preview   = 1
@@ -82,7 +85,7 @@ vim.api.nvim_create_autocmd(
   callback = function()
     -- don't apply to git messages
     local buf = vim.fn.expand('%:t')
-    if buf == 'COMMIT_EDITMSG' or buf == 'git-rebase=todo' then
+    if buf == 'COMMIT_EDITMSG' or buf == 'git-rebase-todo' then
       return
     end
     -- get position of last saved edit
@@ -296,7 +299,7 @@ set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
 set_key_map('t', terminal_mappings, opts)
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   local mappings = {
@@ -306,7 +309,7 @@ local on_attach = function(client, bufnr)
     ['<leader>lh'] = '<cmd>lua vim.lsp.buf.hover()<CR>',
     ['<leader>ln'] = '<cmd>tab split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lr'] = '<cmd>lua vim.lsp.buf.rename()<CR>',
-    ['<leader>ls'] = '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+    ['<leader>ls'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lv'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lx'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
   }
