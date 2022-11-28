@@ -234,7 +234,7 @@ local normal_mappings = {
   -- undo mappings
   ['<leader>u']        = '<cmd>MundoToggle<CR>',
   -- git mappings
-  ['<leader>ga']       = '<cmd>Git add %<CR>',
+  ['<leader>ga']       = '<cmd>write | Git add %<CR>',
   ['<leader>gb']       = '<cmd>Git blame<CR>',
   ['<leader>gc']       = '<cmd>Git commit -n<CR>',
   ['<leader>gd']       = '<cmd>Git diff %<CR>',
