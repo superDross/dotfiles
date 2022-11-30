@@ -320,6 +320,12 @@ end
 
 
 -- STATUSLINE ------------------------------------------------------------
+-- returns capslock status; on/off
+local function cap_status()
+  local status = vim.fn.system("xset q | grep -i 'caps lock' | awk '{print $4}'")
+  return status:sub(1, -2):lower()
+end
+
 require('lualine').setup({
   options = {
     theme = 'gruvbox',
@@ -348,9 +354,23 @@ require('lualine').setup({
       }
     },
     lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
-    lualine_y = { 'progress' },
+    lualine_y = {
+      {
+        function()
+          if cap_status() == 'on' then
+            return 'CAPS: ON'
+          end
+          return ''
+        end,
+        color = function(_)
+          if cap_status() == 'on' then
+            return { fg = '#f0f0ed', bg = '#C20505' }
+          end
+        end,
+      }
+    },
     lualine_z = { 'location' }
-  }
+  },
 })
 
 
