@@ -89,8 +89,8 @@ alias c="clear"
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # connect to vpn
-alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh ssluk.yougov.net"
-alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/usr/lib/openconnect/csd-post.sh sslus.yougov.net"
+alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/home/david/.vpn/csd-post.sh ssluk.yougov.net"
+alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/home/david/.vpn/csd-post.sh sslus.yougov.net"
 
 # docker_plus alias
 alias dp="docker_plus"
