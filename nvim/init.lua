@@ -567,6 +567,7 @@ vim.g.auto_ticket_git_only = 1
 vim.g.ticket_black_list = { 'main', 'master' }
 vim.g.ticket_use_fzf_default = 1
 vim.g.ticket_very_verbose = 1
+vim.g.ticket_overwrite_confirm = 1
 -- scrappy
 vim.g.scrappy_use_fzf_default = 1
 -- spellbound.nvim
@@ -576,4 +577,5 @@ vim.g.spellbound_settings = {
     fix_left = '<M-h>',
     toggle_map = '<M-s>'
   },
+  return_to_position = true,
 }
