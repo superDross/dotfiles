@@ -364,7 +364,9 @@ require('aerial').setup({})
 
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
-  ensure_installed = { 'pyright', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls' },
+  ensure_installed = {
+    'pyright', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls', 'yamlls'
+  },
   automatic_installation = true,
 }
 -- autoinstall formatters and linters
@@ -430,6 +432,18 @@ mason_lspconfig.setup_handlers({
             diagnosticMode = 'openFilesOnly',
             useLibraryCodeForTypes = true,
             typeCheckingMode = 'off'
+          }
+        }
+      }
+    }
+  end,
+  -- use kubernetes yaml for all?
+  ['yamlls'] = function()
+    lspconfig.yamlls.setup {
+      settings = {
+        yaml = {
+          schemas = {
+            kubernetes = { 'k8s/*.yaml', 'k8s/*.yml' },
           }
         }
       }
