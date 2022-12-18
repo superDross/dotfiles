@@ -11,7 +11,7 @@ RUN apk update && \
     && cargo add serde \
     && rm -rf /tmp/deleteme
 
-RUN apk update && apk --no-cache add \
+RUN apk --no-cache add \
     # basic requirements for minimal configured neovim to work
     autoconf \
     automake \
@@ -30,7 +30,7 @@ RUN apk update && apk --no-cache add \
     pkgconf \
     unzip \
     wget \
-    # binaries required for nvim plugins
+    # packages required for nvim plugins
     ctags \
     fd  \
     lua \
