@@ -116,6 +116,21 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 
 
 -- PLUGINS ------------------------------------------------------------
+-- Install packer
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    print('Installing Packer...')
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
 require('packer').startup(function(use)
   -- package manager
   use 'wbthomason/packer.nvim'
@@ -146,8 +161,6 @@ require('packer').startup(function(use)
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    -- tag = 'release',
-    config = require('gitsigns').setup({ keymaps = {} })
   }
   -- file searcher
   use {
@@ -177,8 +190,16 @@ require('packer').startup(function(use)
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
   use 'superDross/spellbound.nvim'
+  -- automatically set up your configuration after cloning packer.nvim
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
 
+if packer_bootstrap then
+  print('WARNING: plugins are being installed, restart once completed.')
+  return
+end
 
 -- COLOURSCHEMES ------------------------------------------------------------
 local colors = require('gruvbox.palette')
@@ -538,6 +559,10 @@ cmp.setup {
 
 -- TREESITTERS ------------------------------------------------------------
 require 'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql', 'latex',
+    'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
+  },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 } -- TSInstall all
 
@@ -548,12 +573,13 @@ vim.g.mkdp_browser = 'firefox'
 
 
 -- DADBOD ------------------------------------------------------------------
-
 vim.g.dbs = {
   dev_postgres = 'postgres://postgres:postgres@localhost:5432',
   dev_mongo = 'mongodb://localhost:27017',
 }
 
+-- GIT ---------------------------------------------------------------------
+require('gitsigns').setup({ keymaps = {} })
 
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
