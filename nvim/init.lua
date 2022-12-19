@@ -116,20 +116,15 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 
 
 -- PLUGINS ------------------------------------------------------------
--- Install packer
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    print('Installing Packer...')
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+-- Install packer automatically
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_bootstrap = false
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  print('Installing Packer...')
+  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd [[packadd packer.nvim]]
+    packer_bootstrap = true
 end
-
-local packer_bootstrap = ensure_packer()
 
 require('packer').startup(function(use)
   -- package manager
@@ -190,7 +185,7 @@ require('packer').startup(function(use)
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
   use 'superDross/spellbound.nvim'
-  -- automatically set up your configuration after cloning packer.nvim
+  -- automatically install plugins after cloning packer.nvim
   if packer_bootstrap then
     require('packer').sync()
   end
