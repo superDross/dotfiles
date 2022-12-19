@@ -56,6 +56,7 @@ RUN python3 -m ensurepip && \
 	setuptools \
 	neovim
 
-COPY ./init.lua /root/.config/nvim/init.lua
+# init file and snippets (ignores the rest)
+COPY ./ /root/.config/nvim/
 
 WORKDIR /neovim
