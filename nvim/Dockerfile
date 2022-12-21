@@ -62,4 +62,4 @@ COPY ./ /root/.config/nvim/
 # create an application directory incase we need to mount a host directory
 RUN mkdir -p app/
 
-WORKDIR /neovim
+WORKDIR /app

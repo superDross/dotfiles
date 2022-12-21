@@ -1,3 +1,7 @@
+ifneq ($(APP_DIR),)
+	APP_DIR := -v $(APP_DIR):/app
+endif
+
 default: help
 
 .PHONY: help
@@ -16,4 +20,4 @@ build: ## Build my personally configured Neovim build in a Docker container
 bash: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a shell...'
 	$(MAKE) build
-	@docker run -it --entrypoint /bin/bash  nvim-dev:latest
+	docker run $(APP_DIR) -it --entrypoint /bin/bash  nvim-dev:latest
