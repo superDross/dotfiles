@@ -31,8 +31,10 @@ RUN apk --no-cache add \
     unzip \
     wget \
     # packages required for nvim plugins
+    bat \
     ctags \
     fd  \
+    fzf \
     lua \
     lua-dev \
     nodejs \
