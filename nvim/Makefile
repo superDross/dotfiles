@@ -19,9 +19,9 @@ help: ## Show help for all commands
 	@echo "Available commands:"
 	@awk 'BEGIN {FS = ":.*##"; \
 		printf "\nUsage:\n make $(BLUE)<target>$(WHITE)";\
-		printf "\n\nVariables:\n";\
-		printf "  $(BLUE)NVIM_DATA_DIR$(WHITE):\toverride host dir to use as nvim data persistent storage\n";\
-		printf "  $(BLUE)APP_DIR$(WHITE):\t\thost directory to mount to /app"; \
+		printf "\n\nRun Variables:\n";\
+		printf "  $(BLUE)NVIM_DATA_DIR$(WHITE)\t\toverride host dir to use as nvim data persistent storage\n";\
+		printf "  $(BLUE)APP_DIR$(WHITE)\t\thost directory to mount to /app"; \
 		printf "\n\nTargets:\n"} \
 		/^[a-zA-Z0-9_-]+:.*?##/ { printf "  $(BLUE)%-10s$(WHITE) %s\n", $$1, $$2 }' \
 		$(MAKEFILE_LIST)
@@ -31,8 +31,8 @@ build: ## Build my personally configured Neovim build in a Docker container
 	@echo 'building neovim-dev:latest image...'
 	@docker build -t nvim-dev:latest .
 
-.PHONY: bash
-bash: ## Jump into a shell to use and test Neovim
+.PHONY: run
+run: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a shell...'
 	docker run \
 	  $(APP_DIR) \
