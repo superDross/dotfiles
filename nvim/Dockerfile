@@ -1,5 +1,5 @@
 # Build neovim separately in the first stage
-FROM alpine:latest
+FROM alpine:3.17.0
 
 # Install cargo and update the indexes using this hack
 # Takes a long time to update the indexes hence why its first
@@ -51,12 +51,15 @@ RUN cd /tmp && \
 
 # Install pynvim for python plugins
 RUN python3 -m ensurepip && \
-    pip3 install --no-cache --upgrade \
+    pip3 install --no-cache --no-cache-dir --upgrade \
         pip \
 	setuptools \
 	neovim
 
 # init file and snippets (ignores the rest)
 COPY ./ /root/.config/nvim/
+
+# create an application directory incase we need to mount a host directory
+RUN mkdir -p app/
 
 WORKDIR /neovim
