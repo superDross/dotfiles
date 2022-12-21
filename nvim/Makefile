@@ -10,11 +10,21 @@ endif
 
 default: help
 
+BLUE := \033[36m
+WHITE := \033[0m
+
 .PHONY: help
 help: ## Show help for all commands
 	@echo
 	@echo "Available commands:"
-	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; \
+		printf "\nUsage:\n make $(BLUE)<target>$(WHITE)";\
+		printf "\n\nVariables:\n";\
+		printf "  $(BLUE)NVIM_DATA_DIR$(WHITE):\toverride host dir to use as nvim data persistent storage\n";\
+		printf "  $(BLUE)APP_DIR$(WHITE):\t\thost directory to mount to /app"; \
+		printf "\n\nTargets:\n"} \
+		/^[a-zA-Z0-9_-]+:.*?##/ { printf "  $(BLUE)%-10s$(WHITE) %s\n", $$1, $$2 }' \
+		$(MAKEFILE_LIST)
 
 .PHONY: build 
 build: ## Build my personally configured Neovim build in a Docker container
