@@ -32,9 +32,8 @@ build: ## Build my personally configured Neovim build in a Docker container
 	@docker build -t nvim-dev:latest .
 
 .PHONY: bash
-bash: ## Jump into a shell to use and test Neovim (APP_DIR=/dir to mount host dir to /app)
+bash: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a shell...'
-	$(MAKE) build
 	docker run \
 	  $(APP_DIR) \
 	  -v $(NVIM_DATA_DIR):/root/.local/share/nvim \
