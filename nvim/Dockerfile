@@ -1,4 +1,3 @@
-# Build neovim separately in the first stage
 FROM alpine:3.17.0
 
 # Install cargo and update the indexes using this hack
@@ -11,8 +10,8 @@ RUN apk update && \
     && cargo add serde \
     && rm -rf /tmp/deleteme
 
+# basic requirements for minimal configured neovim to work
 RUN apk --no-cache add \
-    # basic requirements for minimal configured neovim to work
     autoconf \
     automake \
     bash \
@@ -29,8 +28,10 @@ RUN apk --no-cache add \
     openssl \
     pkgconf \
     unzip \
-    wget \
-    # packages required for nvim plugins
+    wget
+
+# packages required for nvim plugins
+RUN apk --no-cache add \
     bat \
     ctags \
     fd  \
