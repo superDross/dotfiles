@@ -1,5 +1,11 @@
+# allows one to attach a local host directory to the /app dir within the container
 ifneq ($(APP_DIR),)
 	APP_DIR := -v $(APP_DIR):/app
+endif
+
+# create or use an existing persistent directory for nvim data
+ifeq ($(NVIM_DATA_DIR),)
+	NVIM_DATA_DIR := ~/volumes/nvim-data
 endif
 
 default: help
@@ -21,7 +27,7 @@ bash: ## Jump into a shell to use and test Neovim (APP_DIR=/dir to mount host di
 	$(MAKE) build
 	docker run \
 	  $(APP_DIR) \
-	  -v ~/volumes/nvim-data:/root/.local/share/nvim \
+	  -v $(NVIM_DATA_DIR):/root/.local/share/nvim \
 	  -it \
 	  --entrypoint /bin/bash \
 	  nvim-dev:latest
