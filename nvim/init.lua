@@ -180,7 +180,10 @@ require('packer').startup(function(use)
   -- code outline
   use 'stevearc/aerial.nvim'
   -- personal plugins
-  use 'superDross/ticket.vim'
+  use {
+    'superDross/ticket.vim',
+    branch = 'fix/forward-slash-branch-names'
+  }
   use 'superDross/picobook'
   use 'superDross/run-with-me.vim'
   use 'superDross/scrappy.vim'
