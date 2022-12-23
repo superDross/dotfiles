@@ -70,7 +70,7 @@ vim.api.nvim_create_autocmd('TermClose', {
 })
 -- indentation spacing
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-  pattern = { '*.js', '*.html', '*.css', '*.jsx', '*.lua', '*.vue' },
+  pattern = { '*.js', '*.html', '*.css', '*.jsx', '*.lua', '*.vue', '*.vim' },
   callback = function()
     vim.opt_local.expandtab = true
     vim.opt_local.tabstop = 2
