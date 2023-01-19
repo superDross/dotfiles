@@ -94,6 +94,7 @@ alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd
 
 # docker_plus alias
 alias dp="docker_plus"
+alias k="kubectl"
 
 # work screen layout
 alias workscreen="bash ~/.screenlayout/work.sh"
