@@ -297,6 +297,7 @@ local normal_mappings = {
   ['<Leader>rc']       = '<cmd>RunCode<CR>',
   ['<Leader>rv']       = '<cmd>RunCodeVert<CR>',
   ['<Leader>rs']       = '<cmd>RunSelectedCode<CR>',
+  ['<Leader>rh']       = '<cmd>RunToCursor<CR>',
   ['<Leader>rt']       = '<cmd>RunTestsVert<CR>',
   ['<Leader>rm']       = '<cmd>RunModuleTestsVert<CR>',
   ['<Leader>rn']       = '<cmd>RunNearestTestVert<CR>',
