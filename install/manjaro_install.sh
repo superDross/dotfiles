@@ -217,7 +217,7 @@ function setup_files(){
 
   mv ~/.bashrc ~/.bashrc_OG
   mv ~/.i3/config ~/.i3/config_OG
-  mkdir -p /home/david/.config/xfce4/terminal/
+  mkdir -p /home/david/.config/xfce4/terminal/ /home/david/.config/wezterm/
   mkdir -p ~/.vim/
 
   ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
@@ -225,6 +225,7 @@ function setup_files(){
   ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
   ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
   ln -s ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/terminalrc
+  ln -s ${DOTFILESDIR}/terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
   ln -s ${DOTFILESDIR}/terminal/.alacritty.yml ~/.alacritty.yml
   ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
   ln -s ${DOTFILESDIR}/i3/config ~/.i3/config

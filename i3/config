@@ -62,7 +62,7 @@ bindsym $mod+Shift+s sticky toggle
 bindsym Print exec scrot
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal --hide-menubar
+bindsym $mod+Return exec wezterm
 # bindsym $mod+Return exec alacritty
 
 # lock screen activation
