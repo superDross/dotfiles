@@ -2,6 +2,7 @@ local wezterm = require 'wezterm'
 
 return {
   font = wezterm.font('Roboto Mono', { weight='Bold'}),
+  -- font_size = 10,
   colors = {
     foreground='#eeeeeeeeecec',
     background='#1d1d20202121',
