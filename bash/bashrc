@@ -289,8 +289,8 @@ function parse_git_branch() {
 }
 
 function bg_process_num() {
-  num=$(jobs | grep -v autojump | wc -l | sed 's/^ *//g')
-  if [ $num != 0 ]; then
+  num=$(jobs | grep -c -v "autojump\|wezterm" | sed 's/^ *//g')
+  if [ "$num" != 0 ]; then
     echo " $num"
   fi
 }
