@@ -195,11 +195,6 @@ function install_ale_tools(){
 
 
 function setup_vim(){
-  # neovim version management tool
-  cargo install \
-    --git https://github.com/MordechaiHadad/bob.git \
-    --features bob/openssl
-
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -212,7 +207,7 @@ function setup_vim(){
 
 function setup_files(){
   sudo cp \
-    ${DOTFILESDIR}/images/wallpaper.jpg \
+    "${DOTFILESDIR}"/images/wallpaper.jpg \
     /usr/share/backgrounds/
 
   mv ~/.bashrc ~/.bashrc_OG
@@ -220,22 +215,25 @@ function setup_files(){
   mkdir -p /home/david/.config/xfce4/terminal/ /home/david/.config/wezterm/
   mkdir -p ~/.vim/
 
-  ln -s ${DOTFILESDIR}/vim/vimrc ~/.vimrc
-  ln -s ${DOTFILESDIR}/bash/bashrc ~/.bashrc
-  ln -s ${DOTFILESDIR}/bash/inputrc ~/.inputrc
-  ln -s ${DOTFILESDIR}/postgres/psqlrc ~/.psqlrc
-  ln -s ${DOTFILESDIR}/terminal/terminalrc  ~/.config/xfce4/terminal/terminalrc
-  ln -s ${DOTFILESDIR}/terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
-  ln -s ${DOTFILESDIR}/terminal/.alacritty.yml ~/.alacritty.yml
-  ln -s ${DOTFILESDIR}/tmux/tmux.conf ~/.tmux.conf
-  ln -s ${DOTFILESDIR}/i3/config ~/.i3/config
-  ln -s ${DOTFILESDIR}/i3/i3status.conf ~/.i3/i3status.conf
-  ln -s ${DOTFILESDIR}/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
-  ln -s ${DOTFILESDIR}/words/thesaurus.txt ~/.vim/thesaurus.txt
-  ln -s ${DOTFILESDIR}/postactivate ~/.virtualenvs/postactivate
-  ln -s ${DOTFILESDIR}/postmkvirtualenv ~/.virtualenvs/postmkvirtualenv
+  ln -s "${DOTFILESDIR}"/vim/vimrc ~/.vimrc
+  ln -s "${DOTFILESDIR}"/bash/bashrc ~/.bashrc
+  ln -s "${DOTFILESDIR}"/bash/inputrc ~/.inputrc
+  ln -s "${DOTFILESDIR}"/postgres/psqlrc ~/.psqlrc
+  ln -s "${DOTFILESDIR}"/terminal/terminalrc  ~/.config/xfce4/terminal/terminalrc
+  ln -s "${DOTFILESDIR}"/terminal/wezterm.lua ~/.config/wezterm/wezterm.lua
+  ln -s "${DOTFILESDIR}"/terminal/.alacritty.yml ~/.alacritty.yml
+  ln -s "${DOTFILESDIR}"/tmux/tmux.conf ~/.tmux.conf
+  ln -s "${DOTFILESDIR}"/i3/config ~/.i3/config
+  ln -s "${DOTFILESDIR}"/i3/i3status.conf ~/.i3/i3status.conf
+  ln -s "${DOTFILESDIR}"/images/wallpaper.jpg ~/Downloads/wallpaper.jpg
+  ln -s "${DOTFILESDIR}"/words/thesaurus.txt ~/.vim/thesaurus.txt
+  ln -s "${DOTFILESDIR}"/postactivate ~/.virtualenvs/postactivate
+  ln -s "${DOTFILESDIR}"/postmkvirtualenv ~/.virtualenvs/postmkvirtualenv
 }
 
+function other_installs(){
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+}
 
 function main(){
   echo "Dotfiles dir is set as: ${DOTFILESDIR}"
@@ -252,6 +250,7 @@ function main(){
     install_ale_tools
     setup_files
     setup_vim
+    other_installs
   fi
 
   echo "Plesase reboot your system"
