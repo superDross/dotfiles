@@ -75,6 +75,7 @@ function update_and_install(){
     unclutter \
     unp \
     vlc \
+    wezterm \
     xclip \
     xcompmgr \
     xfce4 \
