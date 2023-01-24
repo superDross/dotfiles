@@ -231,10 +231,6 @@ function setup_files(){
   ln -s "${DOTFILESDIR}"/postmkvirtualenv ~/.virtualenvs/postmkvirtualenv
 }
 
-function other_installs(){
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-}
-
 function main(){
   echo "Dotfiles dir is set as: ${DOTFILESDIR}"
 
@@ -250,7 +246,6 @@ function main(){
     install_ale_tools
     setup_files
     setup_vim
-    other_installs
   fi
 
   echo "Plesase reboot your system"
