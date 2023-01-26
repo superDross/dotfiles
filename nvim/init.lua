@@ -371,8 +371,7 @@ require('lualine').setup({
     lualine_z = { 'location' },
   },
   tabline = {
-    lualine_a = { { 'tabs', mode = 1 } },
-    lualine_z = { { 'windows', max_length = vim.o.columns * 1 / 3, } }
+    lualine_a = { { 'tabs', mode = 2 } },
   },
 })
 
