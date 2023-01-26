@@ -384,7 +384,7 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=100000
 export HISTFILESIZE=200000
 # don't show repeated commands (&), ls, ls *, etc.
-export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c -A:[bf]g:fg:tmux:j:exit"
+export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c -A:[bf]g:fg:j:exit"
 MY_BASH_GREEN="\033[38;5;82m"
 MY_BASH_NOCOLOR="\033[0m"
 HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
