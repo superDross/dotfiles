@@ -341,7 +341,7 @@ end
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'gruvbox',
+    theme = 'auto',
     globalstatus = true
   },
   sections = {
