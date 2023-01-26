@@ -338,8 +338,6 @@ end
 
 
 -- STATUSLINE ------------------------------------------------------------
-local my_filename = require('lualine.components.filename'):extend()
-my_filename.apply_icon = require('lualine.components.filetype').apply_icon
 require('lualine').setup({
   options = {
     icons_enabled = true,
