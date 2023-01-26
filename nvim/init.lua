@@ -118,13 +118,13 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 
 -- PLUGINS ------------------------------------------------------------
 -- Install packer automatically
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   print('Installing Packer...')
-  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
   vim.cmd [[packadd packer.nvim]]
-    packer_bootstrap = true
+  packer_bootstrap = true
 end
 
 require('packer').startup(function(use)
@@ -368,7 +368,11 @@ require('lualine').setup({
     },
     lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
     lualine_y = { 'progress' },
-    lualine_z = { 'location' }
+    lualine_z = { 'location' },
+  },
+  tabline = {
+    lualine_a = { { 'tabs', mode = 1 } },
+    lualine_z = { { 'windows', max_length = vim.o.columns * 1 / 3, } }
   },
 })
 
