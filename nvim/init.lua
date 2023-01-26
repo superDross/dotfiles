@@ -338,10 +338,12 @@ end
 
 
 -- STATUSLINE ------------------------------------------------------------
+local my_filename = require('lualine.components.filename'):extend()
+my_filename.apply_icon = require('lualine.components.filetype').apply_icon
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'auto',
+    theme = 'gruvbox-material',
     globalstatus = true
   },
   sections = {
@@ -358,6 +360,7 @@ require('lualine').setup({
       }
     },
     lualine_c = {
+      { 'filetype', icon_only = true, colored = false, color = 'lualine_c_normal' },
       {
         'filename',
         symbols = {
@@ -371,7 +374,17 @@ require('lualine').setup({
     lualine_z = { 'location' },
   },
   tabline = {
-    lualine_a = { { 'tabs', mode = 2 } },
+    lualine_a = {
+      { 'filetype', icon_only = true, colored = false, color = 'lualine_b_normal' },
+      { 'tabs', mode = 2,
+        fmt = function(name, context)
+          -- Show + if buffer is modified in tab
+          local winnr = vim.fn.tabpagewinnr(context.tabnr)
+          local bufnr = vim.fn.tabpagebuflist(context.tabnr)[winnr]
+          return name .. (vim.fn.getbufvar(bufnr, '&mod') == 1 and ' +' or '')
+        end
+      },
+    },
   },
 })
 
