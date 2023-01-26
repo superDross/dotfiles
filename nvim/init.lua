@@ -375,7 +375,6 @@ require('lualine').setup({
   },
   tabline = {
     lualine_a = {
-      { 'filetype', icon_only = true, colored = false, color = 'lualine_b_normal' },
       { 'tabs', mode = 2,
         fmt = function(name, context)
           -- Show + if buffer is modified in tab
