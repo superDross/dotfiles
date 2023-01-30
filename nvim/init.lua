@@ -373,7 +373,7 @@ require('lualine').setup({
   },
   tabline = {
     lualine_a = {
-      { 'tabs', mode = 1,
+      { 'tabs', mode = 1, max_length = vim.o.columns,
         fmt = function(name, context)
           -- Show + if buffer is modified in tab
           local winnr = vim.fn.tabpagewinnr(context.tabnr)
