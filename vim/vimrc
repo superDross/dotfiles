@@ -4,7 +4,7 @@ let g:vimdir = fnamemodify(vimrc, ':h')
 
 " for picobook
 let g:notesdir = '~/bin/piconotes/'
-let g:noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
+let g:noteurl = 'https://github.com/superDross/piconotes/blob/master/'
 let g:browser = 'chromium'
 let g:auto_ticket_open = 1
 let g:auto_ticket_git_only = 1
