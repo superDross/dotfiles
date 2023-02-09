@@ -137,11 +137,32 @@ require('packer').startup(function(use)
   use 'WhoIsSethDaniel/mason-tool-installer.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  -- AI
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
+  }
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'saadparwaiz1/cmp_luasnip'
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function ()
+    require("copilot_cmp").setup {
+      method = "getCompletionsCycling",
+    }
+    end
+  }
   -- snippets
   use({ 'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*" })
   -- undo tree
@@ -559,6 +580,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'vim-dadbod-completion' },
+    { name = 'copilot' },
   }),
   snippet = {
     expand = function(args)
