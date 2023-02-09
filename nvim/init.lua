@@ -168,7 +168,7 @@ require('packer').startup(function(use)
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
-  use 'ellisonleao/gruvbox.nvim'
+  use {'ellisonleao/gruvbox.nvim', commit = '2e93ac5' }
   -- text object extensions
   use 'machakann/vim-sandwich'
   use 'machakann/vim-swap'
