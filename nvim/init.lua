@@ -332,6 +332,8 @@ local normal_mappings = {
   ['<Leader>no']       = '<cmd>OpenNote<CR>',
   ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
+  -- copilot
+  ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
 }
 
 set_key_map('n', normal_mappings, opts)
