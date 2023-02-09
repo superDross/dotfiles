@@ -619,7 +619,7 @@ require('gitsigns').setup({ keymaps = {} })
 vim.g.default_testing_cmd = 'make test TEST_ARGS='
 -- piconotes
 vim.g.notesdir = '~/bin/piconotes/'
-vim.g.noteurl = 'https://github.com/superDross/dotfiles/blob/master/notes/'
+vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
 -- ticket.vim
 vim.g.auto_ticket_open = 1
 vim.g.auto_ticket_git_only = 1
