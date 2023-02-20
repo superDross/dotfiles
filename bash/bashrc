@@ -338,7 +338,7 @@ function vlc-stream() {
 #################
 
 GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/neovim/bin
+export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/bob/nvim-bin
 
 # VI mode
 set -o vi

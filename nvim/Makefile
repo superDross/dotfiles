@@ -29,7 +29,12 @@ help: ## Show help for all commands
 .PHONY: build 
 build: ## Build my personally configured Neovim build in a Docker container
 	@echo 'building neovim-dev:latest image...'
-	@docker build -t nvim-dev:latest .
+	@docker build $(BUILD_ARGS) -t nvim-dev:latest .
+
+.PHONY: build-no-cache
+build-no-cache: ## Build Neovim build but with --no-cache flag
+	@echo $(MAKEFILE_LIST)
+	BUILD_ARGS=--no-cache $(MAKE) build
 
 .PHONY: run
 run: ## Jump into a shell to use and test Neovim
