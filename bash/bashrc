@@ -3,7 +3,7 @@
 ###################
 
 # store operating system
-os=$(uname -s)
+OS=$(uname -s)
 
 # no colour reset
 NC='\033[0m'
@@ -29,7 +29,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # use gls for macs
-[[ $os = 'Darwin' ]] && list='gls' || list='ls'
+[[ $OS = 'Darwin' ]] && list='gls' || list='ls'
 
 # rename executables
 alias h='history'
@@ -74,7 +74,7 @@ alias gif-recorder="peek"
 alias tree="tree -I '*.egg-info|*.pyc|__pycache__|node_modules'"
 
 # copy a file, usage: `copy <file>`
-if [[ $os = 'Darwin' ]]; then
+if [[ $OS = 'Darwin' ]]; then
   alias copy="pbcopy <"
 else
   alias copy="xclip -sel c <"
@@ -338,7 +338,7 @@ function vlc-stream() {
 #################
 
 GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/bob/nvim-bin
+export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/bob/nvim-bin:/usr/local/bin
 
 # VI mode
 set -o vi
@@ -430,16 +430,21 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 
 # source plugins
-if [[ $os = 'Darwin' ]]; then
+if [[ $OS = 'Darwin' ]]; then
   export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
-  source /usr/local/bin/virtualenvwrapper.sh
+  source /opt/homebrew/bin/virtualenvwrapper.sh
 else
   source /usr/share/fzf/completion.bash
   source /usr/share/fzf/key-bindings.bash
   source /usr/bin/virtualenvwrapper.sh
 fi
 
-[[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
+if [[ $OS = 'Darwin' ]]; then
+  [[ -s /Users/David.Ross/.autojump/etc/profile.d/autojump.sh ]] && source /Users/David.Ross/.autojump/etc/profile.d/autojump.sh
+else
+  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
+fi
+
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 if [ -f ~/.git-completion.bash ]; then
@@ -489,3 +494,13 @@ export PS1="$USER_PS1 \w"\
 "\[\033[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
 "\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
+
+
+#################
+#    MAC        #
+#################
+if [[ "$OS" == "Darwin" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  alias python="/opt/homebrew/bin/python3"
+fi
+
