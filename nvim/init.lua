@@ -420,7 +420,7 @@ require('aerial').setup({})
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'pyright', 'bashls', 'tsserver', 'sumneko_lua', 'dockerls', 'vimls', 'yamlls'
+    'pyright', 'bashls', 'tsserver', 'lua_ls', 'dockerls', 'vimls', 'yamlls'
   },
   automatic_installation = true,
 }
@@ -459,8 +459,8 @@ mason_lspconfig.setup_handlers({
     lspconfig[server_name].setup { on_attach = on_attach }
   end,
   -- provide targeted overrides for specific servers.
-  ['sumneko_lua'] = function()
-    lspconfig.sumneko_lua.setup {
+  ['lua_ls'] = function()
+    lspconfig.lua_ls.setup {
       on_attach = on_attach,
       settings = {
         Lua = {
