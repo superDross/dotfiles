@@ -256,18 +256,6 @@ function docker_plus(){
   esac
 }
 
-function ffind() {
-  if cmd="$(type -p "rg")" || [[ -x $cmd ]]; then
-    rg "${@:2}" --type "$1" -g '!**/venv/*' -g '!**/.tox/*'
-  # add ag alternative
-  else
-    find . -type f -name "*.$1" ! -path '*/venv/*' ! -path '*/.tox/*' | xargs grep "${@:2}"
-  fi
-}
-
-function ftype() {
-  find . -iname "*.${@}"
-}
 
 # parse git or hg branch name and stash number
 function parse_git_branch() {
@@ -295,23 +283,6 @@ function bg_process_num() {
   fi
 }
 
-function tmux_session() {
-  # if tmux on system and in a session
-  if [[ $(command -v tmux) ]] && [ -n "$TMUX" ]; then
-    echo "(tmux) "
-  fi
-}
-
-function tmux_session_num() {
-  # if tmux on system and not in a session
-  if [[ $(command -v tmux) ]] && [ -z "$TMUX" ]; then
-    session_num=$(tmux ls 2> /dev/null | wc -l | sed 's/^ *//g')
-    if [ $session_num != 0 ]; then
-      echo " $session_num"
-    fi
-  fi
-}
-
 # go up x many dirs:
 #    up 2 == cd ../../
 function up() {
@@ -324,12 +295,6 @@ function up() {
     done
     cd $CDSTR
   fi
-}
-
-# stream torrent magnet in VLC
-function vlc-stream() {
-  # use CTRL+Z and then type `bg` to take back your terminal
-  peerflix "$1" --remove --vlc --quiet --list
 }
 
 
