@@ -88,10 +88,6 @@ alias c="clear"
 # fix pirate-get error
 alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
-# connect to vpn
-alias vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/home/david/.vpn/csd-post.sh ssluk.yougov.net"
-alias us_vpn="sudo openconnect -v --user=david.ross --authgroup=yougov-duo --csd-wrapper=/home/david/.vpn/csd-post.sh sslus.yougov.net"
-
 # docker_plus alias
 alias dp="docker_plus"
 alias k="kubectl"
@@ -431,7 +427,6 @@ export PROJECT_HOME=$HOME/Devel
 
 # source plugins
 if [[ $OS = 'Darwin' ]]; then
-  export VIRTUALENVWRAPPER_PYTHON=/Library/Frameworks/Python.framework/Versions/3.8/bin/python3
   source /opt/homebrew/bin/virtualenvwrapper.sh
 else
   source /usr/share/fzf/completion.bash
@@ -502,5 +497,18 @@ export PS1="$USER_PS1 \w"\
 if [[ "$OS" == "Darwin" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   alias python="/opt/homebrew/bin/python3"
+
+  # Beamery Cluster 2.0 Tooling
+  export PATH=${HOME}/.beamery-tooling/bin:$PATH
+
+  # Beamery Vault Access
+  token=$(cat ~/.gh_token)
+  export GITHUB_API_TOKEN=$token
+  vault_login() {
+    environment=${1:-global}
+    export VAULT_ADDR="https://vault.${environment//-/.}.beamery.engineer"
+    unset VAULT_TOKEN
+    vault token lookup &>/dev/null || vault login -method=github token="${GITHUB_API_TOKEN}"
+  }
 fi
 
