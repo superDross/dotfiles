@@ -60,6 +60,7 @@ function update_and_install(){
     pulseaudio \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
+    pyenv \
     python-pynvim \
     python-virtualenvwrapper \
     redshift \
