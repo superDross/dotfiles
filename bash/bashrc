@@ -23,6 +23,7 @@ BROWSER=/usr/bin/firefox
 #################
 #    MAC        #
 #################
+
 if [[ "$OS" == "Darwin" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   # alias python="/opt/homebrew/bin/python3"
@@ -43,10 +44,6 @@ if [[ "$OS" == "Darwin" ]]; then
     unset VAULT_TOKEN
     vault token lookup &>/dev/null || vault login -method=github token="${GITHUB_API_TOKEN}"
   }
-  # Pyenv configuration
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
 fi
 
 
@@ -329,9 +326,6 @@ function up() {
 #    OPTIONS    #
 #################
 
-GEM_HOME=$(ruby -e 'puts Gem.user_dir')
-export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/bob/nvim-bin:/usr/local/bin
-
 # VI mode
 set -o vi
 
@@ -413,13 +407,27 @@ export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
 
 
-#################
-#    PLUGINS    #
-#################
+####################
+#    DEVELOPMENT   #
+####################
+
+# Pyenv configuration
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # venv settings
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
+
+# PATH manipulation for various languages and tools
+GEM_HOME=$(ruby -e 'puts Gem.user_dir')
+export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.local/share/bob/nvim-bin:/usr/local/bin
+
+
+#################
+#    PLUGINS    #
+#################
 
 # source plugins
 if [[ $OS = 'Darwin' ]]; then
