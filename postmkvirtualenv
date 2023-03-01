@@ -4,10 +4,15 @@
 pip install pdbpp remote-pdb
 
 # ensure we create a requirements file, install the packages and delete it
-if [[ $(find . -maxdepth 1 -name "poetry.lock") ]]; then
+# 1. For work
+if [[ $(find . -maxdepth 1 -name "poetry.lock") && $(uname -s) == "Darwin" ]]; then
+  ./poetry install
+# 2. For personal projects that use poetry
+elif [[ $(find . -maxdepth 1 -name "poetry.lock") ]]; then
   poetry export --with dev --output requirements.txt
   pip install -r requirements.txt
   rm requirements.txt
+# 3. For other projects that use a requirements.txt file only
 elif [[ $(find . -maxdepth 1 -name "requirements.txt") ]]; then
   pip install -r requirements.txt
 fi
