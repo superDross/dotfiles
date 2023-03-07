@@ -284,10 +284,10 @@ local normal_mappings = {
   ['<C-h>']            = ':tabprevious<CR>',
   ['<C-l>']            = ':tabnext<CR>',
   -- window resizing
-  ['<C-Up>']           = '<cmd>resize +5<CR>',
-  ['<C-Down>']         = '<cmd>resize -5<CR>',
-  ['<C-Left>']         = '<cmd>vertical resize +5<CR>',
-  ['<C-Right>']        = '<cmd>vertical resize -5<CR>',
+  ['<S-Up>']           = '<cmd>resize +5<CR>',
+  ['<S-Down>']         = '<cmd>resize -5<CR>',
+  ['<S-Left>']         = '<cmd>vertical resize +5<CR>',
+  ['<S-Right>']        = '<cmd>vertical resize -5<CR>',
   -- leader number mappings
   ['<leader>0']        = ':silent set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
@@ -599,6 +599,9 @@ require 'nvim-treesitter.configs'.setup {
     'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
   },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
+  -- disable = function(lang, bufnr)
+  --     return vim.api.nvim_buf_line_count(bufnr) > 10000
+  -- end,
 } -- TSInstall all
 
 
