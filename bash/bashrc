@@ -498,3 +498,5 @@ export PS1="$USER_PS1 \w"\
 "\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
 
+
+complete -C /usr/bin/terraform terraform
