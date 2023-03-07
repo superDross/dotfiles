@@ -44,6 +44,9 @@ if [[ "$OS" == "Darwin" ]]; then
     unset VAULT_TOKEN
     vault token lookup &>/dev/null || vault login -method=github token="${GITHUB_API_TOKEN}"
   }
+
+  # Bash Completion
+  [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
 
 
@@ -357,6 +360,7 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+
   fi
 fi
 
