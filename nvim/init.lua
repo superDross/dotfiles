@@ -621,7 +621,7 @@ require('gitsigns').setup({ keymaps = {} })
 
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
-vim.g.default_testing_cmd = 'make test TEST_ARGS='
+vim.g.default_testing_cmd = 'make test'
 -- piconotes
 vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
