@@ -125,7 +125,7 @@ require('packer').startup(function(use)
   -- package manager
   use 'wbthomason/packer.nvim'
   -- dependencies
- use 'nvim-lua/plenary.nvim'
+  use 'nvim-lua/plenary.nvim'
   -- lsp configs
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
