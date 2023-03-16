@@ -124,6 +124,8 @@ end
 require('packer').startup(function(use)
   -- package manager
   use 'wbthomason/packer.nvim'
+  -- dependencies
+ use 'nvim-lua/plenary.nvim'
   -- lsp configs
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
@@ -158,7 +160,7 @@ require('packer').startup(function(use)
     end
   }
   -- snippets
-  use({ 'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*" })
+  use({ 'L3MON4D3/LuaSnip'})
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
@@ -167,11 +169,7 @@ require('packer').startup(function(use)
   use {
   "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    }
+    requires = { "MunifTanjim/nui.nvim" }
   }
   -- text object extensions
   use 'machakann/vim-sandwich'
@@ -179,10 +177,7 @@ require('packer').startup(function(use)
   -- git enhancers
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
+  use 'lewis6991/gitsigns.nvim'
   -- file searcher
   use {
     'ibhagwan/fzf-lua',
