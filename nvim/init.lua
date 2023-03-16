@@ -199,10 +199,6 @@ require('packer').startup(function(use)
     run = function() vim.fn['mkdp#util#install']() end,
   }
   use 'masukomi/vim-markdown-folding'
-  -- database
-  use 'tpope/vim-dadbod'
-  use 'kristijanhusak/vim-dadbod-ui'
-  use 'kristijanhusak/vim-dadbod-completion'
   -- code outline
   use 'stevearc/aerial.nvim'
   -- personal plugins
@@ -585,7 +581,6 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'vim-dadbod-completion' },
     { name = 'copilot' },
   }),
   snippet = {
@@ -613,12 +608,6 @@ require 'nvim-treesitter.configs'.setup {
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
 
-
--- DADBOD ------------------------------------------------------------------
-vim.g.dbs = {
-  dev_postgres = 'postgres://postgres:postgres@localhost:5432',
-  dev_mongo = 'mongodb://localhost:27017',
-}
 
 -- GIT ---------------------------------------------------------------------
 require('gitsigns').setup({ keymaps = {} })
