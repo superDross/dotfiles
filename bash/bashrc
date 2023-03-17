@@ -480,7 +480,7 @@ fi
 
 if command -v terraform &> /dev/null
 then
-  [[ "$OS" = "Darwin" ]] && terr=/opt/homebrew/bin/terraform || terr=/user/bin/terraform
+  [[ "$OS" = "Darwin" ]] && terr=/opt/homebrew/bin/terraform || terr=/usr/bin/terraform
   complete -C "$terr" terraform
 fi
 

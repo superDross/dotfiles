@@ -29,12 +29,6 @@ vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 -- vim.opt.runtimepath:append(',~/dev/super-session.nvim/')
 
 
--- NETRW SETTINGS -------------------------------------------------------
-vim.g.netrw_preview   = 1
-vim.g.netrw_liststyle = 3
-vim.g.netrw_winsize   = 30
-
-
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -130,6 +124,8 @@ end
 require('packer').startup(function(use)
   -- package manager
   use 'wbthomason/packer.nvim'
+  -- dependencies
+  use 'nvim-lua/plenary.nvim'
   -- lsp configs
   use 'neovim/nvim-lspconfig'
   use 'williamboman/mason.nvim'
@@ -164,21 +160,24 @@ require('packer').startup(function(use)
     end
   }
   -- snippets
-  use({ 'L3MON4D3/LuaSnip', tag = "v<CurrentMajor>.*" })
+  use({ 'L3MON4D3/LuaSnip'})
   -- undo tree
   use 'simnalamburt/vim-mundo'
   -- colorschemes
   use {'ellisonleao/gruvbox.nvim', commit = '2e93ac5' }
+  -- file explorer
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = { "MunifTanjim/nui.nvim" }
+  }
   -- text object extensions
   use 'machakann/vim-sandwich'
   use 'machakann/vim-swap'
   -- git enhancers
   use 'tpope/vim-commentary'
   use 'tpope/vim-fugitive'
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
+  use 'lewis6991/gitsigns.nvim'
   -- file searcher
   use {
     'ibhagwan/fzf-lua',
@@ -195,10 +194,6 @@ require('packer').startup(function(use)
     run = function() vim.fn['mkdp#util#install']() end,
   }
   use 'masukomi/vim-markdown-folding'
-  -- database
-  use 'tpope/vim-dadbod'
-  use 'kristijanhusak/vim-dadbod-ui'
-  use 'kristijanhusak/vim-dadbod-completion'
   -- code outline
   use 'stevearc/aerial.nvim'
   -- personal plugins
@@ -293,7 +288,7 @@ local normal_mappings = {
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
-  ['<leader>5']        = '<cmd>Vexplore<CR>',
+  ['<leader>5']        = '<cmd>NeoTreeShowToggle<CR>',
   ['<leader>8']        = '<cmd>AerialToggle!<CR>',
   ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
@@ -581,7 +576,6 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'vim-dadbod-completion' },
     { name = 'copilot' },
   }),
   snippet = {
@@ -609,12 +603,6 @@ require 'nvim-treesitter.configs'.setup {
 vim.g.mkdp_theme = 'light'
 vim.g.mkdp_browser = 'firefox'
 
-
--- DADBOD ------------------------------------------------------------------
-vim.g.dbs = {
-  dev_postgres = 'postgres://postgres:postgres@localhost:5432',
-  dev_mongo = 'mongodb://localhost:27017',
-}
 
 -- GIT ---------------------------------------------------------------------
 require('gitsigns').setup({ keymaps = {} })
