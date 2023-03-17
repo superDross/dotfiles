@@ -22,6 +22,9 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
+# NOTE: PRINTING SUCKS, FOLLOW THIS: https://wiki.manjaro.org/index.php/Printing
+
+
 function update_and_install(){
   # Other tools (not in script):
   #   peek - gif record
