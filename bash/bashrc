@@ -121,7 +121,8 @@ alias pirate-get="PYTHONIOENCODING=utf-8 pirate-get"
 
 # docker_plus alias
 alias dp="docker_plus"
-alias k="kubectl"
+alias kp="kubectl --context minikube -n play"
+alias tf="terraform"
 
 # work screen layout
 alias workscreen="bash ~/.screenlayout/work.sh"
