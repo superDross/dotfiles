@@ -202,6 +202,10 @@ bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
+# move between workspaces
+bindsym Control+Right workspace next
+bindsym Control+Left workspace prev
+
 # opens specific applications in given workspace windows
 assign [class="firefox"] $workspace4
 # for_window [class="Spotify"] move to workspace $workspace6
