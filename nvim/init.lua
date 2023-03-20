@@ -288,10 +288,12 @@ local normal_mappings = {
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
-  ['<leader>5']        = '<cmd>NeoTreeShowToggle<CR>',
+  ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
   ['<leader>8']        = '<cmd>AerialToggle!<CR>',
-  ['<leader>t']        = '<cmd>startinsert | sp | resize 15 | term<CR>',
-  ['<leader>T']        = '<cmd>startinsert | vs | term<CR>',
+  -- terminal mappings
+  ['<leader>t']        = '<cmd>startinsert | botright 15split | term<CR>',
+  ['<leader>T']        = '<cmd>startinsert | botright vsplit | term<CR>',
+  ['<leader>N']        = '<cmd>startinsert | tabe | term<CR>',
   -- diagnostics
   ['<leader>e']        = '<cmd>lua vim.diagnostic.open_float()<CR>',
   ['<leader>j']        = '<cmd>lua vim.diagnostic.goto_next()<CR>',

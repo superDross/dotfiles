@@ -23,6 +23,8 @@ DOTFILESDIR="$(dirname $SCRIPTPATH)"
 
 
 # NOTE: PRINTING SUCKS, FOLLOW THIS: https://wiki.manjaro.org/index.php/Printing
+# NOTE: SCREEN TEARING RESOLVED WITH PICOM (COPY THE SETTINGS FILE TOO):
+#       https://wiki.manjaro.org/index.php/Using_Compton_for_a_tear-free_experience_in_Xfce
 
 
 function update_and_install(){

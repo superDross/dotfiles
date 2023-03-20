@@ -202,6 +202,10 @@ bindsym $mod+Shift+8 move container to workspace $workspace8
 bindsym $mod+Shift+9 move container to workspace $workspace9
 bindsym $mod+Shift+0 move container to workspace $workspace0
 
+# move between workspaces
+bindsym Control+Right workspace next
+bindsym Control+Left workspace prev
+
 # opens specific applications in given workspace windows
 assign [class="firefox"] $workspace4
 # for_window [class="Spotify"] move to workspace $workspace6
@@ -228,7 +232,8 @@ exec --no-startup-id "sh -c 'sleep 5; exec firefox'"
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # resolves zoom drawing issues
-exec --no-startup-id xcompmgr -c -l0 -t0 -r0 -o.00
+# exec --no-startup-id xcompmgr -c -l0 -t0 -r0 -o.00
+exec picom
 # network manager (nmcli) icon and gui
 exec --no-startup-id nm-applet
 # required for brightness keys to work
