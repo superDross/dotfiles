@@ -229,6 +229,9 @@ exec blueman-tray
 exec --no-startup-id "sh -c 'sleep 5; exec firefox'"
 # exec --no-startup-id "sh -c 'sleep 5; exec slack'"
 
+# bluetooth tray icon
+exec --no-startup-id blueman-applet
+
 # background apps
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # resolves zoom drawing issues
