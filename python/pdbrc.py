@@ -1,3 +1,6 @@
+"""
+len -s /path/to/pdbrc.py ~/.pdbrc.py
+"""
 import pdb
 
 
