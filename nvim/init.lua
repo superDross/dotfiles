@@ -134,31 +134,12 @@ require('packer').startup(function(use)
   use 'jose-elias-alvarez/null-ls.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- AI
-  use {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      })
-    end,
-  }
+  use 'github/copilot.vim'
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'saadparwaiz1/cmp_luasnip'
-  use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
-    config = function ()
-    require("copilot_cmp").setup {
-      method = "getCompletionsCycling",
-    }
-    end
-  }
   -- snippets
   use({ 'L3MON4D3/LuaSnip'})
   -- undo tree
@@ -336,6 +317,12 @@ local normal_mappings = {
 set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
 set_key_map('t', terminal_mappings, opts)
+-- copilot mapping
+vim.g.copilot_no_tab_map = true
+vim.keymap.set(
+  "i", "<C-j>", "copilot#Accept('<CR>')",
+  {noremap = true, silent = true, expr=true, replace_keycodes = false }
+)
 
 local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
@@ -578,7 +565,6 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'copilot' },
   }),
   snippet = {
     expand = function(args)
