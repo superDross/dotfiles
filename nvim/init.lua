@@ -312,6 +312,9 @@ local normal_mappings = {
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
   -- copilot
   ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
+  -- neotree
+  ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
+  ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
 }
 
 set_key_map('n', normal_mappings, opts)
