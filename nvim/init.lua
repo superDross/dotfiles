@@ -523,8 +523,6 @@ end
 -- compare completion methods https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require('cmp')
 cmp.setup {
-  -- for manual completion only
-  -- completion = { autocomplete = false },
   enabled = function()
     -- disable completion in comments
     local context = require 'cmp.config.context'
@@ -536,7 +534,6 @@ cmp.setup {
     end
   end,
   -- tab completion and selection
-  -- updated for compatibilty with luasnip: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
   mapping = {
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -584,9 +581,6 @@ require 'nvim-treesitter.configs'.setup {
     'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
   },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
-  -- disable = function(lang, bufnr)
-  --     return vim.api.nvim_buf_line_count(bufnr) > 10000
-  -- end,
 } -- TSInstall all
 
 
@@ -601,6 +595,13 @@ require('gitsigns').setup({ keymaps = {} })
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
 vim.g.default_testing_cmd = 'make test'
+vim.g.runner_cmds = {
+  python = "python3",
+  javascript = "node",
+  vim = "vim -N -u NONE -n -c 'set nomore' -S",
+  tex = "pdflatex",
+  lua = "nvim -l",
+}
 -- piconotes
 vim.g.notesdir = '~/bin/piconotes/'
 vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
