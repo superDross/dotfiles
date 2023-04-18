@@ -134,7 +134,7 @@ require('packer').startup(function(use)
   use 'jose-elias-alvarez/null-ls.nvim'
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- AI
-  use 'Exafunction/codeium.vim'
+  use 'github/copilot.vim'
   -- completion
   use 'hrsh7th/nvim-cmp'
   use 'hrsh7th/cmp-nvim-lsp'
@@ -310,22 +310,27 @@ local normal_mappings = {
   ['<Leader>no']       = '<cmd>OpenNote<CR>',
   ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
+  -- copilot
+  ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
 }
 
 local insert_mappings = {
-  ['<C-j>'] = function () return vim.fn['codeium#Accept']() end,
-  ['<C-k>'] = function() vim.fn['codeium#CycleCompletions'](1) end,
+  ['<C-j>'] = 'copilot#Accept("<CR>")',
+  ['<C-k>'] = 'copilot#Next()',
 }
+local insert_opts = { noremap = true, silent = true, expr=true, replace_keycodes = false }
 
--- disable codeium mapping
-vim.g.codeium_disable_bindings = 1
+-- disable copilot tab mapping
+vim.g.copilot_no_tab_map = true
+
 set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
 set_key_map('t', terminal_mappings, opts)
-set_key_map('i', insert_mappings, { expr = true })
+set_key_map('i', insert_mappings, insert_opts)
+
 
 local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
