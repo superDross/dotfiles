@@ -339,23 +339,11 @@ bar {
 #    DISPLAY    #
 #################
 
-set $display display: (m)irror (h)ome (w)ork (s)hare
+set $display display: (m)irror (o)ff (d)efault
 mode "$display" {
-  bindsym m exec xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal \
-                        --output HDMI2 --primary --mode 1920x1080 --pos 0x0 --rotate normal
-  bindsym h exec xrandr --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate left \
-                        --output eDP1 --primary --mode 1920x1080 --pos 2040x0 --rotate normal \
-                        --output HDMI2 --mode 1920x1080 --pos 2040x0 --rotate normal
-  bindsym w exec xrandr --output eDP1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-                        --output HDMI2 --mode 1920x1080 --pos 0x0 --rotate left \
-                        --output HDMI1 --mode 1920x1080 --pos 1920x0 --rotate normal
-  bindsym s exec xrandr --output eDP1 --off \
-                        --output HDMI3 --off \
-                        --output HDMI2 --off \
-                        --output HDMI1 --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-                        --output DP3 --off \
-                        --output DP2 --off \
-                        --output DP1 --off
+  bindsym m exec bash ~/.screenlayout/clone.sh
+  bindsym o exec xrandr --output eDP-1 --off
+  bindsym d exec xrandr --output eDP-1 --primary --mode 1920x1200
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
