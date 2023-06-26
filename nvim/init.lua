@@ -595,7 +595,7 @@ vim.g.mkdp_browser = 'firefox'
 
 
 -- GIT ---------------------------------------------------------------------
-require('gitsigns').setup({ keymaps = {} })
+require('gitsigns').setup()
 
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
