@@ -22,6 +22,7 @@ vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
 vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
 vim.o.mouse = nil
 vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
+vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 
@@ -595,7 +596,7 @@ vim.g.mkdp_browser = 'firefox'
 
 
 -- GIT ---------------------------------------------------------------------
-require('gitsigns').setup({ keymaps = {} })
+require('gitsigns').setup()
 
 -- PERSONAL ------------------------------------------------------------
 -- run-with-me
