@@ -325,6 +325,16 @@ function up() {
   fi
 }
 
+# $1: pod name
+# $2: port
+# $3: beamery environment (optional)
+# example, prometheus in candidate-matching: port_forward_synergy candidate 8008
+function port_forward_synergy() {
+  beam_env="${3:-beamery-staging}"
+  pod=$(kube_cloudflare.sh "$beam_env" kubectl -n synergy get pods | grep "$1" | awk 'FNR == 1{print $1}')
+  kube_cloudflare.sh "$beam_env" kubectl -n synergy port-forward "$pod" "${2}:${2}"
+}
+
 
 #################
 #    OPTIONS    #
