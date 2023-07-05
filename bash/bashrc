@@ -325,6 +325,24 @@ function up() {
   fi
 }
 
+# $1: service name
+# $2: port
+# $3: namespace (optional)
+# $4: beamery environment (optional)
+# example, prometheus in candidate-matching: port_forward_synergy candidate 8008
+function port_forward_synergy() {
+  if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo -e "\n${YELLOW}port_forward_synergy${NC} port forward to synergy service in staging env"
+    echo -e "${BLUE}Usage${NC}:\t\tport_forward_synergy <service_name> <port> <namespace> <beam_env>"
+    echo -e "${PURPLE}Example${NC}:\tport_forward_synergy candidate 8002 synergy beamery-staging\n"
+    return 0
+  fi
+  namespace="${3:-synergy}"
+  beam_env="${4:-beamery-staging}"
+  service=$(kube_cloudflare.sh "$beam_env" kubectl -n "$namespace" get services | grep "$1" | awk 'FNR == 1{print $1}')
+  kube_cloudflare.sh "$beam_env" kubectl -n "$namespace" port-forward "service/${service}" "${2}:${2}"
+}
+
 
 #################
 #    OPTIONS    #
