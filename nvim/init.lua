@@ -421,7 +421,8 @@ mason_lspconfig.setup {
 mason_installer.setup {
   ensure_installed = {
     'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shfmt',
-    'vint', 'sql-formatter', 'stylua', 'luacheck', 'shellharden', 'shellcheck'
+    'vint', 'sql-formatter', 'stylua', 'luacheck', 'shellharden', 'shellcheck',
+    'sqlfluff',
   },
 }
 
@@ -441,7 +442,7 @@ local flake8_config = {
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with(flake8_config),
+    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with({extra_args = {'--dialect=postgres'}}),
     f.black, f.isort, f.jq, f.shfmt.with(shfmt_config), f.sql_formatter, f.shellharden,
   }
 })
