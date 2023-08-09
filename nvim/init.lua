@@ -1,3 +1,5 @@
+-- TODO: move to lazy package manager, figure out a replacement for null-ls
+
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
@@ -422,7 +424,7 @@ mason_lspconfig.setup {
 mason_installer.setup {
   ensure_installed = {
     'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shfmt',
-    'vint', 'sql-formatter', 'stylua', 'luacheck', 'shellharden', 'shellcheck'
+    'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
 
@@ -439,11 +441,12 @@ local flake8_config = {
   diagnostics_postprocess = swap_error_warning,
   extra_args = { '--ignore=W503,E203,E231', '--max-line-length=120' }
 }
+local sqlfluff = {extra_args = {'--dialect=postgres', '--exclude-rules=LT02'}}
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with(flake8_config),
-    f.black, f.isort, f.jq, f.shfmt.with(shfmt_config), f.sql_formatter, f.shellharden,
+    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
+    f.black, f.isort, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
   }
 })
 
