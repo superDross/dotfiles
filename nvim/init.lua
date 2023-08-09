@@ -346,6 +346,7 @@ local on_attach = function(_, bufnr)
     ['<leader>ls'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lv'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lx'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
+    ['<leader>ll'] = '<cmd>LspRestart<CR>',
   }
   for map, func in pairs(mappings) do
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
