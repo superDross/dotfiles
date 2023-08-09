@@ -65,6 +65,8 @@ bindsym Print exec scrot
 bindsym $mod+Return exec wezterm
 # bindsym $mod+Return exec alacritty
 
+bindsym $mod+t exec thunar
+
 # lock screen activation
 bindsym $mod+Shift+x exec i3lock-fancy
 
