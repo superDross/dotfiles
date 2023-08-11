@@ -152,7 +152,7 @@ require('packer').startup(function(use)
   -- file explorer
   use {
   "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     requires = { "MunifTanjim/nui.nvim" }
   }
   -- text object extensions
