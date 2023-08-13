@@ -1,3 +1,8 @@
+-- TODO: refactor personal plugins to allows evaluate globals on execution
+-- e.g. FindSessions should check for g:ticket_use_fzf_default in function
+-- this will make it so the below PERSONAL settings can be placed after lazy
+-- initialisation
+
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
@@ -25,6 +30,136 @@ vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
+vim.g.mapleader = ' '
+
+
+-- PERSONAL ------------------------------------------------------------
+-- run-with-me
+vim.g.default_testing_cmd = 'make test'
+vim.g.runner_cmds = {
+  python = "python3",
+  javascript = "node",
+  vim = "vim -N -u NONE -n -c 'set nomore' -S",
+  tex = "pdflatex",
+  lua = "nvim -l",
+}
+-- piconotes
+vim.g.notesdir = '~/bin/piconotes/'
+vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
+-- ticket.vim
+vim.g.auto_ticket_open = 1
+vim.g.auto_ticket_git_only = 1
+vim.g.ticket_black_list = { 'main', 'master' }
+vim.g.ticket_use_fzf_default = 1
+vim.g.ticket_very_verbose = 1
+vim.g.ticket_overwrite_confirm = 1
+-- scrappy
+vim.g.scrappy_use_fzf_default = 1
+-- spellbound.nvim
+vim.g.spellbound_settings = {
+  mappings = {
+    fix_right = '<M-l>',
+    fix_left = '<M-h>',
+    toggle_map = '<M-s>'
+  },
+  return_to_position = true,
+}
+
+
+-- PLUGINS ------------------------------------------------------------
+-- Install lazy.nvim automatically
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  print('Installing Lazy.nvim...')
+  vim.fn.system({
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+  -- package manager
+  'folke/lazy.nvim',
+  -- dependencies
+  'nvim-lua/plenary.nvim',
+  -- lsp configs
+  'neovim/nvim-lspconfig',
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+  'WhoIsSethDaniel/mason-tool-installer.nvim',
+  'jose-elias-alvarez/null-ls.nvim',
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  -- AI
+  'github/copilot.vim',
+  -- completion
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'saadparwaiz1/cmp_luasnip',
+  -- snippets
+  'L3MON4D3/LuaSnip',
+  -- undo tree
+  'simnalamburt/vim-mundo',
+  -- colorschemes
+  { 'ellisonleao/gruvbox.nvim', commit = '2e93ac5', priority = 1000 },
+  -- file explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = { "MunifTanjim/nui.nvim" }
+  },
+  -- text object extensions
+  'machakann/vim-sandwich',
+  'machakann/vim-swap',
+  -- git enhancers
+  'tpope/vim-commentary',
+  'tpope/vim-fugitive',
+  {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require('gitsigns').setup()
+    end
+  },
+  -- file searcher
+  {
+    'ibhagwan/fzf-lua',
+    dependencies = { 'kyazdani42/nvim-web-devicons' }
+  },
+  -- statusline
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+  },
+  -- markdown
+  {
+    'iamcco/markdown-preview.nvim',
+    build = function() vim.fn['mkdp#util#install']() end,
+    config = function()
+      vim.g.mkdp_theme = 'light'
+      vim.g.mkdp_browser = 'firefox'
+    end
+  },
+  'masukomi/vim-markdown-folding',
+  -- code outline
+  'stevearc/aerial.nvim',
+  -- personal plugins
+  { 'superDross/ticket.vim',    priority = 500 },
+  { 'superDross/picobook',      lazy = false,       dev = true },
+  'superDross/run-with-me.vim',
+  'superDross/scrappy.vim',
+  'superDross/spellbound.nvim',
+}, {
+  dev = {
+    path = "~/dev",
+  },
+  performance = { cache = { enabled = false } },
+  lockfile = vim.g.vimdir .. '/lazy-lock.json',
+})
 
 
 -- AUTOCOMMANDS ------------------------------------------------------------
@@ -132,7 +267,6 @@ vim.env.BAT_THEME = 'gruvbox-dark'
 
 -- MAPPINGS ------------------------------------------------------------
 local opts = { noremap = true, silent = true }
-vim.g.mapleader = ' '
 
 -- set mappings based upon {key: command}
 function _G.set_key_map(mode, mappings, options)
@@ -498,134 +632,11 @@ cmp.setup {
 }
 
 
--- TREESITTERS ------------------------------------------------------------
-require 'nvim-treesitter.configs'.setup {
+-- TREESITTER ------------------------------------------------------------
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {
+    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql', 'latex',
+    'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
+  },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
-} -- TSInstall all
-
-
--- MARKDOWN PREVIEWER ------------------------------------------------------
-vim.g.mkdp_theme = 'light'
-vim.g.mkdp_browser = 'firefox'
-
-
--- GIT ---------------------------------------------------------------------
-require('gitsigns').setup()
-
--- PERSONAL ------------------------------------------------------------
--- run-with-me
-vim.g.default_testing_cmd = 'make test'
-vim.g.runner_cmds = {
-  python = "python3",
-  javascript = "node",
-  vim = "vim -N -u NONE -n -c 'set nomore' -S",
-  tex = "pdflatex",
-  lua = "nvim -l",
 }
--- piconotes
-vim.g.notesdir = '~/bin/piconotes/'
-vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
--- ticket.vim
-vim.g.auto_ticket_open = 1
-vim.g.auto_ticket_git_only = 1
-vim.g.ticket_black_list = { 'main', 'master' }
-vim.g.ticket_use_fzf_default = 1
-vim.g.ticket_very_verbose = 1
-vim.g.ticket_overwrite_confirm = 1
--- scrappy
-vim.g.scrappy_use_fzf_default = 1
--- spellbound.nvim
-vim.g.spellbound_settings = {
-  mappings = {
-    fix_right = '<M-l>',
-    fix_left = '<M-h>',
-    toggle_map = '<M-s>'
-  },
-  return_to_position = true,
-}
-
--- PLUGINS ------------------------------------------------------------
--- Install lazy.nvim automatically
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  print('Installing Lazy.nvim...')
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
-require('lazy').setup({
-  -- package manager
-  'folke/lazy.nvim',
-  -- dependencies
-  'nvim-lua/plenary.nvim',
-  -- lsp configs
-  'neovim/nvim-lspconfig',
-  'williamboman/mason.nvim',
-  'williamboman/mason-lspconfig.nvim',
-  'WhoIsSethDaniel/mason-tool-installer.nvim',
-  'jose-elias-alvarez/null-ls.nvim',
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  -- AI
-  'github/copilot.vim',
-  -- completion
-  'hrsh7th/nvim-cmp',
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-nvim-lsp-signature-help',
-  'saadparwaiz1/cmp_luasnip',
-  -- snippets
-  'L3MON4D3/LuaSnip',
-  -- undo tree
-  'simnalamburt/vim-mundo',
-  -- colorschemes
-  { 'ellisonleao/gruvbox.nvim',        commit = '2e93ac5', priority = 1000 },
-  -- file explorer
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = { "MunifTanjim/nui.nvim" }
-  },
-  -- text object extensions
-  'machakann/vim-sandwich',
-  'machakann/vim-swap',
-  -- git enhancers
-  'tpope/vim-commentary',
-  'tpope/vim-fugitive',
-  'lewis6991/gitsigns.nvim',
-  -- file searcher
-  {
-    'ibhagwan/fzf-lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' }
-  },
-  -- statusline
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
-  },
-  -- markdown
-  {
-    'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end,
-  },
-  'masukomi/vim-markdown-folding',
-  -- code outline
-  'stevearc/aerial.nvim',
-  -- personal plugins
-  { 'superDross/ticket.vim', priority = 500 },
-  { 'superDross/picobook' },
-  'superDross/run-with-me.vim',
-  'superDross/scrappy.vim',
-  'superDross/spellbound.nvim',
-}, {
-  dev = {
-    path = "~/dev",
-  },
-  performance = { cache = { enabled = true } },
-  lockfile = vim.g.vimdir .. '/lazy-lock.json',
-})
