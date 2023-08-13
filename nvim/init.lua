@@ -148,8 +148,8 @@ require('lazy').setup({
   -- code outline
   'stevearc/aerial.nvim',
   -- personal plugins
-  { 'superDross/ticket.vim',    priority = 500 },
-  { 'superDross/picobook',      lazy = false,       dev = true },
+  { 'superDross/ticket.vim', priority = 500 },
+  { 'superDross/picobook', lazy = false},
   'superDross/run-with-me.vim',
   'superDross/scrappy.vim',
   'superDross/spellbound.nvim',
