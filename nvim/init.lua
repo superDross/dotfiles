@@ -471,7 +471,7 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    'black', 'flake8', 'isort', 'hadolint', 'jq', 'prettier', 'shfmt',
+    'black', 'flake8', 'isort', 'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
