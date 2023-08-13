@@ -1,5 +1,3 @@
--- TODO: move to lazy package manager, figure out a replacement for null-ls
-
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
@@ -21,15 +19,12 @@ vim.o.showmode = false
 vim.o.laststatus = 3
 vim.o.updatetime = 100
 vim.o.dictionary = '/usr/share/dict/cracklib-small' -- Ctrl-x,Ctrl-k
-vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
+vim.o.thesaurus = '~/.vim/thesaurus.txt'            -- Ctrl-x,Ctrl-t
 vim.o.mouse = nil
 vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
-
--- NOTE: for development purposes only
--- vim.opt.runtimepath:append(',~/dev/super-session.nvim/')
 
 
 -- AUTOCOMMANDS ------------------------------------------------------------
@@ -79,27 +74,27 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
 -- jumps to the last position when reopening a file
 vim.api.nvim_create_autocmd(
   { 'BufReadPost' }, {
-  pattern = { '*' },
-  callback = function()
-    -- don't apply to git messages
-    local buf = vim.fn.expand('%:t')
-    if buf == 'COMMIT_EDITMSG' or buf == 'git-rebase-todo' then
-      return
+    pattern = { '*' },
+    callback = function()
+      -- don't apply to git messages
+      local buf = vim.fn.expand('%:t')
+      if buf == 'COMMIT_EDITMSG' or buf == 'git-rebase-todo' then
+        return
+      end
+      -- get position of last saved edit
+      local markpos = vim.api.nvim_buf_get_mark(0, '"')
+      local line, col = markpos[1], markpos[2]
+      -- if in range, go there
+      if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
+        vim.api.nvim_win_set_cursor(0, { line, col })
+      end
     end
-    -- get position of last saved edit
-    local markpos = vim.api.nvim_buf_get_mark(0, '"')
-    local line, col = markpos[1], markpos[2]
-    -- if in range, go there
-    if (line > 1) and (line <= vim.api.nvim_buf_line_count(0)) then
-      vim.api.nvim_win_set_cursor(0, { line, col })
-    end
-  end
-})
+  })
 vim.api.nvim_create_autocmd(
   { 'BufNewFile', 'BufRead' }, {
-  pattern = { '*.vader' },
-  command = 'set syntax=vim',
-})
+    pattern = { '*.vader' },
+    command = 'set syntax=vim',
+  })
 -- create directories if not already there when saving files
 vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function(ctx)
@@ -112,90 +107,6 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
 
-
--- PLUGINS ------------------------------------------------------------
--- Install packer automatically
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-local packer_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  print('Installing Packer...')
-  vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-  vim.cmd [[packadd packer.nvim]]
-  packer_bootstrap = true
-end
-
-require('packer').startup(function(use)
-  -- package manager
-  use 'wbthomason/packer.nvim'
-  -- dependencies
-  use 'nvim-lua/plenary.nvim'
-  -- lsp configs
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/mason.nvim'
-  use 'williamboman/mason-lspconfig.nvim'
-  use 'WhoIsSethDaniel/mason-tool-installer.nvim'
-  use 'jose-elias-alvarez/null-ls.nvim'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  -- AI
-  use 'github/copilot.vim'
-  -- completion
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-nvim-lsp-signature-help'
-  use 'saadparwaiz1/cmp_luasnip'
-  -- snippets
-  use({ 'L3MON4D3/LuaSnip'})
-  -- undo tree
-  use 'simnalamburt/vim-mundo'
-  -- colorschemes
-  use {'ellisonleao/gruvbox.nvim', commit = '2e93ac5' }
-  -- file explorer
-  use {
-  "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    requires = { "MunifTanjim/nui.nvim" }
-  }
-  -- text object extensions
-  use 'machakann/vim-sandwich'
-  use 'machakann/vim-swap'
-  -- git enhancers
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-fugitive'
-  use 'lewis6991/gitsigns.nvim'
-  -- file searcher
-  use {
-    'ibhagwan/fzf-lua',
-    requires = { 'kyazdani42/nvim-web-devicons' }
-  }
-  -- statusline
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  -- markdown
-  use {
-    'iamcco/markdown-preview.nvim',
-    run = function() vim.fn['mkdp#util#install']() end,
-  }
-  use 'masukomi/vim-markdown-folding'
-  -- code outline
-  use 'stevearc/aerial.nvim'
-  -- personal plugins
-  use 'superDross/ticket.vim'
-  use 'superDross/picobook'
-  use 'superDross/run-with-me.vim'
-  use 'superDross/scrappy.vim'
-  use 'superDross/spellbound.nvim'
-  -- automatically install plugins after cloning packer.nvim
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
-
-if packer_bootstrap then
-  print('WARNING: plugins are being installed, restart once completed.')
-  return
-end
 
 -- COLOURSCHEMES ------------------------------------------------------------
 local colors = require('gruvbox.palette')
@@ -324,7 +235,7 @@ local insert_mappings = {
   ['<C-j>'] = 'copilot#Accept("<CR>")',
   ['<C-k>'] = 'copilot#Next()',
 }
-local insert_opts = { noremap = true, silent = true, expr=true, replace_keycodes = false }
+local insert_opts = { noremap = true, silent = true, expr = true, replace_keycodes = false }
 
 -- disable copilot tab mapping
 vim.g.copilot_no_tab_map = true
@@ -392,7 +303,10 @@ require('lualine').setup({
   },
   tabline = {
     lualine_a = {
-      { 'tabs', mode = 1, max_length = vim.o.columns,
+      {
+        'tabs',
+        mode = 1,
+        max_length = vim.o.columns,
         fmt = function(name, context)
           -- Show + if buffer is modified in tab
           local winnr = vim.fn.tabpagewinnr(context.tabnr)
@@ -441,7 +355,7 @@ local flake8_config = {
   diagnostics_postprocess = swap_error_warning,
   extra_args = { '--ignore=W503,E203,E231', '--max-line-length=120' }
 }
-local sqlfluff = {extra_args = {'--dialect=postgres', '--exclude-rules=LT02'}}
+local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02' } }
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
@@ -586,10 +500,6 @@ cmp.setup {
 
 -- TREESITTERS ------------------------------------------------------------
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql', 'latex',
-    'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
-  },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 } -- TSInstall all
 
@@ -633,3 +543,89 @@ vim.g.spellbound_settings = {
   },
   return_to_position = true,
 }
+
+-- PLUGINS ------------------------------------------------------------
+-- Install lazy.nvim automatically
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  print('Installing Lazy.nvim...')
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+  -- package manager
+  'folke/lazy.nvim',
+  -- dependencies
+  'nvim-lua/plenary.nvim',
+  -- lsp configs
+  'neovim/nvim-lspconfig',
+  'williamboman/mason.nvim',
+  'williamboman/mason-lspconfig.nvim',
+  'WhoIsSethDaniel/mason-tool-installer.nvim',
+  'jose-elias-alvarez/null-ls.nvim',
+  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  -- AI
+  'github/copilot.vim',
+  -- completion
+  'hrsh7th/nvim-cmp',
+  'hrsh7th/cmp-nvim-lsp',
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'saadparwaiz1/cmp_luasnip',
+  -- snippets
+  'L3MON4D3/LuaSnip',
+  -- undo tree
+  'simnalamburt/vim-mundo',
+  -- colorschemes
+  { 'ellisonleao/gruvbox.nvim',        commit = '2e93ac5', priority = 1000 },
+  -- file explorer
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = { "MunifTanjim/nui.nvim" }
+  },
+  -- text object extensions
+  'machakann/vim-sandwich',
+  'machakann/vim-swap',
+  -- git enhancers
+  'tpope/vim-commentary',
+  'tpope/vim-fugitive',
+  'lewis6991/gitsigns.nvim',
+  -- file searcher
+  {
+    'ibhagwan/fzf-lua',
+    dependencies = { 'kyazdani42/nvim-web-devicons' }
+  },
+  -- statusline
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+  },
+  -- markdown
+  {
+    'iamcco/markdown-preview.nvim',
+    run = function() vim.fn['mkdp#util#install']() end,
+  },
+  'masukomi/vim-markdown-folding',
+  -- code outline
+  'stevearc/aerial.nvim',
+  -- personal plugins
+  { 'superDross/ticket.vim', priority = 500 },
+  { 'superDross/picobook' },
+  'superDross/run-with-me.vim',
+  'superDross/scrappy.vim',
+  'superDross/spellbound.nvim',
+}, {
+  dev = {
+    path = "~/dev",
+  },
+  performance = { cache = { enabled = true } },
+  lockfile = vim.g.vimdir .. '/lazy-lock.json',
+})
