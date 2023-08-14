@@ -1,8 +1,3 @@
--- TODO: refactor personal plugins to allows evaluate globals on execution
--- e.g. FindSessions should check for g:ticket_use_fzf_default in function
--- this will make it so the below PERSONAL settings can be placed after lazy
--- initialisation
-
 -- BASIC SETTINGS ------------------------------------------------------------
 vim.o.number = true
 vim.o.relativenumber = true
@@ -34,6 +29,7 @@ vim.g.mapleader = ' '
 
 
 -- PERSONAL ------------------------------------------------------------
+-- TODO: not sure why I have to define globals first despite other plugins using the same pattern
 -- run-with-me
 vim.g.default_testing_cmd = 'make test'
 vim.g.runner_cmds = {
@@ -149,7 +145,7 @@ require('lazy').setup({
   'stevearc/aerial.nvim',
   -- personal plugins
   { 'superDross/ticket.vim', priority = 500 },
-  { 'superDross/picobook', lazy = false},
+  'superDross/picobook',
   'superDross/run-with-me.vim',
   'superDross/scrappy.vim',
   'superDross/spellbound.nvim',
