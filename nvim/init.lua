@@ -28,40 +28,6 @@ vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.g.mapleader = ' '
 
 
--- PERSONAL ------------------------------------------------------------
--- TODO: not sure why I have to define globals first despite other plugins using the same pattern
--- run-with-me
-vim.g.default_testing_cmd = 'make test'
-vim.g.runner_cmds = {
-  python = "python3",
-  javascript = "node",
-  vim = "vim -N -u NONE -n -c 'set nomore' -S",
-  tex = "pdflatex",
-  lua = "nvim -l",
-}
--- piconotes
-vim.g.notesdir = '~/bin/piconotes/'
-vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
--- ticket.vim
-vim.g.auto_ticket_open = 1
-vim.g.auto_ticket_git_only = 1
-vim.g.ticket_black_list = { 'main', 'master' }
-vim.g.ticket_use_fzf_default = 1
-vim.g.ticket_very_verbose = 1
-vim.g.ticket_overwrite_confirm = 1
--- scrappy
-vim.g.scrappy_use_fzf_default = 1
--- spellbound.nvim
-vim.g.spellbound_settings = {
-  mappings = {
-    fix_right = '<M-l>',
-    fix_left = '<M-h>',
-    toggle_map = '<M-s>'
-  },
-  return_to_position = true,
-}
-
-
 -- PLUGINS ------------------------------------------------------------
 -- Install lazy.nvim automatically
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -135,7 +101,7 @@ require('lazy').setup({
   {
     'iamcco/markdown-preview.nvim',
     build = function() vim.fn['mkdp#util#install']() end,
-    config = function()
+    init = function()
       vim.g.mkdp_theme = 'light'
       vim.g.mkdp_browser = 'firefox'
     end
@@ -144,11 +110,57 @@ require('lazy').setup({
   -- code outline
   'stevearc/aerial.nvim',
   -- personal plugins
-  { 'superDross/ticket.vim', priority = 500 },
-  'superDross/picobook',
-  'superDross/run-with-me.vim',
-  'superDross/scrappy.vim',
-  'superDross/spellbound.nvim',
+  {
+    'superDross/ticket.vim',
+    priority = 500,
+    init = function ()
+      vim.g.auto_ticket_open = 1
+      vim.g.auto_ticket_git_only = 1
+      vim.g.ticket_black_list = { 'main', 'master' }
+      vim.g.ticket_use_fzf_default = 1
+      vim.g.ticket_very_verbose = 1
+      vim.g.ticket_overwrite_confirm = 1
+    end
+  },
+  {
+    'superDross/picobook',
+    init = function ()
+      vim.g.notesdir = '~/bin/piconotes/'
+      vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
+    end
+  },
+  {
+    'superDross/run-with-me.vim',
+    init = function ()
+      vim.g.default_testing_cmd = 'make test'
+      vim.g.runner_cmds = {
+        python = "python3",
+        javascript = "node",
+        vim = "vim -N -u NONE -n -c 'set nomore' -S",
+        tex = "pdflatex",
+        lua = "nvim -l",
+      }
+    end
+  },
+  {
+    'superDross/scrappy.vim',
+    init = function ()
+      vim.g.scrappy_use_fzf_default = 1
+    end
+  },
+  {
+    'superDross/spellbound.nvim',
+    init = function ()
+      vim.g.spellbound_settings = {
+        mappings = {
+          fix_right = '<M-l>',
+          fix_left = '<M-h>',
+          toggle_map = '<M-s>'
+        },
+        return_to_position = true,
+      }
+    end
+  },
 }, {
   dev = {
     path = "~/dev",
