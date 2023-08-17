@@ -497,7 +497,7 @@ local flake8_config = {
   diagnostics_postprocess = swap_error_warning,
   extra_args = { '--ignore=W503,E203,E231', '--max-line-length=120' }
 }
-local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02' } }
+local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT05' } }
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
