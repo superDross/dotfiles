@@ -68,7 +68,7 @@ require('lazy').setup({
   -- undo tree
   'simnalamburt/vim-mundo',
   -- colorschemes
-  { 'ellisonleao/gruvbox.nvim', commit = '2e93ac5', priority = 1000 },
+  { 'ellisonleao/gruvbox.nvim', priority = 1000 },
   -- file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -252,19 +252,17 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 
 
 -- COLOURSCHEMES ------------------------------------------------------------
-local colors = require('gruvbox.palette')
 require('gruvbox').setup({
   contrast = 'hard',
   overrides = {
-    SignColumn = { bg = colors.dark0_hard },
-    -- temp fix for git signs in column https://github.com/ellisonleao/gruvbox.nvim/issues/129
-    GruvboxRedSign = { fg = colors.red, bg = colors.dark0_hard, reverse = false },
-    GruvboxGreenSign = { fg = colors.green, bg = colors.dark0_hard, reverse = false },
-    GruvboxYellowSign = { fg = colors.yellow, bg = colors.dark0_hard, reverse = false },
-    GruvboxBlueSign = { fg = colors.blue, bg = colors.dark0_hard, reverse = false },
-    GruvboxPurpleSign = { fg = colors.purple, bg = colors.dark0_hard, reverse = false },
-    GruvboxAquaSign = { fg = colors.aqua, bg = colors.dark0_hard, reverse = false },
-    GruvboxOrangeSign = { fg = colors.orange, bg = colors.dark0_hard, reverse = false },
+    SignColumn = { link = "Normal" },
+    GruvboxGreenSign = { bg = "" },
+    GruvboxOrangeSign = { bg = "" },
+    GruvboxPurpleSign = { bg = "" },
+    GruvboxYellowSign = { bg = "" },
+    GruvboxRedSign = { bg = "" },
+    GruvboxBlueSign = { bg = "" },
+    GruvboxAquaSign = { bg = "" },
   }
 })
 vim.opt.termguicolors = true
