@@ -25,7 +25,7 @@
   "plenary.nvim": { "branch": "master", "commit": "267282a9ce242bbb0c5dc31445b6d353bed978bb" },
   "run-with-me.vim": { "branch": "master", "commit": "a26e88cb6c5fcd1dafd0f0525dc76869226cac75" },
   "scrappy.vim": { "branch": "master", "commit": "0de4337335188fd70f200a9ab4be2cbeb4b76a8d" },
-  "spellbound.nvim": { "branch": "main", "commit": "0dd603a880d878c14c4fa3317082f43421d1a27d" },
+  "spellbound.nvim": { "branch": "main", "commit": "0bb50724c8ca9d7b43516bddf8c579dea11ce2a4" },
   "ticket.vim": { "branch": "master", "commit": "cbb82b8875bdcb967d316ae6515af26f7d2bb5bc" },
   "vim-commentary": { "branch": "master", "commit": "e87cd90dc09c2a203e13af9704bd0ef79303d755" },
   "vim-fugitive": { "branch": "master", "commit": "b3b838d690f315a503ec4af8c634bdff3b200aaf" },
