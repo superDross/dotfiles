@@ -407,6 +407,7 @@ export LESS=' -R '
 #    EDITOR     #
 #################
 
+export TERM=wezterm
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
