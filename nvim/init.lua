@@ -109,6 +109,8 @@ require('lazy').setup({
   'masukomi/vim-markdown-folding',
   -- code outline
   'stevearc/aerial.nvim',
+  -- csv highlighting
+  'chrisbra/csv.vim',
   -- personal plugins
   {
     'superDross/ticket.vim',

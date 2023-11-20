@@ -5,6 +5,7 @@
   "cmp-nvim-lsp-signature-help": { "branch": "main", "commit": "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
   "copilot.vim": { "branch": "release", "commit": "f6d1124a12ca76731313eb0e7ec9562ee6f12e73" },
+  "csv.vim": { "branch": "master", "commit": "4fd88346aed02123aa5daa1a363868a576c6fdcf" },
   "fzf-lua": { "branch": "main", "commit": "cd3a9cb9ef55933be6152a77e8aeb36f12a0467b" },
   "gitsigns.nvim": { "branch": "main", "commit": "af0f583cd35286dd6f0e3ed52622728703237e50" },
   "gruvbox.nvim": { "branch": "main", "commit": "477c62493c82684ed510c4f70eaf83802e398898" },
