@@ -38,12 +38,8 @@ if [[ "$OS" == "Darwin" ]]; then
   # Beamery Vault Access
   token=$(cat ~/.gh_token)
   export GITHUB_API_TOKEN=$token
-  vault_login() {
-    environment=${1:-global}
-    export VAULT_ADDR="https://vault.${environment//-/.}.beamery.engineer"
-    unset VAULT_TOKEN
-    vault token lookup &>/dev/null || vault login -method=github token="${GITHUB_API_TOKEN}"
-  }
+  # Beamery Platform Tooling setup
+  [ -s ~/.beamery-tooling/bin/tooling-setup.sh ] && source ~/.beamery-tooling/bin/tooling-setup.sh
 
   # Bash Completion
   [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
