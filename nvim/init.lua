@@ -388,8 +388,6 @@ local insert_mappings = {
 }
 local insert_opts = { noremap = true, silent = true, expr = true, replace_keycodes = false }
 
--- disable copilot tab mapping
-vim.g.copilot_no_tab_map = true
 
 set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
@@ -416,6 +414,11 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
   end
 end
+
+
+-- COPILOT ---------------------------------------------------------------
+vim.g.copilot_filetypes = { markdown = false, tex = false, text = false }
+vim.g.copilot_no_tab_map = true
 
 
 -- STATUSLINE ------------------------------------------------------------
