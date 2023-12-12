@@ -254,6 +254,11 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
 
+-- COMMANDS -----------------------------------------------------------------
+-- overwrites the Python functions/methods contents with `return`
+vim.api.nvim_create_user_command(
+  'ResetPythonFuncs', ':g/^ *def.*(/ norm j0d]Mccreturn', {}
+)
 
 -- COLOURSCHEMES ------------------------------------------------------------
 require('gruvbox').setup({
