@@ -3,12 +3,12 @@
 ## Plugins
 
 - Mason now supports `ensure_installed` not just for lspconfig, consider using the feature and removing `mason_installer` plugin
-- Use none-ls maintained version of null-ls
 
 ## Personal Plugins
 
 - picobook, gives me the overwrite page warning when opening the file in another buffer, a nice feature would be to automatically ignore it or automatically open in predefined choice (e.g. open in read-only by default)
 - picobook, no longer works with github links due to new indexing, maybe automatically show full path?
+- picobook, fzf uses cwd if vim.g.notesdir is empty. We should raise an exception instead
 
 ## 0.10.0
 
