@@ -53,7 +53,7 @@ require('lazy').setup({
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
-  'nvimtools/none-ls.nvim',
+  'jose-elias-alvarez/null-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
   'github/copilot.vim',
