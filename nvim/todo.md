@@ -8,6 +8,7 @@
 
 - picobook, gives me the overwrite page warning when opening the file in another buffer, a nice feature would be to automatically ignore it or automatically open in predefined choice (e.g. open in read-only by default)
 - picobook, disallow creating files outside the notesdir
+- picobook, automatically precede the name of the index with the file e.g. all links in `_index/private.md` should have `../private` prepended
 
 ## 0.10.0
 
