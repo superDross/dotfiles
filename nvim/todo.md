@@ -1,5 +1,7 @@
 # Nvim Todo
 
+- try normal pdb and using `docker attach (container id)`
+
 ## Plugins
 
 - Mason now supports `ensure_installed` not just for lspconfig, consider using the feature and removing `mason_installer` plugin
