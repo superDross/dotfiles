@@ -109,7 +109,7 @@ require('lazy').setup({
   -- code outline
   'stevearc/aerial.nvim',
   -- csv highlighting
-  'chrisbra/csv.vim',
+  'mechatroner/rainbow_csv',
   -- personal plugins
   {
     'superDross/ticket.vim',
