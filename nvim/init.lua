@@ -140,6 +140,7 @@ require('lazy').setup({
         vim = "vim -N -u NONE -n -c 'set nomore' -S",
         tex = "pdflatex",
         lua = "nvim -l",
+        go = "go run",
       }
     end
   },
