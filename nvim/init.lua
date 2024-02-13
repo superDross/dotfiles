@@ -252,6 +252,8 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   pattern = { '*.sh' },
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
+-- extend runtimepath to include ~/bin/dotfiles/nvim/ (does not work if declared at the top of the file)
+vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath
 
 -- COMMANDS -----------------------------------------------------------------
 -- overwrites the Python functions/methods contents with `return`
