@@ -1,5 +1,5 @@
 # Nvim Todo
-
+- `vim.opt.fillchars = { eob = " " }` to remove tilda
 - try normal pdb and using `docker attach (container id)`
 - consider altering `$MYVIMRC` env var directly to this config rather than use the symbolic links
   - wonder if this will mess lead to regular vim using init.lua?
