@@ -22,6 +22,7 @@ vim.o.thesaurus = '~/.vim/thesaurus.txt'            -- Ctrl-x,Ctrl-t
 vim.o.mouse = nil
 vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
+vim.opt.fillchars = { eob = " " }  -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.g.mapleader = ' '
