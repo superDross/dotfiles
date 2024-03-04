@@ -9,6 +9,7 @@
 
 ## Personal Plugins
 
+- picobook, **bug** `wm` creates a new file and deletes the old one rather than moving it
 - picobook, auto create link e.g. if writing `[Inheritence]` in an index it should auto complete the link `[Inheritence](../<index_name>/inheritence.md)`
 - picobook, gives me the overwrite page warning when opening the file in another buffer, a nice feature would be to automatically ignore it or automatically open in predefined choice (e.g. open in read-only by default)
 - picobook, disallow creating files outside the notesdir
