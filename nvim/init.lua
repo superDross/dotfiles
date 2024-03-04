@@ -63,6 +63,7 @@ require('lazy').setup({
   'hrsh7th/cmp-nvim-lsp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
   'saadparwaiz1/cmp_luasnip',
+  'hrsh7th/cmp-nvim-lua',
   -- snippets
   'L3MON4D3/LuaSnip',
   -- undo tree
@@ -646,6 +647,7 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lsp_signature_help' },
+    { name = 'nvim_lua' },
   }),
   snippet = {
     expand = function(args)
