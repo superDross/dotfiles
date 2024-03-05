@@ -29,3 +29,6 @@ Cython
 mutex
 GIL
 TLDR
+nvim
+plugin
+AWS
