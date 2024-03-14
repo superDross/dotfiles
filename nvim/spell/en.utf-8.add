@@ -29,3 +29,6 @@ Cython
 mutex
 GIL
 TLDR
+CPython
+struct
+dataclass
