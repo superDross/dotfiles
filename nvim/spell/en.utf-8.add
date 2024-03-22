@@ -39,3 +39,9 @@ stdin
 struct
 telnet
 webhook
+Linters
+config
+timestamp
+upsert
+MD5
+linter
