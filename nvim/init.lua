@@ -497,8 +497,7 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    { 'black', version = '22.3.0' },
-    'flake8', 'isort', 'hadolint', 'prettier', 'shfmt', 'eslint_d',
+    { 'black', version = '24.3.0' }, 'flake8', 'hadolint', 'prettier', 'shfmt', 'eslint_d',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
@@ -521,7 +520,7 @@ local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
     d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff), d.eslint_d,
-    f.black, f.isort, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
+    f.black, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
     f.prettier
   }
 })
