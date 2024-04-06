@@ -22,3 +22,4 @@
 
 - inlay hints
 - Noice replacement for pretty lsp info now part of 0.10.0
+- GCC commenting
