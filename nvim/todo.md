@@ -23,3 +23,5 @@
 - inlay hints
 - Noice replacement for pretty lsp info now part of 0.10.0
 - GCC commenting
+- snippet API (vim.snippet)
+- osc52 support (clipboard support must be activated explicitly)
