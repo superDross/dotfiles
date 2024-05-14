@@ -85,6 +85,7 @@ require('lazy').setup({
   -- git enhancers
   'tpope/vim-commentary',
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   {
     'lewis6991/gitsigns.nvim',
     config = function()

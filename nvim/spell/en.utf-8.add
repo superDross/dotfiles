@@ -54,3 +54,7 @@ timestamp
 upsert
 MD5
 linter
+GitLab
+yaml
+DataFlow
+Snyk
