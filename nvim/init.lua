@@ -325,6 +325,7 @@ local normal_mappings = {
   ['<leader>gc']       = '<cmd>Git commit -n<CR>',
   ['<leader>gd']       = '<cmd>Git diff %<CR>',
   ['<leader>gg']       = '<cmd>Git<CR>',
+  ['<leader>gi']       = '<cmd>GBrowse<CR>',
   ['<leader>gl']       = '<cmd>Git log<CR>',
   ['<leader>gm']       = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
   ['<leader>gs']       = '<cmd>Git status<CR>',
