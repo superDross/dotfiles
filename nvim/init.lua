@@ -19,11 +19,12 @@ vim.o.showmode = false
 vim.o.laststatus = 3
 vim.o.updatetime = 100
 vim.o.thesaurus = '~/.vim/thesaurus.txt'            -- Ctrl-x,Ctrl-t
-vim.o.mouse = nil
+vim.o.mouse = ""
 vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
+vim.o.conceallevel = 2  -- hide markdown formatting
 vim.opt.fillchars = { eob = " " }  -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
@@ -83,8 +84,8 @@ require('lazy').setup({
   'machakann/vim-sandwich',
   'machakann/vim-swap',
   -- git enhancers
-  'tpope/vim-commentary',
   'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
   {
     'lewis6991/gitsigns.nvim',
     config = function()
@@ -195,18 +196,6 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
   callback = function()
     if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
   end,
-  group = vim_term
-})
--- prevents insert mode when the terminal process has exited
-vim.api.nvim_create_autocmd('TermClose', {
-  callback = function(ctx)
-    vim.cmd('stopinsert')
-    vim.api.nvim_create_autocmd('TermEnter', {
-      command = 'stopinsert',
-      buffer = ctx.buf,
-    })
-  end,
-  nested = true,
   group = vim_term
 })
 -- indentation spacing
@@ -324,6 +313,7 @@ local normal_mappings = {
   ['<leader>gc']       = '<cmd>Git commit -n<CR>',
   ['<leader>gd']       = '<cmd>Git diff %<CR>',
   ['<leader>gg']       = '<cmd>Git<CR>',
+  ['<leader>gi']       = '<cmd>GBrowse<CR>',
   ['<leader>gl']       = '<cmd>Git log<CR>',
   ['<leader>gm']       = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
   ['<leader>gs']       = '<cmd>Git status<CR>',
@@ -490,7 +480,7 @@ require('aerial').setup({})
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'pyright', 'bashls', 'tsserver', 'lua_ls', 'dockerls', 'vimls', 'yamlls'
+    'pyright', 'bashls', 'tsserver', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls',
   },
   automatic_installation = true,
 }
