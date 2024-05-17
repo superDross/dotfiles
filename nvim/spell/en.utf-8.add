@@ -54,3 +54,5 @@ timestamp
 upsert
 MD5
 linter
+PyPy
+JIT
