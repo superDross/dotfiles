@@ -24,6 +24,7 @@ vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
+vim.o.conceallevel = 2  -- hide markdown formatting
 vim.opt.fillchars = { eob = " " }  -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
@@ -83,7 +84,6 @@ require('lazy').setup({
   'machakann/vim-sandwich',
   'machakann/vim-swap',
   -- git enhancers
-  'tpope/vim-commentary',
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   {
@@ -196,18 +196,6 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
   callback = function()
     if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
   end,
-  group = vim_term
-})
--- prevents insert mode when the terminal process has exited
-vim.api.nvim_create_autocmd('TermClose', {
-  callback = function(ctx)
-    vim.cmd('stopinsert')
-    vim.api.nvim_create_autocmd('TermEnter', {
-      command = 'stopinsert',
-      buffer = ctx.buf,
-    })
-  end,
-  nested = true,
   group = vim_term
 })
 -- indentation spacing

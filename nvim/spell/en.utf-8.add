@@ -58,3 +58,6 @@ GitLab
 yaml
 DataFlow
 Snyk
+Golang
+GDB
+structs
