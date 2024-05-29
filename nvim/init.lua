@@ -640,6 +640,7 @@ require('mason-nvim-dap').setup {
         },
         -- intended for remote debugging
         {
+          type = 'python',
           request = 'attach',
           name = 'Remote Python: Attach',
           port = 5678,
