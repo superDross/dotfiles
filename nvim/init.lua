@@ -59,6 +59,19 @@ require('lazy').setup({
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'jose-elias-alvarez/null-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  -- debugging
+  {
+    'mfussenegger/nvim-dap',
+    dependencies = {
+      'rcarriga/nvim-dap-ui',
+      'nvim-neotest/nvim-nio',
+      'jay-babu/mason-nvim-dap.nvim',
+      'theHamsta/nvim-dap-virtual-text',
+      -- language specific debuggers
+      'leoluz/nvim-dap-go',
+      'mfussenegger/nvim-dap-python',
+    }
+  },
   -- AI
   'github/copilot.vim',
   -- completion
@@ -73,7 +86,7 @@ require('lazy').setup({
   -- undo tree
   'simnalamburt/vim-mundo',
   -- colorschemes
-  { 'ellisonleao/gruvbox.nvim', priority = 1000 },
+  { 'ellisonleao/gruvbox.nvim',        priority = 1000 },
   -- file explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -600,6 +613,66 @@ vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSign
 vim.fn.sign_define('DiagnosticSignError', { text = '>>', texthl = 'DiagnosticSignError' })
 vim.fn.sign_define('DiagnosticSignHint', { text = '?', texthl = 'DiagnosticSignHint' })
 vim.fn.sign_define('DiagnosticSignInfo', { text = 'i', texthl = 'DiagnosticSignInfo' })
+
+
+-- DEBUGGERS ------------------------------------------------------------
+local dap = require 'dap'
+local dapui = require 'dapui'
+dapui.setup()
+require("nvim-dap-virtual-text").setup()
+require('mason-nvim-dap').setup {
+  automatic_installation = true,
+  handlers = {
+    function(config)
+      -- all sources with no handler get passed here
+
+      -- Keep original functionality
+      require('mason-nvim-dap').default_setup(config)
+    end,
+    python = function(config)
+      config.configurations = {
+        {
+          type = 'python', -- the type here established the link to the adapter definition: `dap.adapters.python`
+          request = 'launch',
+          name = 'Python: Launch file',
+          program = '${file}', -- This configuration will launch the current file if used.
+          pythonPath = '/bin/python',
+        },
+        -- intended for remote debugging
+        {
+          request = 'attach',
+          name = 'Remote Python: Attach',
+          port = 5678,
+          host = "127.0.0.1",
+          mode = "remote",
+          cwd = vim.fn.getcwd(),
+        }
+      }
+      require('mason-nvim-dap').default_setup(config) -- don't forget this!
+    end,
+  },
+  ensure_installed = {
+    'delve', 'python'
+  },
+}
+
+vim.keymap.set('n', '<leader>dc', dap.continue)
+vim.keymap.set('n', '<leader>ds', dap.step_into)
+vim.keymap.set('n', '<leader>dn', dap.step_over)
+vim.keymap.set('n', '<leader>dz', dap.step_back)
+vim.keymap.set('n', '<leader>du', dap.step_out)
+vim.keymap.set('n', '<leader>dr', dap.restart)
+vim.keymap.set('n', '<leader>db', dap.toggle_breakpoint)
+vim.keymap.set('n', '<leader>dB', function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end)
+vim.keymap.set('n', '<leader>dd', dapui.toggle)
+vim.keymap.set('n', '<leader>d?', function() dapui.eval(nil, { enter = true }) end)
+vim.keymap.set('n', '<leader>du', dap.run_to_cursor)
+
+dap.listeners.before.attach.dapui_config = function() dapui.open() end
+dap.listeners.before.launch.dapui_config = function() dapui.open() end
+dap.listeners.before.restart.dapui_config = function() dapui.open() end
+dap.listeners.before.event_terminated.dapui_config = function() dapui.close() end
+dap.listeners.before.event_exited.dapui_config = function() dapui.close() end
 
 
 -- SNIPPETS -------------------------------------------------------------
