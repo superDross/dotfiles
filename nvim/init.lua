@@ -18,14 +18,14 @@ vim.o.foldlevel = 99
 vim.o.showmode = false
 vim.o.laststatus = 3
 vim.o.updatetime = 100
-vim.o.thesaurus = '~/.vim/thesaurus.txt'            -- Ctrl-x,Ctrl-t
+vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
 vim.o.mouse = ""
 vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
-vim.o.conceallevel = 2  -- hide markdown formatting
-vim.opt.fillchars = { eob = " " }  -- prevent ~ at end of file
+vim.o.conceallevel = 2            -- hide markdown formatting
+vim.opt.fillchars = { eob = " " } -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.g.mapleader = ' '
@@ -78,7 +78,14 @@ require('lazy').setup({
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
-    dependencies = { "MunifTanjim/nui.nvim" }
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {
+      filesystem = {
+        filtered_items = {
+          always_show = { '.github', '.gitlab-ci.yml', '.nexus' }
+        }
+      }
+    }
   },
   -- text object extensions
   'machakann/vim-sandwich',
@@ -118,7 +125,7 @@ require('lazy').setup({
   {
     'superDross/ticket.vim',
     priority = 500,
-    init = function ()
+    init = function()
       vim.g.auto_ticket_open = 1
       vim.g.auto_ticket_git_only = 1
       vim.g.ticket_black_list = { 'main', 'master' }
@@ -129,14 +136,14 @@ require('lazy').setup({
   },
   {
     'superDross/picobook',
-    init = function ()
+    init = function()
       vim.g.notesdir = '~/bin/piconotes/'
       vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
     end
   },
   {
     'superDross/run-with-me.vim',
-    init = function ()
+    init = function()
       vim.g.default_testing_cmd = 'make test'
       vim.g.runner_cmds = {
         python = "python3",
@@ -150,13 +157,13 @@ require('lazy').setup({
   },
   {
     'superDross/scrappy.vim',
-    init = function ()
+    init = function()
       vim.g.scrappy_use_fzf_default = 1
     end
   },
   {
     'superDross/spellbound.nvim',
-    init = function ()
+    init = function()
       vim.g.spellbound_settings = {
         mappings = {
           fix_right = '<M-l>',
@@ -274,7 +281,7 @@ vim.o.background = 'dark'
 vim.cmd.colorscheme('gruvbox')
 vim.env.BAT_THEME = 'gruvbox-dark'
 -- alter spellcheck highlighting: https://tinyurl.com/undercurl
-vim.api.nvim_set_hl(0, 'SpellBad', {undercurl = true, italic = true, sp = 'red'})
+vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true, italic = true, sp = 'red' })
 
 
 -- MAPPINGS ------------------------------------------------------------
@@ -646,7 +653,7 @@ cmp.setup {
       enable_in_context = function()
         return true
       end,
-    }},
+    } },
   }),
   snippet = {
     expand = function(args)

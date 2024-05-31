@@ -63,3 +63,5 @@ types
 upsert
 webhook
 yaml
+awaitable
+Grafana

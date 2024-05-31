@@ -1,7 +1,6 @@
 # Nvim Todo
+- Add snyk_ls: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#snyk_ls
 - try normal pdb and using `docker attach (container id)`
-- consider altering `$MYVIMRC` env var directly to this config rather than use the symbolic links
-  - wonder if this will mess lead to regular vim using init.lua?
 - allow lua-fzf to search .nexus and .gitlab-ci.yml and .github dir/files; an exception list to the dotfiles essentially
   - only seems to be a problem with ripgrep `<leader>fg`
 
@@ -18,10 +17,3 @@
 - picobook, disallow creating files outside the notesdir
 - picobook, command to go back to last page (useful when several C-o inputs is not enough)
 
-## 0.10.0
-
-- inlay hints
-- Noice replacement for pretty lsp info now part of 0.10.0
-- GCC commenting
-- snippet API (vim.snippet)
-- osc52 support (clipboard support must be activated explicitly)
