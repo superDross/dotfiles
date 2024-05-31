@@ -102,7 +102,13 @@ require('lazy').setup({
   -- file searcher
   {
     'ibhagwan/fzf-lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' }
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    opts = {
+      grep = {
+        -- same as fzf-lua defaults but shows hidden files not in the gitignore file
+        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden -g '!.git' -e ",
+      },
+    },
   },
   -- statusline
   {
