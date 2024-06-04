@@ -91,7 +91,13 @@ require('lazy').setup({
   'machakann/vim-sandwich',
   'machakann/vim-swap',
   -- git enhancers
-  'tpope/vim-fugitive',
+  {
+    'tpope/vim-fugitive',
+    init = function()
+      -- disable cc commit mapping, causes git hooks to execute and potentially wipe out changes not staged!!!
+      vim.g.nremap = {['<nomap>'] = 'cc', ['cc'] = '<nomap>'}
+    end
+  },
   'tpope/vim-rhubarb',
   {
     'lewis6991/gitsigns.nvim',
