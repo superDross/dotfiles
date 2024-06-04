@@ -616,6 +616,8 @@ vim.fn.sign_define('DiagnosticSignInfo', { text = 'i', texthl = 'DiagnosticSignI
 
 
 -- DEBUGGERS ------------------------------------------------------------
+--
+-- TODO: https://github.com/mfussenegger/nvim-dap/wiki/Local-and-Remote-Debugging-with-Docker#Python
 local dap = require 'dap'
 local dapui = require 'dapui'
 dapui.setup()
@@ -624,9 +626,6 @@ require('mason-nvim-dap').setup {
   automatic_installation = true,
   handlers = {
     function(config)
-      -- all sources with no handler get passed here
-
-      -- Keep original functionality
       require('mason-nvim-dap').default_setup(config)
     end,
     python = function(config)
@@ -644,7 +643,7 @@ require('mason-nvim-dap').setup {
           request = 'attach',
           name = 'Remote Python: Attach',
           port = 5678,
-          host = "127.0.0.1",
+          host = "0.0.0.0",
           mode = "remote",
           cwd = vim.fn.getcwd(),
         }
