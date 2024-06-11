@@ -19,7 +19,6 @@ WHITE='\033[1;37m'
 
 BROWSER=/usr/bin/firefox
 
-
 #################
 #    MAC        #
 #################
@@ -44,7 +43,6 @@ if [[ "$OS" == "Darwin" ]]; then
   # Bash Completion
   [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 fi
-
 
 #################
 #    ALIASES    #
@@ -138,17 +136,21 @@ function fuzzy-kill() {
   if [[ -z "$1" ]]; then
     echo "You must provide an argument"
   fi
-  sudo kill $(ps -aef | grep "$1" | awk '{print $2}' | xargs)
+  sudo kill "$(ps -aef | grep "$1" | awk '{print $2}' | xargs)"
 }
 
-function docker_stop_all(){
+function docker_stop_all() {
   # not using `docker ps -q` as we want to make minikube an exception
-  containers=$(docker ps | tail -n +2 | grep -v minikube | awk '{print $1}')
-  docker stop $containers
+  containers=$(docker ps | tail -n +2 | grep -v minikube | awk '{print $1}' | tr '\n' ' ')
+  if [ -n "$containers" ]; then
+    docker stop $containers
+  else
+    echo "No containers to stop"
+  fi
 }
 
-function docker_plus_help(){
-cat <<- EOF
+function docker_plus_help() {
+  cat <<-EOF
 Commands:
   logs: see containers logs
   bash: jump into a containers bash shell
@@ -156,26 +158,25 @@ Commands:
 EOF
 }
 
-function docker_clean_up(){
+function docker_clean_up() {
   read -p "[WARNING] this will remove all Docker related files. Continue? (y/n) $ " answer
   case $answer in
-    y | yes | Y | YES)
-      docker system prune --force
-      docker container stop $(docker container ls -aq)
-      docker container rm $(docker container ls -aq)
-      docker rmi $(docker images -aq)
-      docker volume prune --force
-      ;;
-    n | no | N | NO)
-      echo "Exiting..."
-      ;;
-    *)
-      echo "Answer ${answer} unknown. Exiting..."
-      ;;
+  y | yes | Y | YES)
+    docker system prune --force
+    docker container stop "$(docker container ls -aq)"
+    docker container rm "$(docker container ls -aq)"
+    docker rmi "$(docker images -aq)"
+    docker volume prune --force
+    ;;
+  n | no | N | NO)
+    echo "Exiting..."
+    ;;
+  *)
+    echo "Answer ${answer} unknown. Exiting..."
+    ;;
   esac
 
 }
-
 
 function remove_debugger() {
   # Removes all python debugger statements from py files in a given dir
@@ -184,16 +185,16 @@ function remove_debugger() {
   directory="$1"
   suffix="py"
 
-  if [ -z "$1" ]; then
-    directory=$(pwd)
+  if [ "$1" = "" ]; then
+    directory=$PWD
   fi
 
-  message=$(\
+  message=$(
     rg \
-    'import pdb.*|.*pdb.set_trace.*|.*remote_pdb.*|.*RemotePdb.*|.*breakpoint\(\)' \
-    --type $suffix \
-    --pretty \
-    $directory \
+      'import pdb.*|.*pdb.set_trace.*|.*remote_pdb.*|.*RemotePdb.*|.*breakpoint\(\)' \
+      --type "$suffix" \
+      --pretty \
+      "$directory"
   )
   # get only the file names (sed removes colours)
   files=$(echo "$message" | sed 's/\x1b\[[0-9;]*m//g' | grep "\.${suffix}\>")
@@ -202,7 +203,7 @@ function remove_debugger() {
   port_message=$(rg --files -g '*docker-compose.*' | xargs rg --pretty '4444:4444')
   docker_files=$(echo "$port_message" | sed 's/\x1b\[[0-9;]*m//g' | rg "docker-compose")
 
-  if [ -z "$message" ] && [ -z "$port_message" ]; then
+  if [ "$message" = "" ] && [ "$port_message" = "" ]; then
     echo "No debugging statements found. Exiting..."
     return 0
   fi
@@ -212,22 +213,22 @@ function remove_debugger() {
   read -p "Do you want to remove the above debugger lines? (y/n) $ " answer
 
   case $answer in
-    y | yes | Y | YES)
-      echo $files $docker_files | \
-        xargs sed --in-place \
+  y | yes | Y | YES)
+    echo "$files" "$docker_files" |
+      xargs sed --in-place \
         '/import pdb/d;/pdb.set_trace/d;/remote_pdb/d;/RemotePdb/d;/breakpoint()/d;/4444:4444/d'
-      echo "Complete"
-      ;;
-    n | no | N | NO)
-      echo "Exiting..."
-      ;;
-    *)
-      echo "Answer ${answer} unknown. Exiting..."
-      ;;
+    echo "Complete"
+    ;;
+  n | no | N | NO)
+    echo "Exiting..."
+    ;;
+  *)
+    echo "Answer ${answer} unknown. Exiting..."
+    ;;
   esac
 }
 
-function lua_debugger_download(){
+function lua_debugger_download() {
   # Download lua debugger into current directory
   # TODO: would be nice to implement this as part of the lua snippet instead
   echo -e "${GREEN}Downloading debugger...${NC}\n"
@@ -238,48 +239,47 @@ function lua_debugger_download(){
   echo -e "Then execute ${YELLOW}nvim --headless${GREEN} to trigger the debugger.${NC}"
 }
 
-function docker_plus(){
-  # Wrapper for some docker cli commands: 
+function docker_plus() {
+  # Wrapper for some docker cli commands:
   #   $1: docker_plus command
   #   $2: part or full container name
-  if [ -z "$(docker ps -q)" ]; then
+  if [ "$(docker ps -q)" = "" ]; then
     echo "No docker containers are running."
     return
   fi
-  container_id=$(docker ps | awk '$NF ~ /'$2'/ {print $1}' | head -n 1)
-  container_name=$(docker ps | awk '$NF ~ /'$2'/ {print $NF}' | head -n 1)
+  container_id=$(docker ps | awk '$NF ~ /'"$2"'/ {print $1}' | head -n 1)
+  container_name=$(docker ps | awk '$NF ~ /'"$2"'/ {print $NF}' | head -n 1)
   case $1 in
-    help)
-      docker_plus_help
-      ;;
-    logs | log)
-      echo -e "Getting logs for ${YELLOW}${container_name}${NC}..."
-      sleep 1
-      docker logs $container_id -f
-      ;;
-    bash)
-      echo -e "Jumping into ${YELLOW}${container_name}${NC} bash shell..."
-      sleep 1
-      docker exec -it $container_id /bin/bash
-      ;;
-    shell)
-      echo -e "Jumping into ${YELLOW}${container_name}${NC} shell..."
-      sleep 1
-      docker exec -it $container_id /bin/sh
-      ;;
-    psql)
-      # $3: database name
-      db_name=$([ -z "$3" ] && echo "postgres" || echo "$3")
-      echo -e "Jumping into ${YELLOW}${container_name}${NC} (${db_name}) psql shell..."
-      sleep 1
-      docker exec -it $container_id psql -U postgres -d $db_name
-      ;;
-    *)
-      echo "ERROR: ${2} is not a valid command. See 'docker_plus help'."
-      ;;
+  help)
+    docker_plus_help
+    ;;
+  logs | log)
+    echo -e "Getting logs for ${YELLOW}${container_name}${NC}..."
+    sleep 1
+    docker logs "$container_id" -f
+    ;;
+  bash)
+    echo -e "Jumping into ${YELLOW}${container_name}${NC} bash shell..."
+    sleep 1
+    docker exec -it "$container_id" /bin/bash
+    ;;
+  shell)
+    echo -e "Jumping into ${YELLOW}${container_name}${NC} shell..."
+    sleep 1
+    docker exec -it "$container_id" /bin/sh
+    ;;
+  psql)
+    # $3: database name
+    db_name=$([ "$3" = "" ] && echo "postgres" || echo "$3")
+    echo -e "Jumping into ${YELLOW}${container_name}${NC} (${db_name}) psql shell..."
+    sleep 1
+    docker exec -it "$container_id" psql -U postgres -d "$db_name"
+    ;;
+  *)
+    echo "ERROR: ${2} is not a valid command. See 'docker_plus help'."
+    ;;
   esac
 }
-
 
 # parse git or hg branch name and stash number
 function parse_git_branch() {
@@ -287,7 +287,7 @@ function parse_git_branch() {
     if git ls-files >&/dev/null; then
       branch=$(git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
       # remove feature/bugfix etc. from branch name
-      branch_without_prefix=$(echo $branch | sed 's/[a-zA-Z].*\///')
+      branch_without_prefix=$(echo "$branch" | sed 's/[a-zA-Z].*\///')
       stash_num=$(git stash list | grep "$branch_without_prefix" | wc -l | sed 's/^ *//g')
       if [ "$stash_num" = 0 ]; then
         echo " (${branch})"
@@ -314,13 +314,12 @@ function up() {
     cd ..
   else
     CDSTR=""
-    for i in $(seq 1 $1); do
+    for i in "$(seq 1 "$1")"; do
       CDSTR="../$CDSTR"
     done
-    cd $CDSTR
+    cd "$CDSTR"
   fi
 }
-
 
 #################
 #    OPTIONS    #
@@ -361,7 +360,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
 #################
 #    HISTORY    #
 #################
@@ -374,8 +372,7 @@ export HISTFILESIZE=200000
 export HISTIGNORE="&:history:hgrep:h:cll:cll *:cls:c:c -A:[bf]g:fg:j:exit"
 MY_BASH_GREEN="\033[38;5;82m"
 MY_BASH_NOCOLOR="\033[0m"
-HISTTIMEFORMAT=`echo -e ${MY_BASH_GREEN}[%F %T] $MY_BASH_NOCOLOR `
-
+HISTTIMEFORMAT=$(echo -e "$MY_BASH_GREEN"[%F %T] "$MY_BASH_NOCOLOR")
 
 #################
 #    COLOURS    #
@@ -398,7 +395,6 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 
-
 #################
 #    EDITOR     #
 #################
@@ -406,7 +402,6 @@ export LESS=' -R '
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 export VIMRC=~/.vimrc
-
 
 ####################
 #    DEVELOPMENT   #
@@ -431,7 +426,6 @@ export PATH=$PATH:$HOME/.npm-global/bin:$GEM_HOME/bin:$HOME/.cargo/bin:$HOME/.lo
 # GOPATH
 export GOPATH=$HOME/go
 
-
 #################
 #    PLUGINS    #
 #################
@@ -448,7 +442,12 @@ fi
 if [[ $OS = 'Darwin' ]]; then
   [[ -s /Users/David.Ross/.autojump/etc/profile.d/autojump.sh ]] && source /Users/David.Ross/.autojump/etc/profile.d/autojump.sh
 else
-  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/${USER}/.autojump/etc/profile.d/autojump.sh
+  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/"$USER"/.autojump/etc/profile.d/autojump.sh
+fi
+
+# TODO; remove autojump above
+if command -v zoxide &>/dev/null; then
+  eval "$(zoxide init bash)"
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -457,35 +456,30 @@ if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$([ "${XDG_CONFIG_HOME-}" = "" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # Use bash-completion, if available
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
-    . /usr/share/bash-completion/bash_completion
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] &&
+  . /usr/share/bash-completion/bash_completion
 
-if command -v kubectl &> /dev/null
-then
+if command -v kubectl &>/dev/null; then
   source <(kubectl completion bash)
 fi
 
-if command -v helm &> /dev/null
-then
+if command -v helm &>/dev/null; then
   source <(helm completion bash)
 fi
 
-if command -v stern &> /dev/null
-then
+if command -v stern &>/dev/null; then
   source <(stern --completion=bash)
 fi
 
-if command -v terraform &> /dev/null
-then
+if command -v terraform &>/dev/null; then
   [[ "$OS" = "Darwin" ]] && terr=/opt/homebrew/bin/terraform || terr=/usr/bin/terraform
   complete -C "$terr" terraform
 fi
-
 
 #################
 #    PROMPT     #
@@ -502,8 +496,8 @@ david*)
   ;;
 esac
 
-export PS1="$USER_PS1 \w"\
-"\[\033[38;5;82m\]\$(parse_git_branch)\[\033[00m\]"\
-"\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
+export PS1="$USER_PS1 \w""\
+\[\033[38;5;82m\]\$(parse_git_branch)\[\033[00m\]""\
+\[\033[38;5;87m\]\$(bg_process_num)\[\033[00m\] $ "
 # "\e[38;5;202m\]\$(tmux_session_num)\[\033[00m\] $ "
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH:$GOPATH/bin"
