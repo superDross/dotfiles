@@ -301,7 +301,7 @@ function parse_git_branch() {
 }
 
 function bg_process_num() {
-  num=$(jobs | grep -c -v "autojump\|wezterm" | sed 's/^ *//g')
+  num=$(jobs | grep -c -v "autojump\|wezterm\|\zoxide" | sed 's/^ *//g')
   if [ "$num" != 0 ]; then
     echo " $num"
   fi
@@ -439,13 +439,6 @@ else
   source /usr/bin/virtualenvwrapper.sh
 fi
 
-if [[ $OS = 'Darwin' ]]; then
-  [[ -s /Users/David.Ross/.autojump/etc/profile.d/autojump.sh ]] && source /Users/David.Ross/.autojump/etc/profile.d/autojump.sh
-else
-  [[ -s /home/${USER}/.autojump/etc/profile.d/autojump.sh ]] && source /home/"$USER"/.autojump/etc/profile.d/autojump.sh
-fi
-
-# TODO; remove autojump above
 if command -v zoxide &>/dev/null; then
   eval "$(zoxide init bash)"
 fi

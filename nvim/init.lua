@@ -366,6 +366,7 @@ local normal_mappings = {
   ['<Leader>fa']       = '<cmd>FzfLua live_grep_resume previewer=bat git_icons=false file_icons=false<CR>',
   ['<Leader>fb']       = '<cmd>FzfLua buffers<CR>',
   ['<Leader>fc']       = '<cmd>FzfLua git_commits<CR>',
+  ['<Leader>fd']       = '<cmd>FzfLua git_status<CR>',
   ['<Leader>fg']       = '<cmd>FzfLua live_grep_native previewer=bat git_icons=false file_icons=false<CR>',
   ['<Leader>fn']       = '<cmd>GrepNotes<CR>',
   ['<Leader>fs']       = '<cmd>FindSessions<CR>',
