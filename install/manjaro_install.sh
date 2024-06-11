@@ -91,14 +91,14 @@ function update_and_install(){
     xfce4 \
     xfce4-terminal \
     yarn \
-    zathura
+    zathura \
+    zoxide
   
 }
 
 function install_aur_packages(){
   pamac build --no-confirm \
     anki-bin \
-    autojump \
     git-completion \
     i3lock-fancy-git \
     mongodb-compass \
