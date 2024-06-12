@@ -14,36 +14,10 @@ YELLOW='\033[1;33m'
 export SHELLCHECK_OPTS="-e SC1090"
 
 #################
-#    MAC        #
-#################
-
-# TODO: place this in a separate file specific to work
-if [[ "$OS" == "Darwin" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  # alias python="/opt/homebrew/bin/python3"
-
-  # Beamery Cluster 2.0 Tooling
-  export PATH=${HOME}/.beamery-tooling/bin:$PATH
-
-  # Ensure google cloud behaves
-  export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-  source '/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.bash.inc'
-
-  # Beamery Vault Access
-  token=$(cat ~/.gh_token)
-  export GITHUB_API_TOKEN=$token
-  # Beamery Platform Tooling setup
-  [ -s ~/.beamery-tooling/bin/tooling-setup.sh ] && source ~/.beamery-tooling/bin/tooling-setup.sh
-
-  # Bash Completion
-  [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
-fi
-
-#################
 #    ALIASES    #
 #################
 
-# system specific aliases
+# system specific aliases, functions and settings
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
@@ -68,7 +42,6 @@ alias grep='grep --color=auto'
 
 # custom grep commands
 alias hgrep="history | grep"
-alias psgrep='ps aux |grep -v grep |grep -i'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -310,7 +283,7 @@ function up() {
     cd ..
   else
     CDSTR=""
-    for i in "$(seq 1 "$1")"; do
+    for _ in $(seq 1 "$1"); do
       CDSTR="../$CDSTR"
     done
     cd "$CDSTR" || exit
@@ -405,9 +378,8 @@ export GOPATH=$HOME/go
 #################
 
 # source plugins
-if [[ $OS = 'Darwin' ]]; then
-  source /opt/homebrew/bin/virtualenvwrapper.sh
-else
+if [[ $OS != 'Darwin' ]]; then
+  # TODO: is this required at all?
   source /usr/share/fzf/completion.bash
   source /usr/share/fzf/key-bindings.bash
 fi
