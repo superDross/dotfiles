@@ -210,13 +210,6 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
   group = vim_term
 })
--- start insert mode when moving to a terminal window
-vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
-  callback = function()
-    if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
-  end,
-  group = vim_term
-})
 -- indentation spacing
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = {
