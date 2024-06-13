@@ -112,7 +112,7 @@ function docker_stop_all() {
   containers=$(docker ps | tail -n +2 | grep -v minikube | awk '{print $1}' | tr '\n' ' ')
   if [ "$containers" != "" ]; then
     # shellcheck disable=SC2086
-    docker stop "$containers"
+    docker stop $containers
   else
     echo "No containers to stop"
   fi
