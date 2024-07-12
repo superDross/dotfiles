@@ -187,9 +187,6 @@ require('lazy').setup({
     end
   },
 }, {
-  dev = {
-    path = "~/dev",
-  },
   performance = { cache = { enabled = false } },
   lockfile = vim.g.vimdir .. '/lazy-lock.json',
 })
