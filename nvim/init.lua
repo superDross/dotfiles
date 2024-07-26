@@ -151,7 +151,10 @@ require('lazy').setup({
     init = function()
       vim.g.notesdir = '~/bin/piconotes/'
       vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
-    end
+    end,
+    -- dev = {
+    --   true
+    -- }
   },
   {
     'superDross/run-with-me.vim',
@@ -187,6 +190,9 @@ require('lazy').setup({
     end
   },
 }, {
+  dev = {
+    path = "~/dev",
+  },
   performance = { cache = { enabled = false } },
   lockfile = vim.g.vimdir .. '/lazy-lock.json',
 })
