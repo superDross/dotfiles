@@ -130,6 +130,14 @@ require('lazy').setup({
       vim.g.mkdp_browser = 'firefox'
     end
   },
+  {
+    'OXY2DEV/markview.nvim',
+    lazy = false,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter',
+        'nvim-tree/nvim-web-devicons'
+    }
+  },
   'masukomi/vim-markdown-folding',
   -- code outline
   'stevearc/aerial.nvim',
