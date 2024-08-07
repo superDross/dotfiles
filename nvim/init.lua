@@ -351,6 +351,7 @@ local normal_mappings = {
   -- leader number mappings
   ['<leader>0']        = ':silent set hlsearch! hlsearch?<CR>',
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
+  ['<leader>2']        = '<cmd>Markview toggle<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
@@ -439,6 +440,13 @@ end
 -- COPILOT ---------------------------------------------------------------
 vim.g.copilot_filetypes = { markdown = false, tex = false, text = false }
 vim.g.copilot_no_tab_map = true
+
+
+-- MARKDOWN --------------------------------------------------------------
+require('markview').setup({
+  modes = {'n', 'i', 'no'},
+  code_blocks = {style = 'simple'}
+})
 
 
 -- STATUSLINE ------------------------------------------------------------
