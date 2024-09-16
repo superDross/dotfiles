@@ -89,3 +89,6 @@ SUBQUERY
 subquery
 PostgreSQL
 subqueries
+Psycopg
+Beamery
+crashback
