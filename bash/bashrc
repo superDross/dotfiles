@@ -382,6 +382,7 @@ if [[ $OS != 'Darwin' ]]; then
   # TODO: is this required at all?
   source /usr/share/fzf/completion.bash
   source /usr/share/fzf/key-bindings.bash
+  source /usr/bin/virtualenvwrapper.sh
 fi
 
 if command -v zoxide &>/dev/null; then
