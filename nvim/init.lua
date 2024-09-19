@@ -512,7 +512,7 @@ require('aerial').setup({})
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'pyright', 'bashls', 'tsserver', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls',
+    'pyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls',
   },
   automatic_installation = true,
 }
