@@ -299,6 +299,9 @@ vim.env.BAT_THEME = 'gruvbox-dark'
 -- alter spellcheck highlighting: https://tinyurl.com/undercurl
 vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true, italic = true, sp = 'red' })
 
+-- TODO: add to spellbound.nvim
+vim.cmd('set spelloptions+=camel')
+
 
 -- MAPPINGS ------------------------------------------------------------
 local opts = { noremap = true, silent = true }
