@@ -118,3 +118,7 @@ uploaders
 upsert
 webhook
 yaml
+Psycopg
+vimscript
+VimScript
+SRP
