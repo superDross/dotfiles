@@ -6,3 +6,4 @@ __pycache__/
 .mypy_cache/
 
 *.add.spl
+nvim/spell/en.utf-8.add.spl
