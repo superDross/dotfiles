@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 
 return {
-  font = wezterm.font('Roboto Mono', { weight='Bold'}),
+  font = wezterm.font('Roboto Mono', { weight='Medium'}),
   -- font_size = 10,
   audible_bell = 'Disabled',
   colors = {
@@ -9,7 +9,7 @@ return {
     background='#1d1d20202121',
   },
   window_frame = {
-    font = wezterm.font { family = 'Roboto Mono', weight = 'Bold' },
+    font = wezterm.font { family = 'Roboto Mono', weight = 'Medium' },
   },
   window_padding = {
     left = 0,
