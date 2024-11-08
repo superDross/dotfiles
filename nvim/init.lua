@@ -160,9 +160,7 @@ require('lazy').setup({
       vim.g.notesdir = '~/bin/piconotes/'
       vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
     end,
-    -- dev = {
-    --   true
-    -- }
+    -- dev = true
   },
   {
     'superDross/run-with-me.vim',
