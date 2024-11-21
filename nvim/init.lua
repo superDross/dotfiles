@@ -30,6 +30,8 @@ vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.g.mapleader = ' '
 
+-- TODO: OS specific mappings
+-- TODO: command to toggle relative numbers across all buffers
 
 -- PLUGINS ------------------------------------------------------------
 -- Install lazy.nvim automatically
@@ -520,7 +522,7 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    { 'black', version = '24.3.0' }, 'flake8', 'hadolint', 'prettier', 'shfmt', 'eslint_d',
+    { 'black', version = '24.3.0' }, 'flake8', 'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
@@ -542,7 +544,7 @@ local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff), d.eslint_d,
+    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
     f.black, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
     f.prettier
   }
