@@ -19,4 +19,6 @@ return {
   },
   hide_tab_bar_if_only_one_tab = true,
   tab_bar_at_bottom = true,
+  max_fps = 120,
+  animation_fps = 60,
 }
