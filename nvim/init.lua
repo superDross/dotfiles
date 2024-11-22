@@ -30,8 +30,6 @@ vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.g.mapleader = ' '
 
--- TODO: OS specific mappings
--- TODO: command to toggle relative numbers across all buffers
 
 -- PLUGINS ------------------------------------------------------------
 -- Install lazy.nvim automatically
