@@ -569,28 +569,6 @@ mason_lspconfig.setup_handlers({
   ['ltex'] = function()
     lspconfig.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
   end,
-  -- https://github.com/microsoft/pyright/blob/main/docs/settings.md
-  -- 1.1.376 introduced config overriding settings, this means the below parsed settings do not work
-  -- (seems like even a empty pyproject.toml will result in the defaults being used)
-  -- `:MasonInstall pyright@1.1.375` to downgrade
-  ['pyright'] = function()
-    lspconfig.pyright.setup {
-      on_attach = on_attach,
-      settings = {
-        pyright = {
-          autoImportCompletion = true,
-        },
-        python = {
-          analysis = {
-            -- using pylint/flake8 for linting instead of pyright
-            ignore = { '*' },
-            -- using mypy for type checking
-            typeCheckingMode = 'off',
-          }
-        }
-      }
-    }
-  end,
   -- use kubernetes yaml for all?
   ['yamlls'] = function()
     lspconfig.yamlls.setup {
