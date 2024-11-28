@@ -514,6 +514,7 @@ require('aerial').setup({})
 mason_lspconfig.setup {
   ensure_installed = {
     'pyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls',
+    'jsonls',
   },
   automatic_installation = true,
 }
