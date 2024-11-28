@@ -20,4 +20,12 @@ fi
 # create pyright config for the new virtualenv
 venv_name="$(basename "$VIRTUAL_ENV")"
 virtualenv_dir="$(dirname "$VIRTUAL_ENV")"
-echo "{ \"venvPath\": \"${virtualenv_dir}\", \"venv\": \"${venv_name}\" }" > pyrightconfig.json
+echo "{
+  \"venvPath\": \"${virtualenv_dir}\",
+  \"venv\": \"${venv_name}\",
+  \"autoImportCompletions\": true,
+  \"typeCheckingMode\": \"off\",
+  \"ignore\": [
+    \"*\"
+  ]
+}" > pyrightconfig.json
