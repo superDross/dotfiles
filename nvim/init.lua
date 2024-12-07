@@ -412,6 +412,7 @@ local normal_mappings = {
   ['<Leader>cc']       = '<cmd>CodeCompanion<CR>',
   ['<Leader>ca']       = '<cmd>CodeCompanionActions<CR>',
   ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
+  ['<Leader>cm']       = ':CodeCompanionCmd ',
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
