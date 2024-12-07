@@ -61,6 +61,14 @@ require('lazy').setup({
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
   'github/copilot.vim',
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = true
+  },
   -- completion
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
@@ -321,6 +329,8 @@ local visual_mappings = {
   ['<leader>y']  = '"+y',
   ['<leader>p']  = '"+p',
   ['<Leader>rs'] = '<cmd>RunSelectedCode<CR>',
+  ['<Leader>cc'] = '<cmd>CodeCompanion<CR>',
+  ['<Leader>ca'] = '<cmd>CodeCompanionActions<CR>',
 }
 
 local normal_mappings = {
@@ -397,8 +407,11 @@ local normal_mappings = {
   ['<Leader>no']       = '<cmd>OpenNote<CR>',
   ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
-  -- copilot
+  -- copilot/ai
   ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
+  ['<Leader>cc']       = '<cmd>CodeCompanion<CR>',
+  ['<Leader>ca']       = '<cmd>CodeCompanionActions<CR>',
+  ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
@@ -438,9 +451,23 @@ local on_attach = function(_, bufnr)
 end
 
 
--- COPILOT ---------------------------------------------------------------
+-- COPILOT/AI ---------------------------------------------------------------
 vim.g.copilot_filetypes = { markdown = false, tex = false, text = false }
 vim.g.copilot_no_tab_map = true
+require('codecompanion').setup({
+  strategies ={
+    inline = { adapter = 'copilot' },
+    chat = {
+      adapter = 'copilot',
+      slash_commands = {
+        ['buffer'] = { opts = { provider = 'fzf_lua' } },
+        ['help'] = { opts = { provider = 'fzf_lua' } },
+        ['file'] = { opts = { provider = 'fzf_lua' } },
+        ['symbols'] = { opts = { provider = 'fzf_lua' } },
+      }
+    }
+  }
+})
 
 
 -- MARKDOWN --------------------------------------------------------------
