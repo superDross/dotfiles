@@ -116,7 +116,7 @@ require('lazy').setup({
   -- file searcher
   {
     'ibhagwan/fzf-lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       grep = {
         -- same as fzf-lua defaults but shows hidden files not in the gitignore file
@@ -127,7 +127,7 @@ require('lazy').setup({
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
   },
   -- markdown
   {
