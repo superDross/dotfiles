@@ -167,7 +167,7 @@ require('lazy').setup({
       vim.g.notesdir = '~/bin/piconotes/'
       vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
     end,
-    -- dev = true
+    dev = true
   },
   {
     'superDross/run-with-me.vim',
@@ -292,26 +292,13 @@ vim.api.nvim_create_user_command(
 -- COLOURSCHEMES ------------------------------------------------------------
 require('gruvbox').setup({
   contrast = 'hard',
-  overrides = {
-    SignColumn = { link = "Normal" },
-    GruvboxGreenSign = { bg = "" },
-    GruvboxOrangeSign = { bg = "" },
-    GruvboxPurpleSign = { bg = "" },
-    GruvboxYellowSign = { bg = "" },
-    GruvboxRedSign = { bg = "" },
-    GruvboxBlueSign = { bg = "" },
-    GruvboxAquaSign = { bg = "" },
-  }
+  overrides = { SignColumn = { link = "Normal" } }
 })
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 vim.cmd.colorscheme('gruvbox')
 vim.env.BAT_THEME = 'gruvbox-dark'
--- alter spellcheck highlighting: https://tinyurl.com/undercurl
 vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true, italic = true, sp = 'red' })
-
--- TODO: add to spellbound.nvim
-vim.cmd('set spelloptions+=camel')
 
 
 -- MAPPINGS ------------------------------------------------------------
