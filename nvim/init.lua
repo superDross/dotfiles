@@ -59,6 +59,8 @@ require('lazy').setup({
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'jose-elias-alvarez/null-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  -- UI
+  'stevearc/dressing.nvim',
   -- AI
   'github/copilot.vim',
   {
@@ -97,7 +99,6 @@ require('lazy').setup({
   },
   -- text object extensions
   'machakann/vim-sandwich',
-  'machakann/vim-swap',
   -- git enhancers
   {
     'tpope/vim-fugitive',
