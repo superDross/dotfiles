@@ -59,8 +59,6 @@ require('lazy').setup({
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'jose-elias-alvarez/null-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
-  -- UI
-  'stevearc/dressing.nvim',
   -- AI
   'github/copilot.vim',
   {
@@ -284,6 +282,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 -- extend runtimepath to include ~/bin/dotfiles/nvim/ (does not work if declared at the top of the file)
 vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath
 
+
 -- COMMANDS -----------------------------------------------------------------
 -- overwrites the Python functions/methods contents with `return`
 vim.api.nvim_create_user_command(
@@ -480,7 +479,8 @@ require('codecompanion').setup({
 -- MARKDOWN --------------------------------------------------------------
 require('markview').setup({
   modes = {'n', 'i', 'no'},
-  code_blocks = {style = 'simple'}
+  code_blocks = {style = 'simple'},
+  filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
 })
 
 
@@ -712,3 +712,7 @@ require('nvim-treesitter.configs').setup {
   },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 }
+
+
+-- UI ---------------------------------------------------------------------
+require('fzf-lua').register_ui_select()
