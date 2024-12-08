@@ -228,11 +228,16 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
   group = vim_term
 })
+-- ensure vader files are treated as vim files
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = '*.vader',
+  command = 'set filetype=vim',
+})
 -- indentation spacing
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = {
     '*.js', '*.ts', '*.html', '*.css', '*.jsx', '*.tsx', '*.lua',
-    '*.vue', '*.vim', '*.sh', '*bashrc'
+    '*.vue', '*.vim', '*.sh', '*bashrc', '*.vader',
   },
   callback = function()
     vim.opt_local.expandtab = true
@@ -571,7 +576,7 @@ local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
+    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
     f.black, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
     f.prettier
   }
