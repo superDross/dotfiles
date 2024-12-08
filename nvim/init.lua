@@ -148,8 +148,8 @@ require('lazy').setup({
     }
   },
   'masukomi/vim-markdown-folding',
-  -- code outline
-  'stevearc/aerial.nvim',
+  -- code symbols
+  {'folke/trouble.nvim', opts = {}, cmd = 'Trouble'},
   -- personal plugins
   {
     'superDross/ticket.vim',
@@ -367,7 +367,7 @@ local normal_mappings = {
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
-  ['<leader>8']        = '<cmd>AerialToggle!<CR>',
+  ['<leader>8']        = '<cmd>Trouble symbols toggle<CR>',
   -- terminal mappings
   ['<leader>t']        = '<cmd>startinsert | botright 15split | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | botright vsplit | term<CR>',
@@ -454,7 +454,7 @@ end
 
 
 -- COPILOT/AI ---------------------------------------------------------------
-vim.g.copilot_filetypes = { markdown = false, tex = false, text = false }
+vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
 vim.g.copilot_no_tab_map = true
 require('codecompanion').setup({
   strategies ={
@@ -509,7 +509,7 @@ require('lualine').setup({
         }
       }
     },
-    lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
+    lualine_x = { { 'trouble', color = { fg = '#f0f0ed' } } },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
@@ -537,7 +537,6 @@ local lspconfig = require("lspconfig")
 local null_ls = require('null-ls')
 local mason_installer = require('mason-tool-installer')
 require('mason').setup {}
-require('aerial').setup({})
 
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {

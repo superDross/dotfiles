@@ -32,10 +32,10 @@
   "scrappy.vim": { "branch": "master", "commit": "0de4337335188fd70f200a9ab4be2cbeb4b76a8d" },
   "spellbound.nvim": { "branch": "main", "commit": "3bee6eb74858d64c5f354e9ca1fd64e28dc1c417" },
   "ticket.vim": { "branch": "master", "commit": "cbb82b8875bdcb967d316ae6515af26f7d2bb5bc" },
+  "trouble.nvim": { "branch": "main", "commit": "46cf952fc115f4c2b98d4e208ed1e2dce08c9bf6" },
   "vim-fugitive": { "branch": "master", "commit": "320b18fba2a4f2fe3c8225c778c687e0d2620384" },
   "vim-markdown-folding": { "branch": "master", "commit": "0592d3efcb9b287fff265aa542872d95478a7536" },
   "vim-mundo": { "branch": "master", "commit": "2ceda8c65f7b3f9066820729fc02003a09df91f9" },
   "vim-rhubarb": { "branch": "master", "commit": "ee69335de176d9325267b0fd2597a22901d927b1" },
-  "vim-sandwich": { "branch": "master", "commit": "74cf93d58ccc567d8e2310a69860f1b93af19403" },
-  "vim-swap": { "branch": "master", "commit": "9358bfdc5e377aa13e7c2c2dd8699ba32b0dcf83" }
+  "vim-sandwich": { "branch": "master", "commit": "74cf93d58ccc567d8e2310a69860f1b93af19403" }
 }
