@@ -293,14 +293,10 @@ vim.api.nvim_create_user_command(
 require('gruvbox').setup({
   contrast = 'hard',
   overrides = {
-    SignColumn = { link = "Normal" },
-    GruvboxGreenSign = { bg = "" },
-    GruvboxOrangeSign = { bg = "" },
-    GruvboxPurpleSign = { bg = "" },
-    GruvboxYellowSign = { bg = "" },
-    GruvboxRedSign = { bg = "" },
-    GruvboxBlueSign = { bg = "" },
-    GruvboxAquaSign = { bg = "" },
+    SignColumn = { link = "Normal" }, GruvboxGreenSign = { bg = "" },
+    GruvboxOrangeSign = { bg = "" }, GruvboxPurpleSign = { bg = "" },
+    GruvboxYellowSign = { bg = "" }, GruvboxRedSign = { bg = "" },
+    GruvboxBlueSign = { bg = "" }, GruvboxAquaSign = { bg = "" },
   }
 })
 vim.opt.termguicolors = true
