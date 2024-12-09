@@ -61,6 +61,14 @@ require('lazy').setup({
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
   'github/copilot.vim',
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = true
+  },
   -- completion
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
@@ -89,7 +97,6 @@ require('lazy').setup({
   },
   -- text object extensions
   'machakann/vim-sandwich',
-  'machakann/vim-swap',
   -- git enhancers
   {
     'tpope/vim-fugitive',
@@ -108,7 +115,7 @@ require('lazy').setup({
   -- file searcher
   {
     'ibhagwan/fzf-lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       grep = {
         -- same as fzf-lua defaults but shows hidden files not in the gitignore file
@@ -119,7 +126,7 @@ require('lazy').setup({
   -- statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+    dependencies = { 'nvim-tree/nvim-web-devicons', lazy = true }
   },
   -- markdown
   {
@@ -139,8 +146,8 @@ require('lazy').setup({
     }
   },
   'masukomi/vim-markdown-folding',
-  -- code outline
-  'stevearc/aerial.nvim',
+  -- code symbols
+  {'folke/trouble.nvim', opts = {}, cmd = 'Trouble'},
   -- personal plugins
   {
     'superDross/ticket.vim',
@@ -160,7 +167,7 @@ require('lazy').setup({
       vim.g.notesdir = '~/bin/piconotes/'
       vim.g.noteurl = 'https://github.com/superDross/piconotes/blob/main/'
     end,
-    -- dev = true
+    dev = true
   },
   {
     'superDross/run-with-me.vim',
@@ -219,11 +226,16 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
   group = vim_term
 })
+-- ensure vader files are treated as vim files
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = '*.vader',
+  command = 'set filetype=vim',
+})
 -- indentation spacing
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = {
     '*.js', '*.ts', '*.html', '*.css', '*.jsx', '*.tsx', '*.lua',
-    '*.vue', '*.vim', '*.sh', '*bashrc'
+    '*.vue', '*.vim', '*.sh', '*bashrc', '*.vader',
   },
   callback = function()
     vim.opt_local.expandtab = true
@@ -270,6 +282,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 -- extend runtimepath to include ~/bin/dotfiles/nvim/ (does not work if declared at the top of the file)
 vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath
 
+
 -- COMMANDS -----------------------------------------------------------------
 -- overwrites the Python functions/methods contents with `return`
 vim.api.nvim_create_user_command(
@@ -280,25 +293,17 @@ vim.api.nvim_create_user_command(
 require('gruvbox').setup({
   contrast = 'hard',
   overrides = {
-    SignColumn = { link = "Normal" },
-    GruvboxGreenSign = { bg = "" },
-    GruvboxOrangeSign = { bg = "" },
-    GruvboxPurpleSign = { bg = "" },
-    GruvboxYellowSign = { bg = "" },
-    GruvboxRedSign = { bg = "" },
-    GruvboxBlueSign = { bg = "" },
-    GruvboxAquaSign = { bg = "" },
+    SignColumn = { link = "Normal" }, GruvboxGreenSign = { bg = "" },
+    GruvboxOrangeSign = { bg = "" }, GruvboxPurpleSign = { bg = "" },
+    GruvboxYellowSign = { bg = "" }, GruvboxRedSign = { bg = "" },
+    GruvboxBlueSign = { bg = "" }, GruvboxAquaSign = { bg = "" },
   }
 })
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 vim.cmd.colorscheme('gruvbox')
 vim.env.BAT_THEME = 'gruvbox-dark'
--- alter spellcheck highlighting: https://tinyurl.com/undercurl
 vim.api.nvim_set_hl(0, 'SpellBad', { undercurl = true, italic = true, sp = 'red' })
-
--- TODO: add to spellbound.nvim
-vim.cmd('set spelloptions+=camel')
 
 
 -- MAPPINGS ------------------------------------------------------------
@@ -321,6 +326,8 @@ local visual_mappings = {
   ['<leader>y']  = '"+y',
   ['<leader>p']  = '"+p',
   ['<Leader>rs'] = '<cmd>RunSelectedCode<CR>',
+  ['<Leader>cc'] = '<cmd>CodeCompanion<CR>',
+  ['<Leader>ca'] = '<cmd>CodeCompanionActions<CR>',
 }
 
 local normal_mappings = {
@@ -356,7 +363,7 @@ local normal_mappings = {
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
-  ['<leader>8']        = '<cmd>AerialToggle!<CR>',
+  ['<leader>8']        = '<cmd>Trouble symbols toggle<CR>',
   -- terminal mappings
   ['<leader>t']        = '<cmd>startinsert | botright 15split | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | botright vsplit | term<CR>',
@@ -397,8 +404,12 @@ local normal_mappings = {
   ['<Leader>no']       = '<cmd>OpenNote<CR>',
   ['<Leader>nd']       = '<cmd>DeleteNote<CR>',
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
-  -- copilot
+  -- copilot/ai
   ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
+  ['<Leader>cc']       = '<cmd>CodeCompanion<CR>',
+  ['<Leader>ca']       = '<cmd>CodeCompanionActions<CR>',
+  ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
+  ['<Leader>cm']       = ':CodeCompanionCmd ',
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
@@ -438,15 +449,30 @@ local on_attach = function(_, bufnr)
 end
 
 
--- COPILOT ---------------------------------------------------------------
-vim.g.copilot_filetypes = { markdown = false, tex = false, text = false }
+-- COPILOT/AI ---------------------------------------------------------------
+vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
 vim.g.copilot_no_tab_map = true
+require('codecompanion').setup({
+  strategies ={
+    inline = { adapter = 'copilot' },
+    chat = {
+      adapter = 'copilot',
+      slash_commands = {
+        ['buffer'] = { opts = { provider = 'fzf_lua' } },
+        ['help'] = { opts = { provider = 'fzf_lua' } },
+        ['file'] = { opts = { provider = 'fzf_lua' } },
+        ['symbols'] = { opts = { provider = 'fzf_lua' } },
+      }
+    }
+  }
+})
 
 
 -- MARKDOWN --------------------------------------------------------------
 require('markview').setup({
   modes = {'n', 'i', 'no'},
-  code_blocks = {style = 'simple'}
+  code_blocks = {style = 'simple'},
+  filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
 })
 
 
@@ -480,7 +506,7 @@ require('lualine').setup({
         }
       }
     },
-    lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
+    lualine_x = { { 'trouble', color = { fg = '#f0f0ed' } } },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
@@ -508,7 +534,6 @@ local lspconfig = require("lspconfig")
 local null_ls = require('null-ls')
 local mason_installer = require('mason-tool-installer')
 require('mason').setup {}
-require('aerial').setup({})
 
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
@@ -543,7 +568,7 @@ local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT
 local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint, d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
+    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
     f.black, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
     f.prettier
   }
@@ -679,3 +704,7 @@ require('nvim-treesitter.configs').setup {
   },
   highlight = { enable = true, additional_vim_regex_highlighting = false },
 }
+
+
+-- UI ---------------------------------------------------------------------
+require('fzf-lua').register_ui_select()

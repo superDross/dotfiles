@@ -7,6 +7,9 @@
 ## Plugins
 
 - Mason now supports `ensure_installed` not just for lspconfig, consider using the feature and removing `mason_installer` plugin
+- Find a way to install from branches, some are out of date like vint, workaround is to install master directly in the venv:
+  - `cd ~/.local/share/nvim/mason/packages/vint/venv`
+  - `/bin/pip3.10 install git+https://github.com/Vimjas/vint.git@master`
 
 ## Personal Plugins
 
