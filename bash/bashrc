@@ -95,6 +95,10 @@ alias ebook="foliate"
 # jetbrains toolbox
 alias jetbrains="~/bin/jetbrains-toolbox-1.21.9712/jetbrains-toolbox"
 
+# sqlite3 aliases
+alias sqlcsv='sqlite3 :memory: ".import /dev/stdin t" -csv -header'
+
+
 ####################
 #    FUNCTIONS     #
 ####################
@@ -112,7 +116,7 @@ function docker_stop_all() {
   containers=$(docker ps | tail -n +2 | grep -v minikube | awk '{print $1}' | tr '\n' ' ')
   if [ "$containers" != "" ]; then
     # shellcheck disable=SC2086
-    docker stop $containers
+    docker stop "$containers"
   else
     echo "No containers to stop"
   fi
@@ -283,7 +287,7 @@ function up() {
     cd ..
   else
     CDSTR=""
-    for _ in $(seq 1 "$1"); do
+    for _ in "$(seq 1 "$1")"; do
       CDSTR="../$CDSTR"
     done
     cd "$CDSTR" || exit
