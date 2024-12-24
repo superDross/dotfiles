@@ -28,6 +28,7 @@ vim.o.conceallevel = 2            -- hide markdown formatting
 vim.opt.fillchars = { eob = " " } -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
+vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath  -- add vimrc directory to runtimepath
 vim.g.mapleader = ' '
 
 
@@ -54,7 +55,7 @@ require('lazy').setup({
   'nvim-lua/plenary.nvim',
   -- lsp configs
   'neovim/nvim-lspconfig',
-  'williamboman/mason.nvim',
+  { 'williamboman/mason.nvim', config = function() require('mason').setup() end },
   'williamboman/mason-lspconfig.nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'nvimtools/none-ls.nvim',
@@ -222,8 +223,7 @@ require('lazy').setup({
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank { timeout = 500 } end,
 })
--- make neovim terminal more like vim terminal
--- disable line numbering in terminal mode
+-- make neovim terminal more like vim terminal & disable line numbering in terminal mode
 local vim_term = vim.api.nvim_create_augroup('vim_term', { clear = true })
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
@@ -240,8 +240,7 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
 -- indentation spacing
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = {
-    '*.js', '*.ts', '*.html', '*.css', '*.jsx', '*.tsx', '*.lua',
-    '*.vue', '*.vim', '*.sh', '*bashrc', '*.vader',
+    '*.js', '*.ts', '*.html', '*.css', '*.jsx', '*.tsx', '*.lua', '*.vue', '*.vim', '*.sh', '*bashrc', '*.vader',
   },
   callback = function()
     vim.opt_local.expandtab = true
@@ -285,15 +284,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   pattern = { '*.sh' },
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
--- extend runtimepath to include ~/bin/dotfiles/nvim/ (does not work if declared at the top of the file)
-vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath
 
-
--- COMMANDS -----------------------------------------------------------------
--- overwrites the Python functions/methods contents with `return`
-vim.api.nvim_create_user_command(
-  'ResetPythonFuncs', ':g/^ *def.*(/ norm j0d]Mccreturn', {}
-)
 
 -- COLOURSCHEMES ------------------------------------------------------------
 require('gruvbox').setup({
@@ -427,12 +418,10 @@ local insert_mappings = {
 }
 local insert_opts = { noremap = true, silent = true, expr = true, replace_keycodes = false }
 
-
 set_key_map('n', normal_mappings, opts)
 set_key_map('v', visual_mappings, opts)
 set_key_map('t', terminal_mappings, opts)
 set_key_map('i', insert_mappings, insert_opts)
-
 
 local on_attach = function(_, bufnr)
   -- this is required so the LSP takes effect on all buffers
@@ -536,19 +525,16 @@ require('lualine').setup({
 local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require("lspconfig")
 local null_ls = require('null-ls')
-local mason_installer = require('mason-tool-installer')
-require('mason').setup {}
 
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'pyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls',
-    'jsonls',
+    'pyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls', 'jsonls',
   },
   automatic_installation = true,
 }
 -- autoinstall formatters and linters
-mason_installer.setup {
+require('mason-tool-installer').setup {
   ensure_installed = {
     { 'black', version = '24.3.0' }, 'pylint', 'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
@@ -561,8 +547,7 @@ local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT
 null_ls.setup({
   sources = {
     d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.pylint, d.sqlfluff.with(sqlfluff),
-    f.black, f.shfmt, f.sqlfluff.with(sqlfluff), f.shellharden,
-    f.prettier
+    f.black, f.shfmt, f.sqlfluff.with(sqlfluff), f.shellharden, f.prettier
   }
 })
 
