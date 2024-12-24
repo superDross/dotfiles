@@ -1,8 +1,4 @@
 [MASTER]
-/* disable= */
-/*     no-name-in-module, */
-/*     no-member, */
-/*     c-extension-no-member */
 disable=
     too-few-public-methods,
     no-member,

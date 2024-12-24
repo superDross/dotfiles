@@ -57,15 +57,21 @@ require('lazy').setup({
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
-  'github/copilot.vim',
   {
-    "olimorris/codecompanion.nvim",
+    'github/copilot.vim',
+    init = function()
+      vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
+      vim.g.copilot_no_tab_map = true
+    end
+  },
+  {
+    'olimorris/codecompanion.nvim',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
     config = true
   },
@@ -450,8 +456,6 @@ end
 
 
 -- COPILOT/AI ---------------------------------------------------------------
-vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
-vim.g.copilot_no_tab_map = true
 require('codecompanion').setup({
   strategies ={
     inline = { adapter = 'copilot' },
@@ -546,30 +550,18 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 mason_installer.setup {
   ensure_installed = {
-    { 'black', version = '24.3.0' }, 'flake8', 'hadolint', 'prettier', 'shfmt',
+    { 'black', version = '24.3.0' }, 'pylint', 'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
 
-local function swap_error_warning(diagnostic)
-  -- swap error for warning in diagnostic tools, can slow down large files
-  diagnostic.severity = diagnostic.message:find("really") and
-      vim.diagnostic.severity["ERROR"] or
-      vim.diagnostic.severity["WARN"]
-end
-
 -- setup formatters and linters
 local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
-local flake8_config = {
-  diagnostics_postprocess = swap_error_warning,
-  extra_args = { '--ignore=W503,E203,E231', '--max-line-length=120' }
-}
 local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT05' } }
-local shfmt_config = { extra_args = { '-i', '4' } } -- use 4 spaces
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.flake8.with(flake8_config), d.sqlfluff.with(sqlfluff),
-    f.black, f.jq, f.shfmt.with(shfmt_config), f.sqlfluff.with(sqlfluff), f.shellharden,
+    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.pylint, d.sqlfluff.with(sqlfluff),
+    f.black, f.shfmt, f.sqlfluff.with(sqlfluff), f.shellharden,
     f.prettier
   }
 })
