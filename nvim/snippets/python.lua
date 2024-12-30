@@ -57,7 +57,7 @@ local rpdb = snip({
   namr = "rpdb",
   dscr = "Insert a remote-pdb breakpoint",
 }, {
-  text("from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip")
+  text("import pdb; pdb.DefaultConfig.truncate_long_lines = False; from remote_pdb import RemotePdb;RemotePdb('0.0.0.0', 4444).set_trace()  # fmt: skip")
 })
 
 
