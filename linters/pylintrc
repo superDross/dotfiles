@@ -3,7 +3,11 @@ disable=
     too-few-public-methods,
     no-member,
     no-name-in-module,
-    c-extension-no-member
+    c-extension-no-member,
+    missing-function-docstring,
+    missing-module-docstring,
+    missing-class-docstring,
+
 
 [FORMAT]
 max-line-length=120
