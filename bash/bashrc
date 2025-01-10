@@ -98,7 +98,6 @@ alias jetbrains="~/bin/jetbrains-toolbox-1.21.9712/jetbrains-toolbox"
 # sqlite3 aliases
 alias sqlcsv='sqlite3 :memory: ".import /dev/stdin t" -csv -header'
 
-
 ####################
 #    FUNCTIONS     #
 ####################
@@ -124,11 +123,11 @@ function docker_stop_all() {
 
 function docker_plus_help() {
   cat <<-EOF
-Commands:
-  logs: see containers logs
-  bash: jump into a containers bash shell
-  psql: jump into a postgres containers psql shell
-EOF
+		Commands:
+		  logs: see containers logs
+		  bash: jump into a containers bash shell
+		  psql: jump into a postgres containers psql shell
+	EOF
 }
 
 function docker_clean_up() {
