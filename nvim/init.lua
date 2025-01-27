@@ -529,7 +529,7 @@ local null_ls = require('null-ls')
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'pyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls', 'jsonls',
+    'basedpyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls', 'jsonls',
   },
   automatic_installation = true,
 }
