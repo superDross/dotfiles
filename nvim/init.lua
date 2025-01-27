@@ -463,9 +463,11 @@ require('codecompanion').setup({
 
 -- MARKDOWN --------------------------------------------------------------
 require('markview').setup({
-  modes = {'n', 'i', 'no'},
   code_blocks = {style = 'simple'},
-  filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
+  preview = {
+    modes = {'n', 'i', 'no'},
+    filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
+  }
 })
 
 
