@@ -154,7 +154,7 @@ require('lazy').setup({
   },
   'masukomi/vim-markdown-folding',
   -- code symbols
-  {'folke/trouble.nvim', opts = {}, cmd = 'Trouble'},
+  { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end },
   -- personal plugins
   {
     'superDross/ticket.vim',
@@ -360,7 +360,7 @@ local normal_mappings = {
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
   ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
   ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
-  ['<leader>8']        = '<cmd>Trouble symbols toggle<CR>',
+  ['<leader>8']        = '<cmd>AerialToggle!<CR>',
   -- terminal mappings
   ['<leader>t']        = '<cmd>startinsert | botright 15split | term<CR>',
   ['<leader>T']        = '<cmd>startinsert | botright vsplit | term<CR>',
@@ -499,7 +499,7 @@ require('lualine').setup({
         }
       }
     },
-    lualine_x = { { 'trouble', color = { fg = '#f0f0ed' } } },
+    lualine_x = { { 'aerial', color = { fg = '#f0f0ed' } } },
     lualine_y = { 'progress' },
     lualine_z = { 'location' },
   },
