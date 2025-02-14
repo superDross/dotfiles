@@ -30,6 +30,7 @@ vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath  -- add vimrc directory to runtimepath
 vim.g.mapleader = ' '
+vim.opt.spellfile = vim.g.vimdir .. '/spell/en.utf-8.add'
 
 
 -- PLUGINS ------------------------------------------------------------
