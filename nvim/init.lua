@@ -468,6 +468,7 @@ require('markview').setup({
   preview = {
     modes = {'n', 'i', 'no'},
     filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
+    ignore_buftypes = {},
   }
 })
 
