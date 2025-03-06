@@ -28,7 +28,7 @@ vim.o.conceallevel = 2            -- hide markdown formatting
 vim.opt.fillchars = { eob = " " } -- prevent ~ at end of file
 vim.g.vimrc = vim.fn.resolve(vim.fn.expand('<sfile>:p'))
 vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
-vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath  -- add vimrc directory to runtimepath
+vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath -- add vimrc directory to runtimepath
 vim.g.mapleader = ' '
 vim.opt.spellfile = vim.g.vimdir .. '/spell/en.utf-8.add'
 
@@ -56,7 +56,7 @@ require('lazy').setup({
   'nvim-lua/plenary.nvim',
   -- lsp configs
   'neovim/nvim-lspconfig',
-  { 'williamboman/mason.nvim', config = function() require('mason').setup() end },
+  { 'williamboman/mason.nvim',         config = function() require('mason').setup() end },
   'williamboman/mason-lspconfig.nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
   'nvimtools/none-ls.nvim',
@@ -110,7 +110,7 @@ require('lazy').setup({
     'tpope/vim-fugitive',
     init = function()
       -- disable cc commit mapping, causes git hooks to execute and potentially wipe out changes not staged!!!
-      vim.g.nremap = {['<nomap>'] = 'cc', ['cc'] = '<nomap>'}
+      vim.g.nremap = { ['<nomap>'] = 'cc', ['cc'] = '<nomap>' }
     end
   },
   'tpope/vim-rhubarb',
@@ -127,7 +127,8 @@ require('lazy').setup({
     opts = {
       grep = {
         -- same as fzf-lua defaults but shows hidden files not in the gitignore file
-        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden -g '!.git' -e ",
+        rg_opts =
+        "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden -g '!.git' -e ",
       },
     },
   },
@@ -149,13 +150,13 @@ require('lazy').setup({
     'OXY2DEV/markview.nvim',
     lazy = false,
     dependencies = {
-        'nvim-treesitter/nvim-treesitter',
-        'nvim-tree/nvim-web-devicons'
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons'
     }
   },
   'masukomi/vim-markdown-folding',
   -- code symbols
-  { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end },
+  { 'stevearc/aerial.nvim',     config = function() require('aerial').setup() end },
   -- personal plugins
   {
     'superDross/ticket.vim',
@@ -291,10 +292,14 @@ vim.api.nvim_create_autocmd('BufNewFile', {
 require('gruvbox').setup({
   contrast = 'hard',
   overrides = {
-    SignColumn = { link = "Normal" }, GruvboxGreenSign = { bg = "" },
-    GruvboxOrangeSign = { bg = "" }, GruvboxPurpleSign = { bg = "" },
-    GruvboxYellowSign = { bg = "" }, GruvboxRedSign = { bg = "" },
-    GruvboxBlueSign = { bg = "" }, GruvboxAquaSign = { bg = "" },
+    SignColumn = { link = "Normal" },
+    GruvboxGreenSign = { bg = "" },
+    GruvboxOrangeSign = { bg = "" },
+    GruvboxPurpleSign = { bg = "" },
+    GruvboxYellowSign = { bg = "" },
+    GruvboxRedSign = { bg = "" },
+    GruvboxBlueSign = { bg = "" },
+    GruvboxAquaSign = { bg = "" },
   }
 })
 vim.opt.termguicolors = true
@@ -447,7 +452,7 @@ end
 
 -- COPILOT/AI ---------------------------------------------------------------
 require('codecompanion').setup({
-  strategies ={
+  strategies = {
     inline = { adapter = 'copilot' },
     chat = {
       adapter = 'copilot',
@@ -464,10 +469,10 @@ require('codecompanion').setup({
 
 -- MARKDOWN --------------------------------------------------------------
 require('markview').setup({
-  code_blocks = {style = 'simple'},
+  code_blocks = { style = 'simple' },
   preview = {
-    modes = {'n', 'i', 'no'},
-    filetypes = {'markdown', 'md', 'rmd', 'codecompanion'},
+    modes = { 'n', 'i', 'no' },
+    filetypes = { 'markdown', 'md', 'rmd', 'codecompanion' },
     ignore_buftypes = {},
   }
 })
@@ -533,14 +538,14 @@ local null_ls = require('null-ls')
 -- autoinstall lsp (separate mason_installer so setup_handlers can work)
 mason_lspconfig.setup {
   ensure_installed = {
-    'basedpyright', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls', 'jsonls',
+    'basedpyright', 'ruff', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'gopls', 'jsonls',
   },
   automatic_installation = true,
 }
 -- autoinstall formatters and linters
 require('mason-tool-installer').setup {
   ensure_installed = {
-    { 'black', version = '24.3.0' }, 'pylint', 'hadolint', 'prettier', 'shfmt',
+    { 'black', version = '24.3.0' }, 'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
@@ -550,7 +555,7 @@ local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
 local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT05' } }
 null_ls.setup({
   sources = {
-    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.pylint, d.sqlfluff.with(sqlfluff),
+    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.sqlfluff.with(sqlfluff),
     f.black, f.shfmt, f.sqlfluff.with(sqlfluff), f.shellharden, f.prettier
   }
 })
@@ -561,6 +566,19 @@ mason_lspconfig.setup_handlers({
     lspconfig[server_name].setup { on_attach = on_attach }
   end,
   -- provide targeted overrides for specific servers.
+  ['ruff'] = function()
+    lspconfig.ruff.setup {
+      on_attach = on_attach,
+      init_options = {
+        settings = {
+          lint = {
+            line_length = 120,
+            select = { "E", "F", "C", "W", "R" },
+          }
+        }
+      }
+    }
+  end,
   ['lua_ls'] = function()
     lspconfig.lua_ls.setup {
       on_attach = on_attach,
