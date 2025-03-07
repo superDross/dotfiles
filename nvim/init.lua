@@ -572,9 +572,9 @@ mason_lspconfig.setup_handlers({
       init_options = {
         settings = {
           lint = {
-            line_length = 120,
             select = { "E", "F", "C", "W", "R" },
-          }
+          },
+          lineLength = 120,
         }
       }
     }
