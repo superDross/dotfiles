@@ -568,13 +568,17 @@ mason_lspconfig.setup_handlers({
   -- provide targeted overrides for specific servers.
   ['ruff'] = function()
     lspconfig.ruff.setup {
-      on_attach = on_attach,
+      on_attach = function(client, bufnr)
+        -- still using black at work so lets disable formatting via ruff
+        client.server_capabilities.documentFormattingProvider = false
+        on_attach(client, bufnr)
+      end,
       init_options = {
         settings = {
+          lineLength = 120,
           lint = {
             select = { "E", "F", "C", "W", "R" },
           },
-          lineLength = 120,
         }
       }
     }
