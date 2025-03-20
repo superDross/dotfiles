@@ -8,6 +8,7 @@ Beamery
 Boto3
 CDN
 CPython
+CSV
 CTE
 CherryPy
 Cython
@@ -104,12 +105,15 @@ cheatsheet
 config
 crashback
 dataclass
+datetime
 denormalisation
 dict
 dotfiles
 goroutine
 goroutines
 greenlets
+hacky
+kafka
 linter
 microservice
 microservices
@@ -134,8 +138,7 @@ timestamp
 types
 uploaders
 upsert
+upserting
 vimscript
 webhook
 yaml
-datetime
-kafka
