@@ -137,3 +137,5 @@ upsert
 vimscript
 webhook
 yaml
+datetime
+kafka
