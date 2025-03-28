@@ -168,7 +168,8 @@ require('lazy').setup({
       vim.g.ticket_use_fzf_default = 1
       vim.g.ticket_very_verbose = 1
       vim.g.ticket_overwrite_confirm = 1
-    end
+    end,
+    -- dev = true
   },
   {
     'superDross/picobook',
@@ -196,7 +197,8 @@ require('lazy').setup({
     'superDross/scrappy.vim',
     init = function()
       vim.g.scrappy_use_fzf_default = 1
-    end
+    end,
+    -- dev = true
   },
   {
     'superDross/spellbound.nvim',
