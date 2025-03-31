@@ -134,7 +134,7 @@ function docker_clean_up() {
   read -r -p "[WARNING] this will remove all Docker related files. Continue? (y/n) $ " answer
   case $answer in
   y | yes | Y | YES)
-    docker system prune --force
+    docker system prune -af 
     docker container stop "$(docker container ls -aq)"
     docker container rm "$(docker container ls -aq)"
     docker rmi "$(docker images -aq)"

@@ -1,4 +1,5 @@
 AWS
+Abertay
 Acks
 AngularJS
 Anker
@@ -8,6 +9,7 @@ Beamery
 Boto3
 CDN
 CPython
+CSV
 CTE
 CherryPy
 Cython
@@ -17,12 +19,12 @@ Dataflow
 Denormalisation
 DevOps
 Django
+Dockerfile
 Dockerized
 FE
 FK
 FastAPI
 GC
-GCP
 GCP
 GDB
 GIL
@@ -60,7 +62,6 @@ NoSQL
 NumPy
 PostgreSQL
 Postgres
-Psycopg
 Psycopg
 PyObject
 PyPy
@@ -104,12 +105,15 @@ cheatsheet
 config
 crashback
 dataclass
+datetime
 denormalisation
 dict
 dotfiles
 goroutine
 goroutines
 greenlets
+hacky
+kafka
 linter
 microservice
 microservices
@@ -134,10 +138,7 @@ timestamp
 types
 uploaders
 upsert
+upserting
 vimscript
 webhook
 yaml
-CSV
-upserting
-hacky
-Dockerfile

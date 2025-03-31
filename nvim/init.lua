@@ -168,7 +168,8 @@ require('lazy').setup({
       vim.g.ticket_use_fzf_default = 1
       vim.g.ticket_very_verbose = 1
       vim.g.ticket_overwrite_confirm = 1
-    end
+    end,
+    -- dev = true
   },
   {
     'superDross/picobook',
@@ -196,7 +197,8 @@ require('lazy').setup({
     'superDross/scrappy.vim',
     init = function()
       vim.g.scrappy_use_fzf_default = 1
-    end
+    end,
+    -- dev = true
   },
   {
     'superDross/spellbound.nvim',
@@ -611,18 +613,18 @@ mason_lspconfig.setup_handlers({
   end,
 })
 
--- disable inline diagnostics for LSPs
+-- change diagnostic symbols and virtual text
 vim.diagnostic.config({
-  virtual_text = false,
-  float = { source = 'always' },
-  severity_sort = true,
+  virtual_lines = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '>>',
+      [vim.diagnostic.severity.WARN] = '--',
+      [vim.diagnostic.severity.INFO] = 'ℹ',
+      [vim.diagnostic.severity.HINT] = '?',
+    },
+  },
 })
-
--- change gutter symbols
-vim.fn.sign_define('DiagnosticSignWarn', { text = '--', texthl = 'DiagnosticSignWarn' })
-vim.fn.sign_define('DiagnosticSignError', { text = '>>', texthl = 'DiagnosticSignError' })
-vim.fn.sign_define('DiagnosticSignHint', { text = '?', texthl = 'DiagnosticSignHint' })
-vim.fn.sign_define('DiagnosticSignInfo', { text = 'i', texthl = 'DiagnosticSignInfo' })
 
 
 -- SNIPPETS -------------------------------------------------------------
