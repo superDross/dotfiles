@@ -241,7 +241,7 @@ function up() {
     cd ..
   else
     CDSTR=""
-    for _ in "$(seq 1 "$1")"; do
+    for _ in $(seq 1 "$1"); do
       CDSTR="../$CDSTR"
     done
     cd "$CDSTR" || exit
