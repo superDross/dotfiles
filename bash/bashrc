@@ -108,7 +108,10 @@ alias sqlcsv='sqlite3 :memory: ".import /dev/stdin t" -csv -header'
 ####################
 
 function generate_pyrightconfig() {
-  if poetry env info -p >&/dev/null; then
+  # check if a pyright config file already exists  
+  if [ -f pyrightconfig.json ]; then
+    echo -e "${YELLOW}A pyrightconfig.json already exists, exiting...${NC}"
+  elif poetry env info -p >&/dev/null; then
     poetry_env=$(poetry env info -p)
     venv_name=$(basename "$poetry_env")
     venv_dir=$(dirname "$poetry_env")
