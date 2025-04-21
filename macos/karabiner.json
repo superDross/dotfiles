@@ -1,6 +1,28 @@
 {
     "profiles": [
         {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Map Right Control+3 to Right Option+3 (hash symbol)",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "3",
+                                    "modifiers": { "mandatory": ["right_control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "3",
+                                        "modifiers": ["right_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
             "devices": [
                 {
                     "identifiers": {
@@ -14,16 +36,16 @@
                             "to": [{ "key_code": "left_control" }]
                         },
                         {
-                            "from": { "key_code": "left_control" },
-                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                            "from": { "key_code": "backslash" },
+                            "to": [{ "key_code": "non_us_backslash" }]
                         },
                         {
                             "from": { "key_code": "grave_accent_and_tilde" },
                             "to": [{ "key_code": "backslash" }]
                         },
                         {
-                            "from": { "key_code": "backslash" },
-                            "to": [{ "key_code": "non_us_backslash" }]
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
                         }
                     ]
                 },
@@ -56,12 +78,37 @@
                     },
                     "simple_modifications": [
                         {
+                            "from": { "key_code": "backslash" },
+                            "to": [{ "key_code": "non_us_backslash" }]
+                        },
+                        {
                             "from": { "key_code": "grave_accent_and_tilde" },
                             "to": [{ "key_code": "backslash" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                            "to": [{ "key_code": "left_control" }]
                         },
                         {
                             "from": { "key_code": "backslash" },
                             "to": [{ "key_code": "non_us_backslash" }]
+                        },
+                        {
+                            "from": { "key_code": "grave_accent_and_tilde" },
+                            "to": [{ "key_code": "backslash" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_control" }]
                         }
                     ]
                 }
