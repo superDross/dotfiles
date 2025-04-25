@@ -67,6 +67,7 @@ require('lazy').setup({
     init = function()
       vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
       vim.g.copilot_no_tab_map = true
+      vim.g.copilot_enabled = false
     end
   },
   {
@@ -288,6 +289,12 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   pattern = { '*.sh' },
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
+-- copilot toggle (assumes 'disable' is the default state)
+vim.api.nvim_create_user_command("CopilotToggle", function()
+    copilot_on = not copilot_on
+    vim.cmd("Copilot " .. (copilot_on and "enable" or "disable"))
+    print("Copilot " .. (copilot_on and "ON" or "OFF"))
+end, { nargs = 0 })
 
 
 -- COLOURSCHEMES ------------------------------------------------------------
@@ -411,6 +418,7 @@ local normal_mappings = {
   ['<Leader>ng']       = '<cmd>GrepNotes<CR>',
   -- copilot/ai
   ['<Leader>cp']       = '<cmd>Copilot panel<CR>',
+  ['<leader>co']       = ':CopilotToggle<CR>',
   ['<Leader>cc']       = '<cmd>CodeCompanion<CR>',
   ['<Leader>ca']       = '<cmd>CodeCompanionActions<CR>',
   ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
