@@ -31,6 +31,8 @@ vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath -- add vimrc directory to runtimepath
 vim.g.mapleader = ' '
 vim.opt.spellfile = vim.g.vimdir .. '/spell/en.utf-8.add'
+-- temp workaround for a bug causing flickering: https://github.com/neovim/neovim/issues/32660
+vim.g._ts_force_sync_parsing = true
 
 
 -- PLUGINS ------------------------------------------------------------
