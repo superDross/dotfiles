@@ -101,6 +101,7 @@ alias ebook="foliate"
 alias jetbrains="~/bin/jetbrains-toolbox-1.21.9712/jetbrains-toolbox"
 
 # sqlite3 aliases
+# cat crap.csv | sqlcsv  "select * from t limit 1"
 alias sqlcsv='sqlite3 :memory: ".import /dev/stdin t" -csv -header'
 
 ####################
