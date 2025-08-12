@@ -142,6 +142,7 @@ upserting
 vimscript
 webhook
 yaml
+<<<<<<< HEAD
 IVW
 Codility
 GPT
@@ -159,3 +160,11 @@ Pydantic
 istio
 LSEG
 upskill
+=======
+CommonProcess
+class/!
+One/!
+sharded
+Vnodes
+etcd
+>>>>>>> 806275941425ab052127b54f0c94a84ab82feeb2
