@@ -714,7 +714,7 @@ cmp.setup {
 -- TREESITTER ------------------------------------------------------------
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
-    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql', 'latex',
+    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql',
     'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
   },
   highlight = { enable = true, additional_vim_regex_highlighting = false },

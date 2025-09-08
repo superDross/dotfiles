@@ -1,76 +1,85 @@
-# TODO: change to ubuntu to make this easier to maintain
 FROM alpine:3.22.1
 
-# use system wide python packages
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
-ENV GOPATH=$HOME/go
-ENV PATH="$PATH:$GOPATH/bin"
+COPY nvim.bash /root/.bashrc
 
 # Install cargo and update the indexes using this hack
 # Takes a long time to update the indexes hence why its first
-RUN apk update && \
-  apk --no-cache add rust cargo && \
-  mkdir /tmp/deleteme \
-    && cd /tmp/deleteme \
-    && cargo init \
-    && cargo add serde \
-    && rm -rf /tmp/deleteme
+RUN apk --no-cache add rust cargo \
+	&& mkdir /tmp/deleteme \
+	&& cd /tmp/deleteme \
+	&& cargo init \
+	&& cargo add serde \
+	&& rm -rf /tmp/deleteme
 
 # basic requirements for minimal configured neovim to work
 RUN apk --no-cache add \
-    autoconf \
-    automake \
-    bash \
-    build-base \
-    cmake \
-    coreutils \
-    curl \
-    gettext-tiny-dev \
-    git \
-    libtool \
-    libc6-compat \
-    neovim \
-    ninja \
-    openssl \
-    pkgconf \
+	autoconf \
+	automake \
+	bash \
+	build-base \
+	cmake \
+	coreutils \
+	curl \
+	gettext-tiny-dev \
+	git \
+	libtool \
+	libc6-compat \
+	ninja \
+	openssl \
+	pkgconf \
 	tree-sitter \
-    unzip \
-    wget
+	unzip \
+	wget
+
+# install neovim from source so we can control the version
+# bob does not work with alpine and using the pkg version is too old
+RUN git clone https://github.com/neovim/neovim.git \
+	&& cd neovim \
+	&& git checkout v0.11.4 \
+	&& make CMAKE_BUILD_TYPE=Release \
+	&& make install
 
 # packages required for nvim plugins
+# ensure lua version is the same as what nvim uses
 RUN apk --no-cache add \
-    bat \
-    ctags \
-    fd  \
-    fzf \
-    lua \
-    lua-dev \
-    nodejs \
-    npm \
-    python3 \
+	bat \
+	ctags \
+	fd  \
+	fzf \
+	lua5.1 \
+	lua5.1-dev \
+	nodejs \
+	npm \
+	python3 \
 	go \
 	py3-pip \
-    ripgrep
+	ripgrep
 
 # Installing luarocks via pkg does not work hence the need for this
 RUN cd /tmp && \
-    git clone https://github.com/keplerproject/luarocks.git && \
-    cd luarocks && \
-    sh ./configure && \
-    make build install && \
-    cd && \
-    rm -rf /tmp/luarocks
+	git clone https://github.com/keplerproject/luarocks.git && \
+	cd luarocks && \
+	sh ./configure && \
+	make build install && \
+	cd && \
+	rm -rf /tmp/luarocks
 
 # Install pynvim for python plugins
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 RUN pip install --no-cache --no-cache-dir --upgrade \
-      pip \
-	  setuptools \
-	  neovim
+	pip \
+	setuptools \
+	neovim
 
 # init file and snippets (ignores the rest)
+# TODO: use volumes instead???
 COPY ./ /root/.config/nvim/
 
 # create an application directory incase we need to mount a host directory
 RUN mkdir -p app/
 
 WORKDIR /app
+
+# NOTE:
+# manual installation of some lua LSP/Linters is required:
+# :MasonInstall --target=linux_arm64_gnu lua-language-server stylua

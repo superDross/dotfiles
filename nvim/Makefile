@@ -1,13 +1,3 @@
-# allows one to attach a local host directory to the /app dir within the container
-ifneq ($(APP_DIR),)
-	APP_DIR := -v $(APP_DIR):/app
-endif
-
-# create or use an existing persistent directory for nvim data
-ifeq ($(NVIM_DATA_DIR),)
-	NVIM_DATA_DIR := ~/volumes/nvim-data
-endif
-
 default: help
 
 BLUE := \033[36m
@@ -20,8 +10,6 @@ help: ## Show help for all commands
 	@awk 'BEGIN {FS = ":.*##"; \
 		printf "\nUsage:\n make $(BLUE)<target>$(WHITE)";\
 		printf "\n\nRun Variables:\n";\
-		printf "  $(BLUE)NVIM_DATA_DIR$(WHITE)\t\toverride host dir to use as nvim data persistent storage\n";\
-		printf "  $(BLUE)APP_DIR$(WHITE)\t\thost directory to mount to /app"; \
 		printf "\n\nTargets:\n"} \
 		/^[a-zA-Z0-9_-]+:.*?##/ { printf "  $(BLUE)%-10s$(WHITE) %s\n", $$1, $$2 }' \
 		$(MAKEFILE_LIST)
@@ -39,4 +27,4 @@ remove-image: ## Remove the nvim image
 .PHONY: nvim
 nvim: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a neovim...'
-	@docker compose run nvim-dev nvim
+	@docker compose run nvim-dev /bin/bash
