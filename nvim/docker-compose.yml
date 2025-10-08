@@ -1,6 +1,5 @@
 # TODO: generate virualenvs when creating docker image
 # TODO: get lua-language-server to work
-# TODO: get colours working in terminal (tmux), works fine in linux but not macOS
 services:
   nvim-dev:
     build: .
@@ -8,9 +7,14 @@ services:
     environment:
       - PIP_BREAK_SYSTEM_PACKAGES=1
     volumes:
+      # all the nvim files
+      - ~/bin/dotfiles/nvim:/root/.config/nvim
       # all applications used for dev work
       - ~/dev:/app
       # copy the virtualenvs from the host to the container (temp, need to automate this somehow)
       - ~/.virtualenvs:/Users/David.Ross/.virtualenvs
       # ensure we use the same mason and lazy files each time insead of recreating them each time
-      - ~/.nvim-docker/dotfiles:/root/.local/share/nvim
+      - mason-data:/root/.local/share/nvim
+
+volumes:
+  mason-data:

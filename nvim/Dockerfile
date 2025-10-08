@@ -71,13 +71,6 @@ RUN pip install --no-cache --no-cache-dir --upgrade \
 	setuptools \
 	neovim
 
-# init file and snippets (ignores the rest)
-# TODO: use volumes instead???
-COPY ./ /root/.config/nvim/
-
-# create an application directory incase we need to mount a host directory
-RUN mkdir -p app/
-
 WORKDIR /app
 
 # NOTE:
