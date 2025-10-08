@@ -1,5 +1,8 @@
 FROM alpine:3.22.1
 
+# TODO: generate virualenvs when creating docker image
+# TODO: get lua-language-server to work
+
 COPY nvim.bash /root/.bashrc
 
 # Install cargo and update the indexes using this hack

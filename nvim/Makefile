@@ -14,10 +14,11 @@ help: ## Show help for all commands
 		/^[a-zA-Z0-9_-]+:.*?##/ { printf "  $(BLUE)%-10s$(WHITE) %s\n", $$1, $$2 }' \
 		$(MAKEFILE_LIST)
 
-.PHONY: build 
+
+.PHONY: build
 build: ## Build my personally configured Neovim build in a Docker container
 	@echo 'building nvim-dev:latest image...'
-	@docker compose build
+	@docker build -t nvim-dev:latest .
 
 .PHONY: remove-image
 remove-image: ## Remove the nvim image
@@ -27,4 +28,10 @@ remove-image: ## Remove the nvim image
 .PHONY: nvim
 nvim: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a neovim...'
-	@docker compose run nvim-dev /bin/bash
+	@docker run --rm -it \
+		-e PIP_BREAK_SYSTEM_PACKAGES=1 \
+		-v ~/bin/dotfiles/nvim:/root/.config/nvim \
+		-v ~/dev:/app \
+		-v ~/.virtualenvs:/Users/David.Ross/.virtualenvs \
+		-v mason-data:/root/.local/share/nvim \
+		--name nvim-dev nvim-dev:latest /bin/bash
