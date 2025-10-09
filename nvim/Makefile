@@ -29,7 +29,7 @@ remove-image: ## Remove the nvim image
 # named volumes are present here to ensure they don't get removed on each build
 .PHONY: nvim
 nvim: ## Jump into a shell to use and test Neovim
-	@echo 'jumping into a neovim...'
+	@echo 'jumping into a neovim session...'
 	@docker run --rm -it \
 		-e PIP_BREAK_SYSTEM_PACKAGES=1 \
 		-v ~/bin/dotfiles/nvim:/root/.config/nvim \
