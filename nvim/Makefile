@@ -25,6 +25,7 @@ remove-image: ## Remove the nvim image
 	@echo 'deleting nvim-dev:latest image...'
 	@docker image rm nvim-dev:latest
 
+# TODO: ensure we create the virtualenvs for python projects
 .PHONY: nvim
 nvim: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a neovim...'
@@ -33,5 +34,7 @@ nvim: ## Jump into a shell to use and test Neovim
 		-v ~/bin/dotfiles/nvim:/root/.config/nvim \
 		-v ~/dev:/app \
 		-v ~/.virtualenvs:/Users/David.Ross/.virtualenvs \
-		-v mason-data:/root/.local/share/nvim \
+		-v nvim-shared-data:/root/.local/share/nvim \
+		-v nvim-cache:/root/.cache/nvim \
+		-v nvim-state:/root/.local/state/nvim \
 		--name nvim-dev nvim-dev:latest /bin/bash

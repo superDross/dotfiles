@@ -1,7 +1,6 @@
 FROM alpine:3.22.1
 
 # TODO: generate virualenvs when creating docker image
-# TODO: get lua-language-server to work
 
 COPY nvim.bash /root/.bashrc
 
@@ -73,6 +72,8 @@ RUN pip install --no-cache --no-cache-dir --upgrade \
 	pip \
 	setuptools \
 	neovim
+
+RUN rm -rf /var/cache/apk/* /tmp/*
 
 WORKDIR /app
 
