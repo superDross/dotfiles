@@ -2,8 +2,6 @@ FROM alpine:3.22.1
 
 # TODO: generate virualenvs when creating docker image
 
-COPY nvim.bash /root/.bashrc
-
 # Install cargo and update the indexes using this hack
 # Takes a long time to update the indexes hence why its first
 RUN apk --no-cache add rust cargo \
@@ -74,6 +72,8 @@ RUN pip install --no-cache --no-cache-dir --upgrade \
 	neovim
 
 RUN rm -rf /var/cache/apk/* /tmp/*
+
+COPY nvim.bash /root/.bashrc
 
 WORKDIR /app
 

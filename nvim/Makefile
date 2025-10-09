@@ -26,6 +26,7 @@ remove-image: ## Remove the nvim image
 	@docker image rm nvim-dev:latest
 
 # TODO: ensure we create the virtualenvs for python projects
+# named volumes are present here to ensure they don't get removed on each build
 .PHONY: nvim
 nvim: ## Jump into a shell to use and test Neovim
 	@echo 'jumping into a neovim...'
