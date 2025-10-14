@@ -28,6 +28,7 @@ RUN apk --no-cache add \
 	openssl \
 	pkgconf \
 	tree-sitter \
+	tmux \
 	unzip \
 	wget
 
@@ -74,6 +75,7 @@ RUN pip install --no-cache --no-cache-dir --upgrade \
 RUN rm -rf /var/cache/apk/* /tmp/*
 
 COPY nvim.bash /root/.bashrc
+COPY tmux.conf /root/.tmux.conf
 
 WORKDIR /app
 
