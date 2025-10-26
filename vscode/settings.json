@@ -1,0 +1,139 @@
+{
+	"workbench.colorTheme": "Gruvbox Dark (Hard)",
+	"workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
+	"editor.minimap.renderCharacters": false,
+	"editor.minimap.enabled": false,
+	"vim.leader": "<space>",
+	"vim.useSystemClipboard": true,
+	"vim.normalModeKeyBindings": [
+		{
+			// toggle fold
+			"before": [
+				"<leader>",
+				"<leader>"
+			],
+			"commands": [
+				"editor.toggleFold"
+			]
+		},
+		{
+			// toggle file explorer
+			"before": [
+				"<leader>",
+				"b",
+				"b"
+			],
+			"commands": [
+				// change to opening the file browser
+				// "viewContainer.workbench.view.explorer.enabled",
+				"workbench.action.toggleSidebarVisibility"
+			]
+		},
+		// fzf replacements
+		{
+			"before": [
+				"<leader>",
+				"f",
+				"f"
+			],
+			"commands": [
+				"workbench.action.quickOpen"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"f",
+				"g"
+			],
+			"commands": [
+				"workbench.action.quickTextSearch"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"f",
+				"r"
+			],
+			"commands": [
+				"editor.action.revealDefinition"
+			]
+		},
+		// open terminal
+		{
+			"before": [
+				"<leader>",
+				"t"
+			],
+			"commands": [
+				"workbench.action.togglePanel"
+			]
+		},
+		// open chat window
+		{
+			"before": [
+				"<leader>",
+				"c",
+				"t"
+			],
+			"commands": [
+				"workbench.action.toggleAuxiliaryBar"
+			]
+		},
+		// run current python file in terminal
+		{
+			"before": [
+				"<leader>",
+				"r",
+				"c"
+			],
+			"commands": [
+				"python.execInTerminal"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"l",
+				"d"
+			],
+			"commands": [
+				"editor.action.revealDefinition"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"l",
+				"h"
+			],
+			"commands": [
+				"editor.action.showHover"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"l",
+				"r"
+			],
+			"commands": [
+				"editor.action.rename"
+			]
+		}
+	],
+	"vim.visualModeKeyBindings": [
+		// run selected python code in terminal
+		{
+			"before": [
+				"<leader>",
+				"r",
+				"s"
+			],
+			"commands": [
+				"python.execSelectionInTerminal"
+			]
+		}
+	]
+}
