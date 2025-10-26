@@ -1,0 +1,5 @@
+- key repeate on macos does not work
+- try and get ctrl-w + l etc. working in settings.json so it works in vscode natively regardless if in vim mode or not
+  - not elegant but if the above cannot be done then try and do the below
+    - https://stackoverflow.com/questions/42796887/switch-focus-between-editor-and-integrated-terminal
+- continue making sure all vim mappings are remapped
