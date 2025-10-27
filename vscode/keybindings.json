@@ -27,5 +27,13 @@
     {
         "key": "shift+up",
         "command": "workbench.action.increaseViewHeight"
+    },
+    {
+        "key": "shift+right",
+        "command": "workbench.action.decreaseViewWidth"
+    },
+    {
+        "key": "shift+left",
+        "command": "workbench.action.increaseViewWidth"
     }
 ]
