@@ -135,5 +135,6 @@
 				"python.execSelectionInTerminal"
 			]
 		}
-	]
+	],
+	"workbench.activityBar.location": "hidden"
 }

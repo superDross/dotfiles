@@ -82,5 +82,9 @@
 		"key": "ctrl+w k",
 		"command": "workbench.action.focusAboveGroup",
 		"when": "!editorTextFocus"
+	},
+	{
+		"key": "shift+b",
+		"command": "workbench.action.toggleActivityBarVisibility"
 	}
 ]
