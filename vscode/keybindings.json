@@ -36,10 +36,6 @@
 		"key": "shift+left",
 		"command": "workbench.action.increaseViewWidth"
 	},
-	{
-		"key": "shift+w",
-		"command": "workbench.action.focusPreviousGroup"
-	},
 	// vim navigation
 	{
 		"key": "j",
@@ -61,16 +57,25 @@
 		"command": "list.expand",
 		"when": "listFocus && !inputFocus"
 	},
-	// does not work very well, feel free to remove if it turns out to be buggy
+	// vim window navigation outside editting mode, can be buggy...
+	{
+		"key": "ctrl+w w",
+		"command": "workbench.action.focusNextGroup",
+		"when": "!editorTextFocus"
+	},
+	{
+		"key": "ctrl+w shift+w",
+		"command": "workbench.action.focusPreviousGroup",
+		"when": "!editorTextFocus"
+	},
 	{
 		"key": "ctrl+w l",
-		"command": "workbench.action.focusNextGroup",
-		//"when": "listFocus && !inputFocus"
+		"command": "workbench.action.focusRightGroup",
 		"when": "!editorTextFocus"
 	},
 	{
 		"key": "ctrl+w h",
-		"command": "workbench.action.focusPreviousGroup",
+		"command": "workbench.action.focusLeftGroup",
 		"when": "!editorTextFocus"
 	},
 	{
@@ -84,7 +89,7 @@
 		"when": "!editorTextFocus"
 	},
 	{
-		"key": "shift+b",
+		"key": "ctrl+shift+b",
 		"command": "workbench.action.toggleActivityBarVisibility"
 	}
 ]

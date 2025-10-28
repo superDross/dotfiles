@@ -121,7 +121,12 @@
 			"commands": [
 				"editor.action.rename"
 			]
-		}
+		},
+		// missing split navigation
+		{
+			"before": ["<C-w>", "<S-w>"],
+			"commands": ["workbench.action.focusPreviousGroup"]
+		},
 	],
 	"vim.visualModeKeyBindings": [
 		// run selected python code in terminal
