@@ -110,10 +110,21 @@
 		},
 		// lsp stuff
 		{
+			// TODO: stop from opening in a new tab
 			"before": [
 				"<leader>",
 				"l",
 				"d"
+			],
+			"commands": [
+				"editor.action.revealDefinition"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"l",
+				"t"
 			],
 			"commands": [
 				"editor.action.revealDefinition"
