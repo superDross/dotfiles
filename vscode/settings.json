@@ -1,13 +1,27 @@
 {
 	"workbench.colorTheme": "Gruvbox Dark (Hard)",
-	"workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
+	// tab completion like neovim
+    "editor.tabCompletion": "off",
+	"editor.acceptSuggestionOnEnter": "on",
+	// use tab and shift+tab to navigate suggestions
+	"editor.suggest.selection": "first",
+	"editor.suggest.snippetsPreventQuickSuggestions": false,
+	// stop VS Code from auto-preselecting based on history
+	"editor.suggestSelection": "first",
+	// no minimap, its shite
 	"editor.minimap.renderCharacters": false,
 	"editor.minimap.enabled": false,
 	"terminal.integrated.scrollback": 100000,
+	// vim settings
 	"vim.leader": "<space>",
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
-	"vim.normalModeKeyBindings": [
+	"vim.normalModeKeyBindingsNonRecursive": [
+		// turn off highlighting, not the same but fine
+		{
+			"before": ["<leader>", "0"],
+			"commands": [":nohlsearch"]
+		},
 		{
 			// toggle fold
 			"before": [
