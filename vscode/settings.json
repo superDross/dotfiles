@@ -25,18 +25,18 @@
 		{
 			"command": "extension.toggleSidebarWithOutline",
 			"sequence": [
-			{
-				"command": "workbench.action.toggleSidebarVisibility"
-			},
-			{
-				// Delay ensures the sidebar is open before switching to Outline
-				"command": "outline.focus",
-				"delay": 150
-			},
-			{
-				"command": "workbench.action.focusActiveEditorGroup",
-				"delay": 100
-			}
+				{
+					"command": "workbench.action.toggleSidebarVisibility"
+				},
+				{
+					// Delay ensures the sidebar is open before switching to Outline
+					"command": "outline.focus",
+					"delay": 150
+				},
+				{
+					"command": "workbench.action.focusActiveEditorGroup",
+					"delay": 100
+				}
 			]
 		}
 	],
@@ -45,6 +45,15 @@
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
 	"vim.normalModeKeyBindingsNonRecursive": [
+		{
+			"before": [
+				"<leader>",
+				"z"
+			],
+			"commands": [
+				"workbench.action.toggleZenMode"
+			]
+		},
 		// turn off highlighting, not the same but fine
 		{
 			"before": [
@@ -118,6 +127,27 @@
 				"workbench.action.togglePanel"
 			]
 		},
+		// git commands vim style
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"b"
+			],
+			"commands": [
+				"gitlens.toggleFileBlame:key"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g",
+				"c"
+			],
+			"commands": [
+				"gitlens.composeCommits"
+			]
+		},
 		// open chat window
 		{
 			"before": [
@@ -142,10 +172,14 @@
 		},
 		// toggle symbols side bar
 		{
-			"before": ["<leader>", "8"],
-			"commands": ["extension.toggleSidebarWithOutline"]
+			"before": [
+				"<leader>",
+				"8"
+			],
+			"commands": [
+				"extension.toggleSidebarWithOutline"
+			]
 		},
-
 		// lsp stuff
 		{
 			// TODO: stop from opening in a new tab
@@ -285,5 +319,8 @@
 	"vim.statusBarColorControl": false,
 	"extensions.experimental.affinity": {
 		"vscode.vim": 1
-	}
+	},
+	"git.blame.editorDecoration.enabled": false,
+	"gitlens.ai.model": "vscode",
+	"gitlens.ai.vscode.model": "copilot:gpt-4.1"
 }

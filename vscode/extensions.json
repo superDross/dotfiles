@@ -9,5 +9,6 @@
     "ms-python.vscode-pylance",
     "ms-python.vscode-python-envs",
     "ryuta46.multi-command",
-    "vscodevim.vim",
+    "eamodio.gitlens",
+    "vscodevim.vim"
 ] }
