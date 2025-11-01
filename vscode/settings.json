@@ -332,6 +332,17 @@
 			"commands": [
 				"editor.action.clipboardCopyAction"
 			]
+		},
+		// copilot inline chat
+		{
+			"before": [
+				"<leader>",
+				"c",
+				"c"
+			],
+			"commands": [
+				"inlineChat.start"
+			]
 		}
 	],
 	// make vim plugin faster
