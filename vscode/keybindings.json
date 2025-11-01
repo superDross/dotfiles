@@ -125,5 +125,9 @@
 		"key": "ctrl+v",
 		"command": "quickInput.accept",
 		"when": "inQuickInput && quickInputType != 'quickWidget'"
+	},
+	{
+		"key": "ctrl+shift+p",
+		"command": "github.copilot.completions.toggle"
 	}
 ]

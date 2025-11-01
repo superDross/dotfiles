@@ -17,7 +17,10 @@
 	"terminal.integrated.scrollback": 100000,
 	// copilot disable inline suggestions
 	"github.copilot.enable": {
-		"*": false
+		"*": false,
+		"plaintext": false,
+		"markdown": false,
+		"scminput": false
 	},
 	"multiCommand.commands": [
 		// <leader>8
@@ -342,6 +345,17 @@
 			],
 			"commands": [
 				"inlineChat.start"
+			]
+		},
+		// toggle copilot completion on and off (DOES NOT WORK)
+		{
+			"before": [
+				"<space>",
+				"c",
+				"o"
+			],
+			"commands": [
+				"github.copilot.completions.toggle"
 			]
 		}
 	],
