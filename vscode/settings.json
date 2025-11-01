@@ -1,16 +1,15 @@
 {
 	"workbench.colorTheme": "Gruvbox Dark (Hard)",
+	// turn sticky scroll off as it can slow down vscode vim, apparently...
+	"editor.stickyScroll.enabled": false,
 	"editor.cursorBlinking": "solid",
 	// stop background horizontal line on cursor and highlighting words unser the curosr
 	"editor.renderLineHighlight": "none",
 	"editor.occurrencesHighlight": "off",
-	// tab completion like neovim
+	// tab completion like neovim (kind of a lot...)
 	"editor.tabCompletion": "off",
 	"editor.acceptSuggestionOnEnter": "on",
-	// use tab and shift+tab to navigate suggestions
-	"editor.suggest.selection": "first",
 	"editor.suggest.snippetsPreventQuickSuggestions": false,
-	// stop VS Code from auto-preselecting based on history
 	"editor.suggestSelection": "first",
 	// no minimap, its shite
 	"editor.minimap.renderCharacters": false,
@@ -36,7 +35,7 @@
 				{
 					"command": "workbench.action.focusActiveEditorGroup",
 					"delay": 100
-				}
+				},
 			]
 		}
 	],
