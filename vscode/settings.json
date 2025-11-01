@@ -35,7 +35,7 @@
 				{
 					"command": "workbench.action.focusActiveEditorGroup",
 					"delay": 100
-				},
+				}
 			]
 		}
 	],
@@ -127,14 +127,25 @@
 			]
 		},
 		// git commands vim style
-
 		{
-		  "before": ["<leader>", "g", "d"],
-		  "commands": ["gitlens.diffWithPrevious"]
+			"before": [
+				"<leader>",
+				"g",
+				"d"
+			],
+			"commands": [
+				"gitlens.diffWithPrevious"
+			]
 		},
 		{
-		  "before": ["<leader>", "g", "g"],
-		  "commands": ["workbench.view.scm"]
+			"before": [
+				"<leader>",
+				"g",
+				"g"
+			],
+			"commands": [
+				"workbench.view.scm"
+			]
 		},
 		{
 			"before": [
