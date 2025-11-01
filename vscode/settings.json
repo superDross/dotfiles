@@ -116,7 +116,7 @@
 				"r"
 			],
 			"commands": [
-				"editor.action.revealDefinition"
+				"editor.action.referenceSearch.trigger"
 			]
 		},
 		// open terminal
@@ -274,6 +274,17 @@
 			"commands": [
 				"editor.action.rename"
 			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"l",
+				"o"
+			],
+			"commands": [
+				"editor.showCallHierarchy"
+			],
+			"when": "editorHasCallHierarchyProvider && editorTextFocus && !inReferenceSearchEditor"
 		},
 		// missing split navigation
 		{
