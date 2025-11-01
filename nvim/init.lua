@@ -65,14 +65,14 @@ require('lazy').setup({
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
   -- TODO: find alternative, windsurf???
-  -- {
-  --   'github/copilot.vim',
-  --   init = function()
-  --     vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
-  --     vim.g.copilot_no_tab_map = true
-  --     vim.g.copilot_enabled = false
-  --   end
-  -- },
+  {
+    'github/copilot.vim',
+    init = function()
+      vim.g.copilot_filetypes = { markdown = false, tex = false, text = false, codecompanion = false }
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_enabled = false
+    end
+  },
   {
     'olimorris/codecompanion.nvim',
     dependencies = {
