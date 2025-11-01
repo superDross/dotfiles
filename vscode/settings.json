@@ -5,7 +5,7 @@
 	"editor.renderLineHighlight": "none",
 	"editor.occurrencesHighlight": "off",
 	// tab completion like neovim
-    "editor.tabCompletion": "off",
+	"editor.tabCompletion": "off",
 	"editor.acceptSuggestionOnEnter": "on",
 	// use tab and shift+tab to navigate suggestions
 	"editor.suggest.selection": "first",
@@ -27,8 +27,13 @@
 	"vim.normalModeKeyBindingsNonRecursive": [
 		// turn off highlighting, not the same but fine
 		{
-			"before": ["<leader>", "0"],
-			"commands": [":nohlsearch"]
+			"before": [
+				"<leader>",
+				"0"
+			],
+			"commands": [
+				":nohlsearch"
+			]
 		},
 		{
 			// toggle fold
@@ -181,8 +186,13 @@
 		},
 		// missing split navigation
 		{
-			"before": ["<C-w>", "<S-w>"],
-			"commands": ["workbench.action.focusPreviousGroup"]
+			"before": [
+				"<C-w>",
+				"<S-w>"
+			],
+			"commands": [
+				"workbench.action.focusPreviousGroup"
+			]
 		},
 		// copy/paste
 		{
@@ -201,6 +211,25 @@
 			],
 			"commands": [
 				"editor.action.clipboardPasteAction"
+			]
+		},
+		// go to next warning/error in file
+		{
+			"before": [
+				"<leader>",
+				"j"
+			],
+			"commands": [
+				"editor.action.marker.nextInFiles"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"k"
+			],
+			"commands": [
+				"editor.action.marker.prevInFiles"
 			]
 		}
 	],
@@ -225,7 +254,7 @@
 			"commands": [
 				"editor.action.clipboardCopyAction"
 			]
-		},
+		}
 	],
 	// make vim plugin faster
 	"vim.statusBarColorControl": false,
