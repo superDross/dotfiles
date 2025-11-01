@@ -20,6 +20,26 @@
 	"github.copilot.enable": {
 		"*": false
 	},
+	"multiCommand.commands": [
+		// <leader>8
+		{
+			"command": "extension.toggleSidebarWithOutline",
+			"sequence": [
+			{
+				"command": "workbench.action.toggleSidebarVisibility"
+			},
+			{
+				// Delay ensures the sidebar is open before switching to Outline
+				"command": "outline.focus",
+				"delay": 150
+			},
+			{
+				"command": "workbench.action.focusActiveEditorGroup",
+				"delay": 100
+			}
+			]
+		}
+	],
 	// vim settings
 	"vim.leader": "<space>",
 	"vim.smartRelativeLine": true,
@@ -53,8 +73,7 @@
 				"b"
 			],
 			"commands": [
-				// change to opening the file browser
-				// "viewContainer.workbench.view.explorer.enabled",
+				"outline.removeView",
 				"workbench.action.toggleSidebarVisibility"
 			]
 		},
@@ -121,6 +140,12 @@
 				"python.execInTerminal"
 			]
 		},
+		// toggle symbols side bar
+		{
+			"before": ["<leader>", "8"],
+			"commands": ["extension.toggleSidebarWithOutline"]
+		},
+
 		// lsp stuff
 		{
 			// TODO: stop from opening in a new tab
@@ -260,6 +285,5 @@
 	"vim.statusBarColorControl": false,
 	"extensions.experimental.affinity": {
 		"vscode.vim": 1
-	},
-	"workbench.activityBar.location": "hidden"
+	}
 }
