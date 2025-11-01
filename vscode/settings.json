@@ -1,5 +1,9 @@
 {
 	"workbench.colorTheme": "Gruvbox Dark (Hard)",
+	"editor.cursorBlinking": "solid",
+	// stop background horizontal line on cursor and highlighting words unser the curosr
+	"editor.renderLineHighlight": "none",
+	"editor.occurrencesHighlight": "off",
 	// tab completion like neovim
     "editor.tabCompletion": "off",
 	"editor.acceptSuggestionOnEnter": "on",
@@ -12,6 +16,10 @@
 	"editor.minimap.renderCharacters": false,
 	"editor.minimap.enabled": false,
 	"terminal.integrated.scrollback": 100000,
+	// copilot disable inline suggestions
+	"github.copilot.enable": {
+		"*": false
+	},
 	// vim settings
 	"vim.leader": "<space>",
 	"vim.smartRelativeLine": true,
@@ -219,5 +227,10 @@
 			]
 		},
 	],
+	// make vim plugin faster
+	"vim.statusBarColorControl": false,
+	"extensions.experimental.affinity": {
+		"vscode.vim": 1
+	},
 	"workbench.activityBar.location": "hidden"
 }
