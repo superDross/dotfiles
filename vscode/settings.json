@@ -343,6 +343,23 @@
 			"commands": [
 				"editor.action.marker.prevInFiles"
 			]
+		},
+		// ctrl+o & ctrl+i act weird this fixes it provided navigationScope is set to editorGroup
+		{
+			"before": [
+				"<C-o>"
+			],
+			"commands": [
+				"workbench.action.navigateBack"
+			]
+		},
+		{
+			"before": [
+				"<C-i>"
+			],
+			"commands": [
+				"workbench.action.navigateForward"
+			]
 		}
 	],
 	"vim.visualModeKeyBindings": [
@@ -395,8 +412,10 @@
 	"extensions.experimental.affinity": {
 		"vscode.vim": 1
 	},
+	// ensure ctrl-o & ctrl-i work like vim (split context respected)
+	"workbench.editor.navigationScope": "editorGroup",
 	// ensure preview tabe is reused for go to definition
-	"workbench.editor.enablePreview": true,	
+	"workbench.editor.enablePreview": true,
 	"workbench.editor.enablePreviewFromCodeNavigation": true,
 	// git inline stuff
 	"git.blame.editorDecoration.enabled": false,
