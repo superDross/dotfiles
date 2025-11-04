@@ -48,6 +48,7 @@
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
 	"vim.mouseSelectionGoesIntoVisualMode": false,
+	"vim.foldfix": true,
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
 			"before": [
