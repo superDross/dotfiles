@@ -1,14 +1,17 @@
-{ "recommendations": [
-    "gabrielbotan.gruvbox-vim",
-    "github.copilot",
-    "github.copilot-chat",
-    "gsakkas.gruvbox-mix",
-    "monokai.theme-monokai-pro-vscode",
-    "ms-python.debugpy",
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "ms-python.vscode-python-envs",
-    "ryuta46.multi-command",
-    "eamodio.gitlens",
-    "vscodevim.vim"
-] }
+{
+	"recommendations": [
+		"gabrielbotan.gruvbox-vim",
+		"github.copilot",
+		"github.copilot-chat",
+		"gsakkas.gruvbox-mix",
+		"monokai.theme-monokai-pro-vscode",
+		"ms-python.debugpy",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"ms-python.vscode-python-envs",
+		"ryuta46.multi-command",
+		"eamodio.gitlens",
+		"vscodevim.vim",
+		"MartyBeGood.single-editor-tabs"
+	]
+}
