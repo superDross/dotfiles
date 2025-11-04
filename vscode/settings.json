@@ -136,8 +136,8 @@
 				"t"
 			],
 			"commands": [
-				"workbench.action.togglePanel"
-			]
+				"workbench.action.terminal.toggleTerminal"
+			],
 		},
 		// git commands vim style
 		{
