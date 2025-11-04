@@ -136,5 +136,10 @@
 	{
 		"key": "ctrl+shift+p",
 		"command": "github.copilot.completions.toggle"
+	},
+	{
+		"key": "enter",
+		"command": "list.select",
+		"when": "explorerViewletVisible && filesExplorerFocus"
 	}
 ]
