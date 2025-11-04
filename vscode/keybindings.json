@@ -87,8 +87,15 @@
 	{
 		"key": "ctrl+w k",
 		"command": "workbench.action.focusAboveGroup",
-		"when": "!editorTextFocus"
+		"when": "!editorTextFocus && !terminalFocus"
 	},
+	// vim like navigation in specific scenarios
+	{
+		"key": "ctrl+w k",
+		"command": "workbench.action.focusNextGroup",
+		"when": "terminalFocus"
+	},
+	// get rid of the icons on the left hand side
 	{
 		"key": "ctrl+shift+b",
 		"command": "workbench.action.toggleActivityBarVisibility"
