@@ -72,12 +72,12 @@
 	{
 		"key": "ctrl+w l",
 		"command": "workbench.action.focusRightGroup",
-		"when": "!editorTextFocus"
+		"when": "!editorTextFocus && !sideBarFocus"
 	},
 	{
 		"key": "ctrl+w h",
 		"command": "workbench.action.focusLeftGroup",
-		"when": "!editorTextFocus"
+		"when": "!editorTextFocus && !auxiliaryBarFocus"
 	},
 	{
 		"key": "ctrl+w j",
@@ -94,6 +94,18 @@
 		"key": "ctrl+w k",
 		"command": "workbench.action.focusNextGroup",
 		"when": "terminalFocus"
+	},
+	{
+		// this does not work amazingly well...
+		"key": "ctrl+w l",
+		"command": "workbench.action.focusPreviousGroup",
+		"when": "sideBarFocus"
+	},
+	{
+		// this does not work amazingly well...
+		"key": "ctrl+w h",
+		"command": "workbench.action.focusPreviousGroup",
+		"when": "auxiliaryBarFocus"
 	},
 	// get rid of the icons on the left hand side
 	{
