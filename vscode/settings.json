@@ -18,7 +18,7 @@
 	// copilot disable inline suggestions
 	"github.copilot.enable": {
 		"*": false,
-		"plaintext": false,
+		"plaintext": true,
 		"markdown": false,
 		"scminput": false
 	},
@@ -77,15 +77,25 @@
 			]
 		},
 		{
-			// toggle file explorer
+			// toggle side bar
 			"before": [
 				"<leader>",
 				"b",
 				"b"
 			],
 			"commands": [
-				"outline.removeView",
 				"workbench.action.toggleSidebarVisibility"
+			]
+		},
+		{
+			// open file explorer on the specific file
+			"before": [
+				"<leader>",
+				"b",
+				"r"
+			],
+			"commands": [
+				"workbench.view.explorer"
 			]
 		},
 		// fzf replacements
