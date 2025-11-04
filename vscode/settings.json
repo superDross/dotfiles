@@ -44,8 +44,10 @@
 	],
 	// vim settings
 	"vim.leader": "<space>",
+	"vim.hlsearch": true,
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
+	"vim.mouseSelectionGoesIntoVisualMode": false,
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
 			"before": [
@@ -408,6 +410,8 @@
 			]
 		}
 	],
+	// ensures <leader>fg opens in a new preview tab (does not work when single editor tabs plugin is active)
+	"workbench.editor.enablePreviewFromQuickOpen": true,
 	// make vim plugin faster
 	"vim.statusBarColorControl": false,
 	"extensions.experimental.affinity": {
@@ -422,5 +426,5 @@
 	"git.blame.editorDecoration.enabled": false,
 	"gitlens.ai.model": "vscode",
 	"gitlens.ai.vscode.model": "copilot:gpt-4.1",
-	"workbench.activityBar.location": "hidden"
+	"workbench.activityBar.location": "hidden",
 }
