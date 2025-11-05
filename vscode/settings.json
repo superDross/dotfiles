@@ -22,26 +22,6 @@
 		"markdown": false,
 		"scminput": false
 	},
-	"multiCommand.commands": [
-		// <leader>8
-		{
-			"command": "extension.toggleSidebarWithOutline",
-			"sequence": [
-				{
-					"command": "workbench.action.toggleSidebarVisibility"
-				},
-				{
-					// Delay ensures the sidebar is open before switching to Outline
-					"command": "outline.focus",
-					"delay": 150
-				},
-				{
-					"command": "workbench.action.focusActiveEditorGroup",
-					"delay": 100
-				}
-			]
-		}
-	],
 	// vim settings
 	"vim.leader": "<space>",
 	"vim.hlsearch": true,
@@ -87,6 +67,7 @@
 				"b"
 			],
 			"commands": [
+				"outline.removeView",
 				"workbench.action.toggleSidebarVisibility"
 			]
 		},
@@ -98,6 +79,7 @@
 				"r"
 			],
 			"commands": [
+				"outline.removeView",
 				"workbench.view.explorer"
 			]
 		},
@@ -140,7 +122,7 @@
 			],
 			"commands": [
 				"workbench.action.terminal.toggleTerminal"
-			],
+			]
 		},
 		// git commands vim style
 		{
@@ -222,7 +204,9 @@
 				"8"
 			],
 			"commands": [
-				"extension.toggleSidebarWithOutline"
+				"workbench.action.toggleSidebarVisibility",
+				"outline.focus",
+				"workbench.action.focusActiveEditorGroup"
 			]
 		},
 		// lsp stuff
@@ -427,5 +411,5 @@
 	"git.blame.editorDecoration.enabled": false,
 	"gitlens.ai.model": "vscode",
 	"gitlens.ai.vscode.model": "copilot:gpt-4.1",
-	"workbench.activityBar.location": "hidden",
+	"workbench.activityBar.location": "hidden"
 }
