@@ -322,6 +322,7 @@ command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/shims:$PATH"
 eval "$(pyenv init -)"
 
 # venv settings
+source virtualenvwrapper.sh
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 
