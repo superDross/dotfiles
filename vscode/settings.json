@@ -28,6 +28,7 @@
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
 	"vim.mouseSelectionGoesIntoVisualMode": false,
+    "vim.highlightedyank.enable": true,
 	"vim.foldfix": true,
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
