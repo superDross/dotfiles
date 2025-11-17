@@ -109,7 +109,7 @@ alias sqlcsv='sqlite3 :memory: ".import /dev/stdin t" -csv -header'
 ####################
 
 function generate_pyrightconfig() {
-  # check if a pyright config file already exists  
+  # check if a pyright config file already exists
   if [ -f pyrightconfig.json ]; then
     echo -e "${YELLOW}A pyrightconfig.json already exists, exiting...${NC}"
   elif poetry env info -p >&/dev/null; then
@@ -316,11 +316,6 @@ export VIMRC=~/.vimrc
 #    DEVELOPMENT   #
 ####################
 
-# Pyenv configuration
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init -)"
-
 # venv settings
 source virtualenvwrapper.sh
 export WORKON_HOME=$HOME/.virtualenvs
@@ -374,6 +369,13 @@ fi
 if command -v terraform &>/dev/null; then
   [[ "$OS" = "Darwin" ]] && terr=/opt/homebrew/bin/terraform || terr=/usr/bin/terraform
   complete -C "$terr" terraform
+fi
+
+# TODO: breaks linux login, no idea why. works fine after logging in
+if [[ $OS = 'Darwin' ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init - bash)"
 fi
 
 #################
