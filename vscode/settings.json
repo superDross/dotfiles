@@ -140,6 +140,16 @@
 			"before": [
 				"<leader>",
 				"g",
+				"i"
+			],
+			"commands": [
+				"gitlens.openFileOnRemote"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"g",
 				"d"
 			],
 			"commands": [
