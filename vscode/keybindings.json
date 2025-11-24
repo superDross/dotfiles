@@ -153,5 +153,53 @@
 		"key": "enter",
 		"command": "list.select",
 		"when": "explorerViewletVisible && filesExplorerFocus"
+	},
+	// file explorer
+	{
+		"key": "a",
+		"command": "explorer.newFile",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+	{
+		"key": "shift+a",
+		"command": "explorer.newFolder",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+	{
+		"key": "d",
+		"command": "deleteFile",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+	{
+		"key": "r",
+		"command": "renameFile",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+	{
+		"key": "y",
+		"command": "copyFilePath",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+	},
+	{
+		"key": "s",
+		"command": "runCommands",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus",
+		"args": {
+			"commands": [
+				"workbench.action.splitEditorRight",
+				"list.select"
+			]
+		}
+	},
+	{
+		"key": "v",
+		"command": "runCommands",
+		"when": "explorerViewletVisible && filesExplorerFocus && !inputFocus",
+		"args": {
+			"commands": [
+				"workbench.action.splitEditorDown",
+				"list.select"
+			]
+		}
 	}
 ]
