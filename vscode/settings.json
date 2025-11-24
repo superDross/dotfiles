@@ -17,7 +17,7 @@
 	"terminal.integrated.scrollback": 100000,
 	// copilot disable inline suggestions
 	"github.copilot.enable": {
-		"*": false,
+		"*": true,
 		"plaintext": false,
 		"markdown": false,
 		"scminput": false
@@ -332,7 +332,7 @@
 				"j"
 			],
 			"commands": [
-				"editor.action.marker.nextInFiles"
+				"editor.action.marker.next"
 			]
 		},
 		{
@@ -341,7 +341,7 @@
 				"k"
 			],
 			"commands": [
-				"editor.action.marker.prevInFiles"
+				"editor.action.marker.prev"
 			]
 		},
 		// ctrl+o & ctrl+i act weird this fixes it provided navigationScope is set to editorGroup
