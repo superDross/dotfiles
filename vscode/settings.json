@@ -17,7 +17,7 @@
 	"terminal.integrated.scrollback": 100000,
 	// copilot disable inline suggestions
 	"github.copilot.enable": {
-		"*": true,
+		"*": false,
 		"plaintext": false,
 		"markdown": false,
 		"scminput": false
@@ -104,6 +104,21 @@
 			"commands": [
 				"workbench.action.splitEditorRight",
 				"workbench.action.quickTextSearch"
+			]
+		},
+		{
+			"before": [
+				"<leader>",
+				"f",
+				"*"
+			],
+			"commands": [
+				// works okay but does smart word selection and not whole string
+				"editor.action.smartSelect.expand",
+				"editor.action.clipboardCopyAction",
+				"workbench.action.splitEditorRight",
+				"workbench.action.quickTextSearch",
+				"editor.action.clipboardPasteAction"
 			]
 		},
 		{
