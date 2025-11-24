@@ -18,7 +18,7 @@
 	// copilot disable inline suggestions
 	"github.copilot.enable": {
 		"*": false,
-		"plaintext": true,
+		"plaintext": false,
 		"markdown": false,
 		"scminput": false
 	},
@@ -28,7 +28,7 @@
 	"vim.smartRelativeLine": true,
 	"vim.useSystemClipboard": true,
 	"vim.mouseSelectionGoesIntoVisualMode": false,
-    "vim.highlightedyank.enable": true,
+	"vim.highlightedyank.enable": true,
 	"vim.foldfix": true,
 	"vim.normalModeKeyBindingsNonRecursive": [
 		{
@@ -102,6 +102,7 @@
 				"g"
 			],
 			"commands": [
+				"workbench.action.splitEditorRight",
 				"workbench.action.quickTextSearch"
 			]
 		},
@@ -407,8 +408,7 @@
 		}
 	],
 	// ensures <leader>fg opens in a new preview tab (does not work when single editor tabs plugin is active)
-	"workbench.editor.enablePreviewFromQuickOpen": true,
-	// prevent search from changing focus
+	"workbench.editor.enablePreviewFromQuickOpen": false,
 	"workbench.editor.revealIfOpen": false,
 	"search.searchOnType": false,
 	// make vim plugin faster
@@ -424,5 +424,6 @@
 	// git inline stuff
 	"git.blame.editorDecoration.enabled": false,
 	"gitlens.ai.model": "vscode",
-	"gitlens.ai.vscode.model": "copilot:gpt-4.1"
+	"gitlens.ai.vscode.model": "copilot:gpt-4.1",
+	"workbench.activityBar.location": "hidden"
 }
