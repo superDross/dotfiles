@@ -64,7 +64,6 @@ require('lazy').setup({
   'nvimtools/none-ls.nvim',
   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
   -- AI
-  -- TODO: find alternative, windsurf???
   {
     'github/copilot.vim',
     init = function()
@@ -467,10 +466,15 @@ end
 
 -- COPILOT/AI ---------------------------------------------------------------
 require('codecompanion').setup({
-  strategies = {
+  interactions = {
     inline = { adapter = 'copilot' },
     chat = {
-      adapter = 'copilot',
+      adapter = {
+        name ='copilot',
+        model = 'gpt-4.1',
+        -- model = 'claude-sonnet-4.5',
+      },
+      model = 'claude-sonnet-4.5',
       slash_commands = {
         ['buffer'] = { opts = { provider = 'fzf_lua' } },
         ['help'] = { opts = { provider = 'fzf_lua' } },
