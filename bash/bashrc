@@ -337,6 +337,12 @@ export GOPATH=$HOME/go
 
 # source plugins
 if command -v fzf &>/dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+  export FZF_CTRL_T_OPTS="
+    --walker-skip .git,node_modules,target,.pyenv,.cache,.virtualenvs,.venv,venv,.vscode,Caches,virtualenv,.local,Library,__pycache__,go,.cargo,.mypy_cache
+    --preview 'bat --style=numbers --color=always --theme=gruvbox-dark {}'
+    --bind 'ctrl-/:change-preview-window(down|hidden|)'
+    --height=100%"
   eval "$(fzf --bash)"
 fi
 
