@@ -390,7 +390,7 @@ local normal_mappings = {
   -- FZF
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
   ['<Leader>f`']       = '<cmd>FzfLua marks<CR>',
-  ['<Leader>fa']       = '<cmd>FzfLua live_grep_resume previewer=bat git_icons=false file_icons=false<CR>',
+  ['<Leader>fa']       = '<cmd>FzfLua live_grep resume=true previewer=bat git_icons=false file_icons=false<CR>',
   ['<Leader>fb']       = '<cmd>FzfLua buffers<CR>',
   ['<Leader>fc']       = '<cmd>FzfLua git_commits<CR>',
   ['<Leader>fd']       = '<cmd>FzfLua git_status<CR>',
@@ -398,7 +398,6 @@ local normal_mappings = {
   ['<Leader>fn']       = '<cmd>GrepNotes<CR>',
   ['<Leader>fs']       = '<cmd>FindSessions<CR>',
   ['<leader>ff']       = '<cmd>FzfLua files previewer=bat git_icons=false file_icons=false<CR>',
-  ['<leader>fp']       = '<cmd>FzfLua lsp_definitions<CR>',
   ['<leader>fr']       = '<cmd>FzfLua lsp_references<CR>',
   -- run-with-me.vim
   ['<Leader>rc']       = '<cmd>RunCode<CR>',
