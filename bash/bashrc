@@ -371,6 +371,10 @@ if command -v terraform &>/dev/null; then
   complete -C "$terr" terraform
 fi
 
+if [[ $OS = 'Darwin' ]]; then
+  [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+fi
+
 # TODO: breaks linux login, no idea why. works fine after logging in
 if [[ $OS = 'Darwin' ]]; then
   export PYENV_ROOT="$HOME/.pyenv"
