@@ -123,6 +123,7 @@ require('lazy').setup({
       require('gitsigns').setup()
     end
   },
+  'sindrets/diffview.nvim',
   -- file searcher
   {
     'ibhagwan/fzf-lua',
@@ -362,6 +363,9 @@ local normal_mappings = {
   ['<leader>gl']       = '<cmd>Git log<CR>',
   ['<leader>gm']       = '<cmd>lua require"gitsigns".blame_line{full=true}<CR>',
   ['<leader>gs']       = '<cmd>Git status<CR>',
+  ['<leader>do']       = '<cmd>DiffviewOpen<CR>',
+  ['<leader>dc']       = '<cmd>DiffviewClose<CR>',
+  ['<leader>dh']       = '<cmd>DiffviewFileHistory<CR>',
   -- tab mappings
   ['<C-h>']            = ':tabprevious<CR>',
   ['<C-l>']            = ':tabnext<CR>',
