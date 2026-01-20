@@ -382,10 +382,13 @@ if [[ $OS = 'Darwin' ]]; then
 fi
 
 # TODO: breaks linux login, no idea why. works fine after logging in
-if [[ $OS = 'Darwin' ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init - bash)"
+if command -v pyenv &>/dev/null; then
+  if [[ $OS = 'Darwin' ]]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    # stops the hanging in vscode
+    eval "$(pyenv init - --no-rehash)"
+  fi
 fi
 
 #################

@@ -77,6 +77,7 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-treesitter/nvim-treesitter',
+      'ravitemer/codecompanion-history.nvim',
     },
     config = true
   },
@@ -428,6 +429,7 @@ local normal_mappings = {
   ['<Leader>ca']       = '<cmd>CodeCompanionActions<CR>',
   ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
   ['<Leader>cm']       = ':CodeCompanionCmd ',
+  ['<Leader>ch']       = ':CodeCompanionHistory<CR>',
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
@@ -469,6 +471,14 @@ end
 
 -- COPILOT/AI ---------------------------------------------------------------
 require('codecompanion').setup({
+  extensions = {
+    history = {
+      enabled = true,
+      opts = {
+        picker = "fzf-lua",
+      },
+    }
+  },
   interactions = {
     inline = { adapter = 'copilot' },
     chat = {
