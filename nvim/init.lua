@@ -430,6 +430,8 @@ local normal_mappings = {
   ['<Leader>ct']       = '<cmd>CodeCompanionChat Toggle<CR>',
   ['<Leader>cm']       = ':CodeCompanionCmd ',
   ['<Leader>ch']       = ':CodeCompanionHistory<CR>',
+  ['<Leader>cd']       = ':CodeCompanionSummaries<CR>',
+  -- <leader>cs save chat
   -- neotree
   ['<Leader>bb']       = '<cmd>Neotree toggle<CR>',
   ['<Leader>br']       = '<cmd>Neotree reveal<CR>',
@@ -475,7 +477,10 @@ require('codecompanion').setup({
     history = {
       enabled = true,
       opts = {
-        picker = "fzf-lua",
+        save_chat_keymap = '<leader>cs',
+        picker = 'fzf-lua',
+        auto_save = false,
+        expiration_days = 180,
       },
     }
   },
