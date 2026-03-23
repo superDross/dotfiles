@@ -7,7 +7,7 @@
   "cmp-spell": { "branch": "master", "commit": "694a4e50809d6d645c1ea29015dad0c293f019d6" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "codecompanion-history.nvim": { "branch": "main", "commit": "bc1b4fe06eaaf0aa2399be742e843c22f7f1652a" },
-  "codecompanion.nvim": { "branch": "main", "commit": "0c361ec27738eb7f2e39a071b85b950f68244fb6" },
+  "codecompanion.nvim": { "branch": "main", "commit": "f61dbb22439386585a514d15be713c355f830e49" },
   "copilot.vim": { "branch": "release", "commit": "da369d90cfd6c396b1d0ec259836a1c7222fb2ea" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "fzf-lua": { "branch": "main", "commit": "a03d68e40eea835a1cdbd9f93049708dab3621e6" },
