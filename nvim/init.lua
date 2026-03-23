@@ -487,12 +487,13 @@ require('codecompanion').setup({
   interactions = {
     inline = { adapter = 'copilot' },
     chat = {
+      opts = {
+        completion_provider = 'cmp'
+      },
       adapter = {
         name ='copilot',
         model = 'gpt-4.1',
-        -- model = 'claude-sonnet-4.5',
       },
-      model = 'claude-sonnet-4.5',
       slash_commands = {
         ['buffer'] = { opts = { provider = 'fzf_lua' } },
         ['help'] = { opts = { provider = 'fzf_lua' } },
