@@ -1,15 +1,9 @@
 # Nvim Todo
-- Add snyk_ls: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#snyk_ls
-- try normal pdb and using `docker attach (container id)`
-- allow lua-fzf to search .nexus and .gitlab-ci.yml and .github dir/files; an exception list to the dotfiles essentially
-  - only seems to be a problem with ripgrep `<leader>fg`
 
-## Plugins
+- consider using `vim.pack` over using `lazy.nvim`
+- consider using `vim.snip` over using `LuaSnip`
+- consider using `vim.lsp.completion` over using `nvim-cmp` plugins
 
-- Mason now supports `ensure_installed` not just for lspconfig, consider using the feature and removing `mason_installer` plugin
-- Find a way to install from branches, some are out of date like vint, workaround is to install master directly in the venv:
-  - `cd ~/.local/share/nvim/mason/packages/vint/venv`
-  - `/bin/pip3.10 install git+https://github.com/Vimjas/vint.git@master`
 
 ## Personal Plugins
 
