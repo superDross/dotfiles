@@ -29,3 +29,11 @@ Workspace shortcuts:
 | Switch to Left Screen     | Ctrl-Left       |
 | Switch to Desktop         | Ctrl-\<number\> |
 | Spotlight Search          | Cmd-Space       |
+
+
+## Install
+
+```sh
+# needed for nvim tresitter to work
+brew install tree-sitter tree-sitter-cli
+```

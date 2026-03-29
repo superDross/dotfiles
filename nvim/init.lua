@@ -61,8 +61,21 @@ require('lazy').setup({
   { 'williamboman/mason.nvim',         config = function() require('mason').setup() end },
   'williamboman/mason-lspconfig.nvim',
   'WhoIsSethDaniel/mason-tool-installer.nvim',
-  'nvimtools/none-ls.nvim',
-  { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+  'mfussenegger/nvim-lint',
+  'stevearc/conform.nvim',
+  {
+	  'nvim-treesitter/nvim-treesitter',
+    -- branch = 'main',
+	  lazy = false,
+	  build = ':TSUpdate',
+	  config = function()
+	  	local parsers = {
+        'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql',
+        'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
+	  	}
+	  	require('nvim-treesitter').install(parsers)
+    end,
+  },
   -- AI
   {
     'github/copilot.vim',
@@ -380,7 +393,7 @@ local normal_mappings = {
   ['<leader>1']        = '<cmd>RunTests 0<CR>',
   ['<leader>2']        = '<cmd>Markview toggle<CR>',
   ['<leader>3']        = '<cmd>MarkdownPreviewToggle<CR>',
-  ['<leader>4']        = '<cmd>lua vim.lsp.buf.format()<CR>',
+  ['<leader>4']        = '<cmd>lua require("conform").format({ lsp_fallback = true })<CR>',
   ['<leader>5']        = '<cmd>Neotree show toggle<CR>',
   ['<leader>8']        = '<cmd>AerialToggle!<CR>',
   -- terminal mappings
@@ -389,8 +402,8 @@ local normal_mappings = {
   ['<leader>N']        = '<cmd>startinsert | tabe | term<CR>',
   -- diagnostics
   ['<leader>e']        = '<cmd>lua vim.diagnostic.open_float()<CR>',
-  ['<leader>j']        = '<cmd>lua vim.diagnostic.goto_next()<CR>',
-  ['<leader>k']        = '<cmd>lua vim.diagnostic.goto_prev()<CR>',
+  ['<leader>j']        = '<cmd>lua vim.diagnostic.jump({count=1, float=true})<CR>',
+  ['<leader>k']        = '<cmd>lua vim.diagnostic.jump({count=-1, float=true})<CR>',
   ['<leader>q']        = '<cmd>lua vim.diagnostic.setloclist()<CR>',
   -- FZF
   ['<Leader>f*']       = "<cmd>FzfLua grep_cword previewer=bat git_icons=false file_icons=false<CR>",
@@ -569,11 +582,9 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
+-- automatically start each server when the corresponding filetype is opened
 local mason_lspconfig = require('mason-lspconfig')
-local lspconfig = require("lspconfig")
-local null_ls = require('null-ls')
-
--- autoinstall lsp (separate mason_installer so setup_handlers can work)
+-- autoinstall lsp
 mason_lspconfig.setup {
   ensure_installed = {
     'basedpyright', 'ruff', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'jsonls',
@@ -583,71 +594,92 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 require('mason-tool-installer').setup {
   ensure_installed = {
-    { 'black', version = '24.3.0' }, 'hadolint', 'prettier', 'shfmt',
+    'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
 
--- setup formatters and linters
-local d, f = null_ls.builtins.diagnostics, null_ls.builtins.formatting
-local sqlfluff = { extra_args = { '--dialect=postgres', '--exclude-rules=LT02,LT05' } }
-null_ls.setup({
-  sources = {
-    d.hadolint, d.vint.with({ filetypes = { 'vim', 'vader' } }), d.sqlfluff.with(sqlfluff),
-    f.black, f.shfmt, f.sqlfluff.with(sqlfluff), f.shellharden, f.prettier
+-- setup linters
+local sqlfluff = require('lint').linters.sqlfluff
+sqlfluff.args = { 'lint', '--dialect=postgres', '--exclude-rules=LT02,LT05', '--format=json', '-' }
+
+require('lint').linters_by_ft = {
+  dockerfile = { 'hadolint' },
+  vim = { 'vint' },
+  vader = { 'vint' },
+  sql = { 'sqlfluff' },
+  sh = { 'shellcheck' },
+  lua = { 'luacheck' },
+}
+vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
+  callback = function() require('lint').try_lint() end,
+})
+
+-- setup formatters
+require('conform').setup({
+  formatters = {
+    sqlfluff = {
+      args = { 'format', '--dialect=postgres', '--exclude-rules=LT02,LT05', '-' },
+    },
+  },
+  formatters_by_ft = {
+    python = { 'ruff_format' },
+    sh = { 'shfmt', 'shellharden' },
+    sql = { 'sqlfluff' },
+    javascript = { 'prettier' },
+    typescript = { 'prettier' },
+    html = { 'prettier' },
+    css = { 'prettier' },
+    json = { 'prettier' },
+    yaml = { 'prettier' },
+    lua = { 'stylua' },
+  },
+  format_on_save = false,
+})
+
+-- global default: apply on_attach to all servers
+vim.lsp.config('*', {
+  on_attach = on_attach,
+})
+
+-- server-specific overrides
+vim.lsp.config('ruff', {
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+  end,
+  init_options = {
+    settings = {
+      lineLength = 120,
+      lint = { select = { "E", "F", "C", "W", "R" } },
+    }
   }
 })
 
--- automatically start each server when the corresponding filetype is opened
-mason_lspconfig.setup_handlers({
-  function(server_name)
-    lspconfig[server_name].setup { on_attach = on_attach }
-  end,
-  -- provide targeted overrides for specific servers.
-  ['ruff'] = function()
-    lspconfig.ruff.setup {
-      on_attach = function(client, bufnr)
-        -- still using black at work so lets disable formatting via ruff
-        client.server_capabilities.documentFormattingProvider = false
-        on_attach(client, bufnr)
-      end,
-      init_options = {
-        settings = {
-          lineLength = 120,
-          lint = {
-            select = { "E", "F", "C", "W", "R" },
-          },
-        }
-      }
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file('', true),
+        checkThirdParty = false,
+      },
+      diagnostics = { globals = { 'vim' } },
     }
-  end,
-  ['lua_ls'] = function()
-    lspconfig.lua_ls.setup {
-      on_attach = on_attach,
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT' },
-          diagnostics = { globals = { 'vim' } },
-        }
-      }
-    }
-  end,
-  ['ltex'] = function()
-    lspconfig.ltex.setup { on_attach = on_attach, filetypes = { 'tex' } } -- spelling
-  end,
-  -- use kubernetes yaml for all?
-  ['yamlls'] = function()
-    lspconfig.yamlls.setup {
-      settings = {
-        yaml = {
-          schemas = {
-            kubernetes = { 'k8s/*.yaml', 'k8s/*.yml' },
-          }
-        }
-      }
-    }
-  end,
+  }
 })
+
+vim.lsp.config('ltex', {
+  filetypes = { 'tex' },
+})
+
+vim.lsp.config('yamlls', {
+  settings = {
+    yaml = { schemas = { kubernetes = { 'k8s/*.yaml', 'k8s/*.yml' } } }
+  }
+})
+
+-- enable all servers
+vim.lsp.enable(mason_lspconfig.get_installed_servers())
 
 -- change diagnostic symbols and virtual text
 vim.diagnostic.config({
@@ -734,16 +766,6 @@ cmp.setup {
       require('luasnip').lsp_expand(args.body)
     end,
   },
-}
-
-
--- TREESITTER ------------------------------------------------------------
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    'c', 'lua', 'python', 'vim', 'yaml', 'markdown', 'ql',
-    'make', 'dockerfile', 'bash', 'javascript', 'json', 'html', 'css'
-  },
-  highlight = { enable = true, additional_vim_regex_highlighting = false },
 }
 
 
