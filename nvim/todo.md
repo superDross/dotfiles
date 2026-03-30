@@ -3,6 +3,7 @@
 - consider using `vim.pack` over using `lazy.nvim`
 - consider using `vim.snip` over using `LuaSnip`
 - consider using `vim.lsp.completion` over using `nvim-cmp` plugins
+- codecompanion v19.4+ does not work
 
 
 ## Personal Plugins

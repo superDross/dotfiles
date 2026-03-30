@@ -36,4 +36,9 @@ Workspace shortcuts:
 ```sh
 # needed for nvim tresitter to work
 brew install tree-sitter tree-sitter-cli
+
+# ensure lua 5.1 is installed for some neovim related plugins
+brew install luajit
+# make it available as a binary for other distributions
+ln -s $(which luajit) /opt/homebrew/bin/lua
 ```
