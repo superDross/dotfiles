@@ -24,6 +24,7 @@ RUN apk --no-cache add \
 	git \
 	libtool \
 	libc6-compat \
+	linux-headers \
 	ninja \
 	openssl \
 	pkgconf \
@@ -36,7 +37,7 @@ RUN apk --no-cache add \
 # bob does not work with alpine and using the pkg version is too old
 RUN git clone https://github.com/neovim/neovim.git \
 	&& cd neovim \
-	&& git checkout v0.11.4 \
+	&& git checkout v0.12.0 \
 	&& make CMAKE_BUILD_TYPE=Release \
 	&& make install
 
@@ -76,6 +77,7 @@ RUN rm -rf /var/cache/apk/* /tmp/*
 
 COPY nvim.bash /root/.bashrc
 COPY tmux.conf /root/.tmux.conf
+COPY lazy-lock.json /root/.config/nvim/lazy-lock.json
 
 WORKDIR /app
 
