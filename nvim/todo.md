@@ -4,6 +4,7 @@
 - consider using `vim.snip` over using `LuaSnip`
 - consider using `vim.lsp.completion` over using `nvim-cmp` plugins
 - codecompanion v19.4+ does not work
+- cmp-nvim-lsp-signature-help gives a deprecate warning, this should fix it when it is merged: https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/55 
 
 
 ## Personal Plugins

@@ -241,7 +241,7 @@ require('lazy').setup({
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.highlight.on_yank { timeout = 500 } end,
+  callback = function() vim.hl.on_yank { timeout = 500 } end,
 })
 -- make neovim terminal more like vim terminal & disable line numbering in terminal mode
 local vim_term = vim.api.nvim_create_augroup('vim_term', { clear = true })
@@ -668,6 +668,10 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.config('ltex', {
   filetypes = { 'tex' },
+})
+
+vim.lsp.config('postgres_lsp', {
+  workspace_required = false,
 })
 
 vim.lsp.config('yamlls', {
