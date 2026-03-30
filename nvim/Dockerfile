@@ -29,6 +29,7 @@ RUN apk --no-cache add \
 	openssl \
 	pkgconf \
 	tree-sitter \
+	tree-sitter-cli \
 	tmux \
 	unzip \
 	wget
