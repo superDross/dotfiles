@@ -101,8 +101,6 @@ require('lazy').setup({
   'f3fora/cmp-spell',
   -- snippets
   'L3MON4D3/LuaSnip',
-  -- undo tree
-  'simnalamburt/vim-mundo',
   -- colorschemes
   { 'ellisonleao/gruvbox.nvim', priority = 1000 },
   -- file explorer
@@ -237,6 +235,8 @@ require('lazy').setup({
   lockfile = vim.g.vimdir .. '/lazy-lock.json',
 })
 
+-- Builtin plugins
+vim.cmd("packadd nvim.undotree")
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
@@ -364,7 +364,7 @@ local normal_mappings = {
   ['<leader>y']        = '"+y',
   ['<leader>p']        = '"+p',
   -- undo mappings
-  ['<leader>u']        = '<cmd>MundoToggle<CR>',
+  ['<leader>u']        = '<cmd>Undotree<CR>',
   -- git mappings
   ['<leader>ga']       = '<cmd>write | Git add %<CR>',
   ['<leader>gb']       = '<cmd>Git blame<CR>',
