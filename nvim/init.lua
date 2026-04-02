@@ -31,6 +31,9 @@ vim.g.vimdir = vim.fn.fnamemodify(vim.g.vimrc, ':h')
 vim.o.runtimepath = vim.g.vimdir .. ',' .. vim.o.runtimepath -- add vimrc directory to runtimepath
 vim.g.mapleader = ' '
 vim.opt.spellfile = vim.g.vimdir .. '/spell/en.utf-8.add'
+vim.opt.winborder = "rounded"
+vim.opt.pumborder = "rounded"
+vim.opt.pummaxwidth = 60
 
 
 -- PLUGINS ------------------------------------------------------------
@@ -237,6 +240,7 @@ require('lazy').setup({
 
 -- Builtin plugins
 vim.cmd("packadd nvim.undotree")
+vim.cmd("packadd nvim.difftool")
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
@@ -324,6 +328,13 @@ require('gruvbox').setup({
     GruvboxRedSign = { bg = "" },
     GruvboxBlueSign = { bg = "" },
     GruvboxAquaSign = { bg = "" },
+    NormalFloat = { link = "Normal" },
+    FloatBorder = { link = "GruvboxOrange" },
+    FloatTitle = { link = "GruvboxOrangeBold" },
+    Pmenu = { bg = "#1d2021" },
+    PmenuSel = { bg = "#504945", fg = "#fbf1c7" },
+    PmenuSbar = { bg = "#3c3836" },
+    PmenuThumb = { bg = "#a89984" },
   }
 })
 vim.opt.termguicolors = true
