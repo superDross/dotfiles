@@ -37,11 +37,14 @@ vil        " select inside loop
 " =========================
 " INCREMENTAL SELECTION (BUILT-IN 0.12)
 " =========================
-" No default keymaps — must be called manually
 
-:lua vim.treesitter.incremental_selection.init()
-:lua vim.treesitter.incremental_selection.increment()
-:lua vim.treesitter.incremental_selection.decrement()
+v_an - select parent node
+
+v_in - select child node
+
+v_]n - select prev node
+
+v_[n - select next node
 
 ```
 
