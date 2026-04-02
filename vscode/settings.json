@@ -22,6 +22,12 @@
 		"markdown": false,
 		"scminput": false
 	},
+	// stop all autoclosing behaviour
+	"editor.autoClosingBrackets": "never",
+	"editor.autoClosingQuotes": "never",
+	"editor.autoClosingOvertype": "never",
+	// activate native tabs (mac only)
+	"window.nativeTabs": true,
 	// vim settings
 	"vim.leader": "<space>",
 	"vim.hlsearch": true,
@@ -440,5 +446,6 @@
 	"git.blame.editorDecoration.enabled": false,
 	"gitlens.ai.model": "vscode",
 	"gitlens.ai.vscode.model": "copilot:gpt-4.1",
-	"workbench.activityBar.location": "hidden"
+	"workbench.activityBar.location": "hidden",
+	"github.copilot.nextEditSuggestions.enabled": true
 }

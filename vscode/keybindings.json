@@ -1,17 +1,24 @@
 // Place your key bindings in this file to override the defaults
 [
+	// tab navigation (note uses mac only window crap)
 	{
 		"key": "ctrl+l",
-		"command": "workbench.action.nextEditor",
+		"command": "workbench.action.showNextWindowTab",
 		"when": "!terminalFocus"
 	},
 	{
-		"key": "alt+cmd+right",
-		"command": "-workbench.action.nextEditor"
+		"key": "ctrl+h",
+		"command": "workbench.action.showPreviousWindowTab",
+		"when": "!terminalFocus"
 	},
 	{
-		"key": "ctrl+h",
-		"command": "workbench.action.previousEditor"
+		"key": "ctrl+shift+t",
+		"command": "workbench.action.newWindowTab",
+	},
+	// remove some default keybindings
+	{
+		"key": "alt+cmd+right",
+		"command": "-workbench.action.nextEditor"
 	},
 	{
 		"key": "alt+cmd+left",
@@ -21,6 +28,7 @@
 		"key": "ctrl+w",
 		"command": "-workbench.action.switchWindow"
 	},
+	// altering size of splits
 	{
 		"key": "shift+down",
 		"command": "workbench.action.decreaseViewHeight"
