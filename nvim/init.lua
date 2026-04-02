@@ -588,6 +588,8 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
+-- ensure we get inlay type hints
+vim.lsp.inlay_hint.enable(true)
 -- automatically start each server when the corresponding filetype is opened
 local mason_lspconfig = require('mason-lspconfig')
 -- autoinstall lsp
