@@ -329,12 +329,9 @@ require('gruvbox').setup({
     GruvboxBlueSign = { bg = "" },
     GruvboxAquaSign = { bg = "" },
     NormalFloat = { link = "Normal" },
-    FloatBorder = { link = "GruvboxOrange" },
-    FloatTitle = { link = "GruvboxOrangeBold" },
-    Pmenu = { bg = "#1d2021" },
-    PmenuSel = { bg = "#504945", fg = "#fbf1c7" },
-    PmenuSbar = { bg = "#3c3836" },
-    PmenuThumb = { bg = "#a89984" },
+    FloatBorder = { link = "Normal" },
+    FloatTitle = { link = "Normal" },
+    Pmenu = { link = "Normal" },
   }
 })
 vim.opt.termguicolors = true
