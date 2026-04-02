@@ -6,6 +6,45 @@
 - codecompanion v19.4+ does not work
 - cmp-nvim-lsp-signature-help gives a deprecate warning, this should fix it when it is merged: https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/issues/55 
 
+## New Text Object stuff
+
+```
+
+" =========================
+" TREE-SITTER TEXT OBJECTS (PLUGIN)
+" =========================
+" Requires: nvim-treesitter-textobjects
+
+vaf        " select around function
+vif        " select inside function
+daf        " delete function
+yaf        " yank (copy) function
+cif        " change function body
+
+vac        " select around class
+vic        " select inside class
+
+vaa        " select around argument
+via        " select inside argument
+
+vai        " select around if block
+vii        " select inside if block
+
+val        " select around loop
+vil        " select inside loop
+
+
+" =========================
+" INCREMENTAL SELECTION (BUILT-IN 0.12)
+" =========================
+" No default keymaps — must be called manually
+
+:lua vim.treesitter.incremental_selection.init()
+:lua vim.treesitter.incremental_selection.increment()
+:lua vim.treesitter.incremental_selection.decrement()
+
+```
+
 
 ## Personal Plugins
 
