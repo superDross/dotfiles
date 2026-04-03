@@ -20,7 +20,7 @@ vim.o.laststatus = 3
 vim.o.updatetime = 100
 vim.o.thesaurus = '~/.vim/thesaurus.txt' -- Ctrl-x,Ctrl-t
 vim.o.mouse = ""
-vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize'
+vim.o.sessionoptions = 'buffers,curdir,help,tabpages,terminal,winsize,globals'
 vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
@@ -693,6 +693,7 @@ vim.lsp.enable(mason_lspconfig.get_installed_servers())
 
 -- change diagnostic symbols and virtual text
 vim.diagnostic.config({
+  severity_sort = true,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = '>>',
