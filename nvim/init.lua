@@ -34,6 +34,7 @@ vim.opt.spellfile = vim.g.vimdir .. '/spell/en.utf-8.add'
 vim.opt.winborder = "rounded"
 vim.opt.pumborder = "rounded"
 vim.opt.pummaxwidth = 60
+vim.opt.pumheight = 20
 
 
 -- PLUGINS ------------------------------------------------------------
@@ -66,7 +67,6 @@ require('lazy').setup({
   'stevearc/conform.nvim',
   {
 	  'nvim-treesitter/nvim-treesitter',
-    -- branch = 'main',
 	  lazy = false,
 	  build = ':TSUpdate',
 	  config = function()
