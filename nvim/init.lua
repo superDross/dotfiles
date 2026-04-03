@@ -309,10 +309,10 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   command = '0r ' .. vim.fn.fnamemodify(vim.g.vimdir, ':h') .. '/vim/templates/template.sh'
 })
 -- copilot toggle (assumes 'disable' is the default state)
-vim.api.nvim_create_user_command("CopilotToggle", function()
+vim.api.nvim_create_user_command('CopilotToggle', function()
     copilot_on = not copilot_on
-    vim.cmd("Copilot " .. (copilot_on and "enable" or "disable"))
-    print("Copilot " .. (copilot_on and "ON" or "OFF"))
+    vim.cmd('Copilot ' .. (copilot_on and 'enable' or 'disable'))
+    print('Copilot ' .. (copilot_on and 'ON' or 'OFF'))
 end, { nargs = 0 })
 
 
@@ -481,8 +481,8 @@ local on_attach = function(_, bufnr)
     ['<leader>lv'] = '<cmd>vert split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>lx'] = '<cmd>split | lua vim.lsp.buf.definition()<CR>',
     ['<leader>ll'] = '<cmd>LspRestart<CR>',
-    ['<leader>lo'] = '<cmd>FzfLua lsp_outgoing_calls<CR>',
-    ['<leader>li'] = '<cmd>FzfLua lsp_incoming_calls<CR>',
+    ['<leader>li'] = '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>',
+    ['<leader>lz'] = '<cmd>lua vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })<CR>',
   }
   for map, func in pairs(mappings) do
     vim.api.nvim_buf_set_keymap(bufnr, 'n', map, func, opts)
@@ -588,8 +588,6 @@ require('lualine').setup({
 
 
 -- LSP ------------------------------------------------------------
--- ensure we get inlay type hints
-vim.lsp.inlay_hint.enable(true)
 -- automatically start each server when the corresponding filetype is opened
 local mason_lspconfig = require('mason-lspconfig')
 -- autoinstall lsp
@@ -695,7 +693,6 @@ vim.lsp.enable(mason_lspconfig.get_installed_servers())
 
 -- change diagnostic symbols and virtual text
 vim.diagnostic.config({
-  virtual_lines = false,
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = '>>',
