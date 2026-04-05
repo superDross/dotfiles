@@ -241,6 +241,7 @@ require('lazy').setup({
 -- Builtin plugins
 vim.cmd("packadd nvim.undotree")
 vim.cmd("packadd nvim.difftool")
+require('vim._core.ui2').enable({})
 
 -- AUTOCOMMANDS ------------------------------------------------------------
 -- highlight on yank
@@ -583,6 +584,7 @@ require('lualine').setup({
         end
       },
     },
+    lualine_z = { 'lsp_status' },
   },
 })
 
