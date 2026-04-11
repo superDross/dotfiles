@@ -602,7 +602,7 @@ mason_lspconfig.setup {
 -- autoinstall formatters and linters
 require('mason-tool-installer').setup {
   ensure_installed = {
-    'hadolint', 'prettier', 'shfmt',
+    'hadolint', 'prettier', 'shfmt', 'markdown-toc',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
@@ -629,6 +629,11 @@ require('conform').setup({
     sqlfluff = {
       args = { 'format', '--dialect=postgres', '--exclude-rules=LT02,LT05', '-' },
     },
+    ['markdown-toc'] = {
+      command = 'markdown-toc',
+      args = { '--bullets', '-', '-i', '$FILENAME' },
+      stdin = false,
+    },
   },
   formatters_by_ft = {
     python = { 'ruff_format' },
@@ -640,6 +645,7 @@ require('conform').setup({
     css = { 'prettier' },
     json = { 'prettier' },
     yaml = { 'prettier' },
+    markdown = { 'prettier', 'markdown-toc' },
     lua = { 'stylua' },
   },
   format_on_save = false,
