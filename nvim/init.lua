@@ -596,7 +596,7 @@ local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup {
   ensure_installed = {
     'basedpyright', 'ruff', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'jsonls',
-    'harper_ls',
+    'harper_ls', 'marksman',
   },
   automatic_installation = true,
 }
