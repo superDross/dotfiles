@@ -596,6 +596,7 @@ local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup {
   ensure_installed = {
     'basedpyright', 'ruff', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'jsonls',
+    'harper_ls',
   },
   automatic_installation = true,
 }
@@ -693,6 +694,17 @@ vim.lsp.config('postgres_lsp', {
 vim.lsp.config('yamlls', {
   settings = {
     yaml = { schemas = { kubernetes = { 'k8s/*.yaml', 'k8s/*.yml' } } }
+  }
+})
+
+vim.lsp.config('harper_ls', {
+  -- filetypes = { 'markdown', 'text' },
+  settings = {
+    ["harper-ls"] = {
+      linters = {
+        SpellCheck = false,
+      }
+    }
   }
 })
 
