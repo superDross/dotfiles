@@ -584,7 +584,7 @@ require('lualine').setup({
         end
       },
     },
-    lualine_z = { { 'lsp_status', ignore_lsp = { "GitHub Copilot" } } },
+    lualine_z = { { 'lsp_status', ignore_lsp = { "GitHub Copilot", "harper_ls" } } },
   },
 })
 
@@ -592,7 +592,7 @@ require('lualine').setup({
 -- LSP ------------------------------------------------------------
 -- automatically start each server when the corresponding filetype is opened
 local mason_lspconfig = require('mason-lspconfig')
--- autoinstall lsp
+-- autoinstall LSP
 mason_lspconfig.setup {
   ensure_installed = {
     'basedpyright', 'ruff', 'bashls', 'ts_ls', 'lua_ls', 'dockerls', 'vimls', 'yamlls', 'jsonls',
@@ -600,15 +600,15 @@ mason_lspconfig.setup {
   },
   automatic_installation = true,
 }
--- autoinstall formatters and linters
+-- auto install formatters and linters
 require('mason-tool-installer').setup {
   ensure_installed = {
-    'hadolint', 'prettier', 'shfmt', 'markdown-toc',
+    'hadolint', 'prettier', 'shfmt',
     'vint', 'stylua', 'luacheck', 'shellharden', 'shellcheck', 'sqlfluff',
   },
 }
 
--- setup linters
+-- set up linters
 local sqlfluff = require('lint').linters.sqlfluff
 sqlfluff.args = { 'lint', '--dialect=postgres', '--exclude-rules=LT02,LT05', '--format=json', '-' }
 
@@ -624,16 +624,11 @@ vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'InsertLeave' }, {
   callback = function() require('lint').try_lint() end,
 })
 
--- setup formatters
+-- set up formatters
 require('conform').setup({
   formatters = {
     sqlfluff = {
       args = { 'format', '--dialect=postgres', '--exclude-rules=LT02,LT05', '-' },
-    },
-    ['markdown-toc'] = {
-      command = 'markdown-toc',
-      args = { '--bullets', '-', '-i', '$FILENAME' },
-      stdin = false,
     },
   },
   formatters_by_ft = {
@@ -646,7 +641,7 @@ require('conform').setup({
     css = { 'prettier' },
     json = { 'prettier' },
     yaml = { 'prettier' },
-    markdown = { 'prettier', 'markdown-toc' },
+    markdown = { 'prettier' },
     lua = { 'stylua' },
   },
   format_on_save = false,
@@ -711,7 +706,7 @@ vim.lsp.config('harper_ls', {
 -- enable all servers
 vim.lsp.enable(mason_lspconfig.get_installed_servers())
 
--- change diagnostic symbols and virtual text
+-- Change diagnostic symbols and virtual text
 vim.diagnostic.config({
   severity_sort = true,
   signs = {

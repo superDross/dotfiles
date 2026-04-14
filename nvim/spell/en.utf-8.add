@@ -189,3 +189,7 @@ linters
 devcontainers
 fintech
 ORM
+HLS
+ASR
+Hex1004
+docstring
