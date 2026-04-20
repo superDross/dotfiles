@@ -588,7 +588,7 @@ require('lualine').setup({
         end
       },
     },
-    lualine_z = { { 'lsp_status', ignore_lsp = { "GitHub Copilot", "harper_ls" } } },
+    lualine_z = { { 'lsp_status', ignore_lsp = { "GitHub Copilot" } } },
   },
 })
 
