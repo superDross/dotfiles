@@ -315,6 +315,10 @@ vim.api.nvim_create_user_command('CopilotToggle', function()
     vim.cmd('Copilot ' .. (copilot_on and 'enable' or 'disable'))
     print('Copilot ' .. (copilot_on and 'ON' or 'OFF'))
 end, { nargs = 0 })
+-- ensure we check if file has changed
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "checktime",
+})
 
 
 -- COLOURSCHEMES ------------------------------------------------------------
@@ -693,7 +697,7 @@ vim.lsp.config('yamlls', {
 })
 
 vim.lsp.config('harper_ls', {
-  -- filetypes = { 'markdown', 'text' },
+  filetypes = { 'markdown', 'text' },
   settings = {
     ["harper-ls"] = {
       linters = {
