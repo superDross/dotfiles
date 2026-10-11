@@ -66,6 +66,38 @@ local warning = snip({
   insert(1)
 }))
 
+
+local ct_template = snip({
+  trig = "ct_template",
+  dscr = "note template",
+}, fmt([[
+
+  ## 3 Positive Things
+  
+  ## Situations
+  
+  ## Thought Challenges
+  
+  ## Worry Management
+  
+  ## Review Values and Boundaries
+  
+  ## Warning Signs Review
+  
+  ## Learning
+  
+  ## Self Compassion Exercise
+  
+  ## Soothing
+  
+  ## General Thoughts and Feelings
+  {}
+]], {
+  insert(1)
+}))
+
+
 ls.add_snippets(nil, {
-  markdown = { link, img, note, warning, info }
+  markdown = { link, img, note, warning, info, ct_template }
 })
+
