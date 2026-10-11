@@ -1,6 +1,6 @@
 [user]
 	name = David Ross
-	email = david.ross@beamery.com
+	email = dross78375@gmail.com
 [pull]
 	rebase = false
 
@@ -9,7 +9,7 @@
 ; 	log = cat
 
 [core]
-	pager = less
+	pager = delta
 [log]
 	abbrevCommit = false
 [color "diff"]
@@ -36,3 +36,13 @@
 	cfiles = diff-tree --no-commit-id --name-only -r
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[delta]
+	side-by-side = true
+	line-numbers = true
+	features = side-by-side line-numbers decorations
+	syntax-theme = gruvbox-dark
