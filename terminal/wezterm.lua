@@ -1,24 +1,34 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
+
+local function get_default_prog()
+  -- run tmux on start up if available
+	local ok, success, _, _ = pcall(wezterm.run_child_process, { "tmux", "-V" })
+	if ok and success then
+		return { "tmux" }
+	end
+	return nil
+end
 
 return {
-  font = wezterm.font('Roboto Mono', { weight='Medium'}),
-  -- font_size = 10,
-  audible_bell = 'Disabled',
-  colors = {
-    foreground='#eeeeeeeeecec',
-    background='#1d1d20202121',
-  },
-  window_frame = {
-    font = wezterm.font { family = 'Roboto Mono', weight = 'Medium' },
-  },
-  window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0,
-  },
-  hide_tab_bar_if_only_one_tab = true,
-  tab_bar_at_bottom = true,
-  max_fps = 120,
-  animation_fps = 60,
+	default_prog = get_default_prog(),
+	font = wezterm.font("Roboto Mono", { weight = "Medium" }),
+	-- font_size = 10,
+	audible_bell = "Disabled",
+	colors = {
+		foreground = "#eeeeeeeeecec",
+		background = "#1d1d20202121",
+	},
+	window_frame = {
+		font = wezterm.font({ family = "Roboto Mono", weight = "Medium" }),
+	},
+	window_padding = {
+		left = 0,
+		right = 0,
+		top = 0,
+		bottom = 0,
+	},
+	hide_tab_bar_if_only_one_tab = true,
+	tab_bar_at_bottom = true,
+	max_fps = 120,
+	animation_fps = 60,
 }
