@@ -1,12 +1,24 @@
 local wezterm = require("wezterm")
 
 local function get_default_prog()
-  -- run tmux on start up if available
-	local ok, success, _, _ = pcall(wezterm.run_child_process, { "tmux", "-V" })
-	if ok and success then
-		return { "tmux" }
-	end
-	return nil
+    local paths = {
+        "tmux",
+        "/opt/homebrew/bin/tmux", -- Apple Silicon
+        "/usr/bin/tmux",          -- Other installations
+    }
+
+    for _, path in ipairs(paths) do
+        local ok, success = pcall(
+            wezterm.run_child_process,
+            { path, "-V" }
+        )
+
+        if ok and success then
+            return { path }
+        end
+    end
+
+    return nil
 end
 
 return {
